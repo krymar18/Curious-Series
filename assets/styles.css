@@ -417,6 +417,95 @@ img {
   line-height: 1.75;
 }
 
+.supplemental-reading a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: color 0.18s ease;
+}
+
+.callout a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: color 0.18s ease;
+}
+
+.callout a:hover {
+  color: var(--brand-2);
+}
+
+
+.details-img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  cursor: zoom-in;
+  transition: opacity 0.18s ease;
+  margin: 10px 0;
+}
+
+.details-img:hover {
+  opacity: 0.92;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.82);
+  cursor: zoom-out;
+  place-items: center;
+}
+.figure {
+  width: 85%;
+  margin: 16px auto;
+  display: block;
+}
+
+.figure-img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  cursor: zoom-in;
+  display: block;
+  position: relative;
+}
+
+.figure-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  background: rgba(246, 241, 232, 0.12);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.figure-caption {
+  display: block;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.lightbox.open {
+  display: grid;
+}
+
+.lightbox img {
+  max-width: min(92vw, 1200px);
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
 .callout ul {
   margin: 10px 0 0 20px;
   padding: 0;
@@ -631,6 +720,11 @@ details[open] summary::after {
   }
 }
 
+.details-body p {
+  margin-left: 80px;
+  margin-top: 20px;
+}
+
 @media (max-width: 640px) {
   .shell {
     width: min(100% - 20px, 1180px);
@@ -660,4 +754,59 @@ details[open] summary::after {
     align-items: start;
     flex-direction: column;
   }
+}
+.pull-quote {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin: 16px 0;
+}
+
+.pull-quote-text {
+  padding: 2px 0;
+  display: flex;
+  align-items: center;
+}
+
+.pull-quote-brain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-right: 14px;
+  gap: 5px;
+}
+
+.pull-quote-brain i {
+  font-size: 53px;
+  color: var(--brand);
+}
+
+.pull-quote-brain span {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand);
+  text-align: center;
+  line-height: 1.3;
+  max-width: 72px;
+}
+
+.pull-quote-line {
+  width: 2px;
+  background: var(--brand);
+  border-radius: 2px;
+  opacity: 0.25;
+  flex-shrink: 0;
+  margin-right: 14px;
+}
+
+.pull-quote-text p {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: var(--body);
+  margin: 0;
+  font-style: italic;
 }

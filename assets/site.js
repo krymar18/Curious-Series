@@ -61,3 +61,14 @@ for (const button of document.querySelectorAll('[data-copy-text]')) {
     }, 1400);
   });
 }
+
+document.querySelectorAll('.details-img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  });
+});
+
+document.getElementById('lightbox').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+});

@@ -6,6 +6,7 @@
   <title>Curious AI Series | AI vs Search</title>
   <link rel="stylesheet" href="assets/styles.css">
   <script defer src="assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
 <body>
   <header class="topbar">
@@ -61,15 +62,28 @@
         <div class="section-head">
           <div>
             <h2>How the two systems work</h2>
-            <p>The document uses simple analogies to show why search is useful for current facts and why AI is useful for drafting, explaining, and brainstorming.</p>
+            <p></p>
           </div>
         </div>
 
         <details open>
           <summary>How search engines work</summary>
           <div class="details-body">
-            <p>Think of Google as a librarian who has already read every book in an enormous library and written notes on each one. When you walk in and ask a question, the librarian doesn't go to read new books — they flip through their notes and hand you a stack of the most relevant ones. That's it. The internet isn't being searched in that moment. Google searched for it in advance, built a massive, organized index, and is now just matching your words to that index as fast as possible.</p>
+            <div class="pull-quote">
+              <div class="pull-quote-brain">
+                <i class="ti ti-brain" aria-hidden="true"></i>
+                <span>Think through metaphor</span>
+              </div>
+              <div class="pull-quote-line"></div>
+              <div class="pull-quote-text">
+                <p>Think of Google as a librarian who has already read every book in an enormous library and written notes on each one. When you walk in and ask a question, the librarian doesn't go to read new books — they flip through their notes and hand you a stack of the most relevant ones. That's it. The internet isn't being searched in that moment. Google searched for it in advance, built a massive, organized index, and is now just matching your words to that index as fast as possible.</p>
+              </div>
+            </div>
+            <p></p>
             <p>This is why searching is great for finding specific, current, real things — a news article, a store's hours, a competitor's website. The answer already exists somewhere, and Google knows roughly where it is. But searching can't explain, reason, or create anything. It hands you a map and points you in a direction. What you do with it is up to you.</p>
+            <figure class="figure">
+              <img class="figure-img details-img" src="img/s1_search.png" alt="How search engines work">
+            </figure>
           </div>
         </details>
 
@@ -77,7 +91,13 @@
           <summary>How AI tools work</summary>
           <div class="details-body">
             <p>AI tools like ChatGPT or Claude looked at a massive amount of static data — books, articles, websites — to identify patterns in language. Specifically, patterns in what words tend to follow other words. When you ask a question, the AI does not look anything up. Instead it predicts the most likely first word of an answer given your question. Then it considers your question plus that first word to predict the second. Then the third. This loop continues until the response is complete. Every word is a calculated guess based on patterns — nothing more.</p>
+            <figure class="figure">
+              <img class="figure-img details-img" src="img/s1_ai.png" alt="How search engines work">
+            </figure>
             <p>Think of an A-list actor preparing to play a lawyer. They sit in on real trials, study courtroom language, absorb how arguments are structured. Eventually they can sound remarkably like a lawyer — and much of what they say will actually be correct. But you would never take legal advice from them instead of a real attorney. The performance is convincing. The expertise isn't there.</p>
+            <figure class="figure">
+              <img class="figure-img details-img" src="img/s1_actor.png" alt="How AI tools work">
+            </figure>
             <p>AI works the same way. The output often sounds authoritative, structured, and right — because it's imitating the pattern of a correct answer. Not retrieving one. AI doesn't know it's imitating — it has no awareness of whether its output is grounded in reality. It only knows the patterns it saw.</p>
             <p>AI knowledge has a hard cutoff. Training ends at a point in time. Anything after that doesn't exist to the model. AI can also be confidently wrong. There's no internal fact-check. The output always sounds finished.</p>
             <p>That said, this imitation can be extremely useful when applied to the right tasks. Drafting, summarizing, explaining, brainstorming, restructuring — these are all pattern-heavy tasks where AI performs well precisely because it has absorbed so much of how humans do them. The key is knowing what you're working with.</p>
@@ -120,34 +140,34 @@
           <table>
             <thead>
               <tr>
-                <th>What it does</th>
+                <th><b>What it does</b></th>
                 <th>Search engine</th>
                 <th>AI tool</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Function</td>
+                <td><b>Function</b></td>
                 <td>Finds existing content</td>
                 <td>Generates a response</td>
               </tr>
               <tr>
-                <td>Source</td>
+                <td><b>Source</b></td>
                 <td>Pre-built index of web pages</td>
                 <td>Patterns learned during training</td>
               </tr>
               <tr>
-                <td>Best used for</td>
+                <td><b>Best used for</b></td>
                 <td>Current facts, sources, news, specific lookups</td>
                 <td>Drafting, summarizing, explaining, brainstorming</td>
               </tr>
               <tr>
-                <td>Main risk</td>
+                <td><b>Main risk</b></td>
                 <td>Outdated or irrelevant results</td>
                 <td>Confidently wrong answers</td>
               </tr>
               <tr>
-                <td>Output</td>
+                <td><b>Output</b></td>
                 <td>Links to pages</td>
                 <td>Generated text</td>
               </tr>
@@ -176,14 +196,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>Traffic & Ad Ops</td><td>MVPD technical specs, current FCC political advertising rules, station call letters or market coverage</td><td>Makegood explanation emails, SCX file discrepancy summaries, SOP drafts for a new workflow step</td></tr>
-              <tr><td>Account Management / Sales</td><td>Recent earnings calls, competitor rate cards or packages, DMA rankings</td><td>Client recap emails, quarterly business review talking points, first-draft RFP responses</td></tr>
-              <tr><td>Political Advertising</td><td>Current FEC filings, lowest unit rate windows, legal names and addresses for disclaimers</td><td>Order confirmation letters, internal campaign summaries</td></tr>
-              <tr><td>Finance</td><td>Exchange rates, IRS regulations or tax code sections, vendor W-9 status</td><td>Vendor contract summaries, billing discrepancy explainers, budget narrative drafts</td></tr>
-              <tr><td>HR & People</td><td>FMLA rules, state leave law, benchmark salary reports, compliance training requirements</td><td>Job descriptions, policy update drafts, handbook summaries for new hires</td></tr>
-              <tr><td>Marketing & Comms</td><td>Competitor press releases, award submission deadlines, brand mentions or media pickups</td><td>Social copy, press release drafts, headline variations, content calendar outlines</td></tr>
-              <tr><td>Technology / Engineering</td><td>Official API docs, error codes, vendor system status</td><td>Technical explanations, requirements docs from bullet notes, internal documentation drafts</td></tr>
-              <tr><td>Any Department</td><td>Any answer that must be current, sourced, or legally exact</td><td>Any task where structure, tone, or first draft is the hard part and specifics will be verified later</td></tr>
+              <tr><td><b>Traffic & Ad Ops</b></td><td>MVPD technical specs, current FCC political advertising rules, station call letters or market coverage</td><td>Makegood explanation emails, SCX file discrepancy summaries, SOP drafts for a new workflow step</td></tr>
+              <tr><td><b>Account Management / Sales</b></td><td>Recent earnings calls, competitor rate cards or packages, DMA rankings</td><td>Client recap emails, quarterly business review talking points, first-draft RFP responses</td></tr>
+              <tr><td><b>Political Advertising</b></td><td>Current FEC filings, lowest unit rate windows, legal names and addresses for disclaimers</td><td>Order confirmation letters, internal campaign summaries</td></tr>
+              <tr><td><b>Finance</b></td><td>Exchange rates, IRS regulations or tax code sections, vendor W-9 status</td><td>Vendor contract summaries, billing discrepancy explainers, budget narrative drafts</td></tr>
+              <tr><td><b>HR & People</b></td><td>FMLA rules, state leave law, benchmark salary reports, compliance training requirements</td><td>Job descriptions, policy update drafts, handbook summaries for new hires</td></tr>
+              <tr><td><b>Marketing & Comms</b></td><td>Competitor press releases, award submission deadlines, brand mentions or media pickups</td><td>Social copy, press release drafts, headline variations, content calendar outlines</td></tr>
+              <tr><td><b>Technology / Engineering</b></td><td>Official API docs, error codes, vendor system status</td><td>Technical explanations, requirements docs from bullet notes, internal documentation drafts</td></tr>
+              <tr><td><b>Any Department</b></td><td>Any answer that must be current, sourced, or legally exact</td><td>Any task where structure, tone, or first draft is the hard part and specifics will be verified later</td></tr>
             </tbody>
           </table>
         </div>
@@ -210,9 +230,9 @@
         <div class="callout brand" style="margin-top:18px;">
           <h4>Supplemental reading</h4>
           <ul>
-            <li>How Search Works — google.com/search/howsearchworks</li>
-            <li>Large Language Models Explained Briefly — 3blue1brown.com/lessons/mini-llm</li>
-            <li>What is a Large Language Model? — ibm.com/think/topics/large-language-models</li>
+            <li><a href="https://google.com/search/howsearchworks">How Search Works</a></li>
+            <li><a href="https://www.3blue1brown.com/lessons/mini-llm">Large Language Models Explained Briefly</a></li>
+            <li><a href="https://ibm.com/think/topics/large-language-models">What is a Large Language Model?</a></li>
           </ul>
         </div>
         <div class="page-nav">

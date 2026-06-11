@@ -6,6 +6,7 @@
   <title>Curious AI Series | AI vs Search</title>
   <link rel="stylesheet" href="assets/styles.css">
   <script defer src="assets/site.js"></script>
+  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
 <body>
@@ -211,13 +212,72 @@
     </section>
 
     <section class="section">
+        <div class="shell">
+        <article class="card">
+  <span class="eyebrow-chip chip-success">Exercise</span>
+  <p class="act-title">Search or AI?</p>
+  <p class="act-sub">Describe a task, decide what you think it is, then see what the analysis says.</p>
+
+  <label style="font-size:12px; font-weight:500; color:var(--muted); margin-bottom:6px; display:block;" for="task-input">Describe your task</label>
+  <textarea id="task-input" style="width:100%; min-height:80px; resize:vertical; font-family:'DM Sans',sans-serif; font-size:14px; box-sizing:border-box;" placeholder="e.g. Find out what a competitor announced last week..."></textarea>
+
+  <div style="margin-top:14px;">
+    <label style="font-size:12px; font-weight:500; color:var(--muted); margin-bottom:6px; display:block;">What do you think this is?</label>
+    <div style="display:flex; gap:10px;">
+      <button class="toggle-btn" id="btn-search"><i class="ti ti-search" style="font-size:14px; margin-right:5px;" aria-hidden="true"></i>Search</button>
+      <button class="toggle-btn" id="btn-ai"><i class="ti ti-brain" style="font-size:14px; margin-right:5px;" aria-hidden="true"></i>AI</button>
+    </div>
+  </div>
+
+  <button class="submit-btn" id="submit-btn">Analyze task</button>
+
+  <div class="result-wrap" id="result-wrap">
+    <hr style="border:none; border-top:1px solid var(--border); margin:22px 0;">
+
+    <div class="mock-note">
+      <i class="ti ti-adjustments-horizontal" style="font-size:14px;" aria-hidden="true"></i>
+      Mock mode — select the response type to preview:
+    </div>
+    <div class="mock-select-row">
+      <button class="mock-opt active" id="mock-search">Search task</button>
+      <button class="mock-opt" id="mock-ai">AI task</button>
+      <button class="mock-opt" id="mock-wrong">User was wrong</button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+      <span style="font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted);">Answer:</span>
+      <span class="verdict-badge" id="verdict-badge"></span>
+    </div>
+
+    <div class="reflect-row" id="reflect-row">
+      <i id="reflect-icon" style="font-size:16px;"></i>
+      <span id="reflect-text"></span>
+    </div>
+
+    <div class="result-section">
+      <div style="font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:6px;">Explanation</div>
+      <div class="result-text" id="result-explanation"></div>
+    </div>
+
+    <div class="result-section">
+      <div style="font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:6px;">Reframing — what would the opposite look like?</div>
+      <div class="result-text" id="result-reframe"></div>
+    </div>
+
+    <button class="act-copy-btn" id="act-copy-btn">
+      <i class="ti ti-copy" style="font-size:15px;" aria-hidden="true"></i>
+      Copy result
+    </button>
+    
+  </div>
+</article>
+     
+    </section>
+
+
+    <section class="section">
       <div class="shell">
-        <div class="grid two">
-          <article class="card">
-            <span class="eyebrow-chip chip-success">Exercise</span>
-            <h3>Search or AI?</h3>
-            <p>Use the interactive tool from the session to enter tasks and get a verdict on whether search or AI is the better fit, along with a short reason why. The goal is to find at least one everyday task that belongs in each category.</p>
-          </article>
+        
           <article class="card soft">
             <span class="eyebrow-chip chip-brand">Reflection</span>
             <ul class="list">
@@ -226,7 +286,10 @@
               <li>What habit would change if you treated current facts as search-first?</li>
             </ul>
           </article>
-        </div>
+
+
+
+        
         <div class="callout brand" style="margin-top:18px;">
           <h4>Supplemental reading</h4>
           <ul>

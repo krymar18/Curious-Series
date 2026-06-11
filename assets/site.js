@@ -69,6 +69,120 @@ document.querySelectorAll('.details-img').forEach(img => {
   });
 });
 
-document.getElementById('lightbox').addEventListener('click', () => {
-  document.getElementById('lightbox').classList.remove('open');
-});
+
+function initActivityWidget() {
+  var taskInput = document.getElementById('task-input');
+  if (!taskInput) return;
+
+  var selectedType = null;
+  var mockMode = 'Search';
+
+  var mockData = {
+    Search: {
+      ai_type: 'Search',
+      explanation: 'This task requires current, specific, real-world information — a competitor announcement from last week. That content exists somewhere on the web right now. AI was not trained on it and cannot retrieve it. A search engine will find the actual source.',
+      reframe: 'If you wanted AI instead, you could ask it to help you summarize or analyze the announcement once you have found it — drafting a competitive brief, pulling out key themes, or comparing it to your own positioning.'
+    },
+    AI: {
+      ai_type: 'AI',
+      explanation: 'This task is generative — you need structured output, a first draft, or a synthesis from existing knowledge. AI excels here because the hard part is structure and tone, not finding a live source.',
+      reframe: 'If you used search instead, you would get a list of links about how others have done something similar — useful as reference material, but you would still need to do the synthesis yourself.'
+    },
+    Wrong: {
+      ai_type: 'Search',
+      explanation: 'This task requires current, specific, real-world information. AI was not trained on it and cannot retrieve it reliably. A search engine will surface the actual source.',
+      reframe: 'If you wanted AI instead, you could use it after finding the information — to summarize, compare, or draft a response based on what you found.'
+    }
+  };
+
+  function selectType(type) {
+    selectedType = type;
+    document.getElementById('btn-search').className = 'toggle-btn' + (type === 'Search' ? ' selected-search' : '');
+    document.getElementById('btn-ai').className = 'toggle-btn' + (type === 'AI' ? ' selected-ai' : '');
+    checkReady();
+  }
+
+  function checkReady() {
+    var task = taskInput.value.trim();
+    var btn = document.getElementById('submit-btn');
+    btn.className = 'submit-btn' + (task.length > 0 && selectedType ? ' ready' : '');
+  }
+
+  function setMock(mode) {
+    mockMode = mode;
+    document.getElementById('mock-search').className = 'mock-opt' + (mode === 'Search' ? ' active' : '');
+    document.getElementById('mock-ai').className = 'mock-opt' + (mode === 'AI' ? ' active' : '');
+    document.getElementById('mock-wrong').className = 'mock-opt' + (mode === 'Wrong' ? ' active' : '');
+    renderResult(mode);
+  }
+
+  function renderResult(mode) {
+    var d = mockData[mode];
+    var badge = document.getElementById('verdict-badge');
+    badge.textContent = d.ai_type;
+    badge.className = 'verdict-badge ' + (d.ai_type === 'Search' ? 'badge-search' : 'badge-ai');
+    var userCorrect = mode !== 'Wrong';
+    var reflect = document.getElementById('reflect-row');
+    var reflectIcon = document.getElementById('reflect-icon');
+    var reflectText = document.getElementById('reflect-text');
+    if (userCorrect) {
+      reflect.className = 'reflect-row reflect-correct';
+      reflectIcon.className = 'ti ti-check';
+      reflectText.textContent = 'You got it right — this is a ' + d.ai_type + ' task.';
+    } else {
+      reflect.className = 'reflect-row reflect-wrong';
+      reflectIcon.className = 'ti ti-x';
+      reflectText.textContent = 'You selected ' + selectedType + ', but this is actually a ' + d.ai_type + ' task.';
+    }
+    document.getElementById('result-explanation').textContent = d.explanation;
+    document.getElementById('result-reframe').textContent = d.reframe;
+  }
+
+  function copyResult() {
+    var task = taskInput.value.trim();
+    var d = mockData[mockMode];
+    var userCorrect = mockMode !== 'Wrong';
+    var text = 'My task: ' + task + '\n\nMy selection: ' + selectedType + '\n\nCorrect answer: ' + d.ai_type + '\n\n' + (userCorrect ? 'I got it right.' : 'I got it wrong.') + '\n\nExplanation: ' + d.explanation + '\n\nReframing: ' + d.reframe;
+    navigator.clipboard.writeText(text).catch(function() {
+      var el = document.createElement('textarea');
+      el.value = text;
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      el.remove();
+    });
+    var btn = document.getElementById('act-copy-btn');
+    btn.className = 'act-copy-btn copied';
+    btn.innerHTML = '<i class="ti ti-check" style="font-size:15px;" aria-hidden="true"></i> Copied';
+    setTimeout(function() {
+      btn.className = 'act-copy-btn';
+      btn.innerHTML = '<i class="ti ti-copy" style="font-size:15px;" aria-hidden="true"></i> Copy result';
+    }, 1600);
+  }
+  var resetBtn = document.getElementById('reset-btn');
+  var btnSearch = document.getElementById('btn-search');
+  var btnAi = document.getElementById('btn-ai');
+  var submitBtn = document.getElementById('submit-btn');
+  var mockSearchBtn = document.getElementById('mock-search');
+  var mockAiBtn = document.getElementById('mock-ai');
+  var mockWrongBtn = document.getElementById('mock-wrong');
+  var copyBtn = document.getElementById('act-copy-btn');
+
+  if (!btnSearch || !submitBtn) return;
+  
+  taskInput.addEventListener('input', checkReady);
+  btnSearch.addEventListener('click', function() { selectType('Search'); });
+  btnAi.addEventListener('click', function() { selectType('AI'); });
+  submitBtn.addEventListener('click', function() {
+    document.getElementById('result-wrap').className = 'result-wrap visible';
+    renderResult(mockMode);
+  });
+  mockSearchBtn.addEventListener('click', function() { setMock('Search'); });
+  mockAiBtn.addEventListener('click', function() { setMock('AI'); });
+  mockWrongBtn.addEventListener('click', function() { setMock('Wrong'); });
+  copyBtn.addEventListener('click', copyResult);
+}
+
+initActivityWidget();

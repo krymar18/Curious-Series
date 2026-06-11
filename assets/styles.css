@@ -725,6 +725,11 @@ details[open] summary::after {
   margin-top: 20px;
 }
 
+.details-body .table-wrap {
+  margin-left: 80px;
+  margin-top: 20px;
+}
+
 @media (max-width: 640px) {
   .shell {
     width: min(100% - 20px, 1180px);

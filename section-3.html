@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Working with Context</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 1</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" data-nav-link>Overview</a>
+        <a href="section-1.html" data-nav-link>AI vs Search</a>
+        <a href="section-2.html" data-nav-link>Bias</a>
+        <a href="section-3.html" data-nav-link>Context</a>
+        <a href="week-2-session-a.html" data-nav-link>LLM Basics</a>
+        <a href="week-2-session-b.html" data-nav-link>Copilot Search</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Session 1</div>
+            <h1 class="title">Working with Context</h1>
+            <p class="lede">This section turns the earlier concepts into a practical prompting toolkit: context, persona, strategy selection, iterative refinement, and the habit of saving what works.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Core message</span>
+            <p>AI starts from zero each session. Vague prompts get vague answers. Most useful outputs come from two or three rounds of feedback, not one perfect prompt.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Prompt basics</span>
+            <p>What do you want it to do? Who is it for? What format do you want? What tone is right? What should it avoid?</p>
+          </article>
+        </div>
+        <div class="callout neutral" style="margin-top:18px;">
+          <h4>Context is everything</h4>
+          <p>AI starts from zero every session. It knows nothing about you, your work, your industry, or what a good outcome looks like for this specific task — unless you tell it.</p>
+          <p>Using AI is like directing a play. You've cast the best actor in the world. You walk up to them and say: "You're a doctor." The chances of getting what you want are low. Are they a villain or a hero? Mid-emergency in an ER, or having a quiet conversation with their family? Even the most talented actor needs to know who they are, where they are, and what they're trying to do in this scene. Vague prompts get vague answers. Most good outputs come from two or three rounds of feedback, not one perfect prompt.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Giving AI a persona</h2>
+            <p>The document frames persona as a starting point defined before you ask anything: who you are, where you are, and what you are trying to do.</p>
+          </div>
+        </div>
+
+        <div class="card tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Persona examples">
+            <button class="tab-button" type="button" data-tab-button="athlete" aria-selected="true">Nutritionist</button>
+            <button class="tab-button" type="button" data-tab-button="cardiologist" aria-selected="false">Cardiologist</button>
+            <button class="tab-button" type="button" data-tab-button="influencer" aria-selected="false">Wellness influencer</button>
+            <button class="tab-button" type="button" data-tab-button="brewery" aria-selected="false">Craft brewery CEO</button>
+          </div>
+
+          <div class="tab-panel active" data-tab-panel="athlete">
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.">Copy</button>
+              </div>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.</p>
+            </div>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Macronutrient ratios, carb loading, protein timing, recovery nutrition.</p>
+          </div>
+          <div class="tab-panel" data-tab-panel="cardiologist">
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.">Copy</button>
+              </div>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.</p>
+            </div>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Reducing saturated fats, Mediterranean diet, sodium intake, inflammation, clinical evidence.</p>
+          </div>
+          <div class="tab-panel" data-tab-panel="influencer">
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.">Copy</button>
+              </div>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.</p>
+            </div>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Trending approaches, before/after framing, accessible language, quick visible results.</p>
+          </div>
+          <div class="tab-panel" data-tab-panel="brewery">
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.">Copy</button>
+              </div>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.</p>
+            </div>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Consumer behavior, market trends, calorie-conscious drinking, product positioning.</p>
+          </div>
+        </div>
+
+        <div class="callout gold" style="margin-top:18px;">
+          <h4>Same question, four personas</h4>
+          <p>The document's point is that persona changes what the AI understands the question to actually be. The same question can produce four completely different answers.</p>
+        </div>
+        <div class="callout neutral" style="margin-top:18px;">
+          <h4>What goes into a good prompt</h4>
+          <ul>
+            <li>What do you want the AI to do?</li>
+            <li>Who is it for?</li>
+            <li>What format do you want?</li>
+            <li>What tone is right?</li>
+            <li>What should it avoid?</li>
+          </ul>
+          <p>A persona is simply a starting point you define before you ask anything. A basic persona answers three things: who you are, where you are, and what you are trying to do.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Prompt strategies</h2>
+            <p>The strategies are grouped by what they do, not by difficulty level. Use the sections below as a quick reference.</p>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Group 1 — How much guidance you give the AI</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Zero-shot prompting:</strong> Ask directly with no examples. Fast, but less controlled.</li>
+              <li><strong>Few-shot prompting:</strong> Give 2–5 examples of the output you want. Helpful when format matters.</li>
+            </ul>
+            <p>Use zero-shot when the task is clear. Use few-shot when you need a specific structure or pattern repeated reliably.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Group 2 — How you frame the request</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Direct instruction prompting:</strong> Tell the AI exactly what to do.</li>
+              <li><strong>Question-based prompting:</strong> Frame the request as a question.</li>
+              <li><strong>Open-ended prompting:</strong> Leave the prompt broad and exploratory.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Group 3 — How you control the reasoning process</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Step-by-step instruction prompting:</strong> Work through tasks in explicit sequence.</li>
+              <li><strong>Chain-of-thought prompting:</strong> Ask the AI to show its reasoning at each step.</li>
+              <li><strong>Prompt chaining:</strong> Break a complex task into smaller prompts that build on one another.</li>
+              <li><strong>Task decomposition prompting:</strong> Build the decomposition into a single prompt instead of separate turns.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Group 4 — How you set identity and perspective</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Role-based prompting:</strong> Assign the AI a professional role.</li>
+              <li><strong>Persona-based prompting:</strong> Add personality, values, and communication style.</li>
+              <li><strong>Complex persona prompting:</strong> Use a full character brief with background, constraints, style, and goals.</li>
+              <li><strong>Multiple personas prompting:</strong> Run the same task through several distinct personas at once.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Group 5 — How you refine and recover</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Iterative prompting:</strong> Follow up with corrections and refinements.</li>
+              <li><strong>Confirmatory prompting:</strong> Ask the AI to confirm its understanding before it answers.</li>
+              <li><strong>Negative prompting:</strong> Tell the AI what to avoid.</li>
+              <li><strong>Self-reflection prompting:</strong> Ask the AI to critique and revise its own output.</li>
+              <li><strong>Fallback prompting:</strong> Build fallback alternatives into the prompt in case the primary request fails.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Group 6 — How you load context</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Contextual prompting:</strong> Add background information directly into the prompt.</li>
+              <li><strong>Context expansion prompting:</strong> Gradually build context across a conversation.</li>
+              <li><strong>Scenario-based prompting:</strong> Frame the task inside a realistic situation.</li>
+            </ul>
+          </div>
+        </details>
+
+        <div class="callout brand" style="margin-top:18px;">
+          <h4>How to choose a strategy</h4>
+          <ol class="list">
+            <li>How defined is the output I need? If you know exactly what you want, lean toward direct instruction or few-shot. If you're exploring, open-ended or scenario-based gives the AI more room.</li>
+            <li>How complex is the task? Single, clear request — one strategy, one prompt. Multi-part task — prompt chaining or task decomposition.</li>
+            <li>How much do I trust the first output? High-stakes — build in a checkpoint. Routine task — iterate quickly instead.</li>
+          </ol>
+          <p class="muted">Can you combine strategies? Yes. A persona sets the frame. Direct instruction defines the task. Negative prompting removes what you don't want. They stack.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-success">How to choose</span>
+            <ol class="list">
+              <li>How defined is the output? Use direct instruction or few-shot if you know exactly what you want.</li>
+              <li>How complex is the task? Use prompt chaining or task decomposition for multi-part work.</li>
+              <li>How much do you trust the first output? Add a checkpoint for high-stakes work.</li>
+            </ol>
+            <p class="muted" style="margin-top:12px;">The document also notes that strategies stack: a persona sets the frame, direct instruction defines the task, and negative prompting removes what you do not want.</p>
+          </article>
+          <article class="callout brand">
+            <h4>Locking in what works</h4>
+            <p>Once a conversation is producing the right kind of output, ask the AI to review the conversation, identify the corrections and preferences you gave it, and rewrite them into a reusable prompt or persona.</p>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable prompt or persona that I could paste at the start of a future conversation to get to this quality of output immediately.">Copy</button>
+              </div>
+              <p class="prompt-text">Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable prompt or persona that I could paste at the start of a future conversation to get to this quality of output immediately.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Exercise</span>
+            <h3>Rewrite it</h3>
+            <p>Use AI to simplify the long business sentence in the document, then tell it who the audience is, what the sentence is really supposed to mean, what to keep, and what to cut.</p>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy sentence</div>
+                <button class="copy-button" type="button" data-copy-text="In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals.">Copy</button>
+              </div>
+              <p class="prompt-text">In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals.</p>
+            </div>
+          </article>
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Closing</span>
+            <p>After the rewrite exercise, summarize what you seem to like and dislike about writing and AI outputs. Include the tone, formats, and corrections that kept showing up. That becomes a preference document you can paste into future sessions.</p>
+          </article>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="section-2.html">Previous: Bias</a>
+          <a class="button primary" href="week-2-session-a.html">Next: LLM Basics</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

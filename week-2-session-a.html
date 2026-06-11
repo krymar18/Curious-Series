@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | LLM Basics</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 1</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" data-nav-link>Overview</a>
+        <a href="section-1.html" data-nav-link>AI vs Search</a>
+        <a href="section-2.html" data-nav-link>Bias</a>
+        <a href="section-3.html" data-nav-link>Context</a>
+        <a href="week-2-session-a.html" data-nav-link>LLM Basics</a>
+        <a href="week-2-session-b.html" data-nav-link>Copilot Search</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Session 1</div>
+            <h1 class="title">What LLMs Are Actually Good At</h1>
+            <p class="lede">This session separates native language-model prediction from tool-augmented execution so people can tell when a model is guessing and when it is using a tool.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>The core distinction</h2>
+            <p>The document says two modes can produce the same-looking output, but they behave differently under the hood.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>Native LLM</th>
+                <th>Tool-augmented LLM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>What it does</td><td>Predicts the most statistically likely next word from context</td><td>Uses an external tool like a search engine, database query, calculator, or code interpreter</td></tr>
+              <tr><td>What it knows</td><td>Only training data up to its cutoff date</td><td>Current information, precise calculations, or specific documents, depending on the tool</td></tr>
+              <tr><td>How it fails</td><td>Confidently generates plausible text that is wrong</td><td>Fails when the tool returns bad data, is misconfigured, or when the query is bad</td></tr>
+              <tr><td>What it looks like</td><td>Exactly like tool-augmented output</td><td>Exactly like native output</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout gold" style="margin-top:18px;">
+          <h4>Key teaching point</h4>
+          <p>You usually cannot tell from the final answer alone whether the model retrieved information from a live source or predicted it from training data.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <details open>
+            <summary>The letter-counting demonstration</summary>
+            <div class="details-body">
+              <p>Ask any LLM how many times the letter S appears in MISSISSIPPI. Many models answer incorrectly because they are predicting a plausible answer instead of counting letters.</p>
+              <p>If you ask the model to write a short script that counts the letter S, the code can compute the answer correctly every time. The model did not count; it generated something deterministic that did.</p>
+              <div class="prompt-box">
+                <div class="prompt-box-head">
+                  <div class="prompt-box-label">Copy prompt</div>
+                  <button class="copy-button" type="button" data-copy-text="How many times does the letter S appear in the word MISSISSIPPI?">Copy</button>
+                </div>
+                <p class="prompt-text">How many times does the letter S appear in the word MISSISSIPPI?</p>
+              </div>
+            </div>
+          </details>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Why it matters</span>
+            <p>When accuracy is non-negotiable and the answer is computable, asking the model to generate code, a formula, or a query is more reliable than asking it to answer directly.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Why this matters in practice</h2>
+            <p>The document turns the distinction into a simple decision rule for work tasks.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>If you ask the LLM to...</th>
+                <th>What actually happens</th>
+                <th>More reliable approach</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Count specific things</td><td>Predicts an answer from statistical patterns</td><td>Ask it to write code that counts, then run the code</td></tr>
+              <tr><td>Add or calculate numbers</td><td>Predicts what a correct calculation looks like</td><td>Ask it to write a formula or script and verify output</td></tr>
+              <tr><td>Recall a specific date, name, or figure</td><td>Predicts what that information probably is</td><td>Search for the fact and use AI to interpret or apply it</td></tr>
+              <tr><td>Summarize a document you uploaded</td><td>Reads the actual document text in context</td><td>Works well if the document is short enough</td></tr>
+              <tr><td>Analyze data in Excel</td><td>Uses a code interpreter behind the scenes</td><td>Still verify formula outputs for financial or compliance-critical data</td></tr>
+              <tr><td>Answer a question about today's news</td><td>Predicts from training data unless search is active</td><td>Ensure web search is enabled or search directly</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid two" style="margin-top:18px;">
+          <article class="card">
+            <span class="eyebrow-chip chip-success">Activity</span>
+            <p>Run the MISSISSIPPI count live, then ask the model to write code that counts any letter in any word. The contrast between direct prediction and deterministic code execution is the point of the demo.</p>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Write a short Python script that counts the letter S in any given word.">Copy</button>
+              </div>
+              <p class="prompt-text">Write a short Python script that counts the letter S in any given word.</p>
+            </div>
+          </article>
+          <article class="callout brand">
+            <h4>Key principle</h4>
+            <p>When you need a precise answer to a computable question, ask the model to generate something that computes it. The model's strength is language. Precision is the tool's job.</p>
+          </article>
+        </div>
+
+        <div class="card soft" style="margin-top:18px;">
+          <span class="eyebrow-chip chip-brand">Reflection</span>
+          <ul class="list">
+            <li>Was your question predicted or retrieved?</li>
+            <li>What kinds of work questions are computable or look-up based?</li>
+            <li>Does a code interpreter change how much you trust formula output?</li>
+          </ul>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="section-3.html">Previous: Context</a>
+          <a class="button primary" href="week-2-session-b.html">Next: Copilot Search</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

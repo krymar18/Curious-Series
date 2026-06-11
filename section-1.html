@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | AI vs Search</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 1</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" data-nav-link>Overview</a>
+        <a href="section-1.html" data-nav-link>AI vs Search</a>
+        <a href="section-2.html" data-nav-link>Bias</a>
+        <a href="section-3.html" data-nav-link>Context</a>
+        <a href="week-2-session-a.html" data-nav-link>LLM Basics</a>
+        <a href="week-2-session-b.html" data-nav-link>Copilot Search</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Session 1</div>
+            <h1 class="title">How Search and AI Actually Work</h1>
+            <p class="lede">This section explains the difference between search engines and AI tools, shows where hallucinations come from, and gives a practical rule for deciding when to search and when to use AI.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Understand what a search engine and an AI tool each do, know the difference between them, and be able to choose the right one for a given task.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Core idea</span>
+            <p>Search finds existing content. AI generates a response from patterns learned during training. They look similar from the outside, but they do different jobs.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>How the two systems work</h2>
+            <p>The document uses simple analogies to show why search is useful for current facts and why AI is useful for drafting, explaining, and brainstorming.</p>
+          </div>
+        </div>
+
+        <details open>
+          <summary>How search engines work</summary>
+          <div class="details-body">
+            <p>Think of Google as a librarian who has already read every book in an enormous library and written notes on each one. When you walk in and ask a question, the librarian doesn't go to read new books — they flip through their notes and hand you a stack of the most relevant ones. That's it. The internet isn't being searched in that moment. Google searched for it in advance, built a massive, organized index, and is now just matching your words to that index as fast as possible.</p>
+            <p>This is why searching is great for finding specific, current, real things — a news article, a store's hours, a competitor's website. The answer already exists somewhere, and Google knows roughly where it is. But searching can't explain, reason, or create anything. It hands you a map and points you in a direction. What you do with it is up to you.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>How AI tools work</summary>
+          <div class="details-body">
+            <p>AI tools like ChatGPT or Claude looked at a massive amount of static data — books, articles, websites — to identify patterns in language. Specifically, patterns in what words tend to follow other words. When you ask a question, the AI does not look anything up. Instead it predicts the most likely first word of an answer given your question. Then it considers your question plus that first word to predict the second. Then the third. This loop continues until the response is complete. Every word is a calculated guess based on patterns — nothing more.</p>
+            <p>Think of an A-list actor preparing to play a lawyer. They sit in on real trials, study courtroom language, absorb how arguments are structured. Eventually they can sound remarkably like a lawyer — and much of what they say will actually be correct. But you would never take legal advice from them instead of a real attorney. The performance is convincing. The expertise isn't there.</p>
+            <p>AI works the same way. The output often sounds authoritative, structured, and right — because it's imitating the pattern of a correct answer. Not retrieving one. AI doesn't know it's imitating — it has no awareness of whether its output is grounded in reality. It only knows the patterns it saw.</p>
+            <p>AI knowledge has a hard cutoff. Training ends at a point in time. Anything after that doesn't exist to the model. AI can also be confidently wrong. There's no internal fact-check. The output always sounds finished.</p>
+            <p>That said, this imitation can be extremely useful when applied to the right tasks. Drafting, summarizing, explaining, brainstorming, restructuring — these are all pattern-heavy tasks where AI performs well precisely because it has absorbed so much of how humans do them. The key is knowing what you're working with.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Hallucinations</summary>
+          <div class="details-body">
+            <p>The term is borrowed from psychology. In AI, a hallucination is when the model generates something that sounds completely plausible — a date, a name, a statistic, a quote, a legal citation — that is simply wrong. Not close. Not outdated. Just fabricated, with the same confident tone as everything else it produces.</p>
+            <p>It happens because the model isn't retrieving facts. It's predicting patterns. And sometimes the most statistically likely next word happens to be wrong. The model has no mechanism to know the difference — and no reason to flag it.</p>
+            <p>What this looks like: you ask AI to summarize a competitor's recent press releases. It produces five bullet points, each with a specific quote and date. Three of them are real. Two are composed from patterns that looked like press releases in its training data. You cannot tell which is which from reading the output.</p>
+            <p>The three situations where hallucinations are most dangerous are specific facts with no source, niche or specialized topics, and long outputs with lots of detail. The safest responses are to verify anything specific before you use it externally, ask AI where it is uncertain, and use AI for structure and voice rather than the facts themselves.</p>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Did you search for this or is this from your training data?">Copy</button>
+              </div>
+              <p class="prompt-text">Did you search for this or is this from your training data?</p>
+            </div>
+          </div>
+        </details>
+
+        <div class="callout neutral" style="margin-top:18px;">
+          <h4>In practice</h4>
+          <p>Search is great for finding specific, current, real things. AI is great for drafting, summarizing, explaining, and brainstorming. The point of the difference is not to avoid AI — it is to know when you need a live source instead of a pattern-based answer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Search vs. AI at a glance</h2>
+            <p>Use the comparison below when deciding what tool to reach for first.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>What it does</th>
+                <th>Search engine</th>
+                <th>AI tool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Function</td>
+                <td>Finds existing content</td>
+                <td>Generates a response</td>
+              </tr>
+              <tr>
+                <td>Source</td>
+                <td>Pre-built index of web pages</td>
+                <td>Patterns learned during training</td>
+              </tr>
+              <tr>
+                <td>Best used for</td>
+                <td>Current facts, sources, news, specific lookups</td>
+                <td>Drafting, summarizing, explaining, brainstorming</td>
+              </tr>
+              <tr>
+                <td>Main risk</td>
+                <td>Outdated or irrelevant results</td>
+                <td>Confidently wrong answers</td>
+              </tr>
+              <tr>
+                <td>Output</td>
+                <td>Links to pages</td>
+                <td>Generated text</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Different uses by department</h2>
+            <p>The document gives department-specific examples showing when search is a better fit and when AI is a better fit.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Use search for</th>
+                <th>Use AI for</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Traffic & Ad Ops</td><td>MVPD technical specs, current FCC political advertising rules, station call letters or market coverage</td><td>Makegood explanation emails, SCX file discrepancy summaries, SOP drafts for a new workflow step</td></tr>
+              <tr><td>Account Management / Sales</td><td>Recent earnings calls, competitor rate cards or packages, DMA rankings</td><td>Client recap emails, quarterly business review talking points, first-draft RFP responses</td></tr>
+              <tr><td>Political Advertising</td><td>Current FEC filings, lowest unit rate windows, legal names and addresses for disclaimers</td><td>Order confirmation letters, internal campaign summaries</td></tr>
+              <tr><td>Finance</td><td>Exchange rates, IRS regulations or tax code sections, vendor W-9 status</td><td>Vendor contract summaries, billing discrepancy explainers, budget narrative drafts</td></tr>
+              <tr><td>HR & People</td><td>FMLA rules, state leave law, benchmark salary reports, compliance training requirements</td><td>Job descriptions, policy update drafts, handbook summaries for new hires</td></tr>
+              <tr><td>Marketing & Comms</td><td>Competitor press releases, award submission deadlines, brand mentions or media pickups</td><td>Social copy, press release drafts, headline variations, content calendar outlines</td></tr>
+              <tr><td>Technology / Engineering</td><td>Official API docs, error codes, vendor system status</td><td>Technical explanations, requirements docs from bullet notes, internal documentation drafts</td></tr>
+              <tr><td>Any Department</td><td>Any answer that must be current, sourced, or legally exact</td><td>Any task where structure, tone, or first draft is the hard part and specifics will be verified later</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-success">Exercise</span>
+            <h3>Search or AI?</h3>
+            <p>Use the interactive tool from the session to enter tasks and get a verdict on whether search or AI is the better fit, along with a short reason why. The goal is to find at least one everyday task that belongs in each category.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>Was there a task you were unsure about?</li>
+              <li>Have you ever gotten a wrong answer from AI?</li>
+              <li>What habit would change if you treated current facts as search-first?</li>
+            </ul>
+          </article>
+        </div>
+        <div class="callout brand" style="margin-top:18px;">
+          <h4>Supplemental reading</h4>
+          <ul>
+            <li>How Search Works — google.com/search/howsearchworks</li>
+            <li>Large Language Models Explained Briefly — 3blue1brown.com/lessons/mini-llm</li>
+            <li>What is a Large Language Model? — ibm.com/think/topics/large-language-models</li>
+          </ul>
+        </div>
+        <div class="page-nav">
+          <a class="button secondary" href="index.html">Back to overview</a>
+          <a class="button primary" href="section-2.html">Next: Bias</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

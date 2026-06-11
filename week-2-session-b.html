@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Copilot Search</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 1</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" data-nav-link>Overview</a>
+        <a href="section-1.html" data-nav-link>AI vs Search</a>
+        <a href="section-2.html" data-nav-link>Bias</a>
+        <a href="section-3.html" data-nav-link>Context</a>
+        <a href="week-2-session-a.html" data-nav-link>LLM Basics</a>
+        <a href="week-2-session-b.html" data-nav-link>Copilot Search</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Session 1</div>
+            <h1 class="title">LLM Predicting vs. LLM Searching</h1>
+            <p class="lede">This session explains what changes when an LLM is answering from training data versus actively searching, then ties it to how Copilot behaves across different Microsoft surfaces.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Predicting vs. searching</h2>
+            <p>The document shows that the answer can look the same either way, but reliability depends on whether a tool ran first.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Aspect</th>
+                <th>Predicting from training data</th>
+                <th>Searching</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>What triggers it</td><td>Any answer the model gives without a tool</td><td>A web search, SharePoint index, or database query runs first</td></tr>
+              <tr><td>Knowledge cutoff</td><td>Hard cutoff, typically months behind the current date</td><td>No cutoff; retrieves current information at query time</td></tr>
+              <tr><td>How current it is</td><td>Could be years stale</td><td>As current as the search index allows</td></tr>
+              <tr><td>What “I found” means</td><td>I predicted this from patterns in training data</td><td>I retrieved this from a live source just now</td></tr>
+              <tr><td>Reliability on recent events</td><td>Low</td><td>High if the source is reliable</td></tr>
+              <tr><td>How to identify it</td><td>No citations, no source section, no visible search action</td><td>Citations, source URLs, or a visible search action</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>How to know which mode is active in Copilot</h2>
+            <p>The document compares Copilot surfaces so users understand when search is active by default and when it is not.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Copilot surface</th>
+                <th>Web search active by default?</th>
+                <th>What it can access</th>
+                <th>What it cannot access</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Copilot Chat</td><td>Yes</td><td>Web results plus M365 data</td><td>Data outside the tenant and anything requiring authentication</td></tr>
+              <tr><td>Copilot in Word</td><td>No</td><td>The open document plus training data</td><td>The web, SharePoint, or other files unless referenced</td></tr>
+              <tr><td>Copilot in Excel</td><td>No</td><td>The open workbook and code interpreter for calculations</td><td>External data sources unless connected another way</td></tr>
+              <tr><td>Copilot in Outlook</td><td>No</td><td>Your inbox, calendar, and training data</td><td>External information unless in your email history</td></tr>
+              <tr><td>Copilot in Teams</td><td>No</td><td>Meeting transcript, chat history, and training data</td><td>The web or files not shared in the meeting or chat</td></tr>
+              <tr><td>Copilot Chat with web toggle off</td><td>No</td><td>M365 data plus training data</td><td>Anything current or external</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout danger" style="margin-top:18px;">
+          <h4>Practical implication</h4>
+          <p>When you use Copilot in Word to write about a regulation, a competitor, or a recent industry development, it is generating from training data, not searching for current information. It may sound like it knows even when it does not.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <details open>
+          <summary>Telling the difference mid-conversation</summary>
+          <div class="details-body">
+            <p>Signs it is predicting: no citations, no source section, no visible search action, immediate and fluent output.</p>
+            <p>Signs it is searching: a searching indicator, citations or source URLs, and a bit more latency.</p>
+            <p>If in doubt, ask whether the answer came from live search, your documents, or training data.</p>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="For the answer you just gave me — did that come from a live search, from my documents, or from your training data? Be specific about each part.">Copy</button>
+              </div>
+              <p class="prompt-text">For the answer you just gave me — did that come from a live search, from my documents, or from your training data? Be specific about each part.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>A practical decision rule</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Type of question</th>
+                    <th>Needs current info?</th>
+                    <th>Use predicting mode?</th>
+                    <th>Use search mode?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>How to write a clearer executive summary</td><td>No</td><td>Yes</td><td>Not necessary</td></tr>
+                  <tr><td>Current LUR windows for a specific station</td><td>Yes</td><td>Risky</td><td>Required, then verify</td></tr>
+                  <tr><td>Summarize this contract clause</td><td>No, if you provided the doc</td><td>Yes</td><td>Not needed</td></tr>
+                  <tr><td>Competitor's current pricing</td><td>Yes</td><td>Risky</td><td>Required, then verify</td></tr>
+                  <tr><td>Draft talking points from a meeting recap</td><td>No, if you provided context</td><td>Yes</td><td>Not needed</td></tr>
+                  <tr><td>What changed in FCC political advertising rules in 2026</td><td>Yes</td><td>Risky</td><td>Required and verify primary source</td></tr>
+                  <tr><td>Brainstorm campaign angles for Q4</td><td>No</td><td>Yes</td><td>Not necessary</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <div class="grid two" style="margin-top:18px;">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-success">Activity</span>
+            <p>Run a predict-versus-search challenge with the same set of questions in Copilot Chat, once with web search on and once with it off. For factual questions, the difference is often visible; for synthesis and drafting, it usually is not.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>Are you usually asking for current information or synthesis and structure?</li>
+              <li>Did the Office app behavior change how you will use Copilot?</li>
+              <li>What task in your role should move to search mode?</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="week-2-session-a.html">Previous: LLM Basics</a>
+          <a class="button primary" href="index.html">Back to overview</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

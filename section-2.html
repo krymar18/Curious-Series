@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Bias</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 1</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" data-nav-link>Overview</a>
+        <a href="section-1.html" data-nav-link>AI vs Search</a>
+        <a href="section-2.html" data-nav-link>Bias</a>
+        <a href="section-3.html" data-nav-link>Context</a>
+        <a href="week-2-session-a.html" data-nav-link>LLM Basics</a>
+        <a href="week-2-session-b.html" data-nav-link>Copilot Search</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Session 1</div>
+            <h1 class="title">Bias in AI</h1>
+            <p class="lede">This section defines bias, shows where it comes from, and explains how to recognize it in real work instead of treating it like a theoretical risk.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Understand what AI bias is, where it comes from, and how to recognize it in a real interaction.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Difference</span>
+            <p>Hallucination is the AI being wrong. Bias is the AI being consistently skewed in a direction shaped by its training data or hidden instructions.</p>
+          </article>
+        </div>
+        <div class="callout neutral" style="margin-top:18px;">
+          <h4>What bias is doing</h4>
+          <p>Because AI imitates patterns rather than reasons from principles, it absorbs the perspectives embedded in its training data. If that data over-represents certain viewpoints, industries, cultures, or time periods, the AI does not know that. It has no reference point for what is missing. It simply reflects what it saw — confidently, and without disclaimer.</p>
+          <p>In this training, the two bias types that matter most are training data bias and system prompt bias.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Two types of bias</h2>
+            <p>The document focuses on training data bias and system prompt bias, then shows how they behave side by side.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Where it comes from</th>
+                <th>How it shows up</th>
+                <th>How to spot it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Training data bias</td>
+                <td>What the AI learned during training</td>
+                <td>Gaps, blind spots, outdated or narrow views</td>
+                <td>Ask about edge cases or things outside its world</td>
+              </tr>
+              <tr>
+                <td>System prompt bias</td>
+                <td>Hidden instructions set before you start</td>
+                <td>Consistent slant, topic avoidance, or hidden agenda</td>
+                <td>Notice if answers keep bending the same direction</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Why bias matters in day-to-day work</h2>
+            <p>The document uses role-specific examples to show how normal-looking output can still be skewed.</p>
+          </div>
+        </div>
+
+        <div class="callout gold" style="margin-bottom:18px;">
+          <h4>System prompts and hidden instructions</h4>
+          <p>Your prompt is never the only input. AI tools always have additional instructions added on the backend before your message is processed — these are called system prompts, and in most cases you cannot see them. There is no reason to assume these instructions are malicious. Most are practical — be helpful, be polite, stay on topic. But bias does not have to be intentional to affect your output.</p>
+          <p>Name the bias directly. Starting with "Challenge my assumptions on this" works surprisingly well. Cross-check across tools if something feels one-sided. Treat confident agreement with skepticism.</p>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Your role</th>
+                <th>Where bias shows up</th>
+                <th>What can go wrong</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Traffic & Ad Operations</td><td>Drafting an SOP for a makegood workflow built from the wrong industry norms</td><td>A new hire learns a process with a fundamental gap</td></tr>
+              <tr><td>Account Management / Sales</td><td>A competitive positioning summary that subtly validates digital-first assumptions</td><td>A pitch deck reinforces client skepticism about multiscreen TV</td></tr>
+              <tr><td>Political Advertising</td><td>Compliance details for a specific market with unusual or changing rules</td><td>A wrong summary is used for a sensitive compliance decision</td></tr>
+              <tr><td>Finance</td><td>Summarizing contract clauses through a generic commercial lens</td><td>An unusual carve-out gets omitted or softened</td></tr>
+              <tr><td>HR & People</td><td>Drafting job descriptions from skewed training norms</td><td>Subtly biased job descriptions narrow the candidate pool</td></tr>
+              <tr><td>Marketing & Comms</td><td>Feedback on an audience frame that skews urban, coastal, or tech-adjacent</td><td>A campaign is optimized against a misread audience</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid two" style="margin-top:18px;">
+          <article class="callout danger">
+            <h4>Three high-risk situations</h4>
+            <ul>
+              <li>Outputs that touch client relationships.</li>
+              <li>Compliance or regulatory language.</li>
+              <li>Decisions based on a skewed frame.</li>
+            </ul>
+          </article>
+          <article class="callout brand">
+            <h4>The pattern</h4>
+            <p>Bias usually does not look obviously wrong. It shows up in outputs that sound normal, professional, and complete while quietly carrying a frame that does not match your world.</p>
+            <p>None of the scenarios above involve AI doing something obviously wrong. The outputs all look like normal, professional work product. That's the problem. Hallucinations can sometimes be caught by a fact-check. Bias is harder — it shapes the frame, not just the facts. It determines which questions get asked, which comparisons get made, which risks get flagged, and which get ignored.</p>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Challenge this.">Copy</button>
+              </div>
+              <p class="prompt-text">Challenge this.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>How to build the habit</h2>
+            <p>The document closes with a short table of situations and the questions that help you probe for bias.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>When to apply it</th>
+                <th>What to ask</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Any output about a client's industry or audience</td><td>What assumptions is this making about the audience? What context might it be missing?</td></tr>
+              <tr><td>Any competitive analysis or positioning document</td><td>What would someone on the other side of this argument say? Challenge this.</td></tr>
+              <tr><td>Any compliance, regulatory, or legal language</td><td>What is the source for this? Verify against the primary source before using it.</td></tr>
+              <tr><td>Any time an AI output agrees with you completely</td><td>What's wrong with this plan? Tell me the weaknesses before you tell me the strengths.</td></tr>
+              <tr><td>Any niche topic</td><td>How confident are you in this? What are you less certain about?</td></tr>
+              <tr><td>Any output going to a client or external party</td><td>Does this sound written by someone who actually knows our industry?</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid two" style="margin-top:18px;">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-success">Exercise</span>
+            <h3>Spot the bias</h3>
+            <p>Spend a few minutes interacting with an AI that has a hidden commercial instruction applied to every response, then look for the pattern it creates. The purpose is to make bias visible as a frame, not just as a factual error.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Key takeaways</span>
+            <ul class="list">
+              <li>A biased AI sounds exactly like an unbiased one.</li>
+              <li>Know the two sources: training data and system prompts.</li>
+              <li>Bias shapes framing, not just facts.</li>
+              <li>Most important risk areas: client-facing content, compliance, and niche domain knowledge.</li>
+            </ul>
+            <p class="muted" style="margin-top:12px;">The short version: bias does not mean the AI lied. It means the AI's frame of reference was shaped by data that did not include your world, your clients, your industry's edge cases, or your specific regulatory context — and it had no way to tell you that.</p>
+          </article>
+        </div>
+
+        <div class="callout neutral" style="margin-top:18px;">
+          <h4>Security note</h4>
+          <p>System prompts are one part of a broader picture of AI and cybersecurity risk — including what data you share, where it goes, and who can access it. Keep that distinction in mind when you use AI tools that are configured by someone else.</p>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="section-1.html">Previous: AI vs Search</a>
+          <a class="button primary" href="section-3.html">Next: Context</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

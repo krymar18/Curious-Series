@@ -186,3 +186,124 @@ function initActivityWidget() {
 }
 
 initActivityWidget();
+
+for (const activity of document.querySelectorAll('[data-activity-chat]')) {
+  const form = activity.querySelector('[data-activity-form]');
+  const log = activity.querySelector('[data-activity-log]');
+  const input = activity.querySelector('[data-activity-input]');
+  const sendButton = activity.querySelector('[data-activity-send]');
+  const resetButton = activity.querySelector('[data-activity-reset]');
+  const status = activity.querySelector('[data-activity-status]');
+  const count = activity.querySelector('[data-activity-count]');
+  const flowUrl = activity.dataset.flowUrl || '';
+  const activityName = activity.dataset.activityName || 'Activity';
+  const initialLogMarkup = log ? log.innerHTML : '';
+  const state = { messages: [], userCount: 0, busy: false };
+
+  const renderState = () => {
+    if (count) count.textContent = `${state.userCount}/4`;
+    if (input) input.disabled = state.busy || state.userCount >= 4;
+    if (sendButton) sendButton.disabled = state.busy || state.userCount >= 4;
+    if (resetButton) resetButton.disabled = state.busy && state.userCount === 0;
+  };
+
+  const updateStatus = (text) => { if (status) status.textContent = text; };
+  const clearLog = () => { if (log) log.innerHTML = initialLogMarkup; };
+
+  const addMessage = (role, text) => {
+    if (!log) return;
+    const emptyMessage = log.querySelector('[data-chat-empty]');
+    if (emptyMessage) emptyMessage.remove();
+    const message = document.createElement('div');
+    message.className = `chat-message ${role}`;
+    message.textContent = text;
+    log.appendChild(message);
+    log.scrollTop = log.scrollHeight;
+  };
+
+  const extractReply = (data) => {
+    if (typeof data === 'string') return data;
+    if (!data || typeof data !== 'object') return '';
+    return (
+      data.mostRecentMessage ||
+      data.message ||
+      data.reply ||
+      data.content ||
+      data.text ||
+      data.output ||
+      data.result ||
+      data?.choices?.[0]?.message?.content ||
+      ''
+    );
+  };
+
+  const resetActivity = () => {
+    state.messages = [];
+    state.userCount = 0;
+    state.busy = false;
+    clearLog();
+    updateStatus('Ready. Send up to 4 messages, then reset to start the activity again.');
+    renderState();
+    if (input) { input.value = ''; input.focus(); }
+  };
+
+  const submitMessage = async () => {
+    if (!input || !log || state.busy || state.userCount >= 4) return;
+    const currentMessage = input.value.trim();
+    if (!currentMessage) return;
+
+    state.busy = true;
+    addMessage('user', currentMessage);
+    state.messages.push({ role: 'user', content: currentMessage });
+    state.userCount += 1;
+    input.value = '';
+    updateStatus('Sending...');
+    renderState();
+
+    const payload = {
+      activityName,
+      currentMessage,
+      messages: state.messages,
+    };
+
+    let replyText = '';
+
+    try {
+      const response = await fetch(flowUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const contentType = response.headers.get('content-type') || '';
+      const responseData = contentType.includes('application/json')
+        ? await response.json()
+        : await response.text();
+      if (typeof responseData === 'string') {
+        const trimmed = responseData.trim().toLowerCase();
+        replyText = trimmed.startsWith('<!doctype') || trimmed.startsWith('<html')
+          ? ''
+          : responseData;
+      } else {
+        replyText = extractReply(responseData);
+      }
+      replyText = replyText || (response.ok ? 'The flow returned no message.' : 'The flow responded with an error.');
+    } catch {
+      replyText = 'The Power Automate flow URL is still a placeholder. Replace it to start receiving replies.';
+    }
+
+    addMessage('assistant', replyText);
+    state.messages.push({ role: 'assistant', content: replyText });
+    state.busy = false;
+    updateStatus(state.userCount >= 4
+      ? 'Message limit reached. Reset to start a new chat.'
+      : 'Reply added. You can send up to 4 messages.');
+    renderState();
+  };
+
+  if (form) form.addEventListener('submit', (event) => { event.preventDefault(); submitMessage(); });
+  if (resetButton) resetButton.addEventListener('click', resetActivity);
+
+  renderState();
+  clearLog();
+  updateStatus('Ready. Send up to 4 messages, then reset to start the activity again.');
+}

@@ -187,23 +187,54 @@
           </table>
         </div>
 
-        <div class="grid two" style="margin-top:18px;">
-          <article class="card soft">
-            <span class="eyebrow-chip chip-success">Exercise</span>
-            <h3>Spot the bias</h3>
-            <p>Spend a few minutes interacting with an AI that has a hidden commercial instruction applied to every response, then look for the pattern it creates. The purpose is to make bias visible as a frame, not just as a factual error.</p>
-          </article>
-          <article class="card">
-            <span class="eyebrow-chip chip-brand">Key takeaways</span>
-            <ul class="list">
-              <li>A biased AI sounds exactly like an unbiased one.</li>
-              <li>Know the two sources: training data and system prompts.</li>
-              <li>Bias shapes framing, not just facts.</li>
-              <li>Most important risk areas: client-facing content, compliance, and niche domain knowledge.</li>
-            </ul>
-            <p class="muted" style="margin-top:12px;">The short version: bias does not mean the AI lied. It means the AI's frame of reference was shaped by data that did not include your world, your clients, your industry's edge cases, or your specific regulatory context — and it had no way to tell you that.</p>
-          </article>
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Activity</h2>
+        <p>Describe a task from your day-to-day work and the activity will tell you whether it belongs to search or AI, explain why, and reframe it for the opposite tool.</p>
+      </div>
+    </div>
+
+    <div class="activity-shell" data-activity-chat data-activity-name="Search or AI Activity" data-flow-url="https://YOUR-POWER-AUTOMATE-URL-HERE">
+      <div class="grid two">
+        <article class="card soft">
+          <span class="eyebrow-chip chip-brand">What this activity does</span>
+          <p>Type a task or question and the activity will tell you whether it belongs to search or AI, explain why, and reframe it for the opposite tool.</p>
+        </article>
+        <article class="card">
+          <span class="eyebrow-chip chip-gold">Rules</span>
+          <ul class="list">
+            <li>Use up to 4 messages per session.</li>
+            <li>Reset to start a fresh thread.</li>
+            <li>Try tasks from your own work.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="card activity-panel">
+        <div class="activity-meta">
+          <div class="activity-count"><span data-activity-count>0/4</span> messages</div>
+          <div class="chat-status" data-activity-status>Ready. Send up to 4 messages, then reset to start again.</div>
         </div>
+
+        <div class="chat-thread" data-activity-log>
+          <p class="chat-empty" data-chat-empty>Describe a task from your day-to-day work. The activity will tell you whether it belongs to search or AI and why.</p>
+        </div>
+
+        <form class="chat-composer" data-activity-form>
+          <label class="sr-only" for="search-ai-message">Message</label>
+          <textarea id="search-ai-message" class="chat-input" data-activity-input placeholder="e.g. Find out what a competitor announced last week..."></textarea>
+          <div class="chat-actions">
+            <button class="button primary" type="submit" data-activity-send>Send</button>
+            <button class="button secondary" type="button" data-activity-reset>Reset activity</button>
+            <p class="chat-note">After four messages, reset to continue.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
         <div class="callout neutral" style="margin-top:18px;">
           <h4>Security note</h4>

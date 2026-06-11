@@ -979,3 +979,140 @@ details[open] summary::after {
   color: #fff;
   border-color: var(--success);
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.activity-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.activity-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.activity-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.activity-count {
+  color: var(--brand);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.chat-thread {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 247, 241, 0.96));
+  min-height: 280px;
+}
+
+.chat-message {
+  max-width: 82%;
+  border-radius: 18px;
+  padding: 14px 16px;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 18px rgba(23, 15, 5, 0.05);
+}
+
+.chat-message p {
+  margin: 0;
+  line-height: 1.7;
+  color: inherit;
+}
+
+.chat-message.user {
+  margin-left: auto;
+  background: var(--brand-soft);
+  border-color: rgba(32, 77, 137, 0.16);
+  color: var(--text);
+}
+
+.chat-message.assistant {
+  background: white;
+  border-color: rgba(221, 212, 199, 0.95);
+}
+
+.chat-message.system {
+  max-width: 100%;
+  background: var(--surface-soft);
+  border-color: var(--border);
+}
+
+.chat-composer {
+  display: grid;
+  gap: 12px;
+}
+
+.chat-input {
+  width: 100%;
+  min-height: 112px;
+  resize: vertical;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 14px 16px;
+  font: inherit;
+  color: var(--text);
+  line-height: 1.7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.chat-input:focus {
+  outline: 2px solid rgba(32, 77, 137, 0.22);
+  outline-offset: 2px;
+}
+
+.chat-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.chat-status {
+  min-height: 1.4em;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.chat-empty {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .chat-thread { padding: 14px; }
+  .chat-message { max-width: 100%; }
+  .chat-actions { align-items: start; flex-direction: column; }
+}

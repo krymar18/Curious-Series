@@ -810,3 +810,11 @@ details[open] summary::after {
   margin: 0;
   font-style: italic;
 }
+.pull-quote-text p {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: var(--body);
+  margin: 0;
+  font-style: italic;
+}

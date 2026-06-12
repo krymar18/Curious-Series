@@ -314,37 +314,87 @@ function initPersonaGuessActivity() {
   const activity = document.getElementById('persona-guess-activity');
   if (!activity) return;
 
-  const lockBtn = document.getElementById('lock-check-btn');
+  const PERSONAS = [
+    { key: 'nutritionist', label: 'Sports nutritionist' },
+    { key: 'cardiologist',  label: 'Cardiologist' },
+    { key: 'influencer',    label: 'Wellness influencer' },
+    { key: 'ceo',           label: 'Brewery CEO' },
+  ];
+
+  const lockBtn  = document.getElementById('lock-check-btn');
   const resetBtn = document.getElementById('reset-persona-btn');
-  const cards = Array.from(activity.querySelectorAll('.persona-card'));
+  const cards    = Array.from(activity.querySelectorAll('.persona-card'));
+
+  // Build choice buttons for each card
+  for (const card of cards) {
+    const choicesDiv = document.createElement('div');
+    choicesDiv.className = 'persona-choices';
+    choicesDiv.appendChild(Object.assign(document.createElement('span'), {
+      className: 'persona-choices-label',
+      textContent: 'Guess the persona',
+    }));
+
+    for (const p of PERSONAS) {
+      const btn = document.createElement('button');
+      btn.className = 'persona-choice-btn';
+      btn.type = 'button';
+      btn.dataset.key = p.key;
+      btn.textContent = p.label;
+      btn.addEventListener('click', () => {
+        for (const b of choicesDiv.querySelectorAll('.persona-choice-btn')) {
+          b.classList.remove('selected');
+        }
+        btn.classList.add('selected');
+      });
+      choicesDiv.appendChild(btn);
+    }
+
+    card.insertBefore(choicesDiv, card.querySelector('.persona-reveal'));
+  }
 
   lockBtn.addEventListener('click', () => {
     for (const card of cards) {
-      const input = card.querySelector('.persona-input');
-      const reveal = card.querySelector('.persona-reveal');
-      const revealText = card.querySelector('.persona-reveal-text');
-      input.disabled = true;
-      revealText.textContent = card.dataset.personaAnswer;
+      const correctKey = card.dataset.personaKey;
+      const selected   = card.querySelector('.persona-choice-btn.selected');
+      const isCorrect  = selected && selected.dataset.key === correctKey;
+      const reveal     = card.querySelector('.persona-reveal');
+      const revealLabel = card.querySelector('.persona-reveal-label');
+      const revealText  = card.querySelector('.persona-reveal-text');
+
+      // Lock and style all buttons
+      for (const btn of card.querySelectorAll('.persona-choice-btn')) {
+        btn.disabled = true;
+        if (btn.dataset.key === correctKey) btn.classList.add('correct');
+      }
+      if (selected && !isCorrect) selected.classList.add('wrong');
+
+      // Card border and reveal text
+      card.classList.add(isCorrect ? 'checked' : 'wrong');
+      revealLabel.textContent = isCorrect ? '✓ Correct — persona used' : '✗ The persona used was';
+      revealText.textContent  = card.dataset.personaAnswer;
       reveal.hidden = false;
-      card.classList.add('checked');
     }
+
     lockBtn.disabled = true;
-    lockBtn.textContent = 'Answers revealed';
+    lockBtn.textContent = 'Checked';
   });
 
   resetBtn.addEventListener('click', () => {
     for (const card of cards) {
-      const input = card.querySelector('.persona-input');
-      const reveal = card.querySelector('.persona-reveal');
-      const revealText = card.querySelector('.persona-reveal-text');
-      input.disabled = false;
-      input.value = '';
+      for (const btn of card.querySelectorAll('.persona-choice-btn')) {
+        btn.disabled = false;
+        btn.classList.remove('selected', 'correct', 'wrong');
+      }
+      const reveal     = card.querySelector('.persona-reveal');
+      const revealLabel = card.querySelector('.persona-reveal-label');
+      const revealText  = card.querySelector('.persona-reveal-text');
       reveal.hidden = true;
-      revealText.textContent = '';
-      card.classList.remove('checked');
+      revealLabel.textContent = 'Persona used';
+      revealText.textContent  = '';
+      card.classList.remove('checked', 'wrong');
     }
     lockBtn.disabled = false;
-    lockBtn.textContent = 'Lock answers & check yourself';
+    lockBtn.textContent = 'Lock & check';
   });
 }
 

@@ -23,7 +23,7 @@
         <a href="section-2.html" data-nav-link>Bias</a>
         <a href="section-3.html" data-nav-link>Context</a>
         <a href="week-2-session-a.html" data-nav-link>LLM Basics</a>
-        <a href="week-2-session-b.html" data-nav-link>Copilot Search</a>
+        <a href="week-2-session-b.html" data-nav-link>Homework</a>
       </nav>
     </div>
   </header>
@@ -53,94 +53,112 @@
             <p>What do you want it to do? Who is it for? What format do you want? What tone is right? What should it avoid?</p>
           </article>
         </div>
-        <div class="callout neutral" style="margin-top:18px;">
-          <h4>Context is everything</h4>
-          <p>AI starts from zero every session. It knows nothing about you, your work, your industry, or what a good outcome looks like for this specific task — unless you tell it.</p>
-          <p>Using AI is like directing a play. You've cast the best actor in the world. You walk up to them and say: "You're a doctor." The chances of getting what you want are low. Are they a villain or a hero? Mid-emergency in an ER, or having a quiet conversation with their family? Even the most talented actor needs to know who they are, where they are, and what they're trying to do in this scene. Vague prompts get vague answers. Most good outputs come from two or three rounds of feedback, not one perfect prompt.</p>
-        </div>
+
       </div>
     </section>
 
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Giving AI a persona</h2>
-            <p>The document frames persona as a starting point defined before you ask anything: who you are, where you are, and what you are trying to do.</p>
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Context Is Everything</h2>
+        <p>AI starts from zero every session. It knows nothing about you, your work, your industry, or what a good outcome looks like — unless you tell it.</p>
+      </div>
+    </div>
+
+
+
+    <details open>
+      <summary>AI Starts From Zero</summary>
+      <div class="details-body">
+        <div class="pull-quote">
+          <div class="pull-quote-brain">
+            <i class="ti ti-brain" aria-hidden="true"></i>
+            <span>Think through metaphor</span>
+          </div>
+          <div class="pull-quote-line"></div>
+          <div class="pull-quote-text">
+            <p>Using AI is like directing a play. You've cast the best actor in the world — someone who can genuinely play anyone. You walk up to them and say: "You're a doctor." The chances of getting what you want are low. Are they a villain or a hero? Mid-emergency in an ER, or having a quiet conversation with their family? Even the most talented actor needs to know who they are, where they are, and what they're trying to do in this scene.</p>
           </div>
         </div>
+        <p></p>
+        <p>Vague prompts get vague answers. Most good outputs come from two or three rounds of feedback, not one perfect prompt.</p>
+      </div>
+    </details>
 
-        <div class="card tabs" data-tabs>
-          <div class="tab-list" role="tablist" aria-label="Persona examples">
-            <button class="tab-button" type="button" data-tab-button="athlete" aria-selected="true">Nutritionist</button>
-            <button class="tab-button" type="button" data-tab-button="cardiologist" aria-selected="false">Cardiologist</button>
-            <button class="tab-button" type="button" data-tab-button="influencer" aria-selected="false">Wellness influencer</button>
-            <button class="tab-button" type="button" data-tab-button="brewery" aria-selected="false">Craft brewery CEO</button>
+    <details>
+      <summary>What Goes Into a Good Prompt</summary>
+      <div class="details-body">
+        <ul class="list">
+          <li>What do you want the AI to do?</li>
+          <li>Who is it for?</li>
+          <li>What format do you want?</li>
+          <li>What tone is right?</li>
+          <li>What should it avoid?</li>
+        </ul>
+        <div class="prompt-box" style="margin-top: 20px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Copy prompt starter</div>
+            <button class="copy-button" type="button" data-copy-text="I need you to [task]. This is for [audience]. Format it as [format]. The tone should be [tone]. Avoid [anything to exclude].">Copy</button>
           </div>
-
-          <div class="tab-panel active" data-tab-panel="athlete">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Macronutrient ratios, carb loading, protein timing, recovery nutrition.</p>
-          </div>
-          <div class="tab-panel" data-tab-panel="cardiologist">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Reducing saturated fats, Mediterranean diet, sodium intake, inflammation, clinical evidence.</p>
-          </div>
-          <div class="tab-panel" data-tab-panel="influencer">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Trending approaches, before/after framing, accessible language, quick visible results.</p>
-          </div>
-          <div class="tab-panel" data-tab-panel="brewery">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Consumer behavior, market trends, calorie-conscious drinking, product positioning.</p>
-          </div>
-        </div>
-
-        <div class="callout gold" style="margin-top:18px;">
-          <h4>Same question, four personas</h4>
-          <p>The document's point is that persona changes what the AI understands the question to actually be. The same question can produce four completely different answers.</p>
-        </div>
-        <div class="callout neutral" style="margin-top:18px;">
-          <h4>What goes into a good prompt</h4>
-          <ul>
-            <li>What do you want the AI to do?</li>
-            <li>Who is it for?</li>
-            <li>What format do you want?</li>
-            <li>What tone is right?</li>
-            <li>What should it avoid?</li>
-          </ul>
-          <p>A persona is simply a starting point you define before you ask anything. A basic persona answers three things: who you are, where you are, and what you are trying to do.</p>
+          <p class="prompt-text">I need you to [task]. This is for [audience]. Format it as [format]. The tone should be [tone]. Avoid [anything to exclude].</p>
         </div>
       </div>
-    </section>
+    </details>
+
+    <details>
+      <summary>Giving AI a Persona</summary>
+      <div class="details-body">
+        <p>A persona is simply a starting point you define before you ask anything. A basic persona answers three things:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>What it means</th>
+                <th>Weak version</th>
+                <th>Strong version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Who are you?</b></td>
+                <td>A role with enough specificity to matter</td>
+                <td>An assistant</td>
+                <td>A senior HR manager handling internal communications</td>
+              </tr>
+              <tr>
+                <td><b>Where are you?</b></td>
+                <td>The situation you're operating in</td>
+                <td>At work</td>
+                <td>Responding to a client complaint after a missed deadline</td>
+              </tr>
+              <tr>
+                <td><b>What are you trying to do?</b></td>
+                <td>The goal behind the task, not just the task</td>
+                <td>Write an email</td>
+                <td>Write an email that keeps the relationship intact while still saying no</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <div class="callout neutral" style="margin-top: 18px;">
+      <h4>In practice</h4>
+      <p>You don't need a perfect prompt to start. Give the AI a role, a situation, and a goal — then refine from there. Two or three rounds of feedback will get you further than one carefully constructed prompt.</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+    
+
 
     <section class="section">
       <div class="shell">
@@ -233,6 +251,130 @@ Persona: You are the CEO of a craft brewery evaluating whether to launch a low-c
       </div>
     </section>
 
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Ampersand Spotlight</h2>
+        <p>How context and prompting strategy show up in real Ampersand workflows — by department and by approach.</p>
+      </div>
+    </div>
+
+    <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">Context by department</p>
+    <div class="table-wrap" style="margin-bottom: 36px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th>Task example</th>
+            <th>Context to include</th>
+            <th>What happens without it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Traffic & Ops</b></td>
+            <td>Draft a makegood offer for a preempted political spot</td>
+            <td>Original order specs, preemption reason, client tier, daypart constraints, market</td>
+            <td>Generic offer that ignores political compliance rules or daypart availability</td>
+          </tr>
+          <tr>
+            <td><b>Sales</b></td>
+            <td>Prepare talking points for a renewal meeting</td>
+            <td>Account history, current spend, category, competitive threats, buyer name and role</td>
+            <td>Generic pitch that could apply to any client — misses what matters to this one</td>
+          </tr>
+          <tr>
+            <td><b>Political</b></td>
+            <td>Summarize FCC disclaimer requirements for a new client</td>
+            <td>Office being sought, state, candidate vs. PAC, broadcast vs. cable</td>
+            <td>Summary that mixes federal and state rules or conflates candidate and issue ad requirements</td>
+          </tr>
+          <tr>
+            <td><b>Finance</b></td>
+            <td>Write a variance explanation for a missed revenue line</td>
+            <td>Budget vs. actual figures, time period, contributing factors, audience (internal vs. leadership)</td>
+            <td>Explanation that's too vague for leadership or too technical for a business review</td>
+          </tr>
+          <tr>
+            <td><b>HR</b></td>
+            <td>Draft a job description for an open role</td>
+            <td>Team, reporting structure, required vs. preferred skills, seniority level, remote/hybrid status</td>
+            <td>Generic JD that attracts wrong candidates or undersells the role</td>
+          </tr>
+          <tr>
+            <td><b>Technology</b></td>
+            <td>Explain a system outage to non-technical stakeholders</td>
+            <td>What failed, business impact, audience (ops vs. sales vs. exec), resolution status</td>
+            <td>Too technical for the audience, or too vague to be actionable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">Prompting strategy cheat sheet</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>When to use it</th>
+            <th>Ampersand example</th>
+            <th>Why it works</th>
+            <th>Stacks well with</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Persona / role</b></td>
+            <td>You need output shaped for a specific expert or audience</td>
+            <td>"You are a cable TV account executive preparing for a renewal with a local auto dealer…"</td>
+            <td>Sets the frame before the task — AI calibrates tone, terms, and priorities automatically</td>
+            <td>Direct, Negative</td>
+          </tr>
+          <tr>
+            <td><b>Direct instruction</b></td>
+            <td>You know exactly what you want and the task is well-defined</td>
+            <td>"Write a 3-sentence summary of this pacing report for a client email. Use plain language."</td>
+            <td>Leaves no room for interpretation — best when scope and format are already clear</td>
+            <td>Persona, Negative</td>
+          </tr>
+          <tr>
+            <td><b>Few-shot</b></td>
+            <td>Output needs to match a style or voice you already have</td>
+            <td>"Here are two past makegood emails. Write a new one in the same tone for this order."</td>
+            <td>AI pattern-matches to your examples rather than inventing a format from scratch</td>
+            <td>Persona, Direct</td>
+          </tr>
+          <tr>
+            <td><b>Iterative</b></td>
+            <td>You're not sure what you want, or the first output needs shaping</td>
+            <td>Start broad, then: "Make it shorter." "Change tone for a political buyer." "Cut the second paragraph."</td>
+            <td>Treats output as a draft — faster than rewriting the whole prompt each time</td>
+            <td>Negative, Open-ended</td>
+          </tr>
+          <tr>
+            <td><b>Negative prompting</b></td>
+            <td>You know what you don't want as clearly as what you do</td>
+            <td>"Do not include legal disclaimers. No bullet points. Avoid mentioning rates."</td>
+            <td>Removes defaults the AI would otherwise assume — strongest when layered on another strategy</td>
+            <td>Persona, Direct, Iterative</td>
+          </tr>
+          <tr>
+            <td><b>Open-ended</b></td>
+            <td>You want options or ideas before committing to a direction</td>
+            <td>"What are three ways I could structure this quarterly review for the sales team?"</td>
+            <td>Generates range before narrowing — useful when you don't yet know the best approach</td>
+            <td>Iterative, Direct</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+
     <section class="section">
       <div class="shell">
         <div class="grid two">
@@ -260,26 +402,124 @@ Persona: You are the CEO of a craft brewery evaluating whether to launch a low-c
       </div>
     </section>
 
+
     <section class="section">
       <div class="shell">
-        <div class="grid two">
-          <article class="card soft">
-            <span class="eyebrow-chip chip-gold">Exercise</span>
-            <h3>Rewrite it</h3>
-            <p>Use AI to simplify the long business sentence in the document, then tell it who the audience is, what the sentence is really supposed to mean, what to keep, and what to cut.</p>
+        <div class="section-head">
+          <div>
+            <h2>Giving AI a persona</h2>
+            <p>The document frames persona as a starting point defined before you ask anything: who you are, where you are, and what you are trying to do.</p>
+          </div>
+        </div>
+
+        <div class="card tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Persona examples">
+            <button class="tab-button" type="button" data-tab-button="athlete" aria-selected="true">Nutritionist</button>
+            <button class="tab-button" type="button" data-tab-button="cardiologist" aria-selected="false">Cardiologist</button>
+            <button class="tab-button" type="button" data-tab-button="influencer" aria-selected="false">Wellness influencer</button>
+            <button class="tab-button" type="button" data-tab-button="brewery" aria-selected="false">Craft brewery CEO</button>
+          </div>
+
+          <div class="tab-panel active" data-tab-panel="athlete">
             <div class="prompt-box">
               <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy sentence</div>
-                <button class="copy-button" type="button" data-copy-text="In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals.">Copy</button>
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.">Copy</button>
               </div>
-              <p class="prompt-text">In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals.</p>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.</p>
             </div>
-          </article>
-          <article class="card">
-            <span class="eyebrow-chip chip-brand">Closing</span>
-            <p>After the rewrite exercise, summarize what you seem to like and dislike about writing and AI outputs. Include the tone, formats, and corrections that kept showing up. That becomes a preference document you can paste into future sessions.</p>
-          </article>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Macronutrient ratios, carb loading, protein timing, recovery nutrition.</p>
+          </div>
+          <div class="tab-panel" data-tab-panel="cardiologist">
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.">Copy</button>
+              </div>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.</p>
+            </div>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Reducing saturated fats, Mediterranean diet, sodium intake, inflammation, clinical evidence.</p>
+          </div>
+          <div class="tab-panel" data-tab-panel="influencer">
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.">Copy</button>
+              </div>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.</p>
+            </div>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Trending approaches, before/after framing, accessible language, quick visible results.</p>
+          </div>
+          <div class="tab-panel" data-tab-panel="brewery">
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.">Copy</button>
+              </div>
+              <p class="prompt-text">Base question: What is the best diet?
+Persona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.</p>
+            </div>
+            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Consumer behavior, market trends, calorie-conscious drinking, product positioning.</p>
+          </div>
         </div>
+
+        <div class="callout gold" style="margin-top:18px;">
+          <h4>Same question, four personas</h4>
+          <p>The document's point is that persona changes what the AI understands the question to actually be. The same question can produce four completely different answers.</p>
+        </div>
+        <div class="callout neutral" style="margin-top:18px;">
+          <h4>What goes into a good prompt</h4>
+          <ul>
+            <li>What do you want the AI to do?</li>
+            <li>Who is it for?</li>
+            <li>What format do you want?</li>
+            <li>What tone is right?</li>
+            <li>What should it avoid?</li>
+          </ul>
+          <p>A persona is simply a starting point you define before you ask anything. A basic persona answers three things: who you are, where you are, and what you are trying to do.</p>
+        </div>
+      </div>
+    </section>
+
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Conclusion & Reflections</h2>
+        <p>Take a moment to reflect — it's what makes the learning stick.</p>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+        <ul class="list">
+          <li>AI starts from zero every session — your context is its only starting point.</li>
+          <li>A vague prompt gets a vague answer. Role, situation, and goal are the minimum.</li>
+          <li>Most good outputs come from iteration, not one perfect prompt.</li>
+        </ul>
+      </article>
+
+      <article class="card soft">
+        <span class="eyebrow-chip chip-brand">Reflection</span>
+        <ul class="list">
+          <li>What was the first thing you changed about the bad text? What does that tell you about what you value in writing?</li>
+          <li>What prompt got you the closest to what you actually wanted? Why do you think it worked?</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout brand" style="margin-top: 18px;">
+      <h4>Supplemental reading</h4>
+      <ul>
+        <li><a href="https://ai.meta.com/learn/how-to-write-effective-ai-prompts-tips-and-examples">How to Write Effective AI Prompts — ai.meta.com</a></li>
+        <li><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview">Prompt Engineering Overview — docs.anthropic.com</a></li>
+      </ul>
+    </div>
 
         <div class="page-nav">
           <a class="button secondary" href="section-2.html">Previous: Bias</a>

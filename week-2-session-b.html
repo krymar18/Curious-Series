@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curious AI Series | Copilot Search</title>
+  <title>Curious AI Series | Week 1 Homework</title>
   <link rel="stylesheet" href="assets/styles.css">
   <script defer src="assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
 <body>
   <header class="topbar">
@@ -14,7 +15,7 @@
         <div class="brand-mark">AI</div>
         <div class="brand-copy">
           <div class="brand-title">Curious AI Series</div>
-          <div class="brand-subtitle">Curious Beginners • Session 1</div>
+          <div class="brand-subtitle">Curious Beginners • Week 1 Homework</div>
         </div>
       </div>
       <nav class="nav" aria-label="Primary">
@@ -23,7 +24,7 @@
         <a href="section-2.html" data-nav-link>Bias</a>
         <a href="section-3.html" data-nav-link>Context</a>
         <a href="week-2-session-a.html" data-nav-link>LLM Basics</a>
-        <a href="week-2-session-b.html" data-nav-link>Copilot Search</a>
+        <a href="week-2-session-b.html" data-nav-link>Homework</a>
       </nav>
     </div>
   </header>
@@ -33,148 +34,281 @@
       <div class="shell">
         <div class="hero-card">
           <div class="hero-inner">
-            <div class="eyebrow">Curious Beginners • Session 1</div>
-            <h1 class="title">LLM Predicting vs. LLM Searching</h1>
-            <p class="lede">This session explains what changes when an LLM is answering from training data versus actively searching, then ties it to how Copilot behaves across different Microsoft surfaces.</p>
+            <div class="eyebrow">Curious Beginners • Week 1</div>
+            <h1 class="title">Week 1 Homework</h1>
+            <p class="lede">Complete before Session 2. Four parts — three with deliverables, one optional. Bring at least one question from Part 3.</p>
           </div>
         </div>
       </div>
     </section>
 
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">This week</span>
+            <p>You'll configure Copilot to behave like a working partner, practice giving AI feedback on writing, and explore AI on real tasks from your own work.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Before you start</span>
+            <p>All deliverables go to your Auzmore profile. If you hit issues with Copilot access or the instructions field, flag it before Session 2 — don't wait.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 1 -->
     <section class="section">
       <div class="shell">
         <div class="section-head">
           <div>
-            <h2>Predicting vs. searching</h2>
-            <p>The document shows that the answer can look the same either way, but reliability depends on whether a tool ran first.</p>
+            <h2>Part 1 — Setting Up Your Copilot Profile</h2>
+            <p>Configure Copilot to behave like a working partner rather than a yes-machine — one that asks questions, flags weak prompts, and routes tasks to search when appropriate.</p>
           </div>
         </div>
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Aspect</th>
-                <th>Predicting from training data</th>
-                <th>Searching</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>What triggers it</td><td>Any answer the model gives without a tool</td><td>A web search, SharePoint index, or database query runs first</td></tr>
-              <tr><td>Knowledge cutoff</td><td>Hard cutoff, typically months behind the current date</td><td>No cutoff; retrieves current information at query time</td></tr>
-              <tr><td>How current it is</td><td>Could be years stale</td><td>As current as the search index allows</td></tr>
-              <tr><td>What “I found” means</td><td>I predicted this from patterns in training data</td><td>I retrieved this from a live source just now</td></tr>
-              <tr><td>Reliability on recent events</td><td>Low</td><td>High if the source is reliable</td></tr>
-              <tr><td>How to identify it</td><td>No citations, no source section, no visible search action</td><td>Citations, source URLs, or a visible search action</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>How to know which mode is active in Copilot</h2>
-            <p>The document compares Copilot surfaces so users understand when search is active by default and when it is not.</p>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Copilot surface</th>
-                <th>Web search active by default?</th>
-                <th>What it can access</th>
-                <th>What it cannot access</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Copilot Chat</td><td>Yes</td><td>Web results plus M365 data</td><td>Data outside the tenant and anything requiring authentication</td></tr>
-              <tr><td>Copilot in Word</td><td>No</td><td>The open document plus training data</td><td>The web, SharePoint, or other files unless referenced</td></tr>
-              <tr><td>Copilot in Excel</td><td>No</td><td>The open workbook and code interpreter for calculations</td><td>External data sources unless connected another way</td></tr>
-              <tr><td>Copilot in Outlook</td><td>No</td><td>Your inbox, calendar, and training data</td><td>External information unless in your email history</td></tr>
-              <tr><td>Copilot in Teams</td><td>No</td><td>Meeting transcript, chat history, and training data</td><td>The web or files not shared in the meeting or chat</td></tr>
-              <tr><td>Copilot Chat with web toggle off</td><td>No</td><td>M365 data plus training data</td><td>Anything current or external</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="callout danger" style="margin-top:18px;">
-          <h4>Practical implication</h4>
-          <p>When you use Copilot in Word to write about a regulation, a competitor, or a recent industry development, it is generating from training data, not searching for current information. It may sound like it knows even when it does not.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
         <details open>
-          <summary>Telling the difference mid-conversation</summary>
+          <summary>Purpose</summary>
           <div class="details-body">
-            <p>Signs it is predicting: no citations, no source section, no visible search action, immediate and fluent output.</p>
-            <p>Signs it is searching: a searching indicator, citations or source URLs, and a bit more latency.</p>
-            <p>If in doubt, ask whether the answer came from live search, your documents, or training data.</p>
-            <div class="prompt-box">
+            <p>You'll use this configuration for the week and refine it after Session 2. The goal is to stop using Copilot as a search box and start using it as something that pushes back on you.</p>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Steps</summary>
+          <div class="details-body">
+            <ul class="list">
+              <li>Open Copilot and navigate to your personal instructions field.</li>
+              <li><a href="https://placeholder.link/scribe-copilot">Scribe: How to add custom instructions in Copilot</a></li>
+              <li>Paste the system prompt below and save.</li>
+              <li>Use Copilot on real work tasks as much as possible this week.</li>
+              <li>When it pushes back or asks a clarifying question, engage with it rather than overriding it.</li>
+            </ul>
+
+            <div class="prompt-box" style="margin-top: 20px;">
               <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="For the answer you just gave me — did that come from a live search, from my documents, or from your training data? Be specific about each part.">Copy</button>
+                <div class="prompt-box-label">System prompt — paste into Copilot instructions</div>
+                <button class="copy-button" type="button" data-copy-text="## Tone and style
+Be direct and concise. Answer only what was asked. Never add praise, encouragement, or unsolicited opinions. No filler phrases. No emojis. If the user says &quot;just do it&quot; or &quot;skip the questions,&quot; drop all scaffolding.
+
+## Honesty about limitations
+You are a language model — you predict likely text based on patterns and can be confidently wrong. If a request requires current or verifiable info: &quot;I don't have reliable knowledge of this. Searching now.&quot; Then search.
+
+## Task routing
+If a request is better served by a search engine, say so: &quot;This is a better fit for search. Try: [suggested query].&quot; Explain why AI is the wrong tool.
+
+## Clarifying questions
+If context is missing that would meaningfully change the answer, ask one focused clarifying question before responding. Ask only one.
+
+## Reframing weak requests
+If a request could be reframed to play to AI's strengths, answer the original briefly, then add: &quot;A more effective version of this task for AI would be: [reframe]. Want me to run that instead?&quot;
+
+## Drafting and structured output
+For any substantive written output, ask: &quot;Bullet points first or straight to a draft?&quot; Skip for short or simple outputs.
+
+## Prompt improvement
+If the prompt was vague or underspecified, add after your response: &quot;A stronger prompt would have been: [rewrite].&quot; Skip if already precise.
+
+## Show your reasoning briefly
+When you make a significant structural choice, name why in one sentence.
+
+## No unsolicited evaluation
+Do not volunteer opinions about anything the user did not ask you to evaluate.
+
+## Challenge assumptions
+If a request rests on a flawed premise, name it plainly before answering.">Copy</button>
               </div>
-              <p class="prompt-text">For the answer you just gave me — did that come from a live search, from my documents, or from your training data? Be specific about each part.</p>
+              <pre class="prompt-text" style="white-space: pre-wrap; font-size: 13px; line-height: 1.6;">## Tone and style
+Be direct and concise. Answer only what was asked. Never add praise, encouragement, or unsolicited opinions. No filler phrases. No emojis. If the user says "just do it" or "skip the questions," drop all scaffolding.
+
+## Honesty about limitations
+You are a language model — you predict likely text based on patterns and can be confidently wrong. If a request requires current or verifiable info: "I don't have reliable knowledge of this. Searching now." Then search.
+
+## Task routing
+If a request is better served by a search engine, say so: "This is a better fit for search. Try: [suggested query]." Explain why AI is the wrong tool.
+
+## Clarifying questions
+If context is missing that would meaningfully change the answer, ask one focused clarifying question before responding. Ask only one.
+
+## Reframing weak requests
+If a request could be reframed to play to AI's strengths, answer the original briefly, then add: "A more effective version of this task for AI would be: [reframe]. Want me to run that instead?"
+
+## Drafting and structured output
+For any substantive written output, ask: "Bullet points first or straight to a draft?" Skip for short or simple outputs.
+
+## Prompt improvement
+If the prompt was vague or underspecified, add after your response: "A stronger prompt would have been: [rewrite]." Skip if already precise.
+
+## Show your reasoning briefly
+When you make a significant structural choice, name why in one sentence.
+
+## No unsolicited evaluation
+Do not volunteer opinions about anything the user did not ask you to evaluate.
+
+## Challenge assumptions
+If a request rests on a flawed premise, name it plainly before answering.</pre>
+            </div>
+
+            <div class="callout neutral" style="margin-top: 18px;">
+              <h4>Note</h4>
+              <p>This prompt is a starting point, not a finished config. Pay attention to what feels useful and what feels annoying — after Session 2, you'll adjust it to fit how you actually work.</p>
+            </div>
+          </div>
+        </details>
+
+        <article class="card" style="margin-top: 18px;">
+          <span class="eyebrow-chip chip-success">Deliverable</span>
+          <p>Screenshot of your Copilot instructions field — upload to your Auzmore profile.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Part 2 — The Rewrite Exercise</h2>
+            <p>Practice giving AI specific feedback on writing. Work with Copilot to rewrite the passage below until you're satisfied, then run the retrieval prompt to generate a personal writing preferences document.</p>
+          </div>
+        </div>
+
+        <details open>
+          <summary>The text to rewrite</summary>
+          <div class="details-body">
+            <div class="callout neutral">
+              <p style="font-style: italic;">"In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals."</p>
             </div>
           </div>
         </details>
 
         <details>
-          <summary>A practical decision rule</summary>
+          <summary>Feedback best practices</summary>
           <div class="details-body">
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Type of question</th>
-                    <th>Needs current info?</th>
-                    <th>Use predicting mode?</th>
-                    <th>Use search mode?</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>How to write a clearer executive summary</td><td>No</td><td>Yes</td><td>Not necessary</td></tr>
-                  <tr><td>Current LUR windows for a specific station</td><td>Yes</td><td>Risky</td><td>Required, then verify</td></tr>
-                  <tr><td>Summarize this contract clause</td><td>No, if you provided the doc</td><td>Yes</td><td>Not needed</td></tr>
-                  <tr><td>Competitor's current pricing</td><td>Yes</td><td>Risky</td><td>Required, then verify</td></tr>
-                  <tr><td>Draft talking points from a meeting recap</td><td>No, if you provided context</td><td>Yes</td><td>Not needed</td></tr>
-                  <tr><td>What changed in FCC political advertising rules in 2026</td><td>Yes</td><td>Risky</td><td>Required and verify primary source</td></tr>
-                  <tr><td>Brainstorm campaign angles for Q4</td><td>No</td><td>Yes</td><td>Not necessary</td></tr>
-                </tbody>
-              </table>
+            <div class="grid two">
+              <article class="card soft">
+                <span class="eyebrow-chip chip-success">Do this</span>
+                <ul class="list">
+                  <li>Tell it who the reader is.</li>
+                  <li>Say what the text is actually supposed to mean.</li>
+                  <li>Give an example of writing you like.</li>
+                  <li>Name exactly what you hate about it.</li>
+                  <li>Give a word count or length constraint.</li>
+                  <li>Ask it to cut anything that doesn't earn its place.</li>
+                  <li>Ask it to try a completely different approach.</li>
+                </ul>
+              </article>
+              <article class="card soft">
+                <span class="eyebrow-chip chip-gold">Avoid this</span>
+                <ul class="list">
+                  <li>"Make it better" — too vague.</li>
+                  <li>"Improve the tone" without saying what tone.</li>
+                  <li>Accepting the first output without pushing.</li>
+                  <li>"Polish it" when you mean "rewrite it."</li>
+                  <li>Opening a new chat instead of iterating.</li>
+                  <li>Positive feedback without saying what worked.</li>
+                </ul>
+              </article>
             </div>
           </div>
         </details>
 
-        <div class="grid two" style="margin-top:18px;">
-          <article class="card soft">
-            <span class="eyebrow-chip chip-success">Activity</span>
-            <p>Run a predict-versus-search challenge with the same set of questions in Copilot Chat, once with web search on and once with it off. For factual questions, the difference is often visible; for synthesis and drafting, it usually is not.</p>
-          </article>
-          <article class="card">
-            <span class="eyebrow-chip chip-brand">Reflection</span>
-            <ul class="list">
-              <li>Are you usually asking for current information or synthesis and structure?</li>
-              <li>Did the Office app behavior change how you will use Copilot?</li>
-              <li>What task in your role should move to search mode?</li>
-            </ul>
-          </article>
+        <details>
+          <summary>Retrieval prompt — run this when you're done</summary>
+          <div class="details-body">
+            <p>Paste this into Copilot at the end of your rewrite conversation to generate a reusable writing preferences document.</p>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.">Copy</button>
+              </div>
+              <p class="prompt-text">Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.</p>
+            </div>
+            <p style="margin-top: 14px;">Save the output — a short writing preferences document. You'll use it in Session 2.</p>
+            <div class="callout neutral" style="margin-top: 14px;">
+              <h4>Optional</h4>
+              <p>Use the writing constraints template to structure your preferences document further: <a href="https://placeholder.link/writing-template">Writing constraints template</a>.</p>
+            </div>
+          </div>
+        </details>
+
+        <article class="card" style="margin-top: 18px;">
+          <span class="eyebrow-chip chip-success">Deliverable</span>
+          <p>Export of your rewrite conversation and the writing preferences document — upload to your Auzmore profile. Your trainer will review the conversation and note patterns in how you gave feedback.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Part 3 — Explore on Your Own</h2>
+            <p>Use AI on real tasks outside the session. The goal is hands-on experience and a list of questions for Session 2.</p>
+          </div>
         </div>
 
+        <details open>
+          <summary>What to try</summary>
+          <div class="details-body">
+            <ul class="list">
+              <li>Try at least one task from a part of your job you haven't used AI on yet.</li>
+              <li>Notice when results are better or worse than expected.</li>
+              <li>Write down anything confusing or unexpected — bring those as questions.</li>
+            </ul>
+            <div class="callout neutral" style="margin-top: 14px;">
+              <h4>Note</h4>
+              <p>We'll open Session 2 with questions from this week. Anything we can't cover will get a written reply.</p>
+            </div>
+          </div>
+        </details>
+
+        <article class="card soft" style="margin-top: 18px;">
+          <span class="eyebrow-chip chip-brand">Deliverable</span>
+          <p>None — but come with at least one question. All questions submitted after Session 2 will receive a written reply.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PART 4 -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Part 4 — Workbook Review <span style="font-weight: 400; font-size: 0.85em; color: var(--muted);">(optional)</span></h2>
+            <p>The session covered a fraction of the Week 1 workbook. The rest is there if you want more depth on any topic.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>What to do</summary>
+          <div class="details-body">
+            <ul class="list">
+              <li>Review the Session 1 workbook sections — more detail on hallucinations, bias, prompting, and context.</li>
+              <li>The material reads differently after a week of hands-on use.</li>
+              <li>Each section has reflection questions and supplemental readings if you want to go further.</li>
+            </ul>
+          </div>
+        </details>
+
+        <article class="card soft" style="margin-top: 18px;">
+          <span class="eyebrow-chip chip-brand">Deliverable</span>
+          <p>None.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- NAV -->
+    <section class="section">
+      <div class="shell">
         <div class="page-nav">
-          <a class="button secondary" href="week-2-session-a.html">Previous: LLM Basics</a>
-          <a class="button primary" href="index.html">Back to overview</a>
+          <a class="button secondary" href="section-1.html">Back to Session 1</a>
+          <a class="button primary" href="section-2.html">Next: Bias</a>
         </div>
       </div>
     </section>
+
   </main>
 </body>
 </html>

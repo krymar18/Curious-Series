@@ -183,6 +183,14 @@ function initActivityWidget() {
   mockAiBtn.addEventListener('click', function() { setMock('AI'); });
   mockWrongBtn.addEventListener('click', function() { setMock('Wrong'); });
   copyBtn.addEventListener('click', copyResult);
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      taskInput.value = '';
+      selectType(null);
+      document.getElementById('result-wrap').className = 'result-wrap';
+      checkReady();
+    });
+  }
 }
 
 initActivityWidget();

@@ -69,7 +69,7 @@
 
 
 
-    <details open>
+    <details>
       <summary>AI Starts From Zero</summary>
       <div class="details-body">
         <div class="pull-quote">
@@ -169,7 +169,7 @@
           </div>
         </div>
 
-        <details open>
+        <details>
           <summary>Group 1 — How much guidance you give the AI</summary>
           <div class="details-body">
             <ul>
@@ -374,115 +374,6 @@
   </div>
 </section>
 
-
-    <section class="section">
-      <div class="shell">
-        <div class="grid two">
-          <article class="card">
-            <span class="eyebrow-chip chip-success">How to choose</span>
-            <ol class="list">
-              <li>How defined is the output? Use direct instruction or few-shot if you know exactly what you want.</li>
-              <li>How complex is the task? Use prompt chaining or task decomposition for multi-part work.</li>
-              <li>How much do you trust the first output? Add a checkpoint for high-stakes work.</li>
-            </ol>
-            <p class="muted" style="margin-top:12px;">The document also notes that strategies stack: a persona sets the frame, direct instruction defines the task, and negative prompting removes what you do not want.</p>
-          </article>
-          <article class="callout brand">
-            <h4>Locking in what works</h4>
-            <p>Once a conversation is producing the right kind of output, ask the AI to review the conversation, identify the corrections and preferences you gave it, and rewrite them into a reusable prompt or persona.</p>
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable prompt or persona that I could paste at the start of a future conversation to get to this quality of output immediately.">Copy</button>
-              </div>
-              <p class="prompt-text">Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable prompt or persona that I could paste at the start of a future conversation to get to this quality of output immediately.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Giving AI a persona</h2>
-            <p>The document frames persona as a starting point defined before you ask anything: who you are, where you are, and what you are trying to do.</p>
-          </div>
-        </div>
-
-        <div class="card tabs" data-tabs>
-          <div class="tab-list" role="tablist" aria-label="Persona examples">
-            <button class="tab-button" type="button" data-tab-button="athlete" aria-selected="true">Nutritionist</button>
-            <button class="tab-button" type="button" data-tab-button="cardiologist" aria-selected="false">Cardiologist</button>
-            <button class="tab-button" type="button" data-tab-button="influencer" aria-selected="false">Wellness influencer</button>
-            <button class="tab-button" type="button" data-tab-button="brewery" aria-selected="false">Craft brewery CEO</button>
-          </div>
-
-          <div class="tab-panel active" data-tab-panel="athlete">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are a nutritionist working with elite competitive athletes. Goal: maximize performance, endurance, and recovery.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Macronutrient ratios, carb loading, protein timing, recovery nutrition.</p>
-          </div>
-          <div class="tab-panel" data-tab-panel="cardiologist">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are a cardiologist advising a patient with high cholesterol and early signs of heart disease.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Reducing saturated fats, Mediterranean diet, sodium intake, inflammation, clinical evidence.</p>
-          </div>
-          <div class="tab-panel" data-tab-panel="influencer">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are a wellness influencer creating content for your Instagram audience looking to lose weight before summer.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Trending approaches, before/after framing, accessible language, quick visible results.</p>
-          </div>
-          <div class="tab-panel" data-tab-panel="brewery">
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Base question: What is the best diet?\nPersona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.">Copy</button>
-              </div>
-              <p class="prompt-text">Base question: What is the best diet?
-Persona: You are the CEO of a craft brewery evaluating whether to launch a low-calorie product line.</p>
-            </div>
-            <p style="margin-top:12px;"><strong>AI will talk about:</strong> Consumer behavior, market trends, calorie-conscious drinking, product positioning.</p>
-          </div>
-        </div>
-
-        <div class="callout gold" style="margin-top:18px;">
-          <h4>Same question, four personas</h4>
-          <p>The document's point is that persona changes what the AI understands the question to actually be. The same question can produce four completely different answers.</p>
-        </div>
-        <div class="callout neutral" style="margin-top:18px;">
-          <h4>What goes into a good prompt</h4>
-          <ul>
-            <li>What do you want the AI to do?</li>
-            <li>Who is it for?</li>
-            <li>What format do you want?</li>
-            <li>What tone is right?</li>
-            <li>What should it avoid?</li>
-          </ul>
-          <p>A persona is simply a starting point you define before you ask anything. A basic persona answers three things: who you are, where you are, and what you are trying to do.</p>
-        </div>
-      </div>
-    </section>
 
 
 <section class="section">

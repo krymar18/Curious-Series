@@ -1410,6 +1410,65 @@ tr.dept-hidden { display: none; }
   line-height: 1.6;
 }
 
+/* ── Persona more toggle ─────────────────────────────────────────── */
+
+.persona-more {
+  border: none;
+  background: none;
+  margin-top: 18px;
+}
+
+.persona-more > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--brand);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: opacity 0.15s;
+}
+
+.persona-more > summary:hover {
+  opacity: 0.88;
+}
+
+.persona-more-text {
+  flex: 1;
+}
+
+.persona-more-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.persona-more-arrow::after {
+  content: '↓';
+}
+
+.persona-more[open] > summary .persona-more-arrow::after {
+  content: '↑';
+}
+
+.persona-more[open] > summary {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
 /* ── Prompt constructor exercise ──────────────────────────────────── */
 
 .pc-samples {

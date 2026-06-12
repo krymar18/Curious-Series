@@ -632,7 +632,7 @@ function initPromptConstructor() {
 
 initPromptConstructor();
 
-// ── Department table filter & highlight ──────────────────────────────
+// ── Department table highlights & filter ─────────────────────────
 
 (function initDeptFilters() {
   const HL_COLORS = [
@@ -644,6 +644,8 @@ initPromptConstructor();
     { bg: '#ede8f8', fg: '#6a4ab3' },
   ];
 
+  let activeCloseMenu = null;
+
   for (const table of document.querySelectorAll('table')) {
     const firstTh = table.querySelector('thead th:first-child');
     if (!firstTh || !/^depart/i.test(firstTh.textContent.trim())) continue;
@@ -652,45 +654,43 @@ initPromptConstructor();
     const depts = [...new Set(rows.map(r => r.querySelector('td:first-child')?.textContent.trim()).filter(Boolean))];
     if (!depts.length) continue;
 
+    // Stable color per department, by first-appearance order
+    const deptColors = new Map();
+    depts.forEach((dept, i) => deptColors.set(dept, i % HL_COLORS.length));
+
     const wrap = table.closest('.table-wrap') || table;
 
-    // Build UI
-    const bar = document.createElement('div');
-    bar.className = 'dept-filter-bar';
+    // "Apply highlights" checkbox bar
+    const hlBar = document.createElement('div');
+    hlBar.className = 'dept-hl-bar';
+    const hlLabel = document.createElement('label');
+    hlLabel.className = 'dept-hl-toggle';
+    const hlCb = document.createElement('input');
+    hlCb.type = 'checkbox';
+    hlCb.checked = true;
+    hlLabel.appendChild(hlCb);
+    hlLabel.appendChild(Object.assign(document.createElement('span'), { textContent: 'Apply highlights' }));
+    hlBar.appendChild(hlLabel);
+    wrap.before(hlBar);
 
-    // Controls row
-    const controls = document.createElement('div');
-    controls.className = 'dept-filter-controls';
+    // Filter icon button inside the Department th
+    const thText = firstTh.textContent.trim();
+    firstTh.textContent = '';
+    const thWrap = document.createElement('div');
+    thWrap.className = 'dept-th-wrap';
+    thWrap.appendChild(Object.assign(document.createElement('span'), { textContent: thText }));
+    const filterBtn = document.createElement('button');
+    filterBtn.className = 'dept-filter-th-btn';
+    filterBtn.type = 'button';
+    filterBtn.setAttribute('aria-label', 'Filter by department');
+    filterBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M1.5 2h13a.5.5 0 0 1 .354.854L9.5 8.207V14a.5.5 0 0 1-.724.447l-3-1.5A.5.5 0 0 1 5.5 12.5V8.207L1.146 2.854A.5.5 0 0 1 1.5 2z"/></svg>';
+    thWrap.appendChild(filterBtn);
+    firstTh.appendChild(thWrap);
 
-    // Mode toggle
-    const modeGroup = document.createElement('div');
-    modeGroup.className = 'dept-filter-mode';
-    const btnFilter = document.createElement('button');
-    btnFilter.className = 'toggle-btn active';
-    btnFilter.textContent = 'Filter rows';
-    btnFilter.type = 'button';
-    const btnHighlight = document.createElement('button');
-    btnHighlight.className = 'toggle-btn';
-    btnHighlight.textContent = 'Highlight';
-    btnHighlight.type = 'button';
-    modeGroup.appendChild(btnFilter);
-    modeGroup.appendChild(btnHighlight);
-
-    // Dropdown
-    const ddWrap = document.createElement('div');
-    ddWrap.className = 'dept-filter-dropdown';
-    const trigger = document.createElement('button');
-    trigger.className = 'dept-filter-trigger';
-    trigger.type = 'button';
-    const triggerLabel = document.createElement('span');
-    triggerLabel.textContent = 'All departments';
-    const arrow = document.createElement('span');
-    arrow.className = 'dfdd-arrow';
-    arrow.textContent = '▾';
-    trigger.appendChild(triggerLabel);
-    trigger.appendChild(arrow);
+    // Dropdown menu appended to body, positioned fixed
     const menu = document.createElement('div');
     menu.className = 'dept-filter-menu';
+    document.body.appendChild(menu);
 
     const checkboxes = [];
     for (const dept of depts) {
@@ -698,157 +698,68 @@ initPromptConstructor();
       item.className = 'dept-filter-item';
       const cb = document.createElement('input');
       cb.type = 'checkbox';
-      cb.value = dept;
       const dot = document.createElement('span');
       dot.className = 'dept-filter-dot';
-      const lbl = document.createElement('span');
-      lbl.textContent = dept;
+      dot.style.background = HL_COLORS[deptColors.get(dept)].fg;
       item.appendChild(cb);
       item.appendChild(dot);
-      item.appendChild(lbl);
+      item.appendChild(Object.assign(document.createElement('span'), { textContent: dept }));
       menu.appendChild(item);
-      checkboxes.push({ cb, dot, dept });
+      checkboxes.push({ cb, dept });
     }
 
-    ddWrap.appendChild(trigger);
-    ddWrap.appendChild(menu);
-    controls.appendChild(modeGroup);
-    controls.appendChild(ddWrap);
+    let highlightOn = true;
 
-    // Legend
-    const legend = document.createElement('div');
-    legend.className = 'dept-filter-legend';
-    legend.hidden = true;
-
-    bar.appendChild(controls);
-    bar.appendChild(legend);
-    wrap.before(bar);
-
-    // State
-    let mode = 'filter'; // 'filter' | 'highlight'
-    // Maps dept name → highlight slot index (in order of selection)
-    const hlMap = new Map();
-
-    function getSelected() {
+    function getSelectedDepts() {
       return checkboxes.filter(c => c.cb.checked).map(c => c.dept);
     }
 
-    function updateTriggerLabel() {
-      const sel = getSelected();
-      triggerLabel.textContent = sel.length === 0 ? 'All departments' : `${sel.length} selected`;
-    }
-
-    function applyFilter() {
-      const sel = getSelected();
+    function applyState() {
+      const selected = getSelectedDepts();
       for (const row of rows) {
         const dept = row.querySelector('td:first-child')?.textContent.trim();
-        row.classList.toggle('dept-hidden', sel.length > 0 && !sel.includes(dept));
-        // Remove any highlight classes
+        const hidden = selected.length > 0 && !selected.includes(dept);
+        row.classList.toggle('dept-hidden', hidden);
         for (let i = 0; i < HL_COLORS.length; i++) row.classList.remove('dept-hl-' + i);
-      }
-      legend.hidden = true;
-    }
-
-    function applyHighlight() {
-      // Rebuild hlMap from current checked order
-      const sel = getSelected();
-      // Assign slots in stable order (order boxes are checked)
-      // hlMap already tracks order; prune removed items
-      for (const [d] of hlMap) {
-        if (!sel.includes(d)) hlMap.delete(d);
-      }
-      for (const d of sel) {
-        if (!hlMap.has(d)) hlMap.set(d, hlMap.size % HL_COLORS.length);
-      }
-      // Re-normalise slot indices to fill gaps
-      let slot = 0;
-      for (const [d] of hlMap) { hlMap.set(d, slot++ % HL_COLORS.length); }
-
-      for (const row of rows) {
-        const dept = row.querySelector('td:first-child')?.textContent.trim();
-        for (let i = 0; i < HL_COLORS.length; i++) row.classList.remove('dept-hl-' + i);
-        row.classList.remove('dept-hidden');
-        if (hlMap.has(dept)) {
-          row.classList.add('dept-hl-' + hlMap.get(dept));
+        if (!hidden && highlightOn && deptColors.has(dept)) {
+          row.classList.add('dept-hl-' + deptColors.get(dept));
         }
       }
-
-      // Legend
-      legend.innerHTML = '';
-      if (hlMap.size) {
-        legend.hidden = false;
-        for (const [d, s] of hlMap) {
-          const chip = document.createElement('span');
-          chip.className = 'dept-hl-chip';
-          chip.style.background = HL_COLORS[s].bg;
-          chip.style.borderColor = HL_COLORS[s].fg;
-          chip.style.color = HL_COLORS[s].fg;
-          chip.textContent = d;
-          legend.appendChild(chip);
-        }
-      } else {
-        legend.hidden = true;
-      }
+      filterBtn.classList.toggle('active', selected.length > 0);
     }
 
-    function updateDots() {
-      for (const { cb, dot, dept } of checkboxes) {
-        if (mode === 'highlight') {
-          dot.style.display = 'inline-block';
-          const s = hlMap.get(dept);
-          if (s !== undefined) {
-            dot.style.background = HL_COLORS[s].fg;
-          } else {
-            dot.style.background = cb.checked ? HL_COLORS[hlMap.size % HL_COLORS.length].fg : 'transparent';
-            dot.style.border = '1.5px solid var(--border)';
-          }
-          dot.style.border = s !== undefined ? 'none' : '1.5px solid var(--border)';
-        } else {
-          dot.style.display = 'none';
-        }
-      }
+    applyState();
+
+    hlCb.addEventListener('change', () => { highlightOn = hlCb.checked; applyState(); });
+
+    function closeMenu() {
+      menu.classList.remove('open');
+      filterBtn.classList.remove('open');
+      if (activeCloseMenu === closeMenu) activeCloseMenu = null;
     }
 
-    function applyMode() {
-      if (mode === 'filter') applyFilter();
-      else applyHighlight();
-      updateDots();
-      updateTriggerLabel();
+    function openMenu() {
+      if (activeCloseMenu) activeCloseMenu();
+      const rect = filterBtn.getBoundingClientRect();
+      menu.style.top = (rect.bottom + 4) + 'px';
+      menu.style.left = rect.left + 'px';
+      menu.classList.add('open');
+      filterBtn.classList.add('open');
+      activeCloseMenu = closeMenu;
     }
 
-    // Dropdown open/close
-    trigger.addEventListener('click', () => {
-      const isOpen = menu.classList.toggle('open');
-      trigger.classList.toggle('open', isOpen);
+    filterBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      menu.classList.contains('open') ? closeMenu() : openMenu();
     });
 
-    document.addEventListener('click', (e) => {
-      if (!ddWrap.contains(e.target)) {
-        menu.classList.remove('open');
-        trigger.classList.remove('open');
-      }
+    document.addEventListener('click', e => {
+      if (activeCloseMenu === closeMenu && !menu.contains(e.target)) closeMenu();
     });
 
-    // Checkbox changes
     for (const { cb } of checkboxes) {
-      cb.addEventListener('change', () => applyMode());
+      cb.addEventListener('change', () => applyState());
     }
-
-    // Mode buttons
-    btnFilter.addEventListener('click', () => {
-      mode = 'filter';
-      btnFilter.classList.add('active');
-      btnHighlight.classList.remove('active');
-      hlMap.clear();
-      applyMode();
-    });
-
-    btnHighlight.addEventListener('click', () => {
-      mode = 'highlight';
-      btnHighlight.classList.add('active');
-      btnFilter.classList.remove('active');
-      applyMode();
-    });
   }
 })();
 

@@ -851,3 +851,90 @@ initPromptConstructor();
     });
   }
 })();
+
+// Section navigation sidebar
+(function () {
+  const headings = Array.from(document.querySelectorAll('main h2'));
+  if (headings.length < 2) return;
+
+  // Assign IDs to any heading that lacks one, avoiding collisions
+  const usedIds = new Set(Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+  headings.forEach((h, i) => {
+    if (!h.id) {
+      const base = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'section';
+      let id = base;
+      let n = 2;
+      while (usedIds.has(id)) { id = base + '-' + n++; }
+      h.id = id;
+      usedIds.add(id);
+    }
+  });
+
+  // Build nav
+  const nav = document.createElement('nav');
+  nav.className = 'section-nav';
+  nav.setAttribute('aria-label', 'Page sections');
+  nav.style.display = 'none';
+
+  const ul = document.createElement('ul');
+  ul.className = 'section-nav-list';
+
+  const items = headings.map(h => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.className = 'section-nav-item';
+    a.textContent = h.textContent.trim();
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    li.appendChild(a);
+    ul.appendChild(li);
+    return { a, h };
+  });
+
+  nav.appendChild(ul);
+  document.body.appendChild(nav);
+
+  // Show/hide and position based on available left margin
+  const SIDEBAR_W = 140;
+  const MIN_GAP = 12;
+
+  function reposition() {
+    const shell = document.querySelector('main .shell') || document.querySelector('.shell');
+    if (!shell) return;
+    const availLeft = shell.getBoundingClientRect().left;
+    if (availLeft >= SIDEBAR_W + MIN_GAP) {
+      nav.style.display = '';
+      nav.style.left = Math.floor(availLeft - SIDEBAR_W - MIN_GAP) + 'px';
+    } else {
+      nav.style.display = 'none';
+    }
+  }
+
+  reposition();
+  window.addEventListener('resize', reposition);
+
+  // Active section tracking by scroll position
+  let activeId = null;
+
+  function updateActive() {
+    const threshold = window.scrollY + 130;
+    let current = headings[0].id;
+    for (const h of headings) {
+      if (h.getBoundingClientRect().top + window.scrollY <= threshold) {
+        current = h.id;
+      }
+    }
+    if (current !== activeId) {
+      activeId = current;
+      for (const { a, h } of items) {
+        a.classList.toggle('active', h.id === activeId);
+      }
+    }
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();

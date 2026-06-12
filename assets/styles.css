@@ -1820,3 +1820,59 @@ tr.dept-hidden { display: none; }
 @media (max-width: 640px) {
   .pc-feedback-fields { grid-template-columns: 1fr; }
 }
+
+/* ── Section navigation sidebar ── */
+.section-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.section-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.section-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.section-nav-item {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--muted);
+  text-align: right;
+  padding: 5px 10px 5px 4px;
+  border-right: 2px solid rgba(221, 212, 199, 0.5);
+  max-width: 130px;
+  word-break: break-word;
+  cursor: pointer;
+  opacity: 0.6;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.section-nav-item:hover {
+  color: var(--body);
+  border-right-color: var(--border);
+  opacity: 1;
+}
+
+.section-nav-item.active {
+  color: var(--brand);
+  border-right-color: var(--brand);
+  font-weight: 600;
+  opacity: 1;
+}

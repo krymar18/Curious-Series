@@ -350,6 +350,288 @@ function initPersonaGuessActivity() {
 
 initPersonaGuessActivity();
 
+// ── Prompt constructor exercise ──────────────────────────────────────
+
+function initPromptConstructor() {
+  const activity = document.getElementById('prompt-constructor');
+  if (!activity) return;
+
+  const FLOW_URL = 'https://YOUR-POWER-AUTOMATE-URL-HERE';
+
+  const PC_SAMPLES = {
+    traffic: {
+      role: 'You are a senior traffic coordinator at a cable TV network with expertise in political advertising compliance and makegood processing.',
+      context: 'I need to draft a makegood offer for a US Senate campaign whose :30 spot was preempted last night due to breaking news. The original order was primetime on a cable news network. The client is in the final two weeks of the campaign and is sensitive about last-minute changes.',
+      tasks: [
+        'Draft a makegood offer that includes two alternative placement options, with a one-sentence rationale for each.',
+        'Write a one-sentence explanation of the preemption that is appropriate to send directly to the client.'
+      ],
+      constraints: [
+        'Professional but direct — no filler language.',
+        'Do not include rates or dollar figures.',
+        'Both options must comply with political advertising placement rules.'
+      ]
+    },
+    sales: {
+      role: 'You are a senior cable TV account executive preparing for a client renewal meeting.',
+      context: "I have a renewal meeting tomorrow with a local auto dealer who has been a client for three years. Their annual spend is $180K. They have been asking questions about digital alternatives. I need to walk in with a compelling case for staying on linear TV.",
+      tasks: [
+        'Summarise the three strongest arguments for linear TV over digital for a local auto dealer.',
+        'Draft five talking points I can use when the client raises the "digital is cheaper" objection.'
+      ],
+      constraints: [
+        'Plain language — no media jargon.',
+        'Each talking point one to two sentences maximum.',
+        'Focus on local market reach, not national statistics.'
+      ]
+    },
+    finance: {
+      role: 'You are a senior finance analyst at a media company preparing internal reports for leadership.',
+      context: 'I need to write a variance explanation for a revenue line that came in 12% below budget in Q3. The shortfall was primarily due to cancelled political inventory in two markets. The audience is our CFO and VP of Finance — they want clarity, not excuses.',
+      tasks: [
+        'Write a three-sentence variance explanation: what happened, why, and what the Q4 outlook is.',
+        'Identify two questions the CFO is likely to ask and draft a one-sentence answer to each.'
+      ],
+      constraints: [
+        'Lead with the number, not the context.',
+        'Avoid passive voice.',
+        'Do not use the word "challenging".'
+      ]
+    }
+  };
+
+  const PC_FALLBACK_EVALS = [
+    {
+      role: 'Strong — domain expertise and context are clearly set. This is exactly the kind of role statement that changes the vocabulary and depth of output.',
+      context: 'Well-structured — audience and situation are both present. If you want to go further, note anything that has already been decided or ruled out.',
+      tasks: 'Verb-led and specific. Each operation is discrete and the AI knows exactly what to produce.',
+      constraints: 'Good boundary-setting. A content constraint — what to avoid claiming or including — tends to be where final output quality lives.',
+      overall: 'A high-quality prompt that will produce targeted, usable output on the first try. The main optional refinement: one content constraint would close the loop completely.',
+      score: 'strong'
+    },
+    {
+      role: "A reasonable start. Adding a behavioural tendency — 'who approaches problems by…' or 'who always flags…' — would give the AI a more specific lens.",
+      context: 'The audience is clear. Consider whether situational context is missing — what is at stake, or what has already been tried and rejected.',
+      tasks: 'Specific enough to be actionable. If the output feels too broad, breaking it into two separate operations (analyse then produce) usually sharpens the result.',
+      constraints: 'One constraint is better than none. What is the most predictable way the AI could disappoint you on this output? That is your next constraint.',
+      overall: "A solid working prompt that will produce a competent first draft. One iteration on the role's behavioural trait and one more constraint would get this to first-try quality.",
+      score: 'good'
+    },
+    {
+      role: 'Too generic — this gives the AI very little to calibrate from. Add a specific domain and at least one behavioural trait.',
+      context: 'The AI is missing its most important input: who is this for? Add audience and situation before anything else. Without them, the AI will invent both — usually wrong.',
+      tasks: 'This reads as a topic, not a task. Start with a verb: Summarise, Draft, Evaluate, Identify. What specific operation do you want performed?',
+      constraints: 'No constraints means the AI uses its defaults — usually too long, too formal, too hedged. What would bad output look like here? That is your first constraint.',
+      overall: 'This prompt needs the four ingredients filled in before it will produce consistent output. Start with a specific role, add audience and situation to context, lead each task with a verb, and add one format constraint.',
+      score: 'needs-work'
+    }
+  ];
+
+  let pcTaskCount = 0;
+  let pcConstraintCount = 0;
+
+  const roleTA = document.getElementById('pc-role');
+  const contextTA = document.getElementById('pc-context');
+  const taskList = document.getElementById('pc-task-list');
+  const constraintList = document.getElementById('pc-constraint-list');
+  const outputBox = document.getElementById('pc-output');
+  const generateBtn = document.getElementById('pc-generate');
+  const copyBtn = document.getElementById('pc-copy');
+  const evaluateBtn = document.getElementById('pc-evaluate');
+  const clearBtn = document.getElementById('pc-clear');
+  const feedbackWrap = document.getElementById('pc-feedback-wrap');
+  const feedbackContent = document.getElementById('pc-feedback-content');
+
+  function addRow(list, isTask) {
+    if (isTask) pcTaskCount++; else pcConstraintCount++;
+    const count = isTask ? pcTaskCount : pcConstraintCount;
+    const row = document.createElement('div');
+    row.className = 'pc-row';
+    const num = document.createElement('span');
+    num.className = 'pc-row-num';
+    num.textContent = count;
+    const ta = document.createElement('textarea');
+    ta.rows = 2;
+    ta.placeholder = isTask
+      ? 'e.g. Summarise the top 3 risks with supporting figures…'
+      : 'e.g. No jargon. / Under 200 words. / Bullet points only.';
+    const rm = document.createElement('button');
+    rm.className = 'pc-row-remove';
+    rm.type = 'button';
+    rm.innerHTML = '&times;';
+    rm.title = 'Remove';
+    rm.addEventListener('click', () => {
+      row.remove();
+      list.querySelectorAll('.pc-row-num').forEach((el, i) => { el.textContent = i + 1; });
+    });
+    row.appendChild(num);
+    row.appendChild(ta);
+    row.appendChild(rm);
+    list.appendChild(row);
+    return ta;
+  }
+
+  function getValues(list) {
+    return Array.from(list.querySelectorAll('textarea')).map(t => t.value.trim()).filter(Boolean);
+  }
+
+  function assemblePrompt() {
+    const parts = [];
+    const role = roleTA.value.trim();
+    const ctx = contextTA.value.trim();
+    const tasks = getValues(taskList);
+    const cons = getValues(constraintList);
+    if (role) parts.push('Role\n' + role);
+    if (ctx) parts.push('Context & Background\n' + ctx);
+    if (tasks.length === 1) parts.push('Task\n' + tasks[0]);
+    else if (tasks.length > 1) parts.push('Tasks\n' + tasks.map((t, i) => (i + 1) + '. ' + t).join('\n'));
+    if (cons.length === 1) parts.push('Constraint\n' + cons[0]);
+    else if (cons.length > 1) parts.push('Constraints\n' + cons.map((c, i) => (i + 1) + '. ' + c).join('\n'));
+    return parts.join('\n\n');
+  }
+
+  function renderFeedback(data) {
+    const scoreLabels = { strong: 'Strong prompt', good: 'Good — some refinement possible', 'needs-work': 'Needs work' };
+    const fieldsHTML = [
+      { key: 'role', label: 'Role' },
+      { key: 'context', label: 'Context' },
+      { key: 'tasks', label: 'Tasks' },
+      { key: 'constraints', label: 'Constraints' },
+    ].map(f => `<div class="pc-feedback-field">
+        <div class="pc-feedback-field-label">${f.label}</div>
+        <div class="pc-feedback-field-text">${data[f.key] || '—'}</div>
+      </div>`).join('');
+    const score = data.score || 'good';
+    feedbackContent.innerHTML = `
+      <div class="pc-feedback-fields">${fieldsHTML}</div>
+      <div class="pc-feedback-overall score-${score}">
+        <div class="pc-feedback-overall-label">${scoreLabels[score] || 'Overall'}</div>
+        <div class="pc-feedback-overall-text">${data.overall || ''}</div>
+      </div>`;
+    feedbackWrap.hidden = false;
+    feedbackWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function loadSample(key) {
+    const s = PC_SAMPLES[key];
+    if (!s) return;
+    roleTA.value = s.role;
+    contextTA.value = s.context;
+    taskList.innerHTML = '';
+    pcTaskCount = 0;
+    s.tasks.forEach(t => { const ta = addRow(taskList, true); ta.value = t; });
+    constraintList.innerHTML = '';
+    pcConstraintCount = 0;
+    s.constraints.forEach(c => { const ta = addRow(constraintList, false); ta.value = c; });
+    outputBox.textContent = 'Fill in the fields above and click Generate to assemble your prompt.';
+    outputBox.classList.add('pc-output-empty');
+    copyBtn.style.display = 'none';
+    evaluateBtn.style.display = 'none';
+    feedbackWrap.hidden = true;
+  }
+
+  activity.querySelectorAll('.pc-sample-btn').forEach(btn => {
+    btn.addEventListener('click', () => loadSample(btn.dataset.sample));
+  });
+
+  document.getElementById('pc-add-task').addEventListener('click', () => addRow(taskList, true));
+  document.getElementById('pc-add-constraint').addEventListener('click', () => addRow(constraintList, false));
+
+  generateBtn.addEventListener('click', () => {
+    const prompt = assemblePrompt();
+    if (!prompt.trim()) {
+      outputBox.textContent = 'Add at least a role and one task before generating.';
+      outputBox.classList.add('pc-output-empty');
+      copyBtn.style.display = 'none';
+      evaluateBtn.style.display = 'none';
+      return;
+    }
+    outputBox.textContent = prompt;
+    outputBox.classList.remove('pc-output-empty');
+    copyBtn.style.display = '';
+    evaluateBtn.style.display = '';
+    feedbackWrap.hidden = true;
+  });
+
+  copyBtn.addEventListener('click', async () => {
+    const text = outputBox.textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const el = document.createElement('textarea');
+      el.value = text;
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      el.remove();
+    }
+    const orig = copyBtn.textContent;
+    copyBtn.textContent = 'Copied';
+    copyBtn.classList.add('copied');
+    window.setTimeout(() => {
+      copyBtn.textContent = orig;
+      copyBtn.classList.remove('copied');
+    }, 1400);
+  });
+
+  evaluateBtn.addEventListener('click', async () => {
+    const role = roleTA.value.trim();
+    const context = contextTA.value.trim();
+    const tasks = getValues(taskList);
+    const constraints = getValues(constraintList);
+    if (!role && !context && !tasks.length) return;
+
+    evaluateBtn.disabled = true;
+    feedbackWrap.hidden = false;
+    feedbackContent.innerHTML = '<span class="pc-spinner">Evaluating your prompt…</span>';
+
+    const payload = { role, context, tasks, constraints, combinedPrompt: assemblePrompt() };
+
+    let data = null;
+    try {
+      const response = await fetch(FLOW_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const ct = response.headers.get('content-type') || '';
+      const raw = ct.includes('application/json') ? await response.json() : await response.text();
+      if (raw && typeof raw === 'object' && raw.role && raw.overall) data = raw;
+    } catch (_) {}
+
+    if (!data) {
+      const len = payload.combinedPrompt.length;
+      data = PC_FALLBACK_EVALS[len > 600 ? 0 : len > 280 ? 1 : 2];
+    }
+
+    renderFeedback(data);
+    evaluateBtn.disabled = false;
+  });
+
+  clearBtn.addEventListener('click', () => {
+    roleTA.value = '';
+    contextTA.value = '';
+    taskList.innerHTML = '';
+    pcTaskCount = 0;
+    constraintList.innerHTML = '';
+    pcConstraintCount = 0;
+    addRow(taskList, true);
+    addRow(constraintList, false);
+    outputBox.textContent = 'Fill in the fields above and click Generate to assemble your prompt.';
+    outputBox.classList.add('pc-output-empty');
+    copyBtn.style.display = 'none';
+    evaluateBtn.style.display = 'none';
+    feedbackWrap.hidden = true;
+  });
+
+  addRow(taskList, true);
+  addRow(constraintList, false);
+}
+
+initPromptConstructor();
+
 // ── Department table filter & highlight ──────────────────────────────
 
 (function initDeptFilters() {

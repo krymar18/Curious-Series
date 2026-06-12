@@ -563,6 +563,104 @@ Persona: You are the CEO of a craft brewery evaluating whether to launch a low-c
   <div class="shell">
     <div class="section-head">
       <div>
+        <h2>Practice: Build a Prompt</h2>
+        <p>Apply the four ingredients to a real task. Fill in each field, generate your combined prompt, then evaluate it to get field-by-field feedback.</p>
+      </div>
+    </div>
+
+    <article class="card" id="prompt-constructor">
+      <span class="eyebrow-chip chip-success">Exercise 2</span>
+      <p class="act-title">Prompt Constructor</p>
+      <p class="act-sub">Use a task from your own work — or load one of the samples to explore the format.</p>
+
+      <div class="pc-samples">
+        <span class="pc-samples-label">Load a sample:</span>
+        <button class="pc-sample-btn" type="button" data-sample="traffic">Traffic &amp; Ops</button>
+        <button class="pc-sample-btn" type="button" data-sample="sales">Sales</button>
+        <button class="pc-sample-btn" type="button" data-sample="finance">Finance</button>
+      </div>
+
+      <div class="pc-fields">
+
+        <div class="pc-field">
+          <div class="pc-field-header">
+            <span class="pc-field-label">Role <span class="pc-req">*</span></span>
+            <button class="pc-help-btn" type="button" onclick="this.closest('.pc-field').querySelector('.pc-help-panel').classList.toggle('open')">?</button>
+          </div>
+          <div class="pc-help-panel">
+            <strong>Who is the AI?</strong> Define the expertise, domain, and seniority it should adopt. The more specific the lens, the more calibrated the output.<br><br>
+            <em>Example: "You are a senior cable TV account executive with 10 years in local market sales."</em>
+          </div>
+          <textarea id="pc-role" class="pc-textarea" rows="2" placeholder="e.g. You are a senior data analyst specialising in cable advertising performance…"></textarea>
+        </div>
+
+        <div class="pc-field">
+          <div class="pc-field-header">
+            <span class="pc-field-label">Context &amp; Background <span class="pc-req">*</span></span>
+            <button class="pc-help-btn" type="button" onclick="this.closest('.pc-field').querySelector('.pc-help-panel').classList.toggle('open')">?</button>
+          </div>
+          <div class="pc-help-panel">
+            <strong>What does the AI need to know first?</strong> Audience, situation, prior decisions — anything it cannot infer from the task alone. Think: what would a smart new colleague need on day one?<br><br>
+            <em>Example: "I'm preparing a pacing report for a national auto client whose campaign is 15% behind delivery. The audience is our sales lead, not the client directly."</em>
+          </div>
+          <textarea id="pc-context" class="pc-textarea" rows="3" placeholder="e.g. I'm preparing a Q3 review for a political advertiser. The audience is our internal account team…"></textarea>
+        </div>
+
+        <div class="pc-field">
+          <div class="pc-field-header">
+            <span class="pc-field-label">Tasks <span class="pc-req">*</span></span>
+            <button class="pc-help-btn" type="button" onclick="this.closest('.pc-field').querySelector('.pc-help-panel').classList.toggle('open')">?</button>
+          </div>
+          <div class="pc-help-panel">
+            <strong>What do you want the AI to produce?</strong> Use a specific verb — Summarise, Draft, Evaluate, Identify. One operation per row, in the order they need to happen.<br><br>
+            <em>Row 1: "Summarise the top 3 delivery risks with supporting figures."<br>Row 2: "Draft a 3-sentence client-facing note for each risk."</em>
+          </div>
+          <div id="pc-task-list" class="pc-dynamic-list"></div>
+          <button class="pc-add-btn" type="button" id="pc-add-task">+ Add task</button>
+        </div>
+
+        <div class="pc-field">
+          <div class="pc-field-header">
+            <span class="pc-field-label">Constraints</span>
+            <button class="pc-help-btn" type="button" onclick="this.closest('.pc-field').querySelector('.pc-help-panel').classList.toggle('open')">?</button>
+          </div>
+          <div class="pc-help-panel">
+            <strong>Rules the AI must follow.</strong> Three types: Format (structure, length), Tone (voice, register), Content (what to avoid or not claim). Add each rule as its own row.<br><br>
+            <em>Examples: "No jargon." / "Under 200 words." / "Bullet points only." / "Do not mention competitor names."</em>
+          </div>
+          <div id="pc-constraint-list" class="pc-dynamic-list"></div>
+          <button class="pc-add-btn" type="button" id="pc-add-constraint">+ Add constraint</button>
+        </div>
+
+      </div>
+
+      <div class="pc-output-section">
+        <div class="pc-output-label">Combined prompt</div>
+        <div class="pc-output-box pc-output-empty" id="pc-output">Fill in the fields above and click Generate to assemble your prompt.</div>
+      </div>
+
+      <div class="pc-actions">
+        <button class="button primary" type="button" id="pc-generate">Generate prompt</button>
+        <button class="button secondary" type="button" id="pc-copy" style="display:none;">Copy to clipboard</button>
+        <button class="button primary" type="button" id="pc-evaluate" style="display:none;">Evaluate &rarr;</button>
+        <button class="button secondary" type="button" id="pc-clear">Clear all</button>
+      </div>
+
+      <div id="pc-feedback-wrap" hidden>
+        <hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+        <div class="pc-feedback-heading">Evaluation</div>
+        <div id="pc-feedback-content"></div>
+      </div>
+
+    </article>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
         <h2>Conclusion & Reflections</h2>
         <p>Take a moment to reflect — it's what makes the learning stick.</p>
       </div>

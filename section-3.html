@@ -6,6 +6,192 @@
   <title>Curious AI Series | Working with Context</title>
   <link rel="stylesheet" href="assets/styles.css">
   <script defer src="assets/site.js"></script>
+  <style>
+    /* ── Level filter bar ── */
+    .level-filter-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .level-filter-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .level-filter-btns {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .level-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--bg);
+      color: var(--body);
+      line-height: 1;
+    }
+    .level-btn:hover { transform: translateY(-1px); }
+    .level-btn[data-level="Basic"]    { --btn-col: var(--brand);   --btn-soft: var(--brand-soft); }
+    .level-btn[data-level="Advanced"] { --btn-col: var(--accent);  --btn-soft: var(--accent-soft); }
+    .level-btn[data-level="Pro"]      { --btn-col: var(--success); --btn-soft: var(--success-soft); }
+    .level-btn[aria-pressed="true"] {
+      background: var(--btn-soft);
+      border-color: var(--btn-col);
+      color: var(--btn-col);
+    }
+    .level-btn-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.4;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+    .level-btn[aria-pressed="true"] .level-btn-dot { opacity: 1; }
+    /* Tooltip */
+    .level-btn-tip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.45;
+      padding: 8px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 40;
+    }
+    .level-btn-tip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--text);
+    }
+    .level-btn:hover .level-btn-tip,
+    .level-btn:focus-visible .level-btn-tip { opacity: 1; }
+    /* Clear button */
+    .level-btn-clear {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: none;
+    }
+    .level-btn-clear:hover { border-color: var(--danger); color: var(--danger); transform: translateY(-1px); }
+    /* Info button */
+    .level-filter-info-wrap { position: relative; display: inline-flex; }
+    .level-filter-info-btn {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      transition: all 0.15s;
+      line-height: 1;
+    }
+    .level-filter-info-btn:hover { border-color: var(--brand); color: var(--brand); }
+    .level-filter-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      z-index: 50;
+      min-width: 270px;
+      box-shadow: var(--shadow);
+    }
+    .level-filter-popover strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .level-filter-popover ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .level-filter-popover li { color: var(--body); }
+    /* Level color vars on rows (inherited by badge) */
+    tr[data-level="Basic"]    { --btn-col: var(--brand);   --btn-soft: var(--brand-soft); }
+    tr[data-level="Advanced"] { --btn-col: var(--accent);  --btn-soft: var(--accent-soft); }
+    tr[data-level="Pro"]      { --btn-col: var(--success); --btn-soft: var(--success-soft); }
+    /* Level badge */
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: var(--btn-soft);
+      color: var(--btn-col);
+      white-space: nowrap;
+    }
+    /* Hidden strategy rows/groups */
+    tr[data-level].lf-hidden { display: none; }
+    details[data-strategy-group].lf-hidden { display: none; }
+    /* No-results row */
+    .lf-no-results { font-style: italic; color: var(--muted); font-size: 13px; }
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -160,7 +346,7 @@
     
 
 
-    <section class="section">
+    <section class="section" id="strategy-section">
       <div class="shell">
         <div class="section-head">
           <div>
@@ -169,75 +355,261 @@
           </div>
         </div>
 
-        <details>
-          <summary>Group 1 — How much guidance you give the AI</summary>
-          <div class="details-body">
-            <ul>
-              <li><strong>Zero-shot prompting:</strong> Ask directly with no examples. Fast, but less controlled.</li>
-              <li><strong>Few-shot prompting:</strong> Give 2–5 examples of the output you want. Helpful when format matters.</li>
-            </ul>
-            <p>Use zero-shot when the task is clear. Use few-shot when you need a specific structure or pattern repeated reliably.</p>
+        <div class="level-filter-bar" id="level-filter-bar">
+          <span class="level-filter-label">
+            Filter by level
+            <span class="level-filter-info-wrap">
+              <button class="level-filter-info-btn" type="button" aria-label="What do the levels mean?" aria-expanded="false" id="level-info-btn">i</button>
+              <div class="level-filter-popover" id="level-filter-popover" hidden>
+                <strong>Complexity levels</strong>
+                <ul>
+                  <li><b>Basic</b> — No setup needed. Works in any tool. Great starting point.</li>
+                  <li><b>Advanced</b> — Needs a bit more thought or structure, but widely applicable.</li>
+                  <li><b>Pro</b> — Layered techniques for high-stakes or nuanced outputs.</li>
+                </ul>
+              </div>
+            </span>
+          </span>
+          <div class="level-filter-btns" role="group" aria-label="Complexity level filters">
+            <button class="level-btn" data-level="Basic" type="button" aria-pressed="false">
+              <span class="level-btn-dot" aria-hidden="true"></span>
+              Basic
+              <span class="level-btn-tip">No setup needed. Ask directly, iterate as you go.</span>
+            </button>
+            <button class="level-btn" data-level="Advanced" type="button" aria-pressed="false">
+              <span class="level-btn-dot" aria-hidden="true"></span>
+              Advanced
+              <span class="level-btn-tip">More structure needed — good for recurring or multi-part tasks.</span>
+            </button>
+            <button class="level-btn" data-level="Pro" type="button" aria-pressed="false">
+              <span class="level-btn-dot" aria-hidden="true"></span>
+              Pro
+              <span class="level-btn-tip">Layered techniques for high-stakes or complex outputs.</span>
+            </button>
+            <button class="level-btn-clear" type="button" id="level-filter-clear" aria-label="Clear all level filters">Clear</button>
           </div>
-        </details>
+        </div>
 
-        <details>
-          <summary>Group 2 — How you frame the request</summary>
-          <div class="details-body">
-            <ul>
-              <li><strong>Direct instruction prompting:</strong> Tell the AI exactly what to do.</li>
-              <li><strong>Question-based prompting:</strong> Frame the request as a question.</li>
-              <li><strong>Open-ended prompting:</strong> Leave the prompt broad and exploratory.</li>
-            </ul>
-          </div>
-        </details>
+        <details data-strategy-group>
+  <summary>Group 1 — How much guidance you give the AI</summary>
+  <div class="details-body">
+    <p>Use zero-shot when the task is clear. Use few-shot when you need a specific structure or pattern repeated reliably.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>Level</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-level="Basic">
+            <td><b>Zero-shot prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Ask directly with no examples. Fast, but less controlled.</td>
+          </tr>
+          <tr data-level="Basic">
+            <td><b>Few-shot prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Give 2–5 examples of the output you want before your request. Dramatically improves consistency when format matters.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</details>
 
-        <details>
-          <summary>Group 3 — How you control the reasoning process</summary>
-          <div class="details-body">
-            <ul>
-              <li><strong>Step-by-step instruction prompting:</strong> Work through tasks in explicit sequence.</li>
-              <li><strong>Chain-of-thought prompting:</strong> Ask the AI to show its reasoning at each step.</li>
-              <li><strong>Prompt chaining:</strong> Break a complex task into smaller prompts that build on one another.</li>
-              <li><strong>Task decomposition prompting:</strong> Build the decomposition into a single prompt instead of separate turns.</li>
-            </ul>
-          </div>
-        </details>
+<details data-strategy-group>
+  <summary>Group 2 — How you frame the request</summary>
+  <div class="details-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>Level</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-level="Basic">
+            <td><b>Direct instruction prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Tell the AI exactly what to do. Best for structured, precise outputs.</td>
+          </tr>
+          <tr data-level="Basic">
+            <td><b>Question-based prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Frame the request as a question. Pushes the AI toward focused, informative answers.</td>
+          </tr>
+          <tr data-level="Basic">
+            <td><b>Open-ended prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Leave the prompt broad and exploratory. Better for brainstorming and creative tasks.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</details>
 
-        <details>
-          <summary>Group 4 — How you set identity and perspective</summary>
-          <div class="details-body">
-            <ul>
-              <li><strong>Role-based prompting:</strong> Assign the AI a professional role.</li>
-              <li><strong>Persona-based prompting:</strong> Add personality, values, and communication style.</li>
-              <li><strong>Complex persona prompting:</strong> Use a full character brief with background, constraints, style, and goals.</li>
-              <li><strong>Multiple personas prompting:</strong> Run the same task through several distinct personas at once.</li>
-            </ul>
-          </div>
-        </details>
+<details data-strategy-group>
+  <summary>Group 3 — How you control the reasoning process</summary>
+  <div class="details-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>Level</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-level="Basic">
+            <td><b>Step-by-step instruction prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Ask the AI to work through tasks in explicit sequence. Reduces errors on multi-part tasks.</td>
+          </tr>
+          <tr data-level="Advanced">
+            <td><b>Chain-of-thought prompting</b></td>
+            <td><span class="level-badge">Advanced</span></td>
+            <td>Instruct the AI to show its reasoning at each step. Effective for logic, analysis, or decisions.</td>
+          </tr>
+          <tr data-level="Advanced">
+            <td><b>Prompt chaining</b></td>
+            <td><span class="level-badge">Advanced</span></td>
+            <td>Break a complex task into a sequence of smaller prompts, each building on the last.</td>
+          </tr>
+          <tr data-level="Advanced">
+            <td><b>Task decomposition prompting</b></td>
+            <td><span class="level-badge">Advanced</span></td>
+            <td>Similar to prompt chaining but the decomposition is built into a single prompt rather than separate turns.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</details>
 
-        <details>
-          <summary>Group 5 — How you refine and recover</summary>
-          <div class="details-body">
-            <ul>
-              <li><strong>Iterative prompting:</strong> Follow up with corrections and refinements.</li>
-              <li><strong>Confirmatory prompting:</strong> Ask the AI to confirm its understanding before it answers.</li>
-              <li><strong>Negative prompting:</strong> Tell the AI what to avoid.</li>
-              <li><strong>Self-reflection prompting:</strong> Ask the AI to critique and revise its own output.</li>
-              <li><strong>Fallback prompting:</strong> Build fallback alternatives into the prompt in case the primary request fails.</li>
-            </ul>
-          </div>
-        </details>
+<details data-strategy-group>
+  <summary>Group 4 — How you set identity and perspective</summary>
+  <div class="details-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>Level</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-level="Advanced">
+            <td><b>Role-based prompting</b></td>
+            <td><span class="level-badge">Advanced</span></td>
+            <td>Assign the AI a professional role. Shapes tone, vocabulary, and approach.</td>
+          </tr>
+          <tr data-level="Advanced">
+            <td><b>Persona-based prompting</b></td>
+            <td><span class="level-badge">Advanced</span></td>
+            <td>More detailed than role-based — adds personality, values, communication style.</td>
+          </tr>
+          <tr data-level="Pro">
+            <td><b>Complex persona prompting</b></td>
+            <td><span class="level-badge">Pro</span></td>
+            <td>Full character brief: background, constraints, communication style, goals.</td>
+          </tr>
+          <tr data-level="Pro">
+            <td><b>Multiple personas prompting</b></td>
+            <td><span class="level-badge">Pro</span></td>
+            <td>Run the same task through several distinct personas simultaneously.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</details>
 
-        <details>
-          <summary>Group 6 — How you load context</summary>
-          <div class="details-body">
-            <ul>
-              <li><strong>Contextual prompting:</strong> Add background information directly into the prompt.</li>
-              <li><strong>Context expansion prompting:</strong> Gradually build context across a conversation.</li>
-              <li><strong>Scenario-based prompting:</strong> Frame the task inside a realistic situation.</li>
-            </ul>
-          </div>
-        </details>
+<details data-strategy-group>
+  <summary>Group 5 — How you refine and recover</summary>
+  <div class="details-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>Level</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-level="Basic">
+            <td><b>Iterative prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Follow up with corrections and refinements. The default way most people use AI.</td>
+          </tr>
+          <tr data-level="Basic">
+            <td><b>Confirmatory prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Ask the AI to confirm its understanding before it answers. Catches misinterpretations early.</td>
+          </tr>
+          <tr data-level="Basic">
+            <td><b>Negative prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Tell the AI what to avoid. Highly effective for tone, format, or content exclusions.</td>
+          </tr>
+          <tr data-level="Pro">
+            <td><b>Self-reflection prompting</b></td>
+            <td><span class="level-badge">Pro</span></td>
+            <td>Ask the AI to critique and revise its own output.</td>
+          </tr>
+          <tr data-level="Pro">
+            <td><b>Fallback prompting</b></td>
+            <td><span class="level-badge">Pro</span></td>
+            <td>Build fallback alternatives directly into the prompt in case the primary request fails.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</details>
+
+<details data-strategy-group>
+  <summary>Group 6 — How you load context</summary>
+  <div class="details-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>Level</th>
+            <th>What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-level="Basic">
+            <td><b>Contextual prompting</b></td>
+            <td><span class="level-badge">Basic</span></td>
+            <td>Add background information directly into the prompt to ground the response.</td>
+          </tr>
+          <tr data-level="Advanced">
+            <td><b>Context expansion prompting</b></td>
+            <td><span class="level-badge">Advanced</span></td>
+            <td>Gradually build context across a conversation rather than front-loading it all.</td>
+          </tr>
+          <tr data-level="Advanced">
+            <td><b>Scenario-based prompting</b></td>
+            <td><span class="level-badge">Advanced</span></td>
+            <td>Frame the task inside a realistic situation to make the output more applicable.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</details>
+
 
         <div class="callout brand" style="margin-top:18px;">
           <h4>How to choose a strategy</h4>
@@ -312,7 +684,9 @@
       </table>
     </div>
 
-    <p style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;">Prompting strategy cheat sheet</p>
+    <details data-strategy-group>
+  <summary>Combining different strategies</summary>
+  <div class="details-body">
     <div class="table-wrap">
       <table>
         <thead>
@@ -370,7 +744,8 @@
         </tbody>
       </table>
     </div>
-
+  </div>
+    </details>
   </div>
 </section>
 
@@ -577,5 +952,78 @@
       </div>
     </section>
   </main>
+
+  <script>
+  (function () {
+    var bar = document.getElementById('level-filter-bar');
+    if (!bar) return;
+
+    var levelBtns = Array.from(bar.querySelectorAll('.level-btn[data-level]'));
+    var clearBtn  = document.getElementById('level-filter-clear');
+    var infoBtn   = document.getElementById('level-info-btn');
+    var popover   = document.getElementById('level-filter-popover');
+    var section   = document.getElementById('strategy-section');
+
+    var active = new Set();
+
+    function applyFilter() {
+      var groups = Array.from(section.querySelectorAll('details[data-strategy-group]'));
+
+      groups.forEach(function (det) {
+        var rows = Array.from(det.querySelectorAll('tbody tr[data-level]'));
+
+        if (active.size === 0) {
+          rows.forEach(function (r) { r.classList.remove('lf-hidden'); });
+          det.classList.remove('lf-hidden');
+        } else {
+          var anyVisible = false;
+          rows.forEach(function (r) {
+            var show = active.has(r.dataset.level);
+            r.classList.toggle('lf-hidden', !show);
+            if (show) anyVisible = true;
+          });
+          det.classList.toggle('lf-hidden', !anyVisible);
+          if (anyVisible && !det.open) det.open = true;
+        }
+      });
+
+      clearBtn.style.display = active.size > 0 ? '' : 'none';
+    }
+
+    levelBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var lvl = btn.dataset.level;
+        if (active.has(lvl)) {
+          active.delete(lvl);
+          btn.setAttribute('aria-pressed', 'false');
+        } else {
+          active.add(lvl);
+          btn.setAttribute('aria-pressed', 'true');
+        }
+        applyFilter();
+      });
+    });
+
+    clearBtn.addEventListener('click', function () {
+      active.clear();
+      levelBtns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      applyFilter();
+    });
+
+    if (infoBtn && popover) {
+      infoBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = !popover.hidden;
+        popover.hidden = open;
+        infoBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      document.addEventListener('click', function () {
+        popover.hidden = true;
+        infoBtn.setAttribute('aria-expanded', 'false');
+      });
+      popover.addEventListener('click', function (e) { e.stopPropagation(); });
+    }
+  })();
+  </script>
 </body>
 </html>

@@ -53,20 +53,123 @@
             <p>Hallucination is the AI being wrong. Bias is the AI being consistently skewed in a direction shaped by its training data or hidden instructions.</p>
           </article>
         </div>
-        <div class="callout neutral" style="margin-top:18px;">
-          <h4>What bias is doing</h4>
-          <p>Because AI imitates patterns rather than reasons from principles, it absorbs the perspectives embedded in its training data. If that data over-represents certain viewpoints, industries, cultures, or time periods, the AI does not know that. It has no reference point for what is missing. It simply reflects what it saw — confidently, and without disclaimer.</p>
-          <p>In this training, the two bias types that matter most are training data bias and system prompt bias.</p>
-        </div>
+
       </div>
     </section>
+    <section class="section">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <h2>Bias in AI</h2>
+          <p>The following section covers what AI bias is, where it comes from, and how to recognize it in a real interaction.</p>
+        </div>
+      </div>
 
+
+      <details open>
+        <summary>Training Data Bias</summary>
+        <div class="details-body">
+          <div class="pull-quote">
+            <div class="pull-quote-brain">
+              <i class="ti ti-brain" aria-hidden="true"></i>
+              <span>Think through metaphor</span>
+            </div>
+            <div class="pull-quote-line"></div>
+            <div class="pull-quote-text">
+              <p>If you only ever read newspapers from 1950, you'd give very 1950 answers about medicine, science, and the world. You wouldn't be lying — you'd just be working from an incomplete picture, and you wouldn't know what you were missing. AI works the same way.</p>
+            </div>
+          </div>
+          <p></p>
+          <p>An AI learns from text. Whatever text it was trained on shapes everything it knows — and everything it doesn't. If the training material comes mostly from one time period, one culture, one industry, or one point of view, the AI's responses will reflect that whether anyone intended it or not.</p>
+
+          <div class="callout neutral">
+            <h4>Content placeholder</h4>
+            <p>How to deal with training data bias in practice. Suggested addition: teach participants to probe an AI's edges by asking about niche domains (e.g., MVPD-specific workflows, political advertising regulations) where training data is sparse. The gap between confident and hedged responses is often diagnostic.</p>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>System Prompts and Hidden Instructions</summary>
+        <div class="details-body">
+          <p>Your prompt is never the only input. AI tools always have additional instructions added on the backend before your message is processed — these are called system prompts, and in most cases you cannot see them.</p>
+          <p>There is no reason to assume these instructions are malicious. Most are practical — be helpful, be polite, stay on topic. But bias doesn't have to be intentional to affect your output. An AI told to always validate the user's ideas will do exactly that — even when the idea has problems.</p>
+          <ul>
+            <li><strong>Name the bias directly.</strong> Starting with "Challenge my assumptions on this" works surprisingly well.</li>
+            <li><strong>Cross-check across tools.</strong> If something feels one-sided, run the same question through a different AI tool.</li>
+            <li><strong>Treat confident agreement with skepticism.</strong> An AI that never pushes back is probably set up that way.</li>
+          </ul>
+          <div class="callout neutral">
+            <h4>🔒 A note on security</h4>
+            <p>System prompts are one part of a broader picture of AI and cybersecurity risk — including what data you share, where it goes, and who can access it. This is covered separately. (Further reading — [placeholder])</p>
+          </div>
+          <div class="prompt-box">
+            <div class="prompt-box-head">
+              <div class="prompt-box-label">Copy prompt</div>
+              <button class="copy-button" type="button" data-copy-text="Challenge my assumptions on this.">Copy</button>
+            </div>
+            <p class="prompt-text">Challenge my assumptions on this.</p>
+          </div>
+           <div class="callout danger" style="margin-top:18px;">
+          <h4>Security note</h4>
+          <p>System prompts are one part of a broader picture of AI and cybersecurity risk — including what data you share, where it goes, and who can access it. Keep that distinction in mind when you use AI tools that are configured by someone else.</p>
+        </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Two Types of Bias — Side by Side</summary>
+        <div class="details-body">
+          <p>Use the comparison below to identify which type of bias may be affecting a response.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><b>What it does</b></th>
+                  <th>Training Data Bias</th>
+                  <th>System Prompt Bias</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Where it comes from</b></td>
+                  <td>What the AI learned during training</td>
+                  <td>Hidden instructions set before you start</td>
+                </tr>
+                <tr>
+                  <td><b>Who controls it</b></td>
+                  <td>The organization that built the AI</td>
+                  <td>Whoever deployed or configured the tool</td>
+                </tr>
+                <tr>
+                  <td><b>How it shows up</b></td>
+                  <td>Gaps, blind spots, outdated or narrow views</td>
+                  <td>Consistent slant, topic avoidance, or hidden agenda</td>
+                </tr>
+                <tr>
+                  <td><b>How to spot it</b></td>
+                  <td>Ask about edge cases or things outside its world</td>
+                  <td>Notice if answers keep bending the same direction</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <div class="callout neutral" style="margin-top:18px;">
+        <h4>In practice</h4>
+        <p>Bias doesn't announce itself. The output will sound confident and complete regardless of whether it's skewed. The habit to build is asking what's missing, not just evaluating what's there — and cross-checking when the stakes are high.</p>
+      </div>
+    </div>
+  </section>
+    
     <section class="section">
       <div class="shell">
         <div class="section-head">
           <div>
-            <h2>Two types of bias</h2>
-            <p>The document focuses on training data bias and system prompt bias, then shows how they behave side by side.</p>
+            <h2>Ampersand Spotlight</h2>
+            <p>Below are department-specific examples showing when search is a better fit and when AI is a better fit. All in the context of Ampersand!</p>
           </div>
         </div>
 
@@ -74,143 +177,49 @@
           <table>
             <thead>
               <tr>
-                <th>Type</th>
-                <th>Where it comes from</th>
-                <th>How it shows up</th>
-                <th>How to spot it</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Training data bias</td>
-                <td>What the AI learned during training</td>
-                <td>Gaps, blind spots, outdated or narrow views</td>
-                <td>Ask about edge cases or things outside its world</td>
-              </tr>
-              <tr>
-                <td>System prompt bias</td>
-                <td>Hidden instructions set before you start</td>
-                <td>Consistent slant, topic avoidance, or hidden agenda</td>
-                <td>Notice if answers keep bending the same direction</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Why bias matters in day-to-day work</h2>
-            <p>The document uses role-specific examples to show how normal-looking output can still be skewed.</p>
-          </div>
-        </div>
-
-        <div class="callout gold" style="margin-bottom:18px;">
-          <h4>System prompts and hidden instructions</h4>
-          <p>Your prompt is never the only input. AI tools always have additional instructions added on the backend before your message is processed — these are called system prompts, and in most cases you cannot see them. There is no reason to assume these instructions are malicious. Most are practical — be helpful, be polite, stay on topic. But bias does not have to be intentional to affect your output.</p>
-          <p>Name the bias directly. Starting with "Challenge my assumptions on this" works surprisingly well. Cross-check across tools if something feels one-sided. Treat confident agreement with skepticism.</p>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Your role</th>
+                <th>Departament</th>
                 <th>Where bias shows up</th>
                 <th>What can go wrong</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Traffic & Ad Operations</td><td>Drafting an SOP for a makegood workflow built from the wrong industry norms</td><td>A new hire learns a process with a fundamental gap</td></tr>
-              <tr><td>Account Management / Sales</td><td>A competitive positioning summary that subtly validates digital-first assumptions</td><td>A pitch deck reinforces client skepticism about multiscreen TV</td></tr>
-              <tr><td>Political Advertising</td><td>Compliance details for a specific market with unusual or changing rules</td><td>A wrong summary is used for a sensitive compliance decision</td></tr>
-              <tr><td>Finance</td><td>Summarizing contract clauses through a generic commercial lens</td><td>An unusual carve-out gets omitted or softened</td></tr>
-              <tr><td>HR & People</td><td>Drafting job descriptions from skewed training norms</td><td>Subtly biased job descriptions narrow the candidate pool</td></tr>
-              <tr><td>Marketing & Comms</td><td>Feedback on an audience frame that skews urban, coastal, or tech-adjacent</td><td>A campaign is optimized against a misread audience</td></tr>
+              <tr><td><b>Traffic & Ad Operations</b></td><td>Drafting an SOP for a makegood workflow built from the wrong industry norms</td><td>A new hire learns a process with a fundamental gap</td></tr>
+              <tr><td><b>Account Management / Sales</b></td><td>A competitive positioning summary that subtly validates digital-first assumptions</td><td>A pitch deck reinforces client skepticism about multiscreen TV</td></tr>
+              <tr><td><b>Political Advertising</b></td><td>Compliance details for a specific market with unusual or changing rules</td><td>A wrong summary is used for a sensitive compliance decision</td></tr>
+              <tr><td><b>Finance</b></td><td>Summarizing contract clauses through a generic commercial lens</td><td>An unusual carve-out gets omitted or softened</td></tr>
+              <tr><td><b>HR & People</b></td><td>Drafting job descriptions from skewed training norms</td><td>Subtly biased job descriptions narrow the candidate pool</td></tr>
+              <tr><td><b>Marketing & Comms</b></td><td>Feedback on an audience frame that skews urban, coastal, or tech-adjacent</td><td>A campaign is optimized against a misread audience</td></tr>
             </tbody>
           </table>
-        </div>
-
-        <div class="grid two" style="margin-top:18px;">
-          <article class="callout danger">
-            <h4>Three high-risk situations</h4>
-            <ul>
-              <li>Outputs that touch client relationships.</li>
-              <li>Compliance or regulatory language.</li>
-              <li>Decisions based on a skewed frame.</li>
-            </ul>
-          </article>
-          <article class="callout brand">
-            <h4>The pattern</h4>
-            <p>Bias usually does not look obviously wrong. It shows up in outputs that sound normal, professional, and complete while quietly carrying a frame that does not match your world.</p>
-            <p>None of the scenarios above involve AI doing something obviously wrong. The outputs all look like normal, professional work product. That's the problem. Hallucinations can sometimes be caught by a fact-check. Bias is harder — it shapes the frame, not just the facts. It determines which questions get asked, which comparisons get made, which risks get flagged, and which get ignored.</p>
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Challenge this.">Copy</button>
-              </div>
-              <p class="prompt-text">Challenge this.</p>
-            </div>
-          </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>How to build the habit</h2>
-            <p>The document closes with a short table of situations and the questions that help you probe for bias.</p>
-          </div>
-        </div>
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>When to apply it</th>
-                <th>What to ask</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Any output about a client's industry or audience</td><td>What assumptions is this making about the audience? What context might it be missing?</td></tr>
-              <tr><td>Any competitive analysis or positioning document</td><td>What would someone on the other side of this argument say? Challenge this.</td></tr>
-              <tr><td>Any compliance, regulatory, or legal language</td><td>What is the source for this? Verify against the primary source before using it.</td></tr>
-              <tr><td>Any time an AI output agrees with you completely</td><td>What's wrong with this plan? Tell me the weaknesses before you tell me the strengths.</td></tr>
-              <tr><td>Any niche topic</td><td>How confident are you in this? What are you less certain about?</td></tr>
-              <tr><td>Any output going to a client or external party</td><td>Does this sound written by someone who actually knows our industry?</td></tr>
-            </tbody>
-          </table>
-        </div>
+
+        
+
+
 
 <section class="section">
   <div class="shell">
     <div class="section-head">
       <div>
-        <h2>Activity</h2>
-        <p>Describe a task from your day-to-day work and the activity will tell you whether it belongs to search or AI, explain why, and reframe it for the opposite tool.</p>
+        <h2>Practice: Spotting Bias</h2>
+        <p>Reading about bias is one thing. Recognizing it in a live response is another. Use this activity to test how bias shows up in practice.</p>
       </div>
     </div>
 
-    <div class="activity-shell" data-activity-chat data-activity-name="Search or AI Activity" data-flow-url="https://YOUR-POWER-AUTOMATE-URL-HERE">
-      <div class="grid two">
-        <article class="card soft">
-          <span class="eyebrow-chip chip-brand">What this activity does</span>
-          <p>Type a task or question and the activity will tell you whether it belongs to search or AI, explain why, and reframe it for the opposite tool.</p>
-        </article>
-        <article class="card">
-          <span class="eyebrow-chip chip-gold">Rules</span>
-          <ul class="list">
-            <li>Use up to 4 messages per session.</li>
-            <li>Reset to start a fresh thread.</li>
-            <li>Try tasks from your own work.</li>
-          </ul>
-        </article>
-      </div>
+    <article class="card" data-activity-chat data-activity-name="Spotting Bias Activity" data-flow-url="https://YOUR-POWER-AUTOMATE-URL-HERE">
+      <span class="eyebrow-chip chip-success">Exercise</span>
+      <p class="act-title">Is this biased?</p>
+      <p class="act-sub">Describe a task or paste an AI response from your work. The activity will identify potential bias, explain where it might come from, and suggest how to pressure-test it.</p>
+
+      <ul class="list" style="margin-bottom: 20px;">
+        <li>Use up to 4 messages per session.</li>
+        <li>Reset to start a fresh thread.</li>
+        <li>Try responses from tools you already use at work.</li>
+      </ul>
 
       <div class="card activity-panel">
         <div class="activity-meta">
@@ -219,12 +228,12 @@
         </div>
 
         <div class="chat-thread" data-activity-log>
-          <p class="chat-empty" data-chat-empty>Describe a task from your day-to-day work. The activity will tell you whether it belongs to search or AI and why.</p>
+          <p class="chat-empty" data-chat-empty>Paste an AI response or describe a task. The activity will flag potential bias and tell you how to test for it.</p>
         </div>
 
         <form class="chat-composer" data-activity-form>
-          <label class="sr-only" for="search-ai-message">Message</label>
-          <textarea id="search-ai-message" class="chat-input" data-activity-input placeholder="e.g. Find out what a competitor announced last week..."></textarea>
+          <label class="sr-only" for="bias-message">Message</label>
+          <textarea id="bias-message" class="chat-input" data-activity-input placeholder="e.g. Paste an AI response you've received, or describe a task you ran through an AI tool..."></textarea>
           <div class="chat-actions">
             <button class="button primary" type="submit" data-activity-send>Send</button>
             <button class="button secondary" type="button" data-activity-reset>Reset activity</button>
@@ -232,21 +241,53 @@
           </div>
         </form>
       </div>
+    </article>
+
+  </div>
+
+
+    <section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Conclusion & Reflections</h2>
+        <p>Take a moment to reflect — it's what makes the learning stick.</p>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+        <ul class="list">
+          <li>A biased AI sounds exactly like an unbiased one. Confidence is not accuracy.</li>
+          <li>Two types to know: training data bias (what it learned) and system prompt bias (how it was set up).</li>
+          <li>Spotting bias starts with noticing when something feels off and knowing how to probe it.</li>
+        </ul>
+      </article>
+
+      <article class="card soft">
+        <span class="eyebrow-chip chip-brand">Reflection</span>
+        <ul class="list">
+          <li>Have you ever received an AI response that felt slightly off but you couldn't explain why? Could it have been one of these two bias types?</li>
+          <li>If you were setting up an AI tool for your team, what instructions would you want to be transparent about upfront?</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout brand" style="margin-top:18px;">
+      <h4>Supplemental reading</h4>
+      <ul>
+        <li><a href="https://ibm.com/think/topics/ai-bias">What is AI Bias? — ibm.com</a></li>
+        <li><a href="https://mitsloanedtech.mit.edu/ai/basics/addressing-ai-hallucinations-and-bias">When AI Gets It Wrong — MIT Sloan</a></li>
+      </ul>
+    </div>
+
+    <div class="page-nav">
+      <a class="button secondary" href="section-1.html">Back: Search vs. AI</a>
+      <a class="button primary" href="section-3.html">Next: Section 3</a>
     </div>
   </div>
 </section>
-
-        <div class="callout neutral" style="margin-top:18px;">
-          <h4>Security note</h4>
-          <p>System prompts are one part of a broader picture of AI and cybersecurity risk — including what data you share, where it goes, and who can access it. Keep that distinction in mind when you use AI tools that are configured by someone else.</p>
-        </div>
-
-        <div class="page-nav">
-          <a class="button secondary" href="section-1.html">Previous: AI vs Search</a>
-          <a class="button primary" href="section-3.html">Next: Context</a>
-        </div>
-      </div>
-    </section>
   </main>
 </body>
 </html>

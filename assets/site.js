@@ -307,3 +307,265 @@ for (const activity of document.querySelectorAll('[data-activity-chat]')) {
   clearLog();
   updateStatus('Ready. Send up to 4 messages, then reset to start the activity again.');
 }
+
+// ── Persona guess activity ───────────────────────────────────────────
+
+function initPersonaGuessActivity() {
+  const activity = document.getElementById('persona-guess-activity');
+  if (!activity) return;
+
+  const lockBtn = document.getElementById('lock-check-btn');
+  const resetBtn = document.getElementById('reset-persona-btn');
+  const cards = Array.from(activity.querySelectorAll('.persona-card'));
+
+  lockBtn.addEventListener('click', () => {
+    for (const card of cards) {
+      const input = card.querySelector('.persona-input');
+      const reveal = card.querySelector('.persona-reveal');
+      const revealText = card.querySelector('.persona-reveal-text');
+      input.disabled = true;
+      revealText.textContent = card.dataset.personaAnswer;
+      reveal.hidden = false;
+      card.classList.add('checked');
+    }
+    lockBtn.disabled = true;
+    lockBtn.textContent = 'Answers revealed';
+  });
+
+  resetBtn.addEventListener('click', () => {
+    for (const card of cards) {
+      const input = card.querySelector('.persona-input');
+      const reveal = card.querySelector('.persona-reveal');
+      const revealText = card.querySelector('.persona-reveal-text');
+      input.disabled = false;
+      input.value = '';
+      reveal.hidden = true;
+      revealText.textContent = '';
+      card.classList.remove('checked');
+    }
+    lockBtn.disabled = false;
+    lockBtn.textContent = 'Lock answers & check yourself';
+  });
+}
+
+initPersonaGuessActivity();
+
+// ── Department table filter & highlight ──────────────────────────────
+
+(function initDeptFilters() {
+  const HL_COLORS = [
+    { bg: '#e8eef8', fg: '#204d89' },
+    { bg: '#f5e8d7', fg: '#a06b17' },
+    { bg: '#e6f2ea', fg: '#1d6a3b' },
+    { bg: '#fbe9e6', fg: '#a63023' },
+    { bg: '#fef9cc', fg: '#8a6d0a' },
+    { bg: '#ede8f8', fg: '#6a4ab3' },
+  ];
+
+  for (const table of document.querySelectorAll('table')) {
+    const firstTh = table.querySelector('thead th:first-child');
+    if (!firstTh || !/^depart/i.test(firstTh.textContent.trim())) continue;
+
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    const depts = [...new Set(rows.map(r => r.querySelector('td:first-child')?.textContent.trim()).filter(Boolean))];
+    if (!depts.length) continue;
+
+    const wrap = table.closest('.table-wrap') || table;
+
+    // Build UI
+    const bar = document.createElement('div');
+    bar.className = 'dept-filter-bar';
+
+    // Controls row
+    const controls = document.createElement('div');
+    controls.className = 'dept-filter-controls';
+
+    // Mode toggle
+    const modeGroup = document.createElement('div');
+    modeGroup.className = 'dept-filter-mode';
+    const btnFilter = document.createElement('button');
+    btnFilter.className = 'toggle-btn active';
+    btnFilter.textContent = 'Filter rows';
+    btnFilter.type = 'button';
+    const btnHighlight = document.createElement('button');
+    btnHighlight.className = 'toggle-btn';
+    btnHighlight.textContent = 'Highlight';
+    btnHighlight.type = 'button';
+    modeGroup.appendChild(btnFilter);
+    modeGroup.appendChild(btnHighlight);
+
+    // Dropdown
+    const ddWrap = document.createElement('div');
+    ddWrap.className = 'dept-filter-dropdown';
+    const trigger = document.createElement('button');
+    trigger.className = 'dept-filter-trigger';
+    trigger.type = 'button';
+    const triggerLabel = document.createElement('span');
+    triggerLabel.textContent = 'All departments';
+    const arrow = document.createElement('span');
+    arrow.className = 'dfdd-arrow';
+    arrow.textContent = '▾';
+    trigger.appendChild(triggerLabel);
+    trigger.appendChild(arrow);
+    const menu = document.createElement('div');
+    menu.className = 'dept-filter-menu';
+
+    const checkboxes = [];
+    for (const dept of depts) {
+      const item = document.createElement('label');
+      item.className = 'dept-filter-item';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.value = dept;
+      const dot = document.createElement('span');
+      dot.className = 'dept-filter-dot';
+      const lbl = document.createElement('span');
+      lbl.textContent = dept;
+      item.appendChild(cb);
+      item.appendChild(dot);
+      item.appendChild(lbl);
+      menu.appendChild(item);
+      checkboxes.push({ cb, dot, dept });
+    }
+
+    ddWrap.appendChild(trigger);
+    ddWrap.appendChild(menu);
+    controls.appendChild(modeGroup);
+    controls.appendChild(ddWrap);
+
+    // Legend
+    const legend = document.createElement('div');
+    legend.className = 'dept-filter-legend';
+    legend.hidden = true;
+
+    bar.appendChild(controls);
+    bar.appendChild(legend);
+    wrap.before(bar);
+
+    // State
+    let mode = 'filter'; // 'filter' | 'highlight'
+    // Maps dept name → highlight slot index (in order of selection)
+    const hlMap = new Map();
+
+    function getSelected() {
+      return checkboxes.filter(c => c.cb.checked).map(c => c.dept);
+    }
+
+    function updateTriggerLabel() {
+      const sel = getSelected();
+      triggerLabel.textContent = sel.length === 0 ? 'All departments' : `${sel.length} selected`;
+    }
+
+    function applyFilter() {
+      const sel = getSelected();
+      for (const row of rows) {
+        const dept = row.querySelector('td:first-child')?.textContent.trim();
+        row.classList.toggle('dept-hidden', sel.length > 0 && !sel.includes(dept));
+        // Remove any highlight classes
+        for (let i = 0; i < HL_COLORS.length; i++) row.classList.remove('dept-hl-' + i);
+      }
+      legend.hidden = true;
+    }
+
+    function applyHighlight() {
+      // Rebuild hlMap from current checked order
+      const sel = getSelected();
+      // Assign slots in stable order (order boxes are checked)
+      // hlMap already tracks order; prune removed items
+      for (const [d] of hlMap) {
+        if (!sel.includes(d)) hlMap.delete(d);
+      }
+      for (const d of sel) {
+        if (!hlMap.has(d)) hlMap.set(d, hlMap.size % HL_COLORS.length);
+      }
+      // Re-normalise slot indices to fill gaps
+      let slot = 0;
+      for (const [d] of hlMap) { hlMap.set(d, slot++ % HL_COLORS.length); }
+
+      for (const row of rows) {
+        const dept = row.querySelector('td:first-child')?.textContent.trim();
+        for (let i = 0; i < HL_COLORS.length; i++) row.classList.remove('dept-hl-' + i);
+        row.classList.remove('dept-hidden');
+        if (hlMap.has(dept)) {
+          row.classList.add('dept-hl-' + hlMap.get(dept));
+        }
+      }
+
+      // Legend
+      legend.innerHTML = '';
+      if (hlMap.size) {
+        legend.hidden = false;
+        for (const [d, s] of hlMap) {
+          const chip = document.createElement('span');
+          chip.className = 'dept-hl-chip';
+          chip.style.background = HL_COLORS[s].bg;
+          chip.style.borderColor = HL_COLORS[s].fg;
+          chip.style.color = HL_COLORS[s].fg;
+          chip.textContent = d;
+          legend.appendChild(chip);
+        }
+      } else {
+        legend.hidden = true;
+      }
+    }
+
+    function updateDots() {
+      for (const { cb, dot, dept } of checkboxes) {
+        if (mode === 'highlight') {
+          dot.style.display = 'inline-block';
+          const s = hlMap.get(dept);
+          if (s !== undefined) {
+            dot.style.background = HL_COLORS[s].fg;
+          } else {
+            dot.style.background = cb.checked ? HL_COLORS[hlMap.size % HL_COLORS.length].fg : 'transparent';
+            dot.style.border = '1.5px solid var(--border)';
+          }
+          dot.style.border = s !== undefined ? 'none' : '1.5px solid var(--border)';
+        } else {
+          dot.style.display = 'none';
+        }
+      }
+    }
+
+    function applyMode() {
+      if (mode === 'filter') applyFilter();
+      else applyHighlight();
+      updateDots();
+      updateTriggerLabel();
+    }
+
+    // Dropdown open/close
+    trigger.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      trigger.classList.toggle('open', isOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!ddWrap.contains(e.target)) {
+        menu.classList.remove('open');
+        trigger.classList.remove('open');
+      }
+    });
+
+    // Checkbox changes
+    for (const { cb } of checkboxes) {
+      cb.addEventListener('change', () => applyMode());
+    }
+
+    // Mode buttons
+    btnFilter.addEventListener('click', () => {
+      mode = 'filter';
+      btnFilter.classList.add('active');
+      btnHighlight.classList.remove('active');
+      hlMap.clear();
+      applyMode();
+    });
+
+    btnHighlight.addEventListener('click', () => {
+      mode = 'highlight';
+      btnHighlight.classList.add('active');
+      btnFilter.classList.remove('active');
+      applyMode();
+    });
+  }
+})();

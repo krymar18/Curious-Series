@@ -80,6 +80,21 @@ document.querySelectorAll('.details-img').forEach(img => {
   });
 });
 
+for (const figure of document.querySelectorAll('.figure')) {
+  const img = figure.querySelector('img');
+  if (!img) continue;
+  const btn = document.createElement('button');
+  btn.className = 'figure-expand-btn';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Open image in new tab');
+  btn.innerHTML = '<i class="ti ti-external-link" aria-hidden="true"></i>';
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    window.open(img.src, '_blank');
+  });
+  figure.appendChild(btn);
+}
+
 
 function initActivityWidget() {
   var taskInput = document.getElementById('task-input');

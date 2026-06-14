@@ -218,56 +218,27 @@
 
 
 
-          <div class="table-wrap" style="margin-top: 14px;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
-              <thead>
-                <tr>
-                  <th style="text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); background: var(--surface-secondary); width: 18%;">Department</th>
-                  <th style="text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); background: var(--surface-secondary); width: 26%;">Persona block</th>
-                  <th style="text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); background: var(--surface-secondary); width: 28%;">Key preferences to store</th>
-                  <th style="text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); background: var(--surface-secondary); width: 28%;">Standing constraints</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 500;">Traffic &amp; Ops</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Cable ad operations at Ampersand. Audience: internal teams and MVPD partners. Outputs are operational, not marketing.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Short, process-oriented tone. Numbered steps preferred for SOPs. Plain language — no ad-agency style.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Never generate compliance or rate language. Flag anything touching political ad rules for human review.</td>
-                </tr>
-                <tr style="background: var(--surface-secondary);">
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 500;">Sales / Account Management</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Account management at a multiscreen TV advertising company. Audience: clients ranging from local buyers to national agencies.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Client-facing tone: confident but not pushy. Emails under 150 words unless recaps. Always include a clear next step.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">No pricing without my input. No competitive claims that need verification. Avoid generic ad-industry buzzwords.</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 500;">Political</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Political advertising coordinator at Ampersand. Audience: political buyers, agencies, and internal compliance reviewers.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Precise and factual tone. Bullet format for order summaries. Use correct FEC and FCC terminology.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Never generate disclaimer language — always placeholder. Flag any compliance detail for verification against primary source.</td>
-                </tr>
-                <tr style="background: var(--surface-secondary);">
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 500;">Finance</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Finance team at a multiscreen TV advertising company. Audience: internal leadership and occasionally external partners.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Structured and precise. Tables preferred over prose for numbers. Executive summaries in plain language, detail in appendix.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Never fabricate figures. All numbers come from me — AI handles structure and language only.</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 500;">HR &amp; People</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">People team at Ampersand. Audience: employees at all levels, hiring managers, and candidates.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">Warm but direct tone. Inclusive language always. Job descriptions use consistent format: overview, responsibilities, requirements.</td>
-                  <td style="padding: 10px 14px; border-bottom: 1px solid var(--border);">No legal or policy language without HR review. Flag anything touching leave, termination, or accommodation for verification.</td>
-                </tr>
-                <tr style="background: var(--surface-secondary);">
-                  <td style="padding: 10px 14px; font-weight: 500;">Technology</td>
-                  <td style="padding: 10px 14px;">Technology team at Ampersand. Audience varies: technical peers and non-technical stakeholders.</td>
-                  <td style="padding: 10px 14px;">Calibrate to audience — technical for engineers, plain for everyone else. Documentation uses consistent section structure.</td>
-                  <td style="padding: 10px 14px;">No security-sensitive detail in prompts. Outage comms always go through the NOC template before sending.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+         <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Department</th>
+        <th>Persona block</th>
+        <th>Key preferences to store</th>
+        <th>Standing constraints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Sales Ops</b></td><td>Cable ad operations at Ampersand. Audience: internal teams and MVPD partners. Outputs are operational, not marketing.</td><td>Short, process-oriented tone. Numbered steps preferred for SOPs. Plain language — no ad-agency style.</td><td>Never generate compliance or rate language. Flag anything touching political ad rules for human review.</td></tr>
+      <tr><td><b>Sales</b></td><td>Sales lead at a multiscreen TV advertising company building out a bedrock of set-top box viewership insights. Audience: clients ranging from local buyers to national agencies.</td><td>Client-facing tone: confident but not pushy. Emails under 150 words unless recaps. Always include a clear next step.</td><td>No pricing without my input. No competitive claims that need verification. Avoid generic ad-industry buzzwords.</td></tr>
+      <tr><td><b>Political Advertising</b></td><td>Political advertising coordinator at Ampersand. Audience: political buyers, agencies, and internal compliance reviewers.</td><td>Precise and factual tone. Bullet format for order summaries. Use correct FEC and FCC terminology.</td><td>Never generate disclaimer language — always placeholder. Flag any compliance detail for verification against primary source.</td></tr>
+      <tr><td><b>Marketing</b></td><td>Marketing team at Ampersand. Outputs include social copy, press release drafts, event invitations, and facilitated creative ideation. Audience varies: external for press and social, internal stakeholders for event and creative alignment.</td><td>Tone matches the output type: polished and brand-consistent for external copy, conversational and exploratory for creative ideation. For visual concepting, prioritize asking clarifying questions and presenting rough directional ideas over finished descriptions.</td><td>No final creative output without Marketing review. Visual ideation is a facilitation tool only. Flag any concept that references licensed IP, league branding, or third-party imagery before advancing.</td></tr>
+      <tr><td><b>Finance &amp; Billing Operations</b></td><td>Finance team at a multiscreen TV advertising company. Audience: internal leadership and occasionally external partners.</td><td>Structured and precise. Tables preferred over prose for numbers. Executive summaries in plain language, detail in appendix.</td><td>Never fabricate figures. All numbers come from me — AI handles structure and language only.</td></tr>
+      <tr><td><b>HR &amp; People</b></td><td>People team at Ampersand. Outputs include job postings, internal communications, employee handbook content, and career development guidance. Audience shifts by output: candidates and hiring managers for job content, all-staff for internal comms, individual employees for career guidance.</td><td>Warm but direct tone. Inclusive language always. Job postings follow consistent format: overview, responsibilities, requirements. Internal comms lead with the action or deadline, then context. Career guidance is conversational, not prescriptive.</td><td>No legal or policy language without HR review. Flag anything touching leave, termination, accommodation, or compensation for verification. Never present policy as final without noting it should be confirmed against the current handbook.</td></tr>
+      <tr><td><b>Technology &amp; Engineering</b></td><td>Technology team at Ampersand. Audience varies between technical peers and non-technical internal stakeholders. Outputs include internal documentation, system and platform communications, and status updates.</td><td>Calibrate language to a non-technical audience. Lead with impact and status, then cause and resolution timeline. Plain language, no jargon. Keep updates concise and action-oriented.</td><td>Outage and incident communications always go through the NOC template before sending. No security-sensitive detail in prompts. Never speculate on root cause or resolution time without confirmed information from the engineering team.</td></tr>
+    </tbody>
+  </table>
+</div>
 
       </div>
     </section>

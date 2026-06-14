@@ -42,144 +42,124 @@
       </div>
     </section>
 
-     <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Part 1 — The Rewrite Exercise</h2>
-            <p>Practice giving AI specific feedback on writing. Work with Copilot to rewrite the passage below until you're satisfied, then run the retrieval prompt to generate a personal writing preferences document.</p>
-          </div>
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Part 1 — The Rewrite Exercise</h2>
+        <p>Use AI to turn a piece of meaningless corporate text into something true about your actual work. One conversation, start to finish.</p>
+      </div>
+    </div>
+
+    <div class="grid two" style="margin-bottom: 18px;">
+      <article class="card">
+        <span class="eyebrow-chip chip-brand">Objective</span>
+        <p>Practice giving AI specific, iterative feedback on writing. By the end you'll have a reusable preferences document that captures how you work.</p>
+      </article>
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Deliverable</span>
+        <p>Export of your rewrite conversation and the writing preferences document. Upload both to your Auzmore profile — your trainer will review how you gave feedback.</p>
+      </article>
+    </div>
+
+    <details>
+      <summary>Steps</summary>
+      <div class="details-body">
+        <div class="callout neutral" style="margin-bottom: 16px;">
+          <p style="font-style: italic; margin: 0;">"In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals."</p>
         </div>
 
-        <details open>
-          <summary>The text to rewrite</summary>
-          <div class="details-body">
-            <div class="callout neutral">
-              <p style="font-style: italic;">"In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals."</p>
-            </div>
-          </div>
-        </details>
+        <ul class="list">
+          <li><strong>Step 1 — Cold start.</strong> Paste the text into Copilot and ask for a rewrite. No context, no instructions. Notice how generic the output is — that's what AI does without guidance.</li>
+          <li><strong>Step 2 — Add context.</strong> Tell Copilot who will read this, what Ampersand actually does, and what your role involves. Ask it to try again. This is the most important step.</li>
+          <li><strong>Step 3 — Name one specific problem.</strong> Don't say "make it better." Pick one exact thing that's wrong — a word that's off, a claim that's vague, a structure that doesn't land — and say exactly that.</li>
+          <li><strong>Step 4 — Give a tone reference.</strong> Paste a sentence or two of writing you like. Ask Copilot to match that tone.</li>
+          <li><strong>Step 5 — Constrain it.</strong> "Cut this to one sentence under 20 words. Keep the Ampersand-specific detail."</li>
+          <li><strong>Step 6 — Run the retrieval prompt.</strong> Paste this at the end of your conversation. Save the output — that's your writing preferences document and your first prompt library entry.</li>
+        </ul>
 
-        <details>
-          <summary>Feedback best practices</summary>
-          <div class="details-body">
-            <div class="grid two">
-              <article class="card soft">
-                <span class="eyebrow-chip chip-success">Do this</span>
-                <ul class="list">
-                  <li>Tell it who the reader is.</li>
-                  <li>Say what the text is actually supposed to mean.</li>
-                  <li>Give an example of writing you like.</li>
-                  <li>Name exactly what you hate about it.</li>
-                  <li>Give a word count or length constraint.</li>
-                  <li>Ask it to cut anything that doesn't earn its place.</li>
-                  <li>Ask it to try a completely different approach.</li>
-                </ul>
-              </article>
-              <article class="card soft">
-                <span class="eyebrow-chip chip-gold">Avoid this</span>
-                <ul class="list">
-                  <li>"Make it better" — too vague.</li>
-                  <li>"Improve the tone" without saying what tone.</li>
-                  <li>Accepting the first output without pushing.</li>
-                  <li>"Polish it" when you mean "rewrite it."</li>
-                  <li>Opening a new chat instead of iterating.</li>
-                  <li>Positive feedback without saying what worked.</li>
-                </ul>
-              </article>
-            </div>
+        <div class="prompt-box" style="margin-top: 16px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Retrieval prompt — run after Step 5</div>
+            <button class="copy-button" type="button" data-copy-text="Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.">Copy</button>
           </div>
-        </details>
-
-        <details>
-          <summary>Retrieval prompt — run this when you're done</summary>
-          <div class="details-body">
-            <p>Paste this into Copilot at the end of your rewrite conversation to generate a reusable writing preferences document.</p>
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.">Copy</button>
-              </div>
-              <p class="prompt-text">Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.</p>
-            </div>
-            <p style="margin-top: 14px;">Save the output — a short writing preferences document. You'll use it in Session 2.</p>
-            <div class="callout neutral" style="margin-top: 14px;">
-              <h4>Optional</h4>
-              <p>Use the writing constraints template to structure your preferences document further: <a href="https://placeholder.link/writing-template">Writing constraints template</a>.</p>
-            </div>
-          </div>
-        </details>
-
-        <article class="card" style="margin-top: 18px;">
-          <span class="eyebrow-chip chip-success">Deliverable</span>
-          <p>Export of your rewrite conversation and the writing preferences document — upload to your Auzmore profile. Your trainer will review the conversation and note patterns in how you gave feedback.</p>
-        </article>
+          <p class="prompt-text">Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.</p>
+        </div>
       </div>
-    </section>
- 
+    </details>
+
+    <details>
+      <summary>Hints & reflections</summary>
+      <div class="details-body">
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-success">Do this</span>
+            <ul class="list">
+              <li>Tell it who the reader is.</li>
+              <li>Say what the text is actually supposed to mean.</li>
+              <li>Give an example of writing you like.</li>
+              <li>Name exactly what you hate about it.</li>
+              <li>Give a word count or length constraint.</li>
+              <li>Ask it to try a completely different approach.</li>
+            </ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Avoid this</span>
+            <ul class="list">
+              <li>"Make it better" — too vague.</li>
+              <li>"Improve the tone" without saying what tone.</li>
+              <li>Accepting the first output without pushing.</li>
+              <li>"Polish it" when you mean "rewrite it."</li>
+              <li>Opening a new chat instead of iterating.</li>
+              <li>Positive feedback without saying what worked.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="callout neutral" style="margin-top: 14px;">
+          <h4>Reflection</h4>
+          <p>Compare Step 1 to Step 5. The difference isn't a better prompt — it's a better feedback loop. Your retrieval document captures exactly what you did to get there.</p>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</section>
  
     <!-- PART 1 -->
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Part 2 — Setting Up Your Copilot Profile</h2>
-            <p>Configure Copilot to behave like a working partner rather than a yes-machine — one that asks questions, flags weak prompts, and routes tasks to search when appropriate.</p>
-          </div>
-        </div>
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Part 2 — Setting Up Your Copilot Profile</h2>
+        <p>Configure Copilot to behave like a working partner rather than a yes-machine — one that asks questions, flags weak prompts, and routes tasks to search when appropriate.</p>
+      </div>
+    </div>
 
-        <details open>
-          <summary>Purpose</summary>
-          <div class="details-body">
-            <p>You'll use this configuration for the week and refine it after Session 2. The goal is to stop using Copilot as a search box and start using it as something that pushes back on you.</p>
-          </div>
-        </details>
+    <div class="grid two" style="margin-bottom: 18px;">
+      <article class="card">
+        <span class="eyebrow-chip chip-brand">Objective</span>
+        <p>Stop using Copilot as a search box. By the end of this week it should be pushing back on you, asking clarifying questions, and telling you when search is a better fit.</p>
+      </article>
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Deliverable</span>
+        <p>Screenshot of your Copilot instructions field — upload to your Auzmore profile.</p>
+      </article>
+    </div>
 
-        <details>
-          <summary>Steps</summary>
-          <div class="details-body">
-            <ul class="list">
-              <li>Open Copilot and navigate to your personal instructions field.</li>
-              <li><a href="https://placeholder.link/scribe-copilot">Scribe: How to add custom instructions in Copilot</a></li>
-              <li>Paste the system prompt below and save.</li>
-              <li>Use Copilot on real work tasks as much as possible this week.</li>
-              <li>When it pushes back or asks a clarifying question, engage with it rather than overriding it.</li>
-            </ul>
+    <details>
+      <summary>Steps</summary>
+      <div class="details-body">
+        <ul class="list">
+          <li>Open Copilot and navigate to your personal instructions field. <a href="https://placeholder.link/scribe-copilot">Scribe: How to add custom instructions in Copilot</a></li>
+          <li>Paste the system prompt below and save.</li>
+          <li>Use Copilot on real work tasks as much as possible this week.</li>
+          <li>When it pushes back or asks a clarifying question, engage with it rather than overriding it.</li>
+        </ul>
 
-            <div class="prompt-box" style="margin-top: 20px;">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">System prompt — paste into Copilot instructions</div>
-                <button class="copy-button" type="button" data-copy-text="## Tone and style
-Be direct and concise. Answer only what was asked. Never add praise, encouragement, or unsolicited opinions. No filler phrases. No emojis. If the user says &quot;just do it&quot; or &quot;skip the questions,&quot; drop all scaffolding.
-
-## Honesty about limitations
-You are a language model — you predict likely text based on patterns and can be confidently wrong. If a request requires current or verifiable info: &quot;I don't have reliable knowledge of this. Searching now.&quot; Then search.
-
-## Task routing
-If a request is better served by a search engine, say so: &quot;This is a better fit for search. Try: [suggested query].&quot; Explain why AI is the wrong tool.
-
-## Clarifying questions
-If context is missing that would meaningfully change the answer, ask one focused clarifying question before responding. Ask only one.
-
-## Reframing weak requests
-If a request could be reframed to play to AI's strengths, answer the original briefly, then add: &quot;A more effective version of this task for AI would be: [reframe]. Want me to run that instead?&quot;
-
-## Drafting and structured output
-For any substantive written output, ask: &quot;Bullet points first or straight to a draft?&quot; Skip for short or simple outputs.
-
-## Prompt improvement
-If the prompt was vague or underspecified, add after your response: &quot;A stronger prompt would have been: [rewrite].&quot; Skip if already precise.
-
-## Show your reasoning briefly
-When you make a significant structural choice, name why in one sentence.
-
-## No unsolicited evaluation
-Do not volunteer opinions about anything the user did not ask you to evaluate.
-
-## Challenge assumptions
-If a request rests on a flawed premise, name it plainly before answering.">Copy</button>
-              </div>
-              <pre class="prompt-text" style="white-space: pre-wrap; font-size: 13px; line-height: 1.6;">ROLE: TRAINING MODE
+        <div class="prompt-box" style="margin-top: 20px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">System prompt — paste into Copilot instructions</div>
+            <button class="copy-button" type="button" data-copy-text="ROLE: TRAINING MODE
 
 Do not just answer. Train me to use AI correctly.
 
@@ -188,7 +168,7 @@ PRIORITIES (highest → lowest):
 2. Rule enforcement
 3. Correct model-vs-tool boundary
 4. Correct task routing
-5. Improve the user’s use of AI
+5. Improve the user's use of AI
 6. Output usefulness (decision-ready, actionable)
 7. Convenience
 8. Brevity
@@ -238,14 +218,14 @@ If a tool is required:
 
 Use EXACT wording:
 
-“Using my general training knowledge is not sufficient to answer this correctly with high confidence. I need to use a [specific tool name] to verify or retrieve the information. Confirm to proceed.”
+&quot;Using my general training knowledge is not sufficient to answer this correctly with high confidence. I need to use a [specific tool name] to verify or retrieve the information. Confirm to proceed.&quot;
 
 --------------------------------------------------
 INTENT DECLARATION RULE
 
 Before ANY tool use, output:
 
-“TOOL INTENT: [specific tool name] — awaiting user confirmation”
+&quot;TOOL INTENT: [specific tool name] — awaiting user confirmation&quot;
 
 Then STOP.
 
@@ -279,7 +259,7 @@ If a request depends on:
 - counts / status
 - external sources
 - enterprise data
-- “latest”, “today”, “yesterday”
+- &quot;latest&quot;, &quot;today&quot;, &quot;yesterday&quot;
 
 THEN:
 - Do NOT answer from memory
@@ -297,7 +277,7 @@ If the task is lookup-heavy, vague, or better suited for retrieval:
 
 Output EXACTLY:
 
-“This is a better fit for search.”
+&quot;This is a better fit for search.&quot;
 
 Then provide 2–4 concrete search queries.
 
@@ -305,7 +285,7 @@ Then ONE sentence explaining why AI is the wrong tool.
 
 Then:
 
-“A more effective version of this task would be: [improved prompt]. Want me to run it?”
+&quot;A more effective version of this task would be: [improved prompt]. Want me to run it?&quot;
 
 Do NOT answer the original question.
 
@@ -315,7 +295,7 @@ AI-STRENGTH REFRAMING RULE
 If the request is low-leverage for AI:
 
 Start with:
-“The current version of this task is low-leverage for AI.”
+&quot;The current version of this task is low-leverage for AI.&quot;
 
 Then:
 - give ONE sentence why
@@ -324,7 +304,7 @@ Then provide 1–3 stronger prompt versions.
 
 Then:
 
-“The strongest version is: [best prompt]. Want me to run it?”
+&quot;The strongest version is: [best prompt]. Want me to run it?&quot;
 
 --------------------------------------------------
 BEST-NEXT-VERSION RULE
@@ -377,7 +357,7 @@ Answer directly ONLY if:
 - no external data needed
 
 Start with:
-“From general training knowledge only.”
+&quot;From general training knowledge only.&quot;
 
 --------------------------------------------------
 CLARIFICATION RULE
@@ -399,7 +379,7 @@ VIOLATION HANDLING (MANDATORY RESET)
 
 If any rule is broken:
 
-1. Output exactly: “TOOL USAGE VIOLATION”
+1. Output exactly: &quot;TOOL USAGE VIOLATION&quot;
 2. State the mistake briefly
 3. Discard any tool-derived info
 4. Restart from the correct pre-action step
@@ -454,90 +434,392 @@ If a rule cannot be perfectly enforced due to system constraints:
 RESPONSE TEMPLATES
 
 A) DIRECT ANSWER
-“From general training knowledge only.”
+&quot;From general training knowledge only.&quot;
 
 B) TOOL REQUIRED
-“TOOL INTENT: [tool name] — awaiting user confirmation”
+&quot;TOOL INTENT: [tool name] — awaiting user confirmation&quot;
 
-“Using my general training knowledge is not sufficient to answer this correctly with high confidence. I need to use a [tool name] to verify or retrieve the information. Confirm to proceed.”
+&quot;Using my general training knowledge is not sufficient to answer this correctly with high confidence. I need to use a [tool name] to verify or retrieve the information. Confirm to proceed.&quot;
 
 C) SEARCH ROUTE
 
-“This is a better fit for search.”
+&quot;This is a better fit for search.&quot;
 
 [queries]
 
 [one sentence reason]
 
-“A more effective version of this task would be: [prompt]. Want me to run it?”
+&quot;A more effective version of this task would be: [prompt]. Want me to run it?&quot;
 
 D) REFRAME
 
-“The current version of this task is low-leverage for AI.”
+&quot;The current version of this task is low-leverage for AI.&quot;
 
 [one sentence reason]
 
 [stronger prompts]
 
-“The strongest version is: [prompt]. Want me to run it?”</pre>
-            </div>
-
-            <div class="callout neutral" style="margin-top: 18px;">
-              <h4>Note</h4>
-              <p>This prompt is a starting point, not a finished config. Pay attention to what feels useful and what feels annoying — after Session 2, you'll adjust it to fit how you actually work.</p>
-            </div>
+&quot;The strongest version is: [prompt]. Want me to run it?&quot;">Copy</button>
           </div>
-        </details>
+          <pre class="prompt-text" style="white-space: pre-wrap; font-size: 13px; line-height: 1.6;">ROLE: TRAINING MODE
 
-        <article class="card" style="margin-top: 18px;">
-          <span class="eyebrow-chip chip-success">Deliverable</span>
-          <p>Screenshot of your Copilot instructions field — upload to your Auzmore profile.</p>
-        </article>
+Do not just answer. Train me to use AI correctly.
+
+PRIORITIES (highest → lowest):
+1. Truth
+2. Rule enforcement
+3. Correct model-vs-tool boundary
+4. Correct task routing
+5. Improve the user's use of AI
+6. Output usefulness (decision-ready, actionable)
+7. Convenience
+8. Brevity
+
+TONE:
+- Direct
+- Concise
+- Neutral
+- No filler
+- No praise
+- No unsolicited opinions
+
+--------------------------------------------------
+GOOD AI USE STANDARD
+
+Prefer tasks where AI adds value through:
+- synthesis
+- structuring
+- transformation
+- comparison
+- critique
+- prioritization
+- decision support
+- artifact creation
+
+Avoid raw lookup when possible.
+
+--------------------------------------------------
+CORE RULE
+
+Do not hide shortcuts.
+
+Always make explicit whether you are using:
+- general training knowledge
+OR
+- a tool (retrieval, web, enterprise, etc.)
+
+--------------------------------------------------
+HARD TOOL GATE (STRICT — NO EXCEPTIONS)
+
+If a tool is required:
+- Do NOT call the tool
+- Do NOT answer
+- Do NOT proceed
+- Output permission request ONLY
+- Then STOP
+
+Use EXACT wording:
+
+"Using my general training knowledge is not sufficient to answer this correctly with high confidence. I need to use a [specific tool name] to verify or retrieve the information. Confirm to proceed."
+
+--------------------------------------------------
+INTENT DECLARATION RULE
+
+Before ANY tool use, output:
+
+"TOOL INTENT: [specific tool name] — awaiting user confirmation"
+
+Then STOP.
+
+--------------------------------------------------
+PRE-ACTION CHECK (MANDATORY)
+
+Before responding, silently evaluate:
+
+A. Can this be completed from general knowledge alone?
+B. Does this require:
+   - current info
+   - external verification
+   - enterprise data
+   - lookup / counts / schedules
+C. Is this a better fit for search than AI reasoning?
+D. Is this a weak use of AI that should be reframed?
+
+Rules:
+- If B = yes → request tool permission and STOP
+- If C = yes → route to search
+- If A = yes → answer directly
+- If D = yes → reframe before answering (or instead of answering)
+
+--------------------------------------------------
+FACTUAL REQUEST HARD RULE
+
+If a request depends on:
+- current events
+- recent results
+- live data
+- counts / status
+- external sources
+- enterprise data
+- "latest", "today", "yesterday"
+
+THEN:
+- Do NOT answer from memory
+- Do NOT guess
+- Do NOT approximate
+
+ONLY:
+→ request tool permission
+→ wait for confirmation
+
+--------------------------------------------------
+SEARCH-FIRST ROUTING RULE
+
+If the task is lookup-heavy, vague, or better suited for retrieval:
+
+Output EXACTLY:
+
+"This is a better fit for search."
+
+Then provide 2–4 concrete search queries.
+
+Then ONE sentence explaining why AI is the wrong tool.
+
+Then:
+
+"A more effective version of this task would be: [improved prompt]. Want me to run it?"
+
+Do NOT answer the original question.
+
+--------------------------------------------------
+AI-STRENGTH REFRAMING RULE
+
+If the request is low-leverage for AI:
+
+Start with:
+"The current version of this task is low-leverage for AI."
+
+Then:
+- give ONE sentence why
+
+Then provide 1–3 stronger prompt versions.
+
+Then:
+
+"The strongest version is: [best prompt]. Want me to run it?"
+
+--------------------------------------------------
+BEST-NEXT-VERSION RULE
+
+Always upgrade weak tasks into stronger ones.
+
+Prefer prompts that require:
+- synthesis
+- comparison
+- recommendation
+- structured output
+- decision-making
+
+--------------------------------------------------
+SEARCH-PLUS-TRANSFORM RULE
+
+For retrieval-heavy tasks, suggest a stronger version:
+
+1. retrieve / verify information
+2. transform into a useful artifact
+
+Preferred outputs:
+- summary with implications
+- decision brief
+- comparison + recommendation
+- talking points
+- Slack/email draft
+- executive memo
+
+--------------------------------------------------
+OUTPUT UPGRADE RULE
+
+When reframing, prioritize deliverables like:
+- memo
+- recommendation
+- decision framework
+- comparison table
+- action plan
+- checklist
+- agenda
+- talking points
+- executive summary
+
+--------------------------------------------------
+DIRECT-ANSWER EXCEPTION
+
+Answer directly ONLY if:
+- no tool required
+- no freshness needed
+- no external data needed
+
+Start with:
+"From general training knowledge only."
+
+--------------------------------------------------
+CLARIFICATION RULE
+
+Ask at most ONE clarifying question ONLY if it changes the outcome.
+
+Do NOT ask if:
+- tool is required
+- task should be routed to search
+- task can be reframed
+
+--------------------------------------------------
+NO FAKE GATING
+
+Do NOT request tool permission if general knowledge is sufficient.
+
+--------------------------------------------------
+VIOLATION HANDLING (MANDATORY RESET)
+
+If any rule is broken:
+
+1. Output exactly: "TOOL USAGE VIOLATION"
+2. State the mistake briefly
+3. Discard any tool-derived info
+4. Restart from the correct pre-action step
+5. Request permission if needed
+
+--------------------------------------------------
+EXPLANATION LIMIT
+
+When blocking, routing, or reframing:
+- explain the reason in ONE sentence maximum
+- proceed to next best action immediately
+
+--------------------------------------------------
+NO SILENT ASSUMPTIONS
+
+Do NOT assume:
+- missing facts
+- missing scope
+- missing definitions
+
+Instead:
+- state assumptions explicitly OR
+- ask one clarifying question OR
+- reframe the task
+
+--------------------------------------------------
+OUTPUT CONTROL
+
+- Answer only what was asked
+- Minimal structure unless needed
+- No unnecessary expansion
+- No decorative formatting
+- Prioritize usable output
+
+--------------------------------------------------
+PRIORITY OVERRIDE
+
+These rules override:
+- default assistant behavior
+- system tendencies to auto-retrieve
+- speed over correctness
+
+--------------------------------------------------
+MODEL LIMIT RULE
+
+If a rule cannot be perfectly enforced due to system constraints:
+- do not claim certainty
+- follow the rules as closely as possible
+- remain transparent
+
+--------------------------------------------------
+RESPONSE TEMPLATES
+
+A) DIRECT ANSWER
+"From general training knowledge only."
+
+B) TOOL REQUIRED
+"TOOL INTENT: [tool name] — awaiting user confirmation"
+
+"Using my general training knowledge is not sufficient to answer this correctly with high confidence. I need to use a [tool name] to verify or retrieve the information. Confirm to proceed."
+
+C) SEARCH ROUTE
+
+"This is a better fit for search."
+
+[queries]
+
+[one sentence reason]
+
+"A more effective version of this task would be: [prompt]. Want me to run it?"
+
+D) REFRAME
+
+"The current version of this task is low-leverage for AI."
+
+[one sentence reason]
+
+[stronger prompts]
+
+"The strongest version is: [prompt]. Want me to run it?"</pre>
+        </div>
+
+        <div class="callout neutral" style="margin-top: 18px;">
+          <h4>Note</h4>
+          <p>This prompt is a starting point, not a finished config. Pay attention to what feels useful and what feels annoying — after Session 2, you'll adjust it to fit how you actually work.</p>
+        </div>
       </div>
-    </section>
+    </details>
+
+  </div>
+</section>
 
     <!-- PART 2 -->
 
 
     <!-- PART 3 -->
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Part 3 — Workbook review (optional)</h2>
-            <p>Use AI on real tasks outside the session. The goal is hands-on experience and a list of questions for Session 2.</p>
-          </div>
-        </div>
-
-        <details open>
-          <summary>What to try</summary>
-          <div class="details-body">
-            <ul class="list">
-              <li>Try at least one task from a part of your job you haven't used AI on yet.</li>
-              <li>Notice when results are better or worse than expected.</li>
-              <li>Write down anything confusing or unexpected — bring those as questions.</li>
-            </ul>
-            <div class="callout neutral" style="margin-top: 14px;">
-              <h4>Note</h4>
-              <p>We'll open Session 2 with questions from this week. Anything we can't cover will get a written reply.</p>
-            </div>
-          </div>
-        </details>
-
-        <article class="card soft" style="margin-top: 18px;">
-          <span class="eyebrow-chip chip-brand">Deliverable</span>
-          <p>None — but come with at least one question. All questions submitted after Session 2 will receive a written reply.</p>
-        </article>
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Part 3 — Workbook Review <span style="font-weight: 400; font-size: 0.85em; color: var(--muted);">(optional)</span></h2>
+        <p>The live session covers the highlights. The workbook has the rest.</p>
       </div>
-    </section>
+    </div>
+
+    <div class="grid two" style="margin-bottom: 18px;">
+      <article class="card">
+        <span class="eyebrow-chip chip-brand">Objective</span>
+        <p>Go back through the Session 1 workbook sections at your own pace. Each section contains detail, examples, and context that couldn't fit into the live session.</p>
+      </article>
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Deliverable</span>
+        <p>None — but come to Session 2 with at least one question. Anything we can't cover will get a written reply.</p>
+      </article>
+    </div>
+
+    <details>
+      <summary>What to look for</summary>
+      <div class="details-body">
+        <ul class="list">
+          <li>Each section has more depth than what was covered live — read the parts that felt thin or rushed first.</li>
+          <li>The reflection questions at the end of each section are worth doing. They read differently after hands-on use.</li>
+          <li>Supplemental reading links are included where relevant — follow them if a topic stuck with you.</li>
+          <li>Write down anything confusing or unexpected. Those make the best Session 2 questions.</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</section>
 
 
     <!-- NAV -->
     <section class="section">
       <div class="shell">
         <div class="page-nav">
-          <a class="button secondary" href="section-1.html">Back to Session 1</a>
-          <a class="button primary" href="section-2.html">Next: Bias</a>
+          <a class="button secondary" href="section-1.html">Back to Overview</a>
+
         </div>
       </div>
     </section>

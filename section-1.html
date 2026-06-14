@@ -48,11 +48,11 @@
         <div class="grid two">
           <article class="card">
             <span class="eyebrow-chip chip-brand">Objective</span>
-            <p>Understand what a search engine and an AI tool each do, know the difference between them, and be able to choose the right one for a given task.</p>
+            <p>Know the difference between Search vs. AI and choose the right one for the task.</p>
           </article>
           <article class="card soft">
             <span class="eyebrow-chip chip-gold">Core idea</span>
-            <p>Search finds existing content. AI generates a response from patterns learned during training. They look similar from the outside, but they do different jobs.</p>
+            <p>Search finds existing content. AI generates a response from patterns learned during training. Misusing AI for plain search tasks without due caution will give you fabricated results.</p>
           </article>
         </div>
       </div>
@@ -77,53 +77,101 @@
               </div>
               <div class="pull-quote-line"></div>
               <div class="pull-quote-text">
-                <p>Think of Google as a librarian who has already read every book in an enormous library and written notes on each one. When you walk in and ask a question, the librarian doesn't go to read new books — they flip through their notes and hand you a stack of the most relevant ones. That's it. The internet isn't being searched in that moment. Google searched for it in advance, built a massive, organized index, and is now just matching your words to that index as fast as possible.</p>
+                <p>Think of Google as a librarian. When you describe what you're looking for, the librarian checks the catalog and hands you the most relevant matches ranked by fit. They'll always point you to the original source rather then recalling the book contents from memory. Search works the same way: it points you to the best matching sources, but doesn't interpret them for you. Relevance and accuracy are still your call.</p>
               </div>
             </div>
             <p></p>
-            <p>This is why searching is great for finding specific, current, real things — a news article, a store's hours, a competitor's website. The answer already exists somewhere, and Google knows roughly where it is. But searching can't explain, reason, or create anything. It hands you a map and points you in a direction. What you do with it is up to you.</p>
+            <p>Search engines update their ''catalog' continuously, so they're your best for checking current facts, original sources, and quick lookups. And because search points you to the source rather than interpreting it, it won't fabricate — if you're reading from a reputable source, the content is likely accurate.</p>
             <figure class="figure">
               <img class="figure-img details-img" src="img/s1_search.png" alt="How search engines work">
             </figure>
           </div>
         </details>
 
-        <details>
-          <summary>How AI tools work</summary>
-          <div class="details-body">
-            <p>AI tools like ChatGPT or Claude looked at a massive amount of static data — books, articles, websites — to identify patterns in language. Specifically, patterns in what words tend to follow other words. When you ask a question, the AI does not look anything up. Instead it predicts the most likely first word of an answer given your question. Then it considers your question plus that first word to predict the second. Then the third. This loop continues until the response is complete. Every word is a calculated guess based on patterns — nothing more.</p>
-            <figure class="figure">
-              <img class="figure-img details-img" src="img/s1_ai.png" alt="How search engines work">
-            </figure>
-            <p>Think of an A-list actor preparing to play a lawyer. They sit in on real trials, study courtroom language, absorb how arguments are structured. Eventually they can sound remarkably like a lawyer — and much of what they say will actually be correct. But you would never take legal advice from them instead of a real attorney. The performance is convincing. The expertise isn't there.</p>
-            <figure class="figure">
-              <img class="figure-img details-img" src="img/s1_actor.png" alt="How AI tools work">
-            </figure>
-            <p>AI works the same way. The output often sounds authoritative, structured, and right — because it's imitating the pattern of a correct answer. Not retrieving one. AI doesn't know it's imitating — it has no awareness of whether its output is grounded in reality. It only knows the patterns it saw.</p>
-            <p>AI knowledge has a hard cutoff. Training ends at a point in time. Anything after that doesn't exist to the model. AI can also be confidently wrong. There's no internal fact-check. The output always sounds finished.</p>
-            <p>That said, this imitation can be extremely useful when applied to the right tasks. Drafting, summarizing, explaining, brainstorming, restructuring — these are all pattern-heavy tasks where AI performs well precisely because it has absorbed so much of how humans do them. The key is knowing what you're working with.</p>
-          </div>
-        </details>
+<details>
+  <summary>How AI tools work</summary>
+  <div class="details-body">
+    <p>AI tools like ChatGPT or Claude trained on a massive amount of text, including books, articles, and websites, to identify patterns in what words tend to follow other words. When you ask a question, it doesn't look anything up. It predicts the most likely first word of an answer, then the next, then the next. Every word is a calculated guess based on patterns and nothing more.</p>
+    <figure class="figure">
+      <img class="figure-img details-img" src="img/s1_ai.png" alt="How AI tools work">
+    </figure>
+    <div class="pull-quote">
+      <div class="pull-quote-brain">
+        <i class="ti ti-brain" aria-hidden="true"></i>
+        <span>Think through metaphor</span>
+      </div>
+      <div class="pull-quote-line"></div>
+      <div class="pull-quote-text">
+        <p>Think of an A-list actor preparing to play a lawyer. They sit in on real trials, study courtroom language, and absorb how arguments are structured. Eventually they can sound remarkably like a lawyer, and much of what they say will actually be correct. But you would never take legal advice from them over a real attorney. The performance is convincing. The expertise isn't there.</p>
+      </div>
+    </div>
+    <figure class="figure">
+      <img class="figure-img details-img" src="img/s1_actor.png" alt="How AI tools work">
+    </figure>
+    <p>AI knowledge has a hard cutoff. Training ends at a point in time and anything after that doesn't exist to the model. There is no internal fact-check, and the output always sounds finished regardless.</p>
+    <p>That said, imitation is extremely useful on the right tasks. Drafting, summarizing, explaining, and brainstorming are all pattern-heavy tasks where AI performs well precisely because it has absorbed so much of how humans do them. Know what you're working with and it becomes a powerful tool.</p>
+  </div>
+</details>
 
-        <details>
-          <summary>Hallucinations</summary>
-          <div class="details-body">
-            <p>The term is borrowed from psychology. In AI, a hallucination is when the model generates something that sounds completely plausible — a date, a name, a statistic, a quote, a legal citation — that is simply wrong. Not close. Not outdated. Just fabricated, with the same confident tone as everything else it produces.</p>
-            <figure class="figure">
-              <img class="figure-img details-img" src="img/s1_hallu.png" alt="How AI tools work">
-            </figure>
-            <p>It happens because the model isn't retrieving facts. It's predicting patterns. And sometimes the most statistically likely next word happens to be wrong. The model has no mechanism to know the difference — and no reason to flag it.</p>
-            <p>What this looks like: you ask AI to summarize a competitor's recent press releases. It produces five bullet points, each with a specific quote and date. Three of them are real. Two are composed from patterns that looked like press releases in its training data. You cannot tell which is which from reading the output.</p>
-            <p>The three situations where hallucinations are most dangerous are specific facts with no source, niche or specialized topics, and long outputs with lots of detail. The safest responses are to verify anything specific before you use it externally, ask AI where it is uncertain, and use AI for structure and voice rather than the facts themselves.</p>
-            <div class="prompt-box">
-              <div class="prompt-box-head">
-                <div class="prompt-box-label">Copy prompt</div>
-                <button class="copy-button" type="button" data-copy-text="Did you search for this or is this from your training data?">Copy</button>
-              </div>
-              <p class="prompt-text">Did you search for this or is this from your training data?</p>
-            </div>
+<details>
+  <summary>Hallucinations</summary>
+  <div class="details-body">
+    <p>We established that AI picks the most probable next word, one at a time, and can only guess. When those guesses are wrong, we call it a hallucination.</p>
+
+    <div class="pull-quote">
+      <div class="pull-quote-brain">
+        <i class="ti ti-brain" aria-hidden="true"></i>
+        <span>Think through metaphor</span>
+      </div>
+      <div class="pull-quote-line"></div>
+      <div class="pull-quote-text">
+        <p>If someone asks what's currently in your fridge, you can guess and probably get close, or you can open the fridge and actually check. On its own, AI cannot open the fridge and will always resort to guessing.</p>
+      </div>
+    </div>
+
+    <figure class="figure">
+      <img class="figure-img details-img" src="img/s1_hallu.png" alt="Hallucinations in AI">
+    </figure>
+
+    <p>Hallucinations sound plausible and fit the context, because we are still picking the most likely word to follow, which makes them hard to catch. In most cases you need to already know the correct answer to spot one. The more niche the question, the harder it is for AI to guess correctly and for you to validate.</p>
+
+    <p>Most AI tools like Copilot and Claude can choose to search the internet and interpret the results rather than guess. This reduces the problem but does not eliminate it. Whether a response came from search or training data is rarely obvious, and even search-assisted answers can go wrong if the source was misread or the wrong one was used. We will look at this in more detail in Session 2.</p>
+
+    <p>We can never eliminate hallucinations entirely, but three things reduce how often they cause problems:</p>
+
+    <ul class="list">
+      <li>
+        <strong>Use search for current facts, specific figures, or anything that needs a source.</strong> Don't ask AI to guess what search can answer directly. Try the query below in Google before asking AI.
+        <div class="prompt-box" style="margin-top: 10px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Example search query</div>
+            <button class="copy-button" type="button" data-copy-text="Current FCC political advertising disclosure requirements 2025">Copy</button>
           </div>
-        </details>
+          <p class="prompt-text">Current FCC political advertising disclosure requirements 2025</p>
+        </div>
+      </li>
+      <li style="margin-top: 14px;">
+        <strong>For niche topics or industry-specific language, give AI context before asking.</strong> Paste a paragraph from an internal SOP or workflow description, then ask your question. It improves results but won't guarantee them.
+      </li>
+      <li style="margin-top: 14px;">
+        <strong>Ask AI whether it searched or guessed.</strong> The habit of asking matters even when the answer is uncertain.
+        <div class="prompt-box" style="margin-top: 10px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Copy prompt</div>
+            <button class="copy-button" type="button" data-copy-text="Did you search for this or is this from your training data?">Copy</button>
+          </div>
+          <p class="prompt-text">Did you search for this or is this from your training data?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="callout neutral" style="margin-top: 18px;">
+      <h4>The tradeoff</h4>
+      <p>AI is always a tradeoff of speed versus accuracy. You become a stronger user when you learn to use AI to improve speed while mitigating hallucination risk. A good rule of thumb: the time needed is reduced, but the effort is frequently the same or even higher.</p>
+    </div>
+
+  </div>
+</details>
 
 
         <details>
@@ -279,50 +327,53 @@
 
 
 
-    <section class="section">
-      <div class="shell">
-         <div class="section-head">
-          <div>
-            <h2>Conclusion & Reflections</h2>
-            <p>Take a moment to reflect — it's what makes the learning stick.</p>
-          </div>
-        </div>
-        <div class="grid two">
-          <article class="card soft">
-            <span class="eyebrow-chip chip-gold">Take aways</span>
-            <ul class="list">
-              <li>Was there a task you were unsure about?</li>
-              <li>Have you ever gotten a wrong answer from AI?</li>
-              <li>What habit would change if you treated current facts as search-first?</li>
-            </ul>
-          </article>
-
-           <article class="card soft">
-            <span class="eyebrow-chip chip-brand">Reflection</span>
-            <ul class="list">
-              <li>Was there a task you were unsure about?</li>
-              <li>Have you ever gotten a wrong answer from AI?</li>
-              <li>What habit would change if you treated current facts as search-first?</li>
-            </ul>
-          </article>
-        </div>
-
-
-        
-        <div class="callout brand" style="margin-top:18px;">
-          <h4>Supplemental reading</h4>
-          <ul>
-            <li><a href="https://google.com/search/howsearchworks">How Search Works</a></li>
-            <li><a href="https://www.3blue1brown.com/lessons/mini-llm">Large Language Models Explained Briefly</a></li>
-            <li><a href="https://ibm.com/think/topics/large-language-models">What is a Large Language Model?</a></li>
-          </ul>
-        </div>
-        <div class="page-nav">
-          <a class="button secondary" href="index.html">Back to overview</a>
-          <a class="button primary" href="section-2.html">Next: Bias</a>
-        </div>
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Conclusion & Reflections</h2>
+        <p>Take a moment to reflect — it's what makes the learning stick.</p>
       </div>
-    </section>
+    </div>
+
+    <div class="grid two">
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+        <ul class="list">
+          <li>Search finds. AI generates. Different tools, different jobs.</li>
+          <li>AI picks the most probable next word. Useful for drafting, unreliable for facts.</li>
+          <li>Hallucinations are structural, not a bug. AI has no way to know when it's wrong, and the output always sounds finished regardless.</li>
+          <li>The more niche the question you ask AI, the harder it is to guess correctly and the harder it is for you to spot the mistake.</li>
+          <li>AI saves time. It rarely saves effort.</li>
+        </ul>
+      </article>
+
+      <article class="card soft">
+        <span class="eyebrow-chip chip-brand">Reflection</span>
+        <ul class="list">
+          <li>Think of a recent task you used AI for. Would search have been a better fit?</li>
+          <li>Have you ever acted on an AI response without verifying it? What was at stake?</li>
+          <li>In your role, what information would be most dangerous to get wrong?</li>
+          <li>What changes if you treat every AI output as a first draft?</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout brand" style="margin-top:18px;">
+      <h4>Supplemental reading</h4>
+      <ul>
+        <li><a href="https://google.com/search/howsearchworks">How Search Works</a></li>
+        <li><a href="https://www.3blue1brown.com/lessons/mini-llm">Large Language Models Explained Briefly</a></li>
+        <li><a href="https://ibm.com/think/topics/large-language-models">What is a Large Language Model?</a></li>
+      </ul>
+    </div>
+
+    <div class="page-nav">
+      <a class="button secondary" href="index.html">Back to overview</a>
+      <a class="button primary" href="section-2.html">Next: Bias</a>
+    </div>
+  </div>
+</section>
   </main>
 </body>
 </html>

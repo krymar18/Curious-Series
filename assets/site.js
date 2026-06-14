@@ -1,5 +1,16 @@
 document.documentElement.classList.add('js');
 
+const FLOW_URL = 'https://default4657d5eea660475fbb1099b5df3efd.46.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c97a8f2b84b040b5be50435684ab6929/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oxl9Wkor3lw3UEdn0sqVmonGpEJT0uIm2zGbtAjmiW4';
+
+// Fire-and-forget — used when no response is needed from the flow
+function postToFlow(payload) {
+  fetch(FLOW_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch(function () {});
+}
+
 for (const tabs of document.querySelectorAll('[data-tabs]')) {
   const buttons = Array.from(tabs.querySelectorAll('[data-tab-button]'));
   const panels = Array.from(tabs.querySelectorAll('[data-tab-panel]'));
@@ -75,25 +86,7 @@ function initActivityWidget() {
   if (!taskInput) return;
 
   var selectedType = null;
-  var mockMode = 'Search';
-
-  var mockData = {
-    Search: {
-      ai_type: 'Search',
-      explanation: 'This task requires current, specific, real-world information — a competitor announcement from last week. That content exists somewhere on the web right now. AI was not trained on it and cannot retrieve it. A search engine will find the actual source.',
-      reframe: 'If you wanted AI instead, you could ask it to help you summarize or analyze the announcement once you have found it — drafting a competitive brief, pulling out key themes, or comparing it to your own positioning.'
-    },
-    AI: {
-      ai_type: 'AI',
-      explanation: 'This task is generative — you need structured output, a first draft, or a synthesis from existing knowledge. AI excels here because the hard part is structure and tone, not finding a live source.',
-      reframe: 'If you used search instead, you would get a list of links about how others have done something similar — useful as reference material, but you would still need to do the synthesis yourself.'
-    },
-    Wrong: {
-      ai_type: 'Search',
-      explanation: 'This task requires current, specific, real-world information. AI was not trained on it and cannot retrieve it reliably. A search engine will surface the actual source.',
-      reframe: 'If you wanted AI instead, you could use it after finding the information — to summarize, compare, or draft a response based on what you found.'
-    }
-  };
+  var lastResult = null; // stores the most recent API response for copy
 
   function selectType(type) {
     selectedType = type;
@@ -108,41 +101,66 @@ function initActivityWidget() {
     btn.className = 'submit-btn' + (task.length > 0 && selectedType ? ' ready' : '');
   }
 
-  function setMock(mode) {
-    mockMode = mode;
-    document.getElementById('mock-search').className = 'mock-opt' + (mode === 'Search' ? ' active' : '');
-    document.getElementById('mock-ai').className = 'mock-opt' + (mode === 'AI' ? ' active' : '');
-    document.getElementById('mock-wrong').className = 'mock-opt' + (mode === 'Wrong' ? ' active' : '');
-    renderResult(mode);
+  function showLoading() {
+    var badge = document.getElementById('verdict-badge');
+    badge.textContent = '…';
+    badge.className = 'verdict-badge';
+    var reflect = document.getElementById('reflect-row');
+    reflect.className = 'reflect-row';
+    document.getElementById('reflect-icon').className = '';
+    document.getElementById('reflect-text').textContent = 'Analyzing your task…';
+    document.getElementById('result-explanation').textContent = '';
+    document.getElementById('result-reframe').textContent = '';
   }
 
-  function renderResult(mode) {
-    var d = mockData[mode];
+  function renderResult(data) {
+    lastResult = data;
     var badge = document.getElementById('verdict-badge');
-    badge.textContent = d.ai_type;
-    badge.className = 'verdict-badge ' + (d.ai_type === 'Search' ? 'badge-search' : 'badge-ai');
-    var userCorrect = mode !== 'Wrong';
+    badge.textContent = data.ai_type;
+    badge.className = 'verdict-badge ' + (data.ai_type === 'Search' ? 'badge-search' : 'badge-ai');
+    var userCorrect = selectedType === data.ai_type;
     var reflect = document.getElementById('reflect-row');
     var reflectIcon = document.getElementById('reflect-icon');
     var reflectText = document.getElementById('reflect-text');
     if (userCorrect) {
       reflect.className = 'reflect-row reflect-correct';
       reflectIcon.className = 'ti ti-check';
-      reflectText.textContent = 'You got it right — this is a ' + d.ai_type + ' task.';
+      reflectText.textContent = 'You got it right — this is a ' + data.ai_type + ' task.';
     } else {
       reflect.className = 'reflect-row reflect-wrong';
       reflectIcon.className = 'ti ti-x';
-      reflectText.textContent = 'You selected ' + selectedType + ', but this is actually a ' + d.ai_type + ' task.';
+      reflectText.textContent = 'You selected ' + selectedType + ', but this is actually a ' + data.ai_type + ' task.';
     }
-    document.getElementById('result-explanation').textContent = d.explanation;
-    document.getElementById('result-reframe').textContent = d.reframe;
+    document.getElementById('result-explanation').textContent = data.explanation;
+    document.getElementById('result-reframe').textContent = data.reframe;
+  }
+
+  function showError(msg) {
+    var badge = document.getElementById('verdict-badge');
+    badge.textContent = '—';
+    badge.className = 'verdict-badge';
+    var reflect = document.getElementById('reflect-row');
+    reflect.className = 'reflect-row reflect-wrong';
+    document.getElementById('reflect-icon').className = 'ti ti-alert-triangle';
+    document.getElementById('reflect-text').textContent = msg;
+    document.getElementById('result-explanation').textContent = '';
+    document.getElementById('result-reframe').textContent = '';
   }
 
   function copyResult() {
+    if (!lastResult) return;
     var task = taskInput.value.trim();
-    var d = mockData[mockMode];
-    var userCorrect = mockMode !== 'Wrong';
-    var text = 'My task: ' + task + '\n\nMy selection: ' + selectedType + '\n\nCorrect answer: ' + d.ai_type + '\n\n' + (userCorrect ? 'I got it right.' : 'I got it wrong.') + '\n\nExplanation: ' + d.explanation + '\n\nReframing: ' + d.reframe;
+    var userCorrect = selectedType === lastResult.ai_type;
+    var text = [
+      'Task: ' + task,
+      'My selection: ' + selectedType,
+      'Correct answer: ' + lastResult.ai_type,
+      userCorrect ? 'Result: Correct' : 'Result: Incorrect',
+      '',
+      'Explanation: ' + lastResult.explanation,
+      '',
+      'Reframing: ' + lastResult.reframe,
+    ].join('\n');
     navigator.clipboard.writeText(text).catch(function() {
       var el = document.createElement('textarea');
       el.value = text;
@@ -161,31 +179,57 @@ function initActivityWidget() {
       btn.innerHTML = '<i class="ti ti-copy" style="font-size:15px;" aria-hidden="true"></i> Copy result';
     }, 1600);
   }
+
   var resetBtn = document.getElementById('reset-btn');
   var btnSearch = document.getElementById('btn-search');
   var btnAi = document.getElementById('btn-ai');
   var submitBtn = document.getElementById('submit-btn');
-  var mockSearchBtn = document.getElementById('mock-search');
-  var mockAiBtn = document.getElementById('mock-ai');
-  var mockWrongBtn = document.getElementById('mock-wrong');
   var copyBtn = document.getElementById('act-copy-btn');
 
   if (!btnSearch || !submitBtn) return;
-  
+
   taskInput.addEventListener('input', checkReady);
   btnSearch.addEventListener('click', function() { selectType('Search'); });
   btnAi.addEventListener('click', function() { selectType('AI'); });
-  submitBtn.addEventListener('click', function() {
+
+  submitBtn.addEventListener('click', async function() {
+    var task = taskInput.value.trim();
+    if (!task || !selectedType) return;
+
     document.getElementById('result-wrap').className = 'result-wrap visible';
-    renderResult(mockMode);
+    showLoading();
+    submitBtn.disabled = true;
+
+    var data = null;
+    try {
+      var response = await fetch(FLOW_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          activity: 'ai_vs_search',
+          task: task,
+          user_selection: selectedType,
+        }),
+      });
+      var ct = response.headers.get('content-type') || '';
+      var raw = ct.includes('application/json') ? await response.json() : null;
+      if (raw && raw.ai_type && raw.explanation && raw.reframe) data = raw;
+    } catch (_) {}
+
+    if (data) {
+      renderResult(data);
+    } else {
+      showError('Could not reach the analysis flow. Check your connection and try again.');
+    }
+    submitBtn.disabled = false;
   });
-  mockSearchBtn.addEventListener('click', function() { setMock('Search'); });
-  mockAiBtn.addEventListener('click', function() { setMock('AI'); });
-  mockWrongBtn.addEventListener('click', function() { setMock('Wrong'); });
+
   copyBtn.addEventListener('click', copyResult);
   if (resetBtn) {
     resetBtn.addEventListener('click', function() {
       taskInput.value = '';
+      selectedType = null;
+      lastResult = null;
       selectType(null);
       document.getElementById('result-wrap').className = 'result-wrap';
       checkReady();
@@ -203,7 +247,6 @@ for (const activity of document.querySelectorAll('[data-activity-chat]')) {
   const resetButton = activity.querySelector('[data-activity-reset]');
   const status = activity.querySelector('[data-activity-status]');
   const count = activity.querySelector('[data-activity-count]');
-  const flowUrl = activity.dataset.flowUrl || '';
   const activityName = activity.dataset.activityName || 'Activity';
   const initialLogMarkup = log ? log.innerHTML : '';
   const state = { messages: [], userCount: 0, busy: false };
@@ -269,15 +312,16 @@ for (const activity of document.querySelectorAll('[data-activity-chat]')) {
     renderState();
 
     const payload = {
-      activityName,
-      currentMessage,
-      messages: state.messages,
+      activity: activityName,
+      current_message: currentMessage,
+      conversation: state.messages,
+      message_count: state.userCount,
     };
 
     let replyText = '';
 
     try {
-      const response = await fetch(flowUrl, {
+      const response = await fetch(FLOW_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -296,7 +340,7 @@ for (const activity of document.querySelectorAll('[data-activity-chat]')) {
       }
       replyText = replyText || (response.ok ? 'The flow returned no message.' : 'The flow responded with an error.');
     } catch {
-      replyText = 'The Power Automate flow URL is still a placeholder. Replace it to start receiving replies.';
+      replyText = 'Could not reach the Power Automate flow. Check your connection and try again.';
     }
 
     addMessage('assistant', replyText);
@@ -385,6 +429,26 @@ function initPersonaGuessActivity() {
 
     lockBtn.disabled = true;
     lockBtn.textContent = 'Checked';
+
+    const guessResults = cards.map((card, idx) => {
+      const sel = card.querySelector('.persona-choice-btn.selected');
+      const correctKey = card.dataset.personaKey;
+      const correctPersona = PERSONAS.find(p => p.key === correctKey);
+      const selectedPersona = sel ? PERSONAS.find(p => p.key === sel.dataset.key) : null;
+      return {
+        card: String.fromCharCode(65 + idx),
+        user_selection: selectedPersona ? selectedPersona.label : null,
+        correct_answer_key: correctKey,
+        correct_answer_label: correctPersona ? correctPersona.label : correctKey,
+        is_correct: sel ? sel.dataset.key === correctKey : false,
+      };
+    });
+    postToFlow({
+      activity: 'persona_guess',
+      results: guessResults,
+      score: guessResults.filter(r => r.is_correct).length,
+      total: cards.length,
+    });
   });
 
   resetBtn.addEventListener('click', () => {
@@ -414,7 +478,6 @@ function initPromptConstructor() {
   const activity = document.getElementById('prompt-constructor');
   if (!activity) return;
 
-  const FLOW_URL = 'https://YOUR-POWER-AUTOMATE-URL-HERE';
 
   const PC_SAMPLES = {
     traffic: {
@@ -645,7 +708,14 @@ function initPromptConstructor() {
     feedbackWrap.hidden = false;
     feedbackContent.innerHTML = '<span class="pc-spinner">Evaluating your prompt…</span>';
 
-    const payload = { role, context, tasks, constraints, combinedPrompt: assemblePrompt() };
+    const payload = {
+      activity: 'prompt_constructor',
+      role,
+      context,
+      tasks,
+      constraints,
+      combined_prompt: assemblePrompt(),
+    };
 
     let data = null;
     try {
@@ -660,7 +730,7 @@ function initPromptConstructor() {
     } catch (_) {}
 
     if (!data) {
-      const len = payload.combinedPrompt.length;
+      const len = payload.combined_prompt.length;
       data = PC_FALLBACK_EVALS[len > 600 ? 0 : len > 280 ? 1 : 2];
     }
 

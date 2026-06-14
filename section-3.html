@@ -227,35 +227,27 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="shell">
-        <div class="grid two">
-          <article class="card">
-            <span class="eyebrow-chip chip-brand">Core message</span>
-            <p>AI starts from zero each session. Vague prompts get vague answers. Most useful outputs come from two or three rounds of feedback, not one perfect prompt.</p>
-          </article>
-          <article class="card soft">
-            <span class="eyebrow-chip chip-gold">Prompt basics</span>
-            <p>What do you want it to do? Who is it for? What format do you want? What tone is right? What should it avoid?</p>
-          </article>
-        </div>
-
-      </div>
-    </section>
-
-
 <section class="section">
   <div class="shell">
+    <div class="grid two" style="margin-bottom: 18px;">
+      <article class="card">
+        <span class="eyebrow-chip chip-brand">Objective</span>
+        <p>Give AI enough context to produce a useful first output — and know how to steer from there.</p>
+      </article>
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Key idea</span>
+        <p>AI has no working memory between sessions. Everything it knows about your task, your audience, and your constraints comes from what you put in the prompt. The quality of the output is almost always a function of the quality of the context you provide.</p>
+      </article>
+    </div>
+
     <div class="section-head">
       <div>
         <h2>Context Is Everything</h2>
-        <p>AI starts from zero every session. It knows nothing about you, your work, your industry, or what a good outcome looks like — unless you tell it.</p>
+        <p>AI starts from zero every session. It knows nothing about you, your work, your industry, or what a good outcome looks like — unless you tell it. Every word of context you provide is working memory you are loading into the model for this session only.</p>
       </div>
     </div>
 
-
-
-    <details>
+    <details >
       <summary>AI Starts From Zero</summary>
       <div class="details-body">
         <div class="pull-quote">
@@ -265,11 +257,11 @@
           </div>
           <div class="pull-quote-line"></div>
           <div class="pull-quote-text">
-            <p>Using AI is like directing a play. You've cast the best actor in the world — someone who can genuinely play anyone. You walk up to them and say: "You're a doctor." The chances of getting what you want are low. Are they a villain or a hero? Mid-emergency in an ER, or having a quiet conversation with their family? Even the most talented actor needs to know who they are, where they are, and what they're trying to do in this scene.</p>
+            <p>Using AI is like directing a play. You have cast the best actor in the world — someone who can genuinely play anyone. You walk up to them and say: "You are a doctor." The chances of getting what you want are low. Are they a villain or a hero? Mid-emergency in an ER, or having a quiet conversation with their family? Even the most talented actor needs to know who they are, where they are, and what they are trying to do in this scene.</p>
           </div>
         </div>
         <p></p>
-        <p>Vague prompts get vague answers. Most good outputs come from two or three rounds of feedback, not one perfect prompt.</p>
+        <p>Vague prompts get vague answers. The first output is almost never the final one. The skill is knowing how to close the gap between what you got and what you needed.</p>
       </div>
     </details>
 
@@ -282,13 +274,14 @@
           <li>What format do you want?</li>
           <li>What tone is right?</li>
           <li>What should it avoid?</li>
+          <li>What does a good answer look like — and what would make it wrong?</li>
         </ul>
         <div class="prompt-box" style="margin-top: 20px;">
           <div class="prompt-box-head">
             <div class="prompt-box-label">Copy prompt starter</div>
-            <button class="copy-button" type="button" data-copy-text="I need you to [task]. This is for [audience]. Format it as [format]. The tone should be [tone]. Avoid [anything to exclude].">Copy</button>
+            <button class="copy-button" type="button" data-copy-text="I need you to [task]. This is for [audience]. Format it as [format]. The tone should be [tone]. Do not [anything to exclude]. A good answer would [success criteria].">Copy</button>
           </div>
-          <p class="prompt-text">I need you to [task]. This is for [audience]. Format it as [format]. The tone should be [tone]. Avoid [anything to exclude].</p>
+          <p class="prompt-text">I need you to [task]. This is for [audience]. Format it as [format]. The tone should be [tone]. Do not [anything to exclude]. A good answer would [success criteria].</p>
         </div>
       </div>
     </details>
@@ -296,7 +289,7 @@
     <details>
       <summary>Giving AI a Persona</summary>
       <div class="details-body">
-        <p>A persona is simply a starting point you define before you ask anything. A basic persona answers three things:</p>
+        <p>A persona is simply a starting point you define before you ask anything. A basic persona answers four things:</p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -326,6 +319,12 @@
                 <td>Write an email</td>
                 <td>Write an email that keeps the relationship intact while still saying no</td>
               </tr>
+              <tr>
+                <td><b>What must you avoid?</b></td>
+                <td>Constraints that define the edges of an acceptable output</td>
+                <td>Nothing specified</td>
+                <td>Do not mention pricing. Do not apologize for company policy. Keep it under 5 lines.</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -334,12 +333,11 @@
 
     <div class="callout neutral" style="margin-top: 18px;">
       <h4>In practice</h4>
-      <p>You don't need a perfect prompt to start. Give the AI a role, a situation, and a goal — then refine from there. Two or three rounds of feedback will get you further than one carefully constructed prompt.</p>
+      <p>You don't need a perfect prompt to start. Give the AI a role, a situation, a goal, and at least one constraint — then refine from there. If AI doesn't get you all the way to what you need, that's fine. Get as far as you can with it, then switch to manual edits. The context window resets every session, so anything you want the AI to know, you have to tell it.</p>
     </div>
 
   </div>
 </section>
-
 
 
 
@@ -922,17 +920,18 @@
       <article class="card soft">
         <span class="eyebrow-chip chip-gold">Key Takeaways</span>
         <ul class="list">
-          <li>AI starts from zero every session — your context is its only starting point.</li>
-          <li>A vague prompt gets a vague answer. Role, situation, and goal are the minimum.</li>
-          <li>Most good outputs come from iteration, not one perfect prompt.</li>
+          <li>AI has no memory between sessions. Everything it knows comes from what you put in the prompt.</li>
+          <li>If a prompt is not giving you what you want, try adding a role, a situation, a goal, and at least one constraint before rewriting it from scratch.</li>
+          <li>If AI does not get you all the way there, get as far as you can with it and finish manually.</li>
         </ul>
       </article>
 
       <article class="card soft">
         <span class="eyebrow-chip chip-brand">Reflection</span>
         <ul class="list">
-          <li>What was the first thing you changed about the bad text? What does that tell you about what you value in writing?</li>
-          <li>What prompt got you the closest to what you actually wanted? Why do you think it worked?</li>
+          <li>Think of a task you used AI for recently. What context could you add that might have improved the result?</li>
+          <li>Has AI ever given you something technically correct that did not fit your actual situation? What was missing?</li>
+          <li>What constraints do you find yourself adding after the fact — and how could you build those in upfront next time?</li>
         </ul>
       </article>
     </div>
@@ -945,12 +944,12 @@
       </ul>
     </div>
 
-        <div class="page-nav">
-          <a class="button secondary" href="section-2.html">Previous: Bias</a>
-          <a class="button primary" href="week-2-session-a.html">Next: Feedback</a>
-        </div>
-      </div>
-    </section>
+    <div class="page-nav">
+      <a class="button secondary" href="section-2.html">Back: Bias</a>
+      <a class="button primary" href="week-2-session-a.html">Next: Feedback</a>
+    </div>
+  </div>
+</section>
   </main>
 
   <script>

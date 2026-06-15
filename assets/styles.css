@@ -1824,7 +1824,7 @@ tr.dept-hidden { display: none; }
 .section-nav-item {
   display: block;
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.45;
   color: var(--muted);

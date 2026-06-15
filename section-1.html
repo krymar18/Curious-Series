@@ -8,6 +8,42 @@
   <script defer src="assets/site.js"></script>
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    .ts-wrap{font-family:'DM Sans',sans-serif}
+    .ts-row{display:flex;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--border);opacity:0;transition:opacity .35s ease}
+    .ts-row:last-child{border-bottom:none}
+    .ts-connector{display:flex;align-items:center;padding-left:64px;height:28px}
+    .ts-left{width:148px;flex-shrink:0;border:1.5px solid var(--brand);border-radius:10px;padding:10px 12px;background:var(--brand)}
+    .ts-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.06em;margin-bottom:4px;text-transform:uppercase}
+    .ts-val{font-size:13px;font-weight:500;color:#fff;line-height:1.4}
+    .ts-mid{flex:1;min-width:0}
+    .ts-mid-lbl{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.06em;margin-bottom:8px;text-align:center;text-transform:uppercase}
+    .ts-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    .ts-opt{border:1.5px solid var(--border);border-radius:10px;padding:9px 6px 8px;text-align:center;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
+    .ts-opt:hover{border-color:var(--brand);background:var(--brand-soft)}
+    .ts-opt.ts-sel{border:2px solid var(--brand);background:var(--brand-soft);cursor:default}
+    .ts-opt.ts-dim{opacity:.25;cursor:default;pointer-events:none}
+    .ts-opt-word{font-size:13px;font-weight:600;color:var(--brand-2);margin-bottom:2px}
+    .ts-opt.ts-sel .ts-opt-word{color:var(--brand)}
+    .ts-opt-pct{font-size:11px;color:var(--brand)}
+    .ts-rarrow{width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .ts-rl{width:14px;height:2px;background:var(--border)}
+    .ts-rh{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--border)}
+    .ts-next{width:100px;flex-shrink:0;border:2px solid var(--brand);border-radius:10px;padding:10px;background:var(--brand-soft);text-align:center}
+    .ts-nlbl{font-size:10px;color:var(--brand);font-weight:600;letter-spacing:.05em;margin-bottom:4px;text-transform:uppercase}
+    .ts-nword{font-size:14px;font-weight:600;color:var(--brand-2)}
+    .ts-next.ts-empty{background:#fff;border-color:var(--border)}
+    .ts-next.ts-empty .ts-nword{color:var(--muted)}
+    .ts-complete{margin-top:1.25rem;border-top:1px solid var(--border);padding-top:1.25rem;opacity:0;transition:opacity .4s}
+    .ts-complete.ts-vis{opacity:1}
+    .ts-final-card{border:1px solid rgba(32,77,137,.18);border-radius:12px;padding:1rem 1.1rem;background:var(--brand-soft)}
+    .ts-final-lbl{font-size:10px;color:var(--brand);letter-spacing:.06em;font-weight:700;text-transform:uppercase;margin-bottom:8px}
+    .ts-final-text{font-size:14px;line-height:1.75;color:var(--text)}
+    .ts-picked{color:var(--brand);font-weight:600}
+    .ts-gen{color:var(--body)}
+    .ts-restart-btn{margin-top:1rem;font-size:13px;background:#fff;border:1.5px solid var(--border);border-radius:99px;padding:8px 18px;color:var(--body);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+    .ts-restart-btn:hover{border-color:var(--brand);color:var(--brand)}
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -93,8 +129,21 @@
   <summary>How AI tools work</summary>
   <div class="details-body">
     <p>AI tools like ChatGPT or Claude trained on a massive amount of text, including books, articles, and websites, to identify patterns in what words tend to follow other words. When you ask a question, it doesn't look anything up. It predicts the most likely first word of an answer, then the next, then the next. Every word is a calculated guess based on patterns and nothing more.</p>
-    <figure class="figure">
-      <img class="figure-img details-img" src="img/s1_ai.png" alt="How AI tools work">
+    <figure class="figure" style="width:94%;margin:20px auto;">
+      <div style="background:rgba(255,255,255,0.9);border:1px solid rgba(221,212,199,0.92);border-radius:18px;padding:20px 22px;box-shadow:0 16px 28px rgba(23,15,5,0.05);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <span class="eyebrow-chip chip-brand" style="margin-bottom:0;flex-shrink:0;">Try it</span>
+          <span style="font-size:13px;color:var(--muted);line-height:1.5;">Pick the most likely next word at each step — see how a language model builds a response one token at a time.</span>
+        </div>
+        <div id="ts-rowWrap" class="ts-wrap"></div>
+        <div class="ts-complete" id="ts-completeSec">
+          <div class="ts-final-card">
+            <div class="ts-final-lbl">Generated answer</div>
+            <div class="ts-final-text" id="ts-finalText"></div>
+          </div>
+          <button class="ts-restart-btn" onclick="tsRestart()"><i class="ti ti-refresh" aria-hidden="true"></i> Start over</button>
+        </div>
+      </div>
     </figure>
     <div class="pull-quote">
       <div class="pull-quote-brain">
@@ -106,9 +155,7 @@
         <p>Think of an A-list actor preparing to play a lawyer. They sit in on real trials, study courtroom language, and absorb how arguments are structured. Eventually they can sound remarkably like a lawyer, and much of what they say will actually be correct. But you would never take legal advice from them over a real attorney. The performance is convincing. The expertise isn't there.</p>
       </div>
     </div>
-    <figure class="figure">
-      <img class="figure-img details-img" src="img/s1_actor.png" alt="How AI tools work">
-    </figure>
+    
     <p>AI knowledge has a hard cutoff. Training ends at a point in time and anything after that doesn't exist to the model. There is no internal fact-check, and the output always sounds finished regardless.</p>
     <p>That said, imitation is extremely useful on the right tasks. Drafting, summarizing, explaining, and brainstorming are all pattern-heavy tasks where AI performs well precisely because it has absorbed so much of how humans do them. Know what you're working with and it becomes a powerful tool.</p>
   </div>
@@ -377,5 +424,229 @@
   </div>
 </section>
   </main>
+
+<script>
+const TS_STEPS = [
+  {
+    choices: [
+      { word: "Regular", prob: 32 },
+      { word: "There", prob: 18 },
+      { word: "Exercise", prob: 12 },
+      { word: "The", prob: 9 }
+    ]
+  },
+  {
+    choices: {
+      "Regular":   [{ word: "exercise", prob: 45 }, { word: "physical", prob: 16 }, { word: "activity", prob: 13 }, { word: "routine", prob: 8 }],
+      "There":     [{ word: "are", prob: 51 }, { word: "is", prob: 22 }, { word: "have", prob: 11 }, { word: "exist", prob: 7 }],
+      "Exercise":  [{ word: "has", prob: 38 }, { word: "offers", prob: 24 }, { word: "provides", prob: 18 }, { word: "delivers", prob: 9 }],
+      "The":       [{ word: "benefits", prob: 44 }, { word: "main", prob: 19 }, { word: "health", prob: 14 }, { word: "key", prob: 10 }]
+    }
+  },
+  {
+    choices: {
+      "Regular_exercise":  [{ word: "can", prob: 38 }, { word: "helps", prob: 17 }, { word: "is", prob: 15 }, { word: "improves", prob: 9 }],
+      "Regular_physical":  [{ word: "activity", prob: 42 }, { word: "fitness", prob: 21 }, { word: "exercise", prob: 14 }, { word: "training", prob: 8 }],
+      "Regular_activity":  [{ word: "can", prob: 35 }, { word: "and", prob: 20 }, { word: "like", prob: 12 }, { word: "such", prob: 9 }],
+      "Regular_routine":   [{ word: "can", prob: 36 }, { word: "will", prob: 22 }, { word: "helps", prob: 15 }, { word: "may", prob: 10 }],
+      "There_are":         [{ word: "many", prob: 47 }, { word: "several", prob: 28 }, { word: "numerous", prob: 13 }, { word: "various", prob: 8 }],
+      "There_is":          [{ word: "strong", prob: 33 }, { word: "compelling", prob: 21 }, { word: "growing", prob: 18 }, { word: "clear", prob: 14 }],
+      "There_have":        [{ word: "been", prob: 72 }, { word: "always", prob: 12 }, { word: "long", prob: 8 }, { word: "historically", prob: 5 }],
+      "There_exist":       [{ word: "many", prob: 44 }, { word: "several", prob: 29 }, { word: "numerous", prob: 17 }, { word: "multiple", prob: 7 }],
+      "Exercise_has":      [{ word: "many", prob: 41 }, { word: "numerous", prob: 22 }, { word: "several", prob: 16 }, { word: "well-doc", prob: 9 }],
+      "Exercise_offers":   [{ word: "many", prob: 39 }, { word: "numerous", prob: 24 }, { word: "a", prob: 18 }, { word: "significant", prob: 10 }],
+      "Exercise_provides": [{ word: "many", prob: 37 }, { word: "numerous", prob: 26 }, { word: "a", prob: 17 }, { word: "significant", prob: 11 }],
+      "Exercise_delivers": [{ word: "many", prob: 35 }, { word: "significant", prob: 27 }, { word: "impressive", prob: 16 }, { word: "measurable", prob: 12 }],
+      "The_benefits":      [{ word: "of", prob: 68 }, { word: "include", prob: 14 }, { word: "are", prob: 11 }, { word: "from", prob: 5 }],
+      "The_main":          [{ word: "benefits", prob: 52 }, { word: "advantage", prob: 19 }, { word: "reasons", prob: 15 }, { word: "purpose", prob: 8 }],
+      "The_health":        [{ word: "benefits", prob: 58 }, { word: "advantages", prob: 17 }, { word: "impacts", prob: 13 }, { word: "effects", prob: 9 }],
+      "The_key":           [{ word: "benefits", prob: 49 }, { word: "advantages", prob: 22 }, { word: "reasons", prob: 15 }, { word: "outcomes", prob: 9 }]
+    }
+  },
+  {
+    choices: {
+      "can":        [{ word: "help", prob: 31 }, { word: "improve", prob: 20 }, { word: "reduce", prob: 14 }, { word: "boost", prob: 10 }],
+      "helps":      [{ word: "improve", prob: 35 }, { word: "reduce", prob: 22 }, { word: "boost", prob: 16 }, { word: "maintain", prob: 12 }],
+      "is":         [{ word: "essential", prob: 28 }, { word: "beneficial", prob: 24 }, { word: "known", prob: 18 }, { word: "proven", prob: 14 }],
+      "improves":   [{ word: "cardiovascular", prob: 29 }, { word: "overall", prob: 23 }, { word: "mental", prob: 19 }, { word: "physical", prob: 16 }],
+      "activity":   [{ word: "can", prob: 34 }, { word: "is", prob: 26 }, { word: "helps", prob: 18 }, { word: "may", prob: 11 }],
+      "fitness":    [{ word: "levels", prob: 38 }, { word: "improves", prob: 24 }, { word: "benefits", prob: 16 }, { word: "gains", prob: 11 }],
+      "exercise":   [{ word: "can", prob: 36 }, { word: "helps", prob: 24 }, { word: "may", prob: 15 }, { word: "will", prob: 10 }],
+      "training":   [{ word: "can", prob: 33 }, { word: "offers", prob: 22 }, { word: "provides", prob: 18 }, { word: "improves", prob: 14 }],
+      "many":       [{ word: "benefits", prob: 42 }, { word: "health", prob: 23 }, { word: "studies", prob: 14 }, { word: "proven", prob: 10 }],
+      "several":    [{ word: "benefits", prob: 45 }, { word: "key", prob: 21 }, { word: "important", prob: 15 }, { word: "significant", prob: 11 }],
+      "numerous":   [{ word: "benefits", prob: 48 }, { word: "health", prob: 19 }, { word: "studies", prob: 13 }, { word: "proven", prob: 8 }],
+      "various":    [{ word: "benefits", prob: 44 }, { word: "physical", prob: 20 }, { word: "health", prob: 17 }, { word: "documented", prob: 10 }],
+      "multiple":   [{ word: "benefits", prob: 46 }, { word: "health", prob: 21 }, { word: "physical", prob: 16 }, { word: "proven", prob: 10 }],
+      "strong":     [{ word: "evidence", prob: 52 }, { word: "scientific", prob: 24 }, { word: "research", prob: 14 }, { word: "consensus", prob: 7 }],
+      "compelling": [{ word: "evidence", prob: 55 }, { word: "research", prob: 22 }, { word: "scientific", prob: 13 }, { word: "proof", prob: 7 }],
+      "growing":    [{ word: "body", prob: 44 }, { word: "evidence", prob: 28 }, { word: "research", prob: 17 }, { word: "amount", prob: 8 }],
+      "clear":      [{ word: "evidence", prob: 47 }, { word: "research", prob: 25 }, { word: "benefits", prob: 15 }, { word: "proof", prob: 8 }],
+      "been":       [{ word: "many", prob: 38 }, { word: "numerous", prob: 25 }, { word: "studies", prob: 19 }, { word: "documented", prob: 11 }],
+      "of":         [{ word: "regular", prob: 38 }, { word: "exercise", prob: 29 }, { word: "physical", prob: 18 }, { word: "consistent", prob: 9 }],
+      "include":    [{ word: "improved", prob: 35 }, { word: "better", prob: 26 }, { word: "stronger", prob: 18 }, { word: "enhanced", prob: 13 }],
+      "are":        [{ word: "wide-ranging", prob: 32 }, { word: "numerous", prob: 27 }, { word: "significant", prob: 18 }, { word: "well-known", prob: 14 }],
+      "benefits":   [{ word: "include", prob: 36 }, { word: "are", prob: 27 }, { word: "range", prob: 18 }, { word: "encompass", prob: 10 }],
+      "will":       [{ word: "improve", prob: 33 }, { word: "boost", prob: 24 }, { word: "benefit", prob: 19 }, { word: "enhance", prob: 12 }],
+      "may":        [{ word: "improve", prob: 30 }, { word: "help", prob: 25 }, { word: "reduce", prob: 20 }, { word: "boost", prob: 14 }],
+      "and":        [{ word: "improve", prob: 28 }, { word: "boost", prob: 22 }, { word: "reduce", prob: 18 }, { word: "support", prob: 14 }]
+    }
+  }
+];
+
+const TS_ENDINGS = {
+  "help":           " reduce stress, improve sleep, and lower chronic disease risk. Even 30 minutes a day makes a measurable difference.",
+  "improve":        " cardiovascular health, strengthen muscles, boost mood, and reduce disease risk. Consistency matters more than intensity.",
+  "reduce":         " stress, lower blood pressure, and cut the risk of heart disease and type 2 diabetes. Better sleep follows too.",
+  "boost":          " energy, sharpen focus, improve sleep quality, and reduce chronic disease risk. Short daily sessions compound over time.",
+  "maintain":       " a healthy weight, protect bone density, and support long-term cardiovascular and mental health.",
+  "essential":      " for maintaining both physical and mental health — reducing disease risk, improving mood, and extending lifespan.",
+  "beneficial":     " for cardiovascular health, mental wellbeing, metabolic function, and longevity. Even modest movement produces measurable gains.",
+  "known":          " to reduce heart disease risk, improve mental health, and support a healthy body weight across all age groups.",
+  "proven":         " to reduce inflammation, strengthen bones, improve mood, and lower chronic disease risk — backed by decades of research.",
+  "levels":         " improve across all dimensions — strength, endurance, flexibility, and recovery — with consistent training over time.",
+  "evidence":       " is overwhelming: reduced chronic disease risk, better mental health, stronger muscles, and a longer lifespan.",
+  "body":           " of research supporting exercise continues to grow, confirming benefits from cardiovascular health to mental wellbeing.",
+  "benefits":       " are wide-ranging — improved heart health, stronger muscles, better mental clarity, and significantly reduced disease risk.",
+  "include":        " improved cardiovascular health, stronger muscles, better mood, sharper cognition, and reduced risk of chronic disease.",
+  "regular":        " exercise include improved cardiovascular health, stronger muscles, better mood, and significantly reduced disease risk.",
+  "default":        " improve mood, boost energy, strengthen muscles, and support heart health. Even a daily 30-minute walk makes a difference."
+};
+
+const tsState = { picks: [] };
+
+function tsGetChoices(stepIdx) {
+  const s = TS_STEPS[stepIdx];
+  if (stepIdx === 0) return s.choices;
+  if (stepIdx === 1) return s.choices[tsState.picks[0]] || s.choices["Regular"];
+  if (stepIdx === 2) return s.choices[tsState.picks[0] + "_" + tsState.picks[1]] || s.choices["Regular_exercise"];
+  if (stepIdx === 3) return s.choices[tsState.picks[2]] || [{ word: "help", prob: 31 }, { word: "improve", prob: 20 }, { word: "reduce", prob: 14 }, { word: "boost", prob: 10 }];
+}
+
+function tsMakeArrow() {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", "20");
+  svg.setAttribute("height", "28");
+  svg.setAttribute("viewBox", "0 0 20 28");
+  svg.style.display = "block";
+  svg.innerHTML = `
+    <line x1="10" y1="0" x2="10" y2="18" stroke="#204d89" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+    <polyline points="4,14 10,24 16,14" fill="none" stroke="#204d89" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.4"/>
+  `;
+  return svg;
+}
+
+function tsBuildRow(stepIdx) {
+  const frag = document.createDocumentFragment();
+
+  if (stepIdx > 0) {
+    const connRow = document.createElement("div");
+    connRow.className = "ts-connector";
+    connRow.appendChild(tsMakeArrow());
+    frag.appendChild(connRow);
+  }
+
+  const row = document.createElement("div");
+  row.className = "ts-row";
+  row.id = "ts-row-" + stepIdx;
+
+  const leftBox = document.createElement("div");
+  leftBox.className = "ts-left";
+  if (stepIdx === 0) {
+    leftBox.innerHTML = `<div class="ts-lbl">Question</div><div class="ts-val">What are the benefits of exercise?</div>`;
+  } else {
+    leftBox.innerHTML = `<div class="ts-lbl">Answer so far</div><div class="ts-val">${tsState.picks.slice(0, stepIdx).join(" ")}</div>`;
+  }
+
+  const midCol = document.createElement("div");
+  midCol.className = "ts-mid";
+  midCol.innerHTML = `<div class="ts-mid-lbl">Most likely words to follow</div>`;
+  const optGrid = document.createElement("div");
+  optGrid.className = "ts-opts";
+  optGrid.id = "ts-opts-" + stepIdx;
+  tsGetChoices(stepIdx).forEach(c => {
+    const btn = document.createElement("div");
+    btn.className = "ts-opt";
+    btn.dataset.word = c.word;
+    btn.innerHTML = `<div class="ts-opt-word">${c.word}</div><div class="ts-opt-pct">${c.prob}%</div>`;
+    btn.onclick = () => tsPick(stepIdx, c.word);
+    optGrid.appendChild(btn);
+  });
+  midCol.appendChild(optGrid);
+
+  const rightArrow = document.createElement("div");
+  rightArrow.className = "ts-rarrow";
+  rightArrow.innerHTML = `<div class="ts-rl"></div><div class="ts-rh"></div>`;
+
+  const nextBox = document.createElement("div");
+  nextBox.className = "ts-next ts-empty";
+  nextBox.id = "ts-nxt-" + stepIdx;
+  nextBox.innerHTML = `<div class="ts-nlbl">Next word</div><div class="ts-nword" id="ts-nxtw-${stepIdx}">—</div>`;
+
+  row.appendChild(leftBox);
+  row.appendChild(midCol);
+  row.appendChild(rightArrow);
+  row.appendChild(nextBox);
+  frag.appendChild(row);
+  return frag;
+}
+
+function tsPick(stepIdx, word) {
+  if (tsState.picks.length !== stepIdx) return;
+  tsState.picks.push(word);
+
+  document.getElementById("ts-opts-" + stepIdx).querySelectorAll(".ts-opt").forEach(btn => {
+    btn.classList.add(btn.dataset.word === word ? "ts-sel" : "ts-dim");
+    btn.onclick = null;
+  });
+
+  const nxtBox = document.getElementById("ts-nxt-" + stepIdx);
+  nxtBox.classList.remove("ts-empty");
+  document.getElementById("ts-nxtw-" + stepIdx).textContent = word;
+
+  if (stepIdx < 3) {
+    setTimeout(() => {
+      const frag = tsBuildRow(stepIdx + 1);
+      document.getElementById("ts-rowWrap").appendChild(frag);
+      const newRow = document.getElementById("ts-row-" + (stepIdx + 1));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        newRow.style.opacity = "1";
+        newRow.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }));
+    }, 350);
+  } else {
+    setTimeout(tsShowComplete, 450);
+  }
+}
+
+function tsShowComplete() {
+  const last = tsState.picks[3];
+  const ending = TS_ENDINGS[last] || TS_ENDINGS["default"];
+  document.getElementById("ts-finalText").innerHTML =
+    `<span class="ts-picked">${tsState.picks.join(" ")}</span><span class="ts-gen">${ending}</span>`;
+  const sec = document.getElementById("ts-completeSec");
+  sec.classList.add("ts-vis");
+  sec.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function tsRestart() {
+  tsState.picks = [];
+  document.getElementById("ts-rowWrap").innerHTML = "";
+  document.getElementById("ts-completeSec").classList.remove("ts-vis");
+  document.getElementById("ts-finalText").innerHTML = "";
+  tsInit();
+}
+
+function tsInit() {
+  const frag = tsBuildRow(0);
+  document.getElementById("ts-rowWrap").appendChild(frag);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const r = document.getElementById("ts-row-0");
+    if (r) r.style.opacity = "1";
+  }));
+}
+
+tsInit();
+</script>
 </body>
 </html>

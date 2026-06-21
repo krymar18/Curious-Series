@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Pattern Recognition and Analysis</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="session_2_additional_styles.css">
+  <script defer src="assets/site.js"></script>
+  <script src="ampersand_ai_practice_tasks.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 2</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" data-nav-link>Overview</a>
+        <a href="session-2-language.html" data-nav-link>Working with Language</a>
+        <a href="category-2-analysis.html" data-nav-link>Pattern Recognition</a>
+        <a href="category-3-creativity.html" data-nav-link>Creativity</a>
+        <a href="category-4-technical.html" data-nav-link>Technical Translation</a>
+        <a href="category-5-agentic.html" data-nav-link>Agentic Workflows</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Session 2</div>
+            <h1 class="title">Pattern Recognition and Analysis</h1>
+            <p class="lede">AI can read 50 documents, a full data table, or a month of communications and surface structure that no individual could find in the same time. The catch: AI will always find a pattern — whether or not one meaningfully exists. This makes it a powerful first-pass tool and an unreliable final analyst. Human judgment is more critical here, not less.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OBJECTIVE / KEY IDEA ── -->
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Use AI as a fast first-pass analyst — surfacing patterns, themes, and anomalies for human judgment, not as a substitute for it.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Core idea</span>
+            <p>AI identifies patterns by recognising what tends to co-occur in its training data. The pattern is real in the text. Whether it is real in the world is your judgment call.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── THEORY ── -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Pattern Finding Without Pattern Judging</h2>
+            <p>A short grounding in how AI finds patterns — and why that makes it unreliable as a final analyst.</p>
+          </div>
+        </div>
+
+        <p>AI identifies patterns by recognising what tends to co-occur in its training data. When you ask it to find themes in 50 client call notes, it is finding word and idea clusters that appear together — not reasoning about whether those clusters reflect a real business dynamic. The pattern is real in the text. Whether it is real in the world is your judgment call.</p>
+
+        <!-- ── 2.1 SEARCHING BY MEANING ── -->
+        <details>
+          <summary>Searching by Meaning</summary>
+          <div class="details-body">
+            <p>Finding relevant information by intent rather than keyword. Instead of searching for the exact words, you describe what you need and AI finds the content that matches the meaning — even if the wording is different. Document Q&A (asking a specific question of a known document) is a specific mode of this same capability.</p>
+
+            <details style="margin-top:12px; border:1px solid var(--border); border-radius:8px; padding:1px;">
+              <summary style="padding:10px 14px; font-size:13px; font-weight:600; cursor:pointer;">Technology link — optional reading</summary>
+              <div class="details-body">
+                <p>When you search by meaning, AI converts both your query and the document content into vectors — mathematical representations of meaning — and finds the content where those vectors are closest. This is why "what happens if we cancel?" finds the termination clause even though the word "termination" does not appear in your query. It also explains why rephrasing a question changes the results: the vector shifts, and the nearest content shifts with it. Copilot in SharePoint uses this mechanism to answer questions about documents you have never opened.</p>
+              </div>
+            </details>
+
+            <!-- Use cases -->
+            <div class="use-case-box">
+              <div class="use-case-box-header">
+                <span class="use-case-box-icon">↗</span>
+                <span class="use-case-box-label">Where this is most useful</span>
+              </div>
+              <ul>
+                <li>Finding the answer to a specific question in a long contract or policy document</li>
+                <li>Locating a document on SharePoint when you remember the topic but not the title</li>
+                <li>Searching across multiple documents to find which ones address a specific topic</li>
+                <li>Asking questions of an SOP or process guide without reading every step</li>
+                <li>Finding what was said about a specific topic across a set of meeting transcripts</li>
+                <li>Locating previous proposals or decisions on a given subject</li>
+              </ul>
+            </div>
+
+            <!-- AI / Human -->
+            <p class="handles-label">What AI handles vs. what you must own</p>
+            <div class="grid two">
+              <article class="card soft">
+                <span class="eyebrow-chip chip-brand">AI</span>
+                <ul class="list">
+                  <li>Searching for content by meaning across a document or collection</li>
+                  <li>Returning the most relevant passages for a given query</li>
+                  <li>Answering specific questions from within a document's content</li>
+                </ul>
+              </article>
+              <article class="card soft">
+                <span class="eyebrow-chip chip-gold">Human</span>
+                <ul class="list">
+                  <li>Verifying any high-stakes answer against the original source</li>
+                  <li>Deciding whether the retrieved content actually answers your question or is merely adjacent</li>
+                  <li>Providing the document — AI cannot access systems it has not been given</li>
+                </ul>
+              </article>
+            </div>
+
+            <!-- Limitations -->
+            <p class="limitation-section-label">Limitations and how to address them</p>
+            <div class="lim-block lim-mode-flashcard" data-lim-id="s1">
+              <div class="lim-toggle" role="group" aria-label="View mode">
+                <button class="lim-toggle-btn active" data-mode="flashcard">Flashcards</button>
+                <button class="lim-toggle-btn" data-mode="match">Match game</button>
+              </div>
+              <div class="limitation-wrap">
+                <div class="limitation-list">
+                  <details class="limitation-item">
+                    <summary>AI may answer confidently from the wrong section of a document — or generate a plausible answer that is not actually in the text at all.</summary>
+                    <div class="limitation-fix">
+                      <div class="limitation-fix-label">How to address it</div>
+                      Ask AI to quote the relevant passage alongside its answer. If it cannot quote it, the answer may not exist in the document. For high-stakes questions, locate and read the original passage yourself.
+                    </div>
+                  </details>
+                  <details class="limitation-item">
+                    <summary>Retrieval is sensitive to phrasing. The same question worded differently may return different passages — or miss the right one entirely.</summary>
+                    <div class="limitation-fix">
+                      <div class="limitation-fix-label">How to address it</div>
+                      If the answer seems off, rephrase the question rather than regenerating. Plain language works better than trying to match the document's vocabulary — "what happens if we cancel?" outperforms "termination clause language".
+                    </div>
+                  </details>
+                  <details class="limitation-item">
+                    <summary>Searching across many documents simultaneously reduces precision. The more sources, the more the answer becomes a blend rather than a direct quote.</summary>
+                    <div class="limitation-fix">
+                      <div class="limitation-fix-label">How to address it</div>
+                      For high-stakes multi-document searches, follow up with "which specific document does this answer come from?" and verify in that document directly.
+                    </div>
+                  </details>
+                </div>
+              </div>
+              <div class="match-game"></div>
+            </div>
+
+            <!-- Tradeoff -->
+            <div class="tradeoff-callout">
+              <div class="tradeoff-eyebrow">Tradeoff</div>
+              <div class="tradeoff-title">Fast directional answer vs. verified answer</div>
+              <p>For low-stakes lookups, ask a broad question and accept that the answer may be a paraphrase rather than a direct quote. For contractual or compliance questions, ask AI to quote the passage — this adds one step but makes verification immediate — and always read the original passage yourself before acting.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- ── 2.2 ANALYSIS AND FINDING INSIGHTS ── -->
+        <details>
+          <summary>Analysis and Finding Insights</summary>
+          <div class="details-body">
+            <p>Asking AI to find what is notable, what repeats, what is out of range, or what the data suggests. AI is a fast first-pass analyst — useful for surfacing candidates for human judgment. The human decides whether the insight is real and whether it matters.</p>
+            <p style="margin-top:10px;"><em>For large or sensitive datasets: ask AI to write the analysis code (Python, SQL, Excel) rather than pasting the data. Share only column headers and a description. This keeps the data private and produces more reliable results at scale.</em></p>
+
+            <!-- Use cases -->
+            <div class="use-case-box">
+              <div class="use-case-box-header">
+                <span class="use-case-box-icon">↗</span>
+                <span class="use-case-box-label">Where this is most useful</span>
+              </div>
+              <ul>
+                <li>Finding the most common objections or themes across a set of call notes</li>
+                <li>Identifying which markets or accounts are underperforming relative to the rest</li>
+                <li>Spotting anomalies in billing or campaign performance data</li>
+                <li>Comparing options side-by-side to surface the key differences</li>
+                <li>Analysing open-text survey responses to find dominant themes</li>
+                <li>Reviewing an error log to identify the highest-frequency failure types</li>
+                <li>Generating code to run structured analysis on data too large or sensitive to paste</li>
+              </ul>
+            </div>
+
+            <!-- AI / Human -->
+            <p class="handles-label">What AI handles vs. what you must own</p>
+            <div class="grid two">
+              <article class="card soft">
+                <span class="eyebrow-chip chip-brand">AI</span>
+                <ul class="list">
+                  <li>Identifying recurring themes and patterns across large volumes of text</li>
+                  <li>Flagging outliers and values outside expected range</li>
+                  <li>Generating analysis code for data too large or sensitive to paste</li>
+                </ul>
+              </article>
+              <article class="card soft">
+                <span class="eyebrow-chip chip-gold">Human</span>
+                <ul class="list">
+                  <li>Deciding whether the identified pattern is real or coincidental</li>
+                  <li>Defining what "normal" looks like before asking AI to find anomalies</li>
+                  <li>Running and verifying any AI-generated code before using the output</li>
+                  <li>Drawing the conclusion — AI surfaces candidates, human judges</li>
+                </ul>
+              </article>
+            </div>
+
+            <!-- Limitations -->
+            <p class="limitation-section-label">Limitations and how to address them</p>
+            <div class="lim-block lim-mode-flashcard" data-lim-id="s2">
+              <div class="lim-toggle" role="group" aria-label="View mode">
+                <button class="lim-toggle-btn active" data-mode="flashcard">Flashcards</button>
+                <button class="lim-toggle-btn" data-mode="match">Match game</button>
+              </div>
+              <div class="limitation-wrap">
+                <div class="limitation-list">
+                  <details class="limitation-item">
+                    <summary>AI will find a pattern in almost any dataset, including random ones. A confident presentation of a pattern does not mean the pattern is real or meaningful.</summary>
+                    <div class="limitation-fix">
+                      <div class="limitation-fix-label">How to address it</div>
+                      After AI surfaces a pattern, ask: "What alternative explanation could produce the same result?" This is the fastest check against treating coincidence as signal.
+                    </div>
+                  </details>
+                  <details class="limitation-item">
+                    <summary>The larger the dataset, the shallower the analysis. AI loses analytical precision at scale — treat large-dataset insights as directional only.</summary>
+                    <div class="limitation-fix">
+                      <div class="limitation-fix-label">How to address it</div>
+                      For large or sensitive datasets: share only column headers and a description, ask AI to write the analysis code, and run it locally. More accurate, more repeatable, data stays private.
+                    </div>
+                  </details>
+                  <details class="limitation-item">
+                    <summary>AI cannot distinguish correlation from causation. It will describe the relationship fluently without knowing whether one thing caused the other.</summary>
+                    <div class="limitation-fix">
+                      <div class="limitation-fix-label">How to address it</div>
+                      When AI identifies a relationship between two variables, ask explicitly: "Is there a plausible causal mechanism here, or could this be coincidental?" It will reason about it more explicitly if you ask.
+                    </div>
+                  </details>
+                  <details class="limitation-item">
+                    <summary>Anomaly detection without a defined baseline is unreliable. AI will define "normal" itself, which may not match your actual operational baseline.</summary>
+                    <div class="limitation-fix">
+                      <div class="limitation-fix-label">How to address it</div>
+                      Define the baseline explicitly in your prompt — "flag anything more than 15% above or below the 90-day average" is more useful than "find the anomalies".
+                    </div>
+                  </details>
+                </div>
+              </div>
+              <div class="match-game"></div>
+            </div>
+
+            <!-- Lifehacks -->
+            <div class="callout neutral" style="margin-top:18px;">
+              <h4>Additional lifehacks</h4>
+              <ul>
+                <li>Ask AI to group AND count — "group these 50 responses by theme and count how many fall into each group" produces more actionable output than "what are the themes?"</li>
+                <li>Ask for findings by severity or frequency — it forces a ranking that makes the output immediately usable.</li>
+              </ul>
+            </div>
+
+            <!-- Tradeoff -->
+            <div class="tradeoff-callout">
+              <div class="tradeoff-eyebrow">Tradeoff</div>
+              <div class="tradeoff-title">Fast directional insight vs. reliable, repeatable analysis</div>
+              <p>Pasting a manageable dataset and asking for the top patterns is good for orientation — small datasets produce stronger signal and you can act quickly. For larger or recurring analysis, ask AI to write the analysis code and run it locally: more accurate, keeps data private, and you can rerun it as data changes. Always define "normal" explicitly before asking for anomalies rather than letting AI choose its own baseline.</p>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ── FEATURED COPILOT 365 ── -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Featured Copilot 365 Functionality</h2>
+            <p>Apps in your M365 suite with built-in pattern recognition and analysis capabilities. Click any app to see what's available.</p>
+          </div>
+        </div>
+        <div class="cop-gallery">
+
+          <button class="cop-app-card" data-app="chat" aria-haspopup="dialog">
+            <div class="cop-app-icon">
+              <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#0F6CBD"/><circle cx="16" cy="13" r="5" fill="#fff"/><path d="M6 26c0-4 4.5-7 10-7s10 3 10 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="8" r="4" fill="#50E6FF"/><path d="M22 8h4M24 6v4" stroke="#0F6CBD" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="cop-app-name">Copilot Chat</div>
+            <div class="cop-app-tag">Analysis · Synthesis</div>
+          </button>
+
+          <button class="cop-app-card" data-app="sharepoint" aria-haspopup="dialog">
+            <div class="cop-app-icon">
+              <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#038387"/><circle cx="13" cy="14" r="6" fill="#fff" opacity=".9"/><circle cx="21" cy="18" r="5" fill="#fff" opacity=".6"/><circle cx="16" cy="22" r="4" fill="#fff" opacity=".4"/></svg>
+            </div>
+            <div class="cop-app-name">SharePoint</div>
+            <div class="cop-app-tag">Search · Q&amp;A</div>
+          </button>
+
+          <button class="cop-app-card" data-app="excel" aria-haspopup="dialog">
+            <div class="cop-app-icon">
+              <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#217346"/><path d="M4 10l13-3v18L4 22V10z" fill="#fff"/><rect x="17" y="8" width="11" height="16" rx="2" fill="#fff" opacity=".25"/><text x="19" y="20" font-family="Arial" font-weight="900" font-size="11" fill="#fff">X</text></svg>
+            </div>
+            <div class="cop-app-name">Excel</div>
+            <div class="cop-app-tag">Data Analysis</div>
+          </button>
+
+        </div>
+
+        <!-- Modals -->
+        <div class="cop-modal" id="modal-chat" role="dialog" aria-modal="true" aria-label="Copilot Chat features" hidden>
+          <div class="cop-modal-box">
+            <div class="cop-modal-head">
+              <div class="cop-modal-title-row">
+                <div class="cop-modal-icon"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#0F6CBD"/><circle cx="16" cy="13" r="5" fill="#fff"/><path d="M6 26c0-4 4.5-7 10-7s10 3 10 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="8" r="4" fill="#50E6FF"/><path d="M22 8h4M24 6v4" stroke="#0F6CBD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div><div class="cop-modal-app">Copilot Chat</div><div class="cop-modal-subtitle">Analysis &amp; Synthesis</div></div>
+              </div>
+              <button class="cop-modal-close" aria-label="Close">✕</button>
+            </div>
+            <div class="cop-modal-body">
+              <div class="cop-feature">
+                <div class="cop-feature-inner">
+                  <div class="cop-feature-left">
+                    <div class="cop-feature-label cop-label-read">Analysis</div>
+                    <div class="cop-feature-name">Theme Extraction</div>
+                    <p class="cop-feature-desc">Paste a set of call notes, responses, or documents and ask Copilot to group and count themes. Produces a ranked summary of what appears most often — faster than reading everything, more structured than a generic summary.</p>
+                  </div>
+                  <div class="cop-feature-right">
+                    <div class="prompt-box" style="margin-top:10px;">
+                      <div class="prompt-box-head"><div class="prompt-box-label">Try this</div><button class="copy-button" type="button" data-copy-text="Group the following [call notes / responses / documents] by theme. For each theme, count how many items fall into it and give one representative example. List by frequency, highest first.">Copy</button></div>
+                      <p class="prompt-text">Group the following [call notes / responses / documents] by theme. For each theme, count how many items fall into it and give one representative example. List by frequency, highest first.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cop-feature">
+                <div class="cop-feature-inner">
+                  <div class="cop-feature-left">
+                    <div class="cop-feature-label cop-label-read">Analysis</div>
+                    <div class="cop-feature-name">Cross-source Synthesis</div>
+                    <p class="cop-feature-desc">Reference or paste content from multiple sources and ask Copilot to surface patterns across them — what repeats, what conflicts, what is conspicuously absent. Useful for comparing market data, client feedback, or internal reports.</p>
+                  </div>
+                  <div class="cop-feature-right">
+                    <div class="prompt-box" style="margin-top:10px;">
+                      <div class="prompt-box-head"><div class="prompt-box-label">Try this</div><button class="copy-button" type="button" data-copy-text="I'm going to paste [N] sources. Identify what repeats across them, what contradicts, and what is only mentioned once. Flag anything that seems like an outlier worth investigating.">Copy</button></div>
+                      <p class="prompt-text">I'm going to paste [N] sources. Identify what repeats across them, what contradicts, and what is only mentioned once. Flag anything that seems like an outlier worth investigating.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cop-modal" id="modal-sharepoint" role="dialog" aria-modal="true" aria-label="SharePoint features" hidden>
+          <div class="cop-modal-box">
+            <div class="cop-modal-head">
+              <div class="cop-modal-title-row">
+                <div class="cop-modal-icon"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#038387"/><circle cx="13" cy="14" r="6" fill="#fff" opacity=".9"/><circle cx="21" cy="18" r="5" fill="#fff" opacity=".6"/><circle cx="16" cy="22" r="4" fill="#fff" opacity=".4"/></svg></div>
+                <div><div class="cop-modal-app">SharePoint</div><div class="cop-modal-subtitle">Search &amp; Document Q&amp;A</div></div>
+              </div>
+              <button class="cop-modal-close" aria-label="Close">✕</button>
+            </div>
+            <div class="cop-modal-body">
+              <div class="cop-feature">
+                <div class="cop-feature-inner">
+                  <div class="cop-feature-left">
+                    <div class="cop-feature-label cop-label-read">Searching</div>
+                    <div class="cop-feature-name">Search by Meaning</div>
+                    <p class="cop-feature-desc">Describe what you need and Copilot finds documents that match the intent — even if your words don't match the document's vocabulary. Useful when you remember the topic but not the filename or exact phrase.</p>
+                  </div>
+                  <div class="cop-feature-right">
+                    <div class="prompt-box" style="margin-top:10px;">
+                      <div class="prompt-box-head"><div class="prompt-box-label">Try this</div><button class="copy-button" type="button" data-copy-text="Find the most recent documents on [topic] in this site. Summarise the key points from each and flag any that contradict each other.">Copy</button></div>
+                      <p class="prompt-text">Find the most recent documents on [topic] in this site. Summarise the key points from each and flag any that contradict each other.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cop-feature">
+                <div class="cop-feature-inner">
+                  <div class="cop-feature-left">
+                    <div class="cop-feature-label cop-label-read">Analysis</div>
+                    <div class="cop-feature-name">Document Q&amp;A</div>
+                    <p class="cop-feature-desc">Ask a specific question of a document and get an answer drawn from its content — with a quote you can verify. Faster than reading the whole document; reliable when you follow up by checking the source passage.</p>
+                  </div>
+                  <div class="cop-feature-right">
+                    <div class="prompt-box" style="margin-top:10px;">
+                      <div class="prompt-box-head"><div class="prompt-box-label">Try this</div><button class="copy-button" type="button" data-copy-text="Based on this document, what is [specific question]? Quote the relevant passage alongside your answer. If the document doesn't address it, say so.">Copy</button></div>
+                      <p class="prompt-text">Based on this document, what is [specific question]? Quote the relevant passage alongside your answer. If the document doesn't address it, say so.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cop-modal" id="modal-excel" role="dialog" aria-modal="true" aria-label="Excel features" hidden>
+          <div class="cop-modal-box">
+            <div class="cop-modal-head">
+              <div class="cop-modal-title-row">
+                <div class="cop-modal-icon"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#217346"/><path d="M4 10l13-3v18L4 22V10z" fill="#fff"/><rect x="17" y="8" width="11" height="16" rx="2" fill="#fff" opacity=".25"/><text x="19" y="20" font-family="Arial" font-weight="900" font-size="11" fill="#fff">X</text></svg></div>
+                <div><div class="cop-modal-app">Excel</div><div class="cop-modal-subtitle">Data Analysis</div></div>
+              </div>
+              <button class="cop-modal-close" aria-label="Close">✕</button>
+            </div>
+            <div class="cop-modal-body">
+              <div class="cop-feature">
+                <div class="cop-feature-inner">
+                  <div class="cop-feature-left">
+                    <div class="cop-feature-label cop-label-read">Analysis</div>
+                    <div class="cop-feature-name">Copilot Chat in Excel</div>
+                    <p class="cop-feature-desc">Ask questions of your data in plain language. Copilot analyses the spreadsheet and surfaces insights — trends, outliers, comparisons — without you writing a formula. Format your data as a Table first; Copilot cannot analyse unstructured ranges reliably.</p>
+                  </div>
+                  <div class="cop-feature-right">
+                    <div class="prompt-box" style="margin-top:10px;">
+                      <div class="prompt-box-head"><div class="prompt-box-label">Try this</div><button class="copy-button" type="button" data-copy-text="What are the top 3 trends in this data? Are there any outliers I should investigate? Summarise in plain language.">Copy</button></div>
+                      <p class="prompt-text">What are the top 3 trends in this data? Are there any outliers I should investigate? Summarise in plain language.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── SPOTLIGHT CHALLENGES ── -->
+    <section class="section" id="spotlight-challenges">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Ampersand Spotlight Challenges</h2>
+            <p>Real tasks from your department. Pick your department and try at least one challenge from each subsection.</p>
+          </div>
+        </div>
+        <div class="sc-filter-bar" id="sc-filter-bar">
+          <span class="sc-filter-label">Department</span>
+          <div class="sc-filter-btns" id="sc-filter-btns" role="group" aria-label="Filter by department"></div>
+        </div>
+        <div class="sc-grid" id="sc-grid"></div>
+      </div>
+    </section>
+
+    <!-- ── CONCLUSION ── -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Conclusion &amp; Reflections</h2>
+            <p>Take a moment to reflect — it's what makes the learning stick.</p>
+          </div>
+        </div>
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list">
+              <li>AI will always find a pattern — whether or not one exists. Treat every output as a starting point for your judgment, not a conclusion.</li>
+              <li>For meaning-based search: quote the passage. If AI cannot quote it, the answer may not exist in the document.</li>
+              <li>Rephrasing a question changes the results — plain language usually outperforms technical vocabulary in retrieval.</li>
+              <li>For large or sensitive datasets, ask AI to write the analysis code rather than pasting the data directly.</li>
+              <li>Define "normal" before asking AI to find anomalies. Without a baseline, AI invents one.</li>
+              <li>Always ask what alternative explanation could produce the same pattern before treating it as signal.</li>
+            </ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>Think of a dataset or set of documents you regularly review. Where could AI surface a pattern you currently miss?</li>
+              <li>Have you ever acted on a trend or theme that turned out to be coincidental? What was missing from the analysis?</li>
+              <li>What data in your work is too sensitive to paste into a general AI tool? How would the code generation approach change how you use it?</li>
+              <li>What is your operational "normal" in your most common analysis task — and have you ever made it explicit in a prompt?</li>
+            </ul>
+          </article>
+        </div>
+        <div class="page-nav">
+          <a class="button secondary" href="session-2-language.html">Back: Working with Language</a>
+          <a class="button primary" href="category-3-creativity.html">Next: Creativity</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+<script>
+(function () {
+  var PAGE_SUBSECTIONS = ['Searching by Meaning', 'Analysis and Finding Insights'];
+  var SUBSECTION_META = {
+    'Searching by Meaning':        { tag: 'tag-read',  label: 'Searching' },
+    'Analysis and Finding Insights': { tag: 'tag-read', label: 'Analysis' }
+  };
+  function build(data) {
+    var relevant = data.filter(function(r){ return PAGE_SUBSECTIONS.indexOf(r.subsection) !== -1; });
+    var depts = [];
+    relevant.forEach(function(r){ if(depts.indexOf(r.department)===-1) depts.push(r.department); });
+    depts.sort();
+    var filterWrap = document.getElementById('sc-filter-btns');
+    depts.forEach(function(dept, i){
+      var btn = document.createElement('button');
+      btn.className = 'sc-dept-btn' + (i===0?' active':'');
+      btn.textContent = dept;
+      btn.addEventListener('click', function(){
+        filterWrap.querySelectorAll('.sc-dept-btn').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        renderGrid(relevant, dept);
+      });
+      filterWrap.appendChild(btn);
+    });
+    renderGrid(relevant, depts[0]);
+  }
+  function renderGrid(data, dept) {
+    var grid = document.getElementById('sc-grid');
+    grid.innerHTML = '';
+    PAGE_SUBSECTIONS.forEach(function(subsection){
+      var meta = SUBSECTION_META[subsection];
+      var row = data.find(function(r){ return r.subsection===subsection && r.department===dept; });
+      var box = document.createElement('div'); box.className = 'sc-box';
+      var head = document.createElement('div'); head.className = 'sc-box-head';
+      head.innerHTML = '<div class="sc-box-tag '+meta.tag+'">'+meta.label+'</div><div class="sc-box-title">'+subsection+'</div>';
+      box.appendChild(head);
+      var body = document.createElement('div'); body.className = 'sc-box-body';
+      if(!row||!row.tasks||row.tasks.length===0){
+        var e=document.createElement('div'); e.className='sc-empty-box'; e.textContent='No challenges for this department.'; body.appendChild(e);
+      } else {
+        row.tasks.forEach(function(task,idx){
+          if(!task) return;
+          var item=document.createElement('div'); item.className='sc-challenge';
+          item.innerHTML='<div class="sc-num">'+(idx+1)+'</div><div class="sc-task">'+task+'</div>';
+          body.appendChild(item);
+        });
+      }
+      box.appendChild(body); grid.appendChild(box);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    if(typeof CHALLENGE_DATA==='undefined'){ document.getElementById('sc-grid').innerHTML='<p style="color:var(--muted);font-size:13px;">Could not load challenges — ensure ampersand_ai_practice_tasks.js is in the same folder.</p>'; return; }
+    build(CHALLENGE_DATA);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  function initLimBlocks(){
+    function extractPairs(block){
+      return Array.from(block.querySelectorAll('.limitation-item')).map(function(item){
+        return { limitation: item.querySelector('summary').textContent.trim(), fix: item.querySelector('.limitation-fix').textContent.replace(/How to address it/gi,'').trim() };
+      });
+    }
+    function shuffle(arr){ var a=arr.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+    function initCollapsible(block){ var items=Array.from(block.querySelectorAll('.limitation-item')); items.forEach(function(item){ item.addEventListener('toggle',function(){ if(item.open) items.forEach(function(o){ if(o!==item) o.open=false; }); }); }); }
+    function buildMatch(block,pairs){
+      var container=block.querySelector('.match-game'); container.innerHTML='';
+      var leftOrder=shuffle(pairs.map(function(_,i){return i;}));
+      var fixes=shuffle(pairs.map(function(p,i){return{text:p.fix,correctIdx:i};}));
+      var layout=document.createElement('div'); layout.className='match-layout';
+      var leftCol=document.createElement('div'); var lbl1=document.createElement('div'); lbl1.className='match-col-label'; lbl1.textContent='Limitations'; leftCol.appendChild(lbl1);
+      var dropZones=[];
+      leftOrder.forEach(function(pairIdx){ var p=pairs[pairIdx]; var wrap=document.createElement('div');
+        var lim=document.createElement('div'); lim.className='match-limitation'; lim.textContent=p.limitation;
+        var zone=document.createElement('div'); zone.className='match-drop-zone'; zone.textContent='Drop fix here…'; zone.setAttribute('data-correct',String(pairIdx)); zone.setAttribute('data-placed','');
+        wrap.appendChild(lim); wrap.appendChild(zone); leftCol.appendChild(wrap); dropZones.push(zone);
+      });
+      var rightCol=document.createElement('div'); var lbl2=document.createElement('div'); lbl2.className='match-col-label'; lbl2.textContent='Fixes — drag to match'; rightCol.appendChild(lbl2);
+      var pool=document.createElement('div'); var tokens=[];
+      fixes.forEach(function(f){ var token=document.createElement('div'); token.className='match-token'; token.textContent=f.text; token.draggable=true; token.setAttribute('data-cidx',String(f.correctIdx));
+        token.addEventListener('dragstart',function(e){ e.dataTransfer.setData('text/plain',String(f.correctIdx)); setTimeout(function(){token.classList.add('dragging');},0); });
+        token.addEventListener('dragend',function(){ token.classList.remove('dragging'); });
+        pool.appendChild(token); tokens.push(token);
+      });
+      rightCol.appendChild(pool); layout.appendChild(leftCol); layout.appendChild(rightCol); container.appendChild(layout);
+      var actions=document.createElement('div'); actions.className='match-actions';
+      var checkBtn=document.createElement('button'); checkBtn.className='lim-check-btn'; checkBtn.textContent='Check answers';
+      var resetBtn=document.createElement('button'); resetBtn.className='button secondary'; resetBtn.textContent='Reset'; resetBtn.style.cssText='font-size:13px;padding:8px 16px;';
+      var msg=document.createElement('div'); msg.className='match-result-msg';
+      checkBtn.addEventListener('click',function(){ if(!checkBtn.classList.contains('ready')) return; var correct=0;
+        dropZones.forEach(function(zone){ var placed=zone.getAttribute('data-placed'); if(!placed){zone.classList.remove('correct','wrong');return;} var isCorrect=parseInt(placed,10)===parseInt(zone.getAttribute('data-correct'),10); zone.classList.remove('correct','wrong'); zone.classList.add(isCorrect?'correct':'wrong'); if(isCorrect) correct++; });
+        msg.textContent=correct===pairs.length?'✓ Perfect — all matched correctly!':correct+' of '+pairs.length+' correct — wrong ones are in red.';
+      });
+      resetBtn.addEventListener('click',function(){ buildMatch(block,pairs); });
+      actions.appendChild(checkBtn); actions.appendChild(resetBtn); actions.appendChild(msg); container.appendChild(actions);
+      function updateCheckBtn(){ var allFilled=dropZones.every(function(z){return z.getAttribute('data-placed');}); checkBtn.classList.toggle('ready',allFilled); }
+      dropZones.forEach(function(zone){
+        zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('drag-over');});
+        zone.addEventListener('dragleave',function(){zone.classList.remove('drag-over');});
+        zone.addEventListener('drop',function(e){ e.preventDefault(); zone.classList.remove('drag-over');
+          var cidx=parseInt(e.dataTransfer.getData('text/plain'),10);
+          var token=tokens.find(function(t){return parseInt(t.getAttribute('data-cidx'),10)===cidx;});
+          if(!token) return;
+          var prev=zone.getAttribute('data-placed');
+          if(prev!==''&&prev!==null){ var prevIdx=parseInt(prev,10); if(!isNaN(prevIdx)){ var old=tokens.find(function(t){return parseInt(t.getAttribute('data-cidx'),10)===prevIdx;}); if(old){old.classList.remove('placed');pool.appendChild(old);}}}
+          zone.textContent=token.textContent; zone.setAttribute('data-correct',zone.getAttribute('data-correct')); zone.setAttribute('data-placed',String(cidx)); zone.classList.add('filled'); zone.classList.remove('correct','wrong'); token.classList.add('placed'); msg.textContent=''; updateCheckBtn();
+        });
+      });
+    }
+    function initBlock(block){ var pairs=extractPairs(block); initCollapsible(block);
+      block.querySelectorAll('.lim-toggle-btn').forEach(function(btn){ btn.addEventListener('click',function(){ var mode=btn.dataset.mode; block.querySelectorAll('.lim-toggle-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); block.classList.remove('lim-mode-flashcard','lim-mode-match'); block.classList.add('lim-mode-'+mode); if(mode==='match') buildMatch(block,pairs); }); });
+    }
+    document.querySelectorAll('.lim-block').forEach(initBlock);
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',initLimBlocks); } else { initLimBlocks(); }
+})();
+</script>
+
+<script>
+(function(){
+  function openModal(id){ var m=document.getElementById('modal-'+id); if(!m) return; m.removeAttribute('hidden'); document.body.style.overflow='hidden'; m.querySelector('.cop-modal-close').focus(); }
+  function closeModal(m){ m.setAttribute('hidden',''); document.body.style.overflow=''; }
+  function closeAll(){ document.querySelectorAll('.cop-modal').forEach(function(m){m.setAttribute('hidden','');}); document.body.style.overflow=''; }
+  document.querySelectorAll('.cop-app-card').forEach(function(c){ c.addEventListener('click',function(){openModal(c.dataset.app);}); });
+  document.querySelectorAll('.cop-modal-close').forEach(function(b){ b.addEventListener('click',function(){closeModal(b.closest('.cop-modal'));}); });
+  document.querySelectorAll('.cop-modal').forEach(function(m){ m.addEventListener('click',function(e){if(e.target===m) closeModal(m);}); });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape') closeAll();});
+})();
+</script>
+</body>
+</html>

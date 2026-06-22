@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Lab B — Outlook Challenge</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="session_2_additional_styles.css">
+  <script defer src="assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    .lab-hero-tag { display:inline-flex;align-items:center;gap:6px;background:#fef3e2;border:1px solid #f5d9a0;border-radius:100px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#92500a;margin-bottom:14px; }
+    .lab-intro-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px; }
+    @media(max-width:700px){.lab-intro-grid{grid-template-columns:1fr;}}
+    .lab-meta-card { background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px; }
+    .lab-meta-label { font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:4px; }
+    .lab-meta-value { font-size:14px;font-weight:600;color:var(--text); }
+    .lab-step { border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px; }
+    .lab-step-head { display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border-bottom:1px solid var(--border); }
+    .lab-step-num { flex-shrink:0;width:28px;height:28px;border-radius:50%;background:#c2560a;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center; }
+    .lab-step-title { font-size:15px;font-weight:700;color:var(--text); }
+    .lab-step-app { margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap; }
+    .lab-step-body { padding:16px 18px;display:flex;flex-direction:column;gap:14px; }
+    .lab-row { display:flex;align-items:flex-start;gap:12px; }
+    .lab-row-icon { flex-shrink:0;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px; }
+    .lab-row-icon.action  { background:#e8f0fb;color:#204d89; }
+    .lab-row-icon.prompt  { background:#edf7f0;color:#1a6b3a; }
+    .lab-row-icon.look    { background:#fef3e2;color:#92500a; }
+    .lab-row-icon.reflect { background:#f3eeff;color:#6b21a8; }
+    .lab-row-icon.ethics  { background:#fdf0ee;color:#b91c1c; }
+    .lab-row-content { flex:1;min-width:0; }
+    .lab-row-label { font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px; }
+    .lab-row-label.action  { color:#204d89; }
+    .lab-row-label.prompt  { color:#1a6b3a; }
+    .lab-row-label.look    { color:#92500a; }
+    .lab-row-label.reflect { color:#6b21a8; }
+    .lab-row-label.ethics  { color:#b91c1c; }
+    .lab-row-text { font-size:13.5px;line-height:1.6;color:var(--body); }
+    .lab-section-head { margin:28px 0 16px;padding-bottom:10px;border-bottom:2px solid #c2560a;display:flex;align-items:center;gap:10px; }
+    .lab-section-head h3 { font-size:17px;font-weight:700;color:var(--text);margin:0; }
+    .lab-section-tag { font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:#fef3e2;color:#92500a; }
+    .lab-checkpoint { background:#f0f9f4;border:1.5px solid #a8d5b5;border-radius:10px;padding:14px 16px;margin:4px 0; }
+    .lab-checkpoint-label { font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#1a6b3a;margin-bottom:6px; }
+    .lab-checkpoint ul { margin:0;padding-left:18px; }
+    .lab-checkpoint li { font-size:13px;line-height:1.6;color:var(--body);margin-bottom:3px; }
+    .lab-ethics { background:#fdf0ee;border:1.5px solid #f5c5bb;border-radius:10px;padding:14px 16px;margin:4px 0; }
+    .lab-ethics-label { font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b91c1c;margin-bottom:6px; }
+    .lab-ethics p,.lab-ethics li { font-size:13px;line-height:1.6;color:var(--body); }
+    .lab-ethics ul { margin:6px 0 0;padding-left:18px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 2</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" data-nav-link>Overview</a>
+        <a href="session-2-language.html" data-nav-link>Working with Language</a>
+        <a href="category-2-analysis.html" data-nav-link>Pattern Recognition</a>
+        <a href="category-3-creativity.html" data-nav-link>Creativity</a>
+        <a href="category-4-technical.html" data-nav-link>Technical Translation</a>
+        <a href="category-5-agentic.html" data-nav-link>Agentic Workflows</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="lab-hero-tag"><i class="ti ti-mail" aria-hidden="true"></i> Lab B — Outlook</div>
+            <h1 class="title">From Thread to Action</h1>
+            <p class="lede">An email thread exists. It has history, context, and probably at least one unanswered question. This lab walks you through using Copilot to understand it fully, respond well, and turn what started as inbox noise into a resolved conversation — including setting up the meeting that should follow.</p>
+            <div class="lab-intro-grid">
+              <div class="lab-meta-card">
+                <div class="lab-meta-label">Time required</div>
+                <div class="lab-meta-value">25 – 40 minutes</div>
+              </div>
+              <div class="lab-meta-card">
+                <div class="lab-meta-label">What you need</div>
+                <div class="lab-meta-value">A real email thread with 5+ messages and multiple participants</div>
+              </div>
+              <div class="lab-meta-card">
+                <div class="lab-meta-label">Licence required</div>
+                <div class="lab-meta-value">Microsoft 365 Copilot (Premium)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+
+        <div class="callout neutral">
+          <h4>Before you start</h4>
+          <p>Find a real email thread from the last two weeks — one that involves at least three people and covers a project, issue, or decision that is either unresolved or only partially resolved. It should be substantive enough that someone coming in cold would need to read the whole thread to understand what is going on. Open it in Outlook before you begin.</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 1 — READING THE THREAD
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Part 1</span>
+          <h3>Reading the Thread</h3>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">1</div>
+            <div class="lab-step-title">Summarise the thread</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Open the email thread in Outlook. Click the <strong>Copilot</strong> button in the toolbar (top right of the reading pane) to open Copilot in the thread. Paste the prompt below.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Summarise this email thread. I want to know: (1) What started this conversation — what is the core issue or topic? (2) What has been agreed or decided so far. (3) What is still unresolved or has not been responded to. (4) Who has been most active and what is each person's apparent position. Keep each section to 3 sentences maximum.">Copy</button></div>
+              <p class="prompt-text">Summarise this email thread. I want to know: (1) What started this conversation — what is the core issue or topic? (2) What has been agreed or decided so far. (3) What is still unresolved or has not been responded to. (4) Who has been most active and what is each person's apparent position. Keep each section to 3 sentences maximum.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Does Copilot accurately represent each person's position — or does it flatten everyone into a single neutral narrative? Does the "unresolved" section reflect what you know to still be open? Check whether the summary changes your read of who is responsible for the next step.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">2</div>
+            <div class="lab-step-title">Surface what nobody has answered</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Stay in the same Copilot thread. This prompt looks for the gap — the question that was asked but quietly ignored, the commitment that was made but never followed up on.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Look at the thread again. What direct questions were asked that have not been answered? What commitments were made that have no follow-up? What topic was raised once and then dropped without resolution? List each one with the name of the person who raised it.">Copy</button></div>
+              <p class="prompt-text">Look at the thread again. What direct questions were asked that have not been answered? What commitments were made that have no follow-up? What topic was raised once and then dropped without resolution? List each one with the name of the person who raised it.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon reflect"><i class="ti ti-brain" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label reflect">Reflect</div>
+                <div class="lab-row-text">Were any of the unanswered questions raised by you? Are any of the dropped commitments yours? This prompt is most useful as a self-check, not just a tool for tracking other people's follow-through.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">3</div>
+            <div class="lab-step-title">Read the tone — what Copilot can and cannot tell you</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Ask Copilot to read the tone of the thread — what is the emotional or relational register underneath the content.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Read the tone of this thread carefully. Is there any friction, frustration, or tension between participants — even if it is politely worded? Are there any signals that someone is disengaged or deferring when they should be deciding? Be specific about which messages or exchanges suggest this.">Copy</button></div>
+              <p class="prompt-text">Read the tone of this thread carefully. Is there any friction, frustration, or tension between participants — even if it is politely worded? Are there any signals that someone is disengaged or deferring when they should be deciding? Be specific about which messages or exchanges suggest this.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Copilot reads tone from word choice and structure — it cannot read what was said in a side conversation, what the relationship history is, or what someone meant by a short reply. Use this as a prompt for your own judgment, not as a definitive read of the situation.</div>
+              </div>
+            </div>
+            <div class="lab-ethics">
+              <div class="lab-ethics-label"><i class="ti ti-shield" aria-hidden="true"></i> Ethics checkpoint</div>
+              <p>Asking AI to read tone and relationship dynamics in a thread about real colleagues is a sensitive use. Copilot's read may be wrong — a short reply might be brevity, not disengagement. Be careful about drawing conclusions from AI tone analysis that affect how you treat a colleague. Use it as one signal among many, not as a diagnosis.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 2 — WRITING THE RESPONSE
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Part 2</span>
+          <h3>Writing the Response</h3>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">4</div>
+            <div class="lab-step-title">Draft your reply from bullet points</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Before asking Copilot to write, write your bullet points first. What do you actually need to say? What tone is right for this thread? Fill in the brackets with your real content — then paste the whole prompt.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt — fill in the brackets first</div><button class="copy-button" type="button" data-copy-text="Draft a reply to this email thread from my perspective. Here is what I want to communicate: [your bullet points]. Tone: [direct / warm / formal — choose one]. Do not add facts I have not provided. Do not apologise for anything I have not asked you to apologise for. Keep it under 120 words.">Copy</button></div>
+              <p class="prompt-text">Draft a reply to this email thread from my perspective. Here is what I want to communicate: [your bullet points]. Tone: [direct / warm / formal — choose one]. Do not add facts I have not provided. Do not apologise for anything I have not asked you to apologise for. Keep it under 120 words.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Did Copilot add anything you did not give it — a commitment, an apology, a softening clause? Every word it added that you did not supply is something you are responsible for if you send it. Read it as if you wrote it yourself.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">5</div>
+            <div class="lab-step-title">Coaching mode — critique your draft</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Still in the same thread. Ask Copilot to critique the draft it just wrote — from the perspective of the recipient, not as a general editor.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Now read this draft as the recipient of this email — not as a writer. What is the most likely objection or concern they will have after reading it? What is the weakest part — tone, clarity, or what it asks them to do? What one change would make it more likely to get the response I need? Be specific, not diplomatic.">Copy</button></div>
+              <p class="prompt-text">Now read this draft as the recipient of this email — not as a writer. What is the most likely objection or concern they will have after reading it? What is the weakest part — tone, clarity, or what it asks them to do? What one change would make it more likely to get the response I need? Be specific, not diplomatic.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon reflect"><i class="ti ti-brain" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label reflect">Reflect</div>
+                <div class="lab-row-text">Did the coaching output identify something you already knew was weak but were hoping to get away with? That is the most common result — and the most useful one.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">6</div>
+            <div class="lab-step-title">Fix one specific thing</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Pick one specific thing from the coaching output and fix it. Not "make it better" — one exact thing. Use the prompt below, replacing the bracket with the specific problem Copilot identified.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Rewrite only [the specific weak part Copilot identified]. Keep everything else the same. The fix should address [the specific issue — e.g. the ask is unclear / the opening is too formal / the tone implies blame]. Show me just the rewritten section, not the whole email.">Copy</button></div>
+              <p class="prompt-text">Rewrite only [the specific weak part Copilot identified]. Keep everything else the same. The fix should address [the specific issue — e.g. the ask is unclear / the opening is too formal / the tone implies blame]. Show me just the rewritten section, not the whole email.</p>
+            </div>
+            <div class="lab-checkpoint">
+              <div class="lab-checkpoint-label">Before you move on — read the full draft out loud</div>
+              <ul>
+                <li>Does it sound like you, or like a corporate AI assistant?</li>
+                <li>Is every claim in it accurate and something you are willing to stand behind?</li>
+                <li>Is the ask clear — does the recipient know exactly what you need from them?</li>
+                <li>If a colleague read this without context, would they understand the situation correctly?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">7</div>
+            <div class="lab-step-title">Adapt the same reply for a different recipient</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Think of one other person who needs to know the same information but with a different framing — a more senior stakeholder, a client, or a colleague in a different function. Ask Copilot to rewrite for them.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Rewrite this email for a different recipient: [describe who — e.g. a client, a senior stakeholder, a colleague in a different team]. Keep the same facts. Adjust: the level of context provided, the tone, and what they need to know vs. what is internal detail they should not see.">Copy</button></div>
+              <p class="prompt-text">Rewrite this email for a different recipient: [describe who — e.g. a client, a senior stakeholder, a colleague in a different team]. Keep the same facts. Adjust: the level of context provided, the tone, and what they need to know vs. what is internal detail they should not see.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Notice what Copilot strips out for the external version vs. what it keeps. Did it remove something that should have stayed, or keep something that should have been filtered? This is the transformation step — same content, different audience, different register.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 3 — TAKING IT TO A MEETING
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Part 3</span>
+          <h3>Taking It to a Meeting</h3>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">8</div>
+            <div class="lab-step-title">Decide if a meeting is needed — and why</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Before scheduling anything, ask Copilot to make the case for whether a meeting is actually necessary — or whether the thread can be resolved over email.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Based on this email thread: does this need a meeting, or can it be resolved over email? Give me the case for each option. If a meeting is the right call, what is the one question that meeting needs to answer? Who needs to be in the room and who does not?">Copy</button></div>
+              <p class="prompt-text">Based on this email thread: does this need a meeting, or can it be resolved over email? Give me the case for each option. If a meeting is the right call, what is the one question that meeting needs to answer? Who needs to be in the room and who does not?</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon reflect"><i class="ti ti-brain" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label reflect">Reflect</div>
+                <div class="lab-row-text">Most meetings are scheduled before the question they need to answer has been defined. If you can state in one sentence what decision needs to come out of the meeting, it is probably worth having. If you cannot, you may not be ready for it yet.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 9 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">9</div>
+            <div class="lab-step-title">Draft the meeting invite</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">In the same Copilot thread, ask it to draft the meeting invite. A good invite tells recipients exactly what they need to prepare, what the meeting will decide, and what success looks like.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Draft a meeting invite based on this thread. Include: (1) a subject line that states the decision to be made, not just the topic, (2) a 2-sentence context section for people who haven't read the full thread, (3) the specific question the meeting needs to answer, (4) what each attendee should prepare or bring, (5) what a successful outcome looks like. Keep it under 150 words total.">Copy</button></div>
+              <p class="prompt-text">Draft a meeting invite based on this thread. Include: (1) a subject line that states the decision to be made, not just the topic, (2) a 2-sentence context section for people who haven't read the full thread, (3) the specific question the meeting needs to answer, (4) what each attendee should prepare or bring, (5) what a successful outcome looks like. Keep it under 150 words total.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Is the subject line a decision ("Approve Q3 budget allocation") or a topic ("Q3 budget")? Decision-framed invites produce better meetings. Does the invite specify what people should prepare? Without that, most attendees arrive unready to decide anything.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 10 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">10</div>
+            <div class="lab-step-title">Draft the pre-read — a summary of the thread for attendees</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">A pre-read attached to the invite means the meeting starts from shared context, not from someone recapping what happened over email. Copilot can produce this in seconds from the thread it has already read.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Write a one-page pre-read for the meeting we just drafted an invite for. It should cover: background (what started this), what has been tried or decided so far, what is still unresolved, and the specific question the meeting needs to answer. Write it for someone who has not read any of the email thread. Plain language. No jargon.">Copy</button></div>
+              <p class="prompt-text">Write a one-page pre-read for the meeting we just drafted an invite for. It should cover: background (what started this), what has been tried or decided so far, what is still unresolved, and the specific question the meeting needs to answer. Write it for someone who has not read any of the email thread. Plain language. No jargon.</p>
+            </div>
+            <div class="lab-checkpoint">
+              <div class="lab-checkpoint-label">Part 3 checkpoint — you now have:</div>
+              <ul>
+                <li>A decision on whether a meeting is necessary and who should attend</li>
+                <li>A meeting invite with a decision-framed subject and clear pre-work</li>
+                <li>A pre-read that brings everyone to shared context before the meeting starts</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 4 — BUILDING YOUR PROMPT LIBRARY
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Part 4</span>
+          <h3>Building Your Prompt Library</h3>
+        </div>
+
+        <!-- Step 11 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">11</div>
+            <div class="lab-step-title">Extract your preferences from this session</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">At the end of any productive session, run this retrieval prompt. It turns everything you implicitly told Copilot about how you work into a reusable document you can paste at the start of future sessions.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt — run at the end</div><button class="copy-button" type="button" data-copy-text="Review our full conversation. Identify every correction, preference, or instruction I gave you — explicitly or implicitly. Rewrite them as a single reusable document: my communication preferences, the formats I prefer, what I kept correcting, what I responded well to, and the standing constraints I apply (things I never want in my emails, tones I always want to avoid, etc.). Write it as a short reference I can paste at the start of a future Outlook session to get to this quality immediately.">Copy</button></div>
+              <p class="prompt-text">Review our full conversation. Identify every correction, preference, or instruction I gave you — explicitly or implicitly. Rewrite them as a single reusable document: my communication preferences, the formats I prefer, what I kept correcting, what I responded well to, and the standing constraints I apply (things I never want in my emails, tones I always want to avoid, etc.). Write it as a short reference I can paste at the start of a future Outlook session to get to this quality immediately.</p>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">If the output is too generic — follow up with this</div><button class="copy-button" type="button" data-copy-text="This is too generic. Go back through our conversation and pull out specific corrections I made — exact things I rejected, exact language I pushed for, specific structural choices. Make it concrete enough that someone who has never talked to me could match my style from this document alone.">Copy</button></div>
+              <p class="prompt-text">This is too generic. Go back through our conversation and pull out specific corrections I made — exact things I rejected, exact language I pushed for, specific structural choices. Make it concrete enough that someone who has never talked to me could match my style from this document alone.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Save the output</div>
+                <div class="lab-row-text">Copy the preferences document and save it somewhere you can find it quickly — a pinned Teams message, a OneNote page, or your Copilot memory via Settings → Account → Privacy → Personalization and memory. This is the foundation of your personal prompt library.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             ETHICS SECTION
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Ethics</span>
+          <h3>What Copilot Cannot and Should Not Do Here</h3>
+        </div>
+
+        <div class="lab-ethics" style="margin-bottom:16px;">
+          <div class="lab-ethics-label"><i class="ti ti-shield" aria-hidden="true"></i> Before you send anything from this lab</div>
+          <ul>
+            <li><strong>You wrote it, you own it.</strong> Every email you send from this session is yours — not Copilot's. If it contains an error, a commitment you did not intend, or a tone that damages a relationship, that is on you. Read everything before it goes out.</li>
+            <li><strong>Copilot cannot read the relationship.</strong> It reads the words. It does not know that this person has been difficult for three months, that there is a political dynamic in the team, or that your manager asked you to handle this carefully. Context it does not have is context that does not exist in the output.</li>
+            <li><strong>The coaching mode output is a prompt for judgment, not a verdict.</strong> If Copilot says your email sounds passive-aggressive, that is a signal to reflect on — not a fact. You know your intent. Use the feedback as a mirror, not a correction.</li>
+            <li><strong>Do not use Copilot to draft emails about someone without their knowledge in ways that could affect their standing.</strong> Performance concerns, escalations, formal complaints — these need a human process, not an AI-drafted email.</li>
+            <li><strong>Meeting invites are commitments.</strong> The invite Copilot drafted commits your time and your attendees' time. Review the attendee list, the ask, and the pre-read before sending. A bad meeting invite sent at scale is one of the most common sources of wasted time in organisations.</li>
+          </ul>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             FINAL REFLECTIONS
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Wrap-up</span>
+          <h3>Final Reflections</h3>
+        </div>
+
+        <div class="grid two" style="margin-bottom:24px;">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">What you practised</span>
+            <ul class="list">
+              <li>Summarising a thread: decisions, open items, positions, tone signals</li>
+              <li>Surfacing unanswered questions and dropped commitments</li>
+              <li>Drafting from substance — bullet points first, prose second</li>
+              <li>Coaching mode: critiquing from the recipient's perspective</li>
+              <li>Adapting the same content for a different audience</li>
+              <li>Deciding whether a meeting is needed — and building the invite and pre-read if so</li>
+              <li>Extracting your preferences into a reusable prompt library entry</li>
+            </ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Questions to take away</span>
+            <ul class="list">
+              <li>Which step in this lab changed how you thought about the email thread?</li>
+              <li>Was there anything in the coaching output that you knew but hoped to avoid fixing?</li>
+              <li>How would your approach to the thread have been different without Copilot? Better or worse in any specific way?</li>
+              <li>What standing preferences did your prompt library document reveal about how you communicate?</li>
+              <li>Think of the next email thread sitting in your inbox. Which steps from this lab would you run on it?</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="lab-language-teams.html">Back: Lab A — Teams Challenge</a>
+          <a class="button primary" href="category-2-analysis.html">Next: Pattern Recognition</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

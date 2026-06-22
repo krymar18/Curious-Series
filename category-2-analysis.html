@@ -66,22 +66,21 @@
       <div class="shell">
         <div class="section-head">
           <div>
-            <h2>Pattern Finding Without Pattern Judging</h2>
+            <h2>Two Parts Of Any Analysis</h2>
            </div>
         </div>
 
-        <p>AI identifies patterns by recognising what tends to co-occur in its training data. When you ask it to find themes in 50 client call notes, it is finding word and idea clusters that appear together — not reasoning about whether those clusters reflect a real business dynamic. The pattern is real in the text. Whether it is real in the world is your judgment call.</p>
-
+        
         <!-- ── 2.1 SEARCHING BY MEANING ── -->
         <details>
           <summary>Searching by Meaning</summary>
           <div class="details-body">
-            <p>Finding relevant information by intent rather than keyword. Instead of searching for the exact words, you describe what you need and AI finds the content that matches the meaning — even if the wording is different. Document Q&A (asking a specific question of a known document) is a specific mode of this same capability.</p>
+            <p>FGood analysis starts by collecting relevant information and isolating only the factors that matter, followed by comparing isolated data to draw conclusions. This section covers using AI to collect more relevant information through semantic search. In doing so we take advantage of three sources: LLMs' general knowledge from training data, their ability to conduct internet searches, and semantic search of company SharePoints in the case of Microsoft Copilot</p>
 
             <details style="margin-top:12px; border:1px solid var(--border); border-radius:8px; padding:1px;">
               <summary style="padding:10px 14px; font-size:13px; font-weight:600; cursor:pointer;">Technology link — optional reading</summary>
               <div class="details-body">
-                <p>When you search by meaning, AI converts both your query and the document content into vectors — mathematical representations of meaning — and finds the content where those vectors are closest. This is why "what happens if we cancel?" finds the termination clause even though the word "termination" does not appear in your query. It also explains why rephrasing a question changes the results: the vector shifts, and the nearest content shifts with it. Copilot in SharePoint uses this mechanism to answer questions about documents you have never opened.</p>
+                <p>When you search by meaning, AI converts your query into a vector — a mathematical representation of meaning — and finds the content where those vectors are closest. This is why 'what happens if we cancel?' finds the termination clause even though the word 'termination' does not appear in your query. It also explains why rephrasing a question changes the results: the vector shifts, and the nearest content shifts with it. Documents are indexed in advance, which is why newly uploaded files may not be immediately searchable. Copilot in SharePoint uses a version of this mechanism alongside keyword and graph-based retrieval.</p>
               </div>
             </details>
 

@@ -428,6 +428,113 @@
 
       </div>
     </section>
+    <!-- ── FUNCTIONALITY SPOTLIGHT ── -->
+<section class="section">
+  <div class="shell">
+
+    <div class="section-head">
+      <div>
+        <h2>Functionality Spotlight</h2>
+        <p>A live exercise using a D&amp;F planning workspace-style dataset. Download it, run both prompts in Copilot Chat, and see what changes when you give AI a baseline to work from.</p>
+      </div>
+    </div>
+
+    <div class="grid two" style="margin-bottom:24px;">
+      <article class="card">
+        <span class="eyebrow-chip chip-brand">Exercise goal</span>
+        <p style="font-size:14px;line-height:1.7;margin:0;">Ask Copilot to find patterns without any baseline definition — then ask again with an explicit one. Without a baseline, Copilot sets its own definition of normal, which may not match your operational reality. After it surfaces a pattern, ask what alternative explanation could produce the same result. That question is the fastest check against treating coincidence as signal.</p>
+      </article>
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Questions to ask yourself</span>
+        <ul class="list" style="margin:0;">
+          <li>What did Copilot define as "normal" when you gave it no baseline?</li>
+          <li>Did the undirected output flag the same anomalies as the directed one?</li>
+          <li>For each anomaly surfaced — what is the most innocent explanation?</li>
+          <li>Which findings are worth investigating and which are probably noise?</li>
+        </ul>
+      </article>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sample dataset</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);">Ampersand D&amp;F Planning Workspace</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Market, Daypart, Projected Impressions, Budget, Actuals — 8 rows with some values intentionally out of range to make anomaly detection meaningful.</div>
+      </div>
+      <a href="downloads/ampersand_sample_dataset_planning.xlsx" download
+         style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--brand);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;flex-shrink:0;transition:opacity .15s;"
+         onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <i class="ti ti-download" aria-hidden="true"></i>
+        Download dataset
+      </a>
+    </div>
+
+    <details>
+      <summary>Sample prompts to try</summary>
+      <div class="details-body">
+        <p style="font-size:13.5px;color:var(--body);margin-bottom:18px;">Open Copilot Chat and paste the dataset directly, or reference the file. Run Prompt 1 first and save the output before running Prompt 2. The comparison between them is the lesson.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:stretch;">
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:#e8e8e8;color:#666;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);">No baseline</span>
+            </div>
+            <div class="prompt-box" style="flex:1;">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Look at this dataset and find any patterns or anomalies. What stands out?">Copy</button>
+              </div>
+              <p class="prompt-text">Look at this dataset and find any patterns or anomalies. What stands out?</p>
+            </div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin:0;">No baseline. Copilot defines normal for you.</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);">With a baseline</span>
+            </div>
+            <div class="prompt-box" style="flex:1;">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Flag anything in this dataset where Actuals are more than 15% above or below Budget. For each flagged row: the market, the variance amount, and whether it is over or under. Rank them by how far outside the range they are.">Copy</button>
+              </div>
+              <p class="prompt-text">Flag anything in this dataset where Actuals are more than 15% above or below Budget. For each flagged row: the market, the variance amount, and whether it is over or under. Rank them by how far outside the range they are.</p>
+            </div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin:0;">Explicit baseline. Your definition of normal, not Copilot's.</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);">Challenge the pattern</span>
+            </div>
+            <div class="prompt-box" style="flex:1;">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="For each anomaly you flagged: what is the most likely innocent explanation — data entry error, seasonal shift, one-off event? Which ones are worth investigating further and which are probably noise?">Copy</button>
+              </div>
+              <p class="prompt-text">For each anomaly you flagged: what is the most likely innocent explanation — data entry error, seasonal shift, one-off event? Which ones are worth investigating further and which are probably noise?</p>
+            </div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin:0;">The fastest check against treating coincidence as signal.</p>
+          </div>
+
+        </div>
+      </div>
+    </details>
+
+    <div class="callout neutral" style="margin-top:18px;">
+      <h4>Two things to keep in mind after you run this</h4>
+      <ul>
+        <li>Without a defined baseline, Copilot sets its own definition of normal — which may not match your operational reality. "Find the anomalies" and "flag anything more than 15% outside budget" are fundamentally different instructions.</li>
+        <li>AI will find a pattern in almost any dataset, including random ones. After it surfaces a finding, always ask what alternative explanation could produce the same result before treating it as a signal worth acting on.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
 
     <!-- ── SPOTLIGHT CHALLENGES ── -->
     <section class="section" id="spotlight-challenges">

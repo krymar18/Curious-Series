@@ -252,6 +252,20 @@
               <p>Pasting directly and describing the target format works for smaller, cleaner inputs — accept that unusual edge cases may need manual correction after. For accuracy and repeatability — especially on recurring transformations — show one example output row first, confirm it is correct, then apply to the full set. For large datasets, generate the transformation code and run it locally: you can rerun it as data changes, and the data stays private.</p>
             </div>
           </div>
+          <div  style="margin-left:18px;margin-right:18px;">
+             <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sample dataset</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);">Post Logs</div>
+        </div>
+      <a href="Downloads/Post_logs.xlsx" download
+         style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--brand);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;flex-shrink:0;transition:opacity .15s;"
+         onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <i class="ti ti-download" aria-hidden="true"></i>
+        Download
+      </a>
+    </div>
+          </div>
         </details>
 
         <!-- ── 4.3 EXPLAINING CODE ── -->
@@ -342,7 +356,11 @@
               <div class="tradeoff-title">Fast orientation vs. reliable, accurate explanation</div>
               <p>Asking for a plain-English summary gets you oriented quickly — useful before a deeper read — but a high-level explanation may miss conditional logic or edge cases. For a reliable explanation, ask for step-by-step breakdown: slower, but it exposes the logic that a summary compresses. In both cases, verify by running the code and checking that the output matches what AI described.</p>
             </div>
+          
+          
           </div>
+
+
         </details>
 
       </div>
@@ -517,19 +535,7 @@
       </article>
     </div>
 
-    <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;flex-wrap:wrap;">
-      <div style="flex:1;min-width:200px;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sample dataset</div>
-        <div style="font-size:14px;font-weight:600;color:var(--text);">Ampersand Campaign Budget Tracker</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px;">Market, Product, Budget, Actuals, Variance — 8 rows with intentional blanks. Paste into Excel and format as a Table before opening Copilot.</div>
-      </div>
-      <a href="downloads/ampersand_sample_dataset_excel.xlsx" download
-         style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--brand);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;flex-shrink:0;transition:opacity .15s;"
-         onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-        <i class="ti ti-download" aria-hidden="true"></i>
-        Download dataset
-      </a>
-    </div>
+
 
     <details>
       <summary>Sample prompts to try</summary>

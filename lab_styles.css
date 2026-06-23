@@ -1,0 +1,385 @@
+/* ============================================================
+   lab_styles.css
+   Shared styles for all Curious AI Series lab challenge pages.
+   Load alongside assets/styles.css in every lab page head.
+   ============================================================ */
+
+/* ── Body reset — override any topbar padding from assets/styles.css ── */
+body {
+  padding-top: 0 !important;
+}
+
+/* ── Thin branded strip at top of every lab page ─────────────────── */
+.lab-header-strip {
+  background: var(--brand);
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lab-header-strip-brand {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,.7);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.lab-header-strip-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ── Lab nav bar ─────────────────────────────────────────── */
+.lab-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.lab-nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .15s;
+}
+.lab-nav-back:hover { color: var(--brand); }
+.lab-nav-back::before { content: '←'; font-size: 14px; }
+.lab-nav-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lab-nav-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background .15s;
+}
+.lab-nav-step-dot.current { background: var(--brand); }
+.lab-nav-step-dot.done { background: var(--brand); opacity: .4; }
+.lab-nav-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.lab-nav-next:hover { opacity: .75; }
+.lab-nav-next::after { content: '→'; font-size: 14px; }
+.lab-nav-next.disabled { color: var(--muted); pointer-events: none; }
+.lab-nav-next.disabled::after { display: none; }
+
+/* ── Lab hero ────────────────────────────────────────────── */
+.lab-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.lab-tag-teams   { background: #ece9fb; color: #4338ca; border: 1px solid #c7d2fe; }
+.lab-tag-outlook { background: #fef3e2; color: #92500a; border: 1px solid #f5d9a0; }
+.lab-tag-analysis{ background: #e8f4fd; color: #0369a1; border: 1px solid #bae6fd; }
+.lab-tag-creative{ background: #fdf0ee; color: #b91c1c; border: 1px solid #fecaca; }
+.lab-tag-technical{background: #edf7f0; color: #1a6b3a; border: 1px solid #a8d5b5; }
+.lab-meta-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0 0;
+}
+.lab-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--body);
+}
+.lab-meta-pill i { color: var(--muted); font-size: 13px; }
+
+/* ── Step cards ──────────────────────────────────────────── */
+.lab-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+}
+.lab-step {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.lab-step-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.lab-step-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+.lab-step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+}
+.lab-step-app {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.lab-step-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Row types ───────────────────────────────────────────── */
+.lab-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.lab-row-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  margin-top: 2px;
+}
+.lab-row-icon.act    { background: #e8f0fb; color: #204d89; }
+.lab-row-icon.look   { background: #fef3e2; color: #92500a; }
+.lab-row-icon.rfl    { background: #f3eeff; color: #6b21a8; }
+.lab-row-icon.eth    { background: #fdf0ee; color: #b91c1c; }
+.lab-row-content { flex: 1; min-width: 0; }
+.lab-row-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.lab-row-label.act  { color: #204d89; }
+.lab-row-label.look { color: #92500a; }
+.lab-row-label.rfl  { color: #6b21a8; }
+.lab-row-label.eth  { color: #b91c1c; }
+.lab-row-text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+/* ── Prompt box ──────────────────────────────────────────── */
+.lab-prompt {
+  background: #e8f0fb;
+  border: 1.5px solid #3b72c4;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.lab-prompt-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #1a4a9e;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lab-prompt-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #1a3a6e;
+  font-family: inherit;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.lab-copy-btn {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid #3b72c4;
+  background: #204d89;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity .15s;
+  flex-shrink: 0;
+}
+.lab-copy-btn:hover { opacity: .8; }
+
+/* ── Ethics / checkpoint boxes ───────────────────────────── */
+.lab-ethics {
+  background: #fdf0ee;
+  border: 1.5px solid #f5c5bb;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.lab-ethics-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #b91c1c;
+  margin-bottom: 6px;
+}
+.lab-ethics-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--body);
+  margin: 0;
+}
+.lab-checkpoint {
+  background: #f0f9f4;
+  border: 1.5px solid #a8d5b5;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.lab-checkpoint-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #1a6b3a;
+  margin-bottom: 8px;
+}
+.lab-checkpoint ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.lab-checkpoint li {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+/* ── Takeaway box ────────────────────────────────────────── */
+.lab-takeaway {
+  background: #fef9ec;
+  border: 1.5px solid #e4c97a;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 8px;
+}
+.lab-takeaway-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #92500a;
+  margin-bottom: 10px;
+}
+.lab-takeaway ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lab-takeaway li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.lab-takeaway li::before {
+  content: '★';
+  color: #c4962a;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ── Page footer nav ─────────────────────────────────────── */
+.lab-footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.lab-footer-prev,
+.lab-footer-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  transition: border-color .15s, background .15s;
+}
+.lab-footer-prev:hover,
+.lab-footer-next:hover {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+.lab-footer-prev::before { content: '←'; }
+.lab-footer-next::after  { content: '→'; }
+.lab-footer-back {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+.lab-footer-back:hover { color: var(--brand); }

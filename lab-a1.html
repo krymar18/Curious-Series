@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Summarise a Meeting</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="lab_styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <div class="lab-header-strip">
+    <span class="lab-header-strip-brand">Curious AI Series</span>
+    <span class="lab-header-strip-title">Lab A1 · Teams</span>
+  </div>
+  <main>
+    <div class="shell" style="max-width:860px;margin:0 auto;padding:32px 24px 64px;">
+
+      <!-- Lab nav -->
+      <div class="lab-nav">
+        <a href="session-2-language.html" class="lab-nav-back">Working with Language</a>
+        <div class="lab-nav-steps"><div class="lab-nav-step-dot current"></div><div class="lab-nav-step-dot "></div><div class="lab-nav-step-dot "></div></div>
+        <a href="lab-a2.html" class="lab-nav-next">A2 — Extract Action Items</a>
+      </div>
+
+      <!-- Header -->
+      <div class="lab-tag lab-tag-teams">Lab A1 · Teams</div>
+      <h1 style="font-size:28px;font-weight:800;color:var(--text);margin:0 0 10px;">Summarise a Meeting</h1>
+      <p style="font-size:15px;line-height:1.65;color:var(--body);margin:0 0 4px;">Produce a structured plain-language summary of a real meeting — decisions, information shared, and what is still unresolved — without reading any notes first.</p>
+      <div class="lab-meta-row">
+        <span class="lab-meta-pill"><i class="ti ti-clock"></i> 8 – 10 min</span>
+        <span class="lab-meta-pill"><i class="ti ti-tool"></i> A recorded Teams meeting with transcript</span>
+        <span class="lab-meta-pill"><i class="ti ti-sparkles"></i> M365 Copilot Premium</span>
+      </div>
+
+      <!-- Steps -->
+      <div class="lab-steps">
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">1</div>
+            <div class="lab-step-title">Open the meeting in Teams</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Open the meeting in Teams. Click the <strong>Recap</strong> tab, then open Copilot. Stay in the same thread throughout this challenge — do not open a new chat.</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Copy prompt — Summary
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('Summarise this meeting in plain language. Structure it as: (1) Purpose — what was the meeting for? (2) Key decisions made. (3) Key information shared. (4) What was not resolved or left open. Keep each section to 3 sentences maximum.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">Summarise this meeting in plain language. Structure it as: (1) Purpose — what was the meeting for? (2) Key decisions made. (3) Key information shared. (4) What was not resolved or left open. Keep each section to 3 sentences maximum.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look">◉</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">Look for</div>
+                <div class="lab-row-text">Is the "not resolved" section accurate, or is it empty when it should not be? That section is the most important part of any meeting summary — and the most commonly wrong.</div>
+              </div>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon rfl">◈</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label rfl">Reflect</div>
+                <div class="lab-row-text">Did Copilot miss anything you consider significant? What type of thing — a decision, a concern, a commitment? That gap tells you where you still need to be the note-taker.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">2</div>
+            <div class="lab-step-title">Ask Copilot what it missed</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">In the same thread, send this follow-up before closing:</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Follow-up — Confidence check
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('What are you least confident about in this summary? Where might the transcript have been unclear or incomplete? Tell me where I should check against the original recording.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">What are you least confident about in this summary? Where might the transcript have been unclear or incomplete? Tell me where I should check against the original recording.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look">◉</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">Look for</div>
+                <div class="lab-row-text">Does Copilot identify real gaps — moments where multiple people spoke at once, technical terms that may have been transcribed incorrectly, or tone that was ambiguous? This self-critique prompt is one of the most useful habits you can build.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Takeaways -->
+      <div class="lab-takeaway" style="margin-top:24px;">
+        <div class="lab-takeaway-label">Key Takeaways</div>
+        <ul>
+              <li>The "not resolved" section is the most important part of a meeting summary. If Copilot leaves it empty, it is probably wrong — ask for it explicitly.</li>
+              <li>Copilot summarises based on transcript patterns, not on what mattered to you. Missing content is not an error — it is a gap you need to fill.</li>
+              <li>Asking Copilot what it is least confident about is how you find out where to check the recording. Build it into every meeting summary.</li>
+        </ul>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="lab-footer-nav">
+        <span></span>
+        <a href="session-2-language.html" class="lab-footer-back">↩ Back to Working with Language</a>
+        <a href="lab-a2.html" class="lab-footer-next">A2 — Extract Action Items</a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

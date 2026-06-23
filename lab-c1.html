@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Search SharePoint by Meaning, Not Keyword</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="lab_styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <div class="lab-header-strip">
+    <span class="lab-header-strip-brand">Curious AI Series</span>
+    <span class="lab-header-strip-title">Lab C1 · Analysis</span>
+  </div>
+  <main>
+    <div class="shell" style="max-width:860px;margin:0 auto;padding:32px 24px 64px;">
+
+      <!-- Lab nav -->
+      <div class="lab-nav">
+        <a href="category-2-analysis.html" class="lab-nav-back">Pattern Recognition</a>
+        <div class="lab-nav-steps"><div class="lab-nav-step-dot current"></div><div class="lab-nav-step-dot "></div><div class="lab-nav-step-dot "></div><div class="lab-nav-step-dot "></div></div>
+        <a href="lab-c2.html" class="lab-nav-next">C2 — Find Document Gaps</a>
+      </div>
+
+      <!-- Header -->
+      <div class="lab-tag lab-tag-analysis">Lab C1 · Analysis</div>
+      <h1 style="font-size:28px;font-weight:800;color:var(--text);margin:0 0 10px;">Search SharePoint by Meaning, Not Keyword</h1>
+      <p style="font-size:15px;line-height:1.65;color:var(--body);margin:0 0 4px;">Find a document you need using intent rather than exact filename — then ask a specific question of it and verify the answer against the original source.</p>
+      <div class="lab-meta-row">
+        <span class="lab-meta-pill"><i class="ti ti-clock"></i> 8 – 10 min</span>
+        <span class="lab-meta-pill"><i class="ti ti-tool"></i> Copilot Chat with work data enabled</span>
+        <span class="lab-meta-pill"><i class="ti ti-sparkles"></i> M365 Copilot Premium</span>
+      </div>
+
+      <!-- Steps -->
+      <div class="lab-steps">
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">1</div>
+            <div class="lab-step-title">Find the document by meaning</div>
+            <div class="lab-step-app">Copilot Chat</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Open Copilot Chat (copilot.microsoft.com). Think of a document you know exists on SharePoint but cannot easily find by filename. Replace the brackets with the actual topic.</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 1 — Find by meaning
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('Find the most recent document on [topic or subject] in our SharePoint. I do not know the exact filename. Return: document title, who created it, date, and a one-sentence summary of what it covers.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">Find the most recent document on [topic or subject] in our SharePoint. I do not know the exact filename. Return: document title, who created it, date, and a one-sentence summary of what it covers.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look">◉</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">Look for</div>
+                <div class="lab-row-text">Did Copilot find the right document? If not, rephrase in plain language rather than trying to match vocabulary you think the document uses. Plain language outperforms technical vocabulary in semantic search.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">2</div>
+            <div class="lab-step-title">Ask a specific question of the document</div>
+            <div class="lab-step-app">Copilot Chat</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Once Copilot surfaces a document, ask a targeted question of it:</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 2 — Document Q&A
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('Based on that document: what is [your specific question]? Quote the relevant passage alongside your answer. If the document does not address it, say so explicitly — do not infer from nearby content.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">Based on that document: what is [your specific question]? Quote the relevant passage alongside your answer. If the document does not address it, say so explicitly — do not infer from nearby content.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look">◉</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">Look for</div>
+                <div class="lab-row-text">Did Copilot quote the passage or paraphrase it? A quote you can verify. A paraphrase you cannot. For high-stakes questions, always ask for the quote.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">3</div>
+            <div class="lab-step-title">Verify against the original</div>
+            <div class="lab-step-app">SharePoint</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Open the original document. Find the passage Copilot quoted. Read it in full context. Does the quote mean what Copilot said it means?</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Takeaways -->
+      <div class="lab-takeaway" style="margin-top:24px;">
+        <div class="lab-takeaway-label">Key Takeaways</div>
+        <ul>
+              <li>Semantic search finds content by intent — plain language finds the right document even when your words do not match the document's vocabulary.</li>
+              <li>Always ask Copilot to quote the passage alongside its answer. If it cannot quote it, the answer may not be in the document — it may be a plausible inference.</li>
+              <li>Rephrasing a search query changes the results. If the first result is wrong, rephrase rather than trying to match the document's vocabulary.</li>
+        </ul>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="lab-footer-nav">
+        <span></span>
+        <a href="category-2-analysis.html" class="lab-footer-back">↩ Back to Pattern Recognition</a>
+        <a href="lab-c2.html" class="lab-footer-next">C2 — Find Document Gaps</a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

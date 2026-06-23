@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Explain Code or a Formula You Did Not Write</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="lab_styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <div class="lab-header-strip">
+    <span class="lab-header-strip-brand">Curious AI Series</span>
+    <span class="lab-header-strip-title">Lab E3 · Technical</span>
+  </div>
+  <main>
+    <div class="shell" style="max-width:860px;margin:0 auto;padding:32px 24px 64px;">
+
+      <!-- Lab nav -->
+      <div class="lab-nav">
+        <a href="category-4-technical.html" class="lab-nav-back">Technical Translation</a>
+        <div class="lab-nav-steps"><div class="lab-nav-step-dot done"></div><div class="lab-nav-step-dot done"></div><div class="lab-nav-step-dot current"></div><div class="lab-nav-step-dot "></div></div>
+        <a href="lab-e4.html" class="lab-nav-next">E4 — Reformat a Document</a>
+      </div>
+
+      <!-- Header -->
+      <div class="lab-tag lab-tag-technical">Lab E3 · Technical</div>
+      <h1 style="font-size:28px;font-weight:800;color:var(--text);margin:0 0 10px;">Explain Code or a Formula You Did Not Write</h1>
+      <p style="font-size:15px;line-height:1.65;color:var(--body);margin:0 0 4px;">Paste an inherited formula, script, or automation step and ask Copilot to explain what it does and flag potential issues — before you use or modify it.</p>
+      <div class="lab-meta-row">
+        <span class="lab-meta-pill"><i class="ti ti-clock"></i> 8 – 10 min</span>
+        <span class="lab-meta-pill"><i class="ti ti-tool"></i> Copilot Chat</span>
+        <span class="lab-meta-pill"><i class="ti ti-sparkles"></i> M365 Copilot Premium</span>
+      </div>
+
+      <!-- Steps -->
+      <div class="lab-steps">
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">1</div>
+            <div class="lab-step-title">Find something to explain</div>
+            <div class="lab-step-app">You</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Find a formula, script, or automation step you use or maintain but do not fully understand. Paste it into Copilot Chat.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">2</div>
+            <div class="lab-step-title">Ask for a step-by-step explanation</div>
+            <div class="lab-step-app">Copilot Chat</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Paste the code and send this prompt:</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 1 — Explain
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('Explain what this [formula / script / flow] does in plain English. Walk through it step by step. After the explanation, tell me: what are the edge cases where it might behave unexpectedly or produce wrong results?')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">Explain what this [formula / script / flow] does in plain English. Walk through it step by step. After the explanation, tell me: what are the edge cases where it might behave unexpectedly or produce wrong results?</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look">◉</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">Look for</div>
+                <div class="lab-row-text">Does the explanation match what you thought it was doing? If there is a discrepancy between what you expected and what Copilot describes, that discrepancy is the thing to investigate — not a misunderstanding.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">3</div>
+            <div class="lab-step-title">Test the explanation</div>
+            <div class="lab-step-app">Excel or your environment</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Run the code on a small sample with 3–5 rows where you know the expected output. Does the output match what Copilot described?</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">4</div>
+            <div class="lab-step-title">Document it while you understand it</div>
+            <div class="lab-step-app">Copilot Chat</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">In the same thread, ask Copilot to write documentation while the understanding is fresh:</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 2 — Document it
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('Write a plain-language comment for each section of this code that a non-technical person who will maintain it later could follow. Written for someone who did not write it and needs to know what to change and what not to touch.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">Write a plain-language comment for each section of this code that a non-technical person who will maintain it later could follow. Written for someone who did not write it and needs to know what to change and what not to touch.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon rfl">◈</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label rfl">Reflect</div>
+                <div class="lab-row-text">Documentation written at the time of understanding is far more useful than documentation written later. If you have just understood a piece of code for the first time, this is the right moment to document it.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Takeaways -->
+      <div class="lab-takeaway" style="margin-top:24px;">
+        <div class="lab-takeaway-label">Key Takeaways</div>
+        <ul>
+              <li>If Copilot's explanation does not match what you expected the code to do, that discrepancy is the bug — use it as the starting point for the fix.</li>
+              <li>AI explanations describe what the code appears to do. They may miss subtle bugs that only appear with specific inputs. Always verify on a known sample.</li>
+              <li>The best time to document inherited code is the moment you understand it for the first time. After that moment, the documentation gets harder and less accurate.</li>
+        </ul>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="lab-footer-nav">
+        <a href="lab-e2.html" class="lab-footer-prev">E2 — Clean a Dataset</a>
+        <a href="category-4-technical.html" class="lab-footer-back">↩ Back to Technical Translation</a>
+        <a href="lab-e4.html" class="lab-footer-next">E4 — Reformat a Document</a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

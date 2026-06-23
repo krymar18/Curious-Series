@@ -736,8 +736,103 @@
 
       </div>
     </section>
+<!-- ── FUNCTIONALITY SPOTLIGHT ── -->
+<!-- ── FUNCTIONALITY SPOTLIGHT ── -->
+<section class="section">
+  <div class="shell">
 
+    <div class="section-head">
+      <div>
+        <h2>Functionality Spotlight</h2>
+        <p>A live exercise using a real Ampersand-style transcript. Download it, run it through Copilot twice, and see what changes when you give AI a frame to work with.</p>
+      </div>
+    </div>
 
+    <!-- Goal card + questions card -->
+    <div class="grid two" style="margin-bottom:24px;">
+      <article class="card">
+        <span class="eyebrow-chip chip-brand">Exercise goal</span>
+        <p style="font-size:14px;line-height:1.7;margin:0;">Paste the same transcript into Copilot twice — once with no direction, once with a structured frame. The difference between the two outputs is the entire point. You do not need to understand the theory first. The comparison makes it obvious.</p>
+      </article>
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Questions to ask yourself</span>
+        <ul class="list" style="margin:0;">
+          <li>Which output could you act on immediately?</li>
+          <li>What did the vague prompt leave out that the directed one surfaced?</li>
+          <li>What would you have missed if you only ran the first prompt?</li>
+          <li>How long did it take to write the structured prompt vs. the value it added?</li>
+        </ul>
+      </article>
+    </div>
+
+    <!-- Download -->
+    <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Sample transcript</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);">Ampersand Q3 Campaign Planning Call</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px;">A realistic internal meeting covering decisions, open items, and a flagged risk — designed to show the difference between prompt types.</div>
+      </div>
+      <a href="downloads/ampersand_sample_transcript.docx" download
+         style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--brand);color:#fff;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;flex-shrink:0;transition:opacity .15s;"
+         onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <i class="ti ti-download" aria-hidden="true"></i>
+        Download transcript
+      </a>
+    </div>
+
+    <!-- Sample prompts collapsible -->
+    <details>
+      <summary>Sample prompts to try</summary>
+      <div class="details-body">
+        <p style="font-size:13.5px;color:var(--body);margin-bottom:18px;">Paste the transcript into Copilot inside Teams (Recap tab) or Copilot Chat. Run Prompt 1 first. Save the output. Then run Prompt 2 and compare.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:#e8e8e8;color:#666;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);">No direction</span>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Summarise this meeting transcript.">Copy</button>
+              </div>
+              <p class="prompt-text">Summarise this meeting transcript.</p>
+            </div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin:0;">No frame. No priorities. Copilot decides what to include.</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);">With direction</span>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head">
+                <div class="prompt-box-label">Copy prompt</div>
+                <button class="copy-button" type="button" data-copy-text="Summarise this meeting transcript. I need three things: (1) decisions made and who owns them, (2) open items that still need follow-up with a named owner where possible, (3) anything flagged as a risk or blocker. Keep each section to 3 bullet points maximum. If something was discussed but not resolved, put it in open items — not decisions.">Copy</button>
+              </div>
+              <p class="prompt-text">Summarise this meeting transcript. I need three things: (1) decisions made and who owns them, (2) open items that still need follow-up with a named owner where possible, (3) anything flagged as a risk or blocker. Keep each section to 3 bullet points maximum. If something was discussed but not resolved, put it in open items — not decisions.</p>
+            </div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin:0;">Structured frame. Copilot has no room to guess what matters.</p>
+          </div>
+
+        </div>
+      </div>
+    </details>
+
+    <!-- Limitations -->
+    <div class="callout neutral" style="margin-top:18px;">
+      <h4>Two things to keep in mind after you run this</h4>
+      <ul>
+        <li>A transcript summary can be technically accurate and still miss the real outcome of a meeting. AI only sees text — it cannot capture tone, what was implied, or decisions made informally after the call. Use the summary as a starting point, not as the record.</li>
+        <li>If a document is unfamiliar, someone on the team should read it before relying on an AI summary. AI may silently drop large portions of a long document and will not flag what is missing. One person reads to validate; everyone else gets the summary.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
     <!-- ── AMPERSAND SPOTLIGHT CHALLENGES ── -->
     <section class="section" id="spotlight-challenges">
       <div class="shell">

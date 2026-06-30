@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Copilot in SharePoint</title>
+
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    .lic-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.05em;background:var(--brand-soft);color:var(--brand);white-space:nowrap}
+    .sub-feature{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-soft);overflow:clip;margin-top:18px}
+    .sub-feature-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.7)}
+    .sub-feature-title{font-size:.96rem;font-weight:800;color:var(--text);flex:1;min-width:0}
+    .sub-feature-body{padding:16px 18px;color:var(--body);line-height:1.75}
+    .sub-feature-body>p:first-child{margin-top:0}
+    .sub-feature-body>p:last-child,.sub-feature-body>ul:last-child{margin-bottom:0}
+    .exercise-details{margin-top:14px;background:var(--success-soft);border:1.5px solid rgba(29,106,59,.22);border-radius:var(--radius-sm);overflow:clip}
+    .exercise-details summary{padding:12px 16px;font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--success);background:transparent}
+    .exercise-details summary::after{color:var(--success)}
+    .exercise-details .exercise-body{padding:0 16px 16px;color:var(--body);line-height:1.75}
+    .exercise-details .exercise-body ol,.exercise-details .exercise-body ul{margin:0;padding-left:20px}
+    .exercise-details .exercise-body li+li{margin-top:6px}
+    .rel-table-wrap{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border);background:rgba(255,255,255,.94);margin-top:12px}
+    .rel-table-wrap table{min-width:520px}
+    .ethics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .ethics-card{border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 20px;background:rgba(255,255,255,.88)}
+    .ethics-card-icon{font-size:22px;color:var(--brand);margin-bottom:8px}
+    .ethics-card h4{margin:0 0 8px;font-size:.95rem;color:var(--text)}
+    .ethics-card p{margin:0;font-size:.9rem;color:var(--body);line-height:1.7}
+    @media(max-width:680px){.ethics-grid{grid-template-columns:1fr}}
+    .challenge-card{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px;box-shadow:0 16px 28px rgba(23,15,5,.05);display:flex;flex-direction:column;gap:10px}
+    .challenge-number{font-size:2.2rem;font-family:'DM Serif Display',serif;color:var(--brand);line-height:1;opacity:.2}
+    .challenge-title{font-size:1.05rem;font-weight:800;color:var(--text);margin:0}
+    .challenge-body{font-size:.92rem;color:var(--body);line-height:1.75;margin:0}
+    .challenge-features{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+    .challenge-feature-tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+    .use-case-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .use-case-box{border-radius:var(--radius-sm);padding:12px 14px}
+    .use-case-box.excellent{background:var(--success-soft);border:1.5px solid rgba(29,106,59,.22)}
+    .use-case-box.avoid{background:var(--accent-soft);border:1.5px solid rgba(122,77,29,.22)}
+    .use-case-box-label{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+    .use-case-box.excellent .use-case-box-label{color:var(--success)}
+    .use-case-box.avoid .use-case-box-label{color:var(--accent)}
+    .use-case-box ul{margin:0;padding-left:16px;font-size:.88rem;line-height:1.7;color:var(--body)}
+    .use-case-box ul li+li{margin-top:4px}
+    .pl-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-sm)}
+    .pl-search-wrap{flex:1;min-width:200px;position:relative}
+    .pl-search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;pointer-events:none}
+    .pl-search{width:100%;padding:9px 12px 9px 36px;border:1.5px solid var(--border);border-radius:99px;font:inherit;font-size:14px;background:var(--surface);color:var(--text);transition:border-color .15s;box-sizing:border-box}
+    .pl-search:focus{outline:none;border-color:var(--brand)}
+    .pl-filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .pl-filter-btn{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);font:inherit;font-size:12px;font-weight:600;color:var(--body);cursor:pointer;transition:all .15s;white-space:nowrap}
+    .pl-filter-btn:hover{border-color:var(--brand);color:var(--brand)}
+    .pl-filter-btn.active{background:var(--brand);border-color:var(--brand);color:#fff}
+    .pl-filter-btn.clear-btn{border-color:transparent;color:var(--muted);display:none}
+    .pl-filter-btn.clear-btn:hover{color:var(--danger)}
+    .pl-filter-btn.clear-btn.visible{display:inline-flex}
+    .pl-grid{display:grid;gap:10px}
+    .pl-entry{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:clip;transition:border-color .15s}
+    .pl-entry:hover{border-color:rgba(32,77,137,.3)}
+    .pl-entry-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:rgba(32,77,137,.04);border-bottom:1px solid rgba(32,77,137,.08)}
+    .pl-entry-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);flex:1;min-width:0}
+    .pl-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--brand-soft);color:var(--brand);white-space:nowrap}
+    .pl-entry-text{padding:10px 14px;font-size:13.5px;line-height:1.7;color:var(--text);white-space:pre-wrap}
+    .pl-entry-foot{padding:0 14px 10px;display:flex;justify-content:flex-end}
+    .pl-count{font-size:12px;color:var(--muted);font-weight:500}
+    .pl-no-results{text-align:center;padding:32px 0;color:var(--muted);font-size:.92rem;font-style:italic;display:none}
+    .details-body>p{margin-left:0}
+    .details-body>.callout{margin-left:0}
+    .details-body>.table-wrap{margin-left:0}
+    .details-body>.sub-feature{margin-left:0}
+    .sub-feature-body .prompt-box{margin-top:12px;margin-left:0}
+    .sub-feature-body .callout{margin-top:12px}
+    .sub-feature-body .grid{margin-left:0}
+    section .prompt-box{margin-left:0}
+  </style>
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners &bull; Session 2</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="teams.html" data-nav-link>Teams</a>
+        <a href="outlook.html" data-nav-link>Outlook</a>
+        <a href="chat.html" data-nav-link>Chat</a>
+        <a href="excel.html" data-nav-link>Excel</a>
+        <a href="sharepoint.html" data-nav-link>SharePoint</a>
+        <a href="powerpoint.html" data-nav-link>PowerPoint</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners &bull; Session 2</div>
+            <h1 class="title">Copilot in SharePoint</h1>
+            <p class="lede">A practical reference for Copilot&rsquo;s SharePoint-specific features &mdash; page authoring, site agents, metadata intelligence, and the governance considerations that determine whether AI search helps or harms your organisation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Understand how SharePoint&rsquo;s content quality directly determines the quality of Copilot responses across all M365 apps &mdash; and build the metadata hygiene habits that make site agents actually reliable.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>SharePoint is not just an app where Copilot helps you. It is the data substrate that makes Copilot work across the entire M365 suite. The quality of your SharePoint content &mdash; how it&rsquo;s named, tagged, and permissioned &mdash; directly determines the quality of every Copilot experience across every other app.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>What You Have</h2>
+          <p>Everyone in this training has M365 Copilot. Expand for the full feature breakdown. Note: Copilot in SharePoint is still in public preview as of mid-2026 and was renamed from &lsquo;AI in SharePoint&rsquo; and &lsquo;SharePoint Knowledge Agent&rsquo; in the last 12 months.</p>
+        </div></div>
+        <details>
+          <summary>License tier breakdown</summary>
+          <div class="details-body">
+            <div class="table-wrap"><table>
+              <thead><tr><th>License</th><th>Cost</th><th>What it adds</th><th>Key limitation</th></tr></thead>
+              <tbody>
+<tr><td><b>M365 Base / SharePoint Online</b></td><td>Included</td><td>Standard SharePoint search, custom file upload forms (site owner feature)</td><td>No Copilot page authoring, no site agents, no metadata-aware reasoning, no AI features</td></tr>
+<tr style="background:var(--brand-soft)"><td><b>M365 Copilot &mdash; &#10003; You are here</b></td><td>~$30/user/mo</td><td>Page creation with Copilot, site agent creation, metadata-aware agent reasoning (Ignite 2025+), Copilot Chat file search, auto-rewrite and section editing, dynamic FAQ web part, natural-language workflow creation, SharePoint Admin Agent, Data Access Governance reports, Restricted Content Discovery / Access Control</td><td>Automatic metadata extraction still rolling out 2026; site agents don&rsquo;t reliably query SharePoint List data (roadmap item 516044); Copilot in SharePoint still in public preview as of mid-2026</td></tr></tbody>
+            </table></div>
+          </div>
+        </details>
+        <div class="callout neutral" style="margin-top:14px;">
+          <h4>The naming confusion is real</h4>
+          <p>If participants search &lsquo;SharePoint Knowledge Agent&rsquo; and &lsquo;Copilot in SharePoint&rsquo; they will find different documentation for the same evolving product. Always point to the current Microsoft support page rather than third-party guides, which may be weeks out of date.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Features</h2>
+          <p>Page authoring, site agents, metadata intelligence, and governance tools &mdash; grouped by what they enable and what they require to work reliably.</p>
+        </div></div>
+
+        <details>
+          <summary>Page Authoring &mdash; Creating SharePoint Pages with Copilot</summary>
+          <div class="details-body">
+            <p>Content authors can create SharePoint pages and news posts from a description, a template, or existing source files. Pages save as private drafts by default &mdash; an intentional governance choice.</p>
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Page Creation from Source Files</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Converting existing Word documents, meeting memos, or project briefs into structured intranet pages</li><li>Creating news posts from a plain-language prompt when no source document exists</li><li>Repeating page types with templates: team updates, news posts, project briefs, FAQs, events</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Publishing without human review &mdash; the default private draft exists for a reason; always review before publishing</li><li>Treating generated content as final &mdash; section-by-section refinement produces better results than one-shot generation</li><li>Very long or conflicting source documents &mdash; Copilot may present proposed decisions as agreed outcomes</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Create a news post</div>
+                    <button class="copy-button" type="button" data-copy-text="Create a news post announcing [topic]. Audience: [team]. Include: [key section 1], [key section 2], and a call-to-action to [next step]. Tone: professional but not stiff. Reference the attached [file name].">Copy</button>
+                  </div>
+                  <p class="prompt-text">Create a news post announcing [topic]. Audience: [team]. Include: [key section 1], [key section 2], and a call-to-action to [next step]. Tone: professional but not stiff. Reference the attached [file name].</p>
+                </div>                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Rewrite a section</div>
+                    <button class="copy-button" type="button" data-copy-text="Rewrite this section in a more concise tone. Cut it to 3 short paragraphs. Keep all factual claims but remove the explanatory padding.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Rewrite this section in a more concise tone. Cut it to 3 short paragraphs. Keep all factual claims but remove the explanatory padding.</p>
+                </div>                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Page Creation with Source Files</summary>
+                  <div class="exercise-body"><ol><li>Find a Word document or PDF in your SharePoint describing a project, process, or team initiative.</li><li>Open a site where you have edit access. Click + New &rarr; Page with Copilot.</li><li>Choose &lsquo;Reference source files&rsquo; and attach the document. Write a short prompt describing the page&rsquo;s purpose and audience.</li><li>Review the draft: one section that is accurate, one that needs rewriting, one structural choice you would change.</li><li>Select a text section and use Auto-rewrite to change its tone. Compare before and after.</li><li>Save as private draft. Do not publish until you have reviewed the full page.</li><li><strong>Reflection:</strong> How long did the initial generation take vs building the same page manually? What still required human judgment?</li></ol></div>
+                </details>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary>Site Agents &mdash; Conversational Knowledge Bases on SharePoint Sites</summary>
+          <div class="details-body">
+            <p>Any site editor with M365 Copilot can create a site agent &mdash; no IT involvement, no code. It turns a document library into a knowledge base that answers natural-language questions grounded in that site&rsquo;s content.</p>
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Creating &amp; Configuring Site Agents</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Answering natural-language questions grounded in a specific document library or hub site</li><li>Filtering by metadata columns when documents are properly tagged &mdash; dramatically more precise than keyword search</li><li>Scoping narrowly to a single library or broadly to a whole hub site and its associated sites</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Libraries with no metadata, generic file names, or inconsistent column values &mdash; agent quality directly reflects metadata quality</li><li>Querying SharePoint List item data &mdash; site agents don&rsquo;t reliably filter list columns as of mid-2026</li><li>Publishing a site agent without testing it with questions you would not want answered &mdash; sensitive content may surface</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Agent query: find active documents</div>
+                    <button class="copy-button" type="button" data-copy-text="List all documents in this library tagged as [Document Type] with a status of Active, sorted by most recently modified.">Copy</button>
+                  </div>
+                  <p class="prompt-text">List all documents in this library tagged as [Document Type] with a status of Active, sorted by most recently modified.</p>
+                </div>                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Agent query: document comparison</div>
+                    <button class="copy-button" type="button" data-copy-text="What are the key differences between the [Date A] and [Date B] versions of [document name]?">Copy</button>
+                  </div>
+                  <p class="prompt-text">What are the key differences between the [Date A] and [Date B] versions of [document name]?</p>
+                </div>                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Build a Site Agent</summary>
+                  <div class="exercise-body"><ol><li>Identify a SharePoint document library with at least 10 documents your team actually uses.</li><li>Open the site and click the Copilot (sparkle) icon. Follow the creation flow. Scope to that library.</li><li>Add three starter prompts reflecting real questions your team asks about those documents.</li><li>Test with a question you already know the answer to &mdash; verify accuracy and cited source.</li><li>Test with a question that requires filtering by type or date. Note whether response quality depends on document tagging.</li><li><strong>Reflection:</strong> What would you need to do to the document library to make this agent genuinely reliable for your team?</li></ol></div>
+                </details>
+              </div>
+            </div>            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Metadata &mdash; The Critical Dependency</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Libraries with descriptive column schemas &mdash; Document Type, Status, Owner, Department, Date &mdash; produce dramatically better agent results</li><li>Descriptive file names (&lsquo;Q3 Fulfillment Report &mdash; October 2025&rsquo;) that let Copilot understand content without opening the file</li><li>Consistent column values &mdash; one term per concept, not &lsquo;In progress&rsquo;, &lsquo;Active&rsquo;, &lsquo;In Progress&rsquo; all meaning the same thing</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Libraries where files are named with version numbers and no description &mdash; Copilot cannot distinguish relevant from irrelevant documents</li><li>Expecting good agent results without metadata work &mdash; content is the same; metadata is the difference</li><li>Waiting for automatic metadata extraction to be GA before improving any library &mdash; manual improvements help now</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Metadata audit prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="Based on the documents in this site, what are the three most common questions our team would ask &mdash; and what does our documentation say about each? Flag any gaps where the documentation is unclear or missing.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Based on the documents in this site, what are the three most common questions our team would ask &mdash; and what does our documentation say about each? Flag any gaps where the documentation is unclear or missing.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Ampersand Spotlight &mdash; Using This Responsibly</h2>
+          <p>SharePoint&rsquo;s ethical questions are different from other apps. The concern is not individual feature misuse &mdash; it&rsquo;s what deploying Copilot reveals about existing data practices.</p>
+        </div></div>
+        <div class="ethics-grid">
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-eye-off" aria-hidden="true"></i></div>
+            <h4>Copilot surfaces existing permission debt</h4>
+            <p>Every organisation that has used SharePoint for years has files accessible to more people than they should be. SharePoint&rsquo;s search was imprecise enough that most people never found over-shared content. Copilot Chat&rsquo;s semantic search makes it trivially discoverable. Copilot does not create new access problems &mdash; it surfaces existing ones. The ethical responsibility is to fix the permission model before deployment.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-file-check" aria-hidden="true"></i></div>
+            <h4>AI-generated pages need a named reviewer</h4>
+            <p>A well-formatted SharePoint page looks authoritative regardless of whether it was written by a person or generated by AI. Every AI-generated page must go through a named content owner review before publication: accuracy of factual claims, whether decisions presented as final were actually finalised, and whether referenced policies are current. Never configure away the default private draft behaviour.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+            <h4>Test your agent with questions you&rsquo;d rather not answer</h4>
+            <p>Before publishing a site agent to a broad audience, ask it the questions you would not want answered &mdash; questions about salaries, personnel decisions, pending legal matters, or client pricing. If it returns answers, review whether those answers should be accessible to all users of the agent. If not, narrow the knowledge source scope.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+            <h4>Natural-language workflows run at machine speed</h4>
+            <p>Workflows built by business users describing what they need in plain language may not go through the same review process as IT-built flows. Errors in automated workflows &mdash; incorrect triggers, wrong destination folders, unintended file deletions &mdash; run at machine speed and can affect large volumes of files before anyone notices. Require IT review for any workflow that moves or deletes files.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Practice Challenges</h2>
+          <p>These aren&rsquo;t feature walkthroughs. Each challenge combines multiple Copilot capabilities in a real scenario. Do them in the app.</p>
+        </div></div>
+        <div class="grid three" style="align-items:start;">
+          <div class="challenge-card">
+            <div class="challenge-number">01</div>
+            <p class="challenge-title">The Metadata Audit</p>
+            <p class="challenge-body">Open a SharePoint document library your team uses regularly. Assess it against the Copilot-ready checklist: do files have descriptive names? Are columns defined beyond Name and Modified? Open 5 random documents &mdash; can you tell from metadata alone what type of document it is, whether it&rsquo;s current, and who owns it? Document the gaps and estimate how long it would take to address them.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Metadata audit</span><span class="challenge-feature-tag">Library assessment</span><span class="challenge-feature-tag">Governance</span></div>
+          </div>
+          <div class="challenge-card">
+            <div class="challenge-number">02</div>
+            <p class="challenge-title">The Agent Build</p>
+            <p class="challenge-body">Build a site agent on a library your team actually uses. Scope it, name it, and add three real starter prompts. Test it with 10 questions: five you know the answer to, and five you genuinely don&rsquo;t. Rate every response as accurate, partially accurate, or inaccurate. Identify what metadata changes would improve the worst responses.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Site agent</span><span class="challenge-feature-tag">Library setup</span><span class="challenge-feature-tag">Agent testing</span></div>
+          </div>
+          <div class="challenge-card">
+            <div class="challenge-number">03</div>
+            <p class="challenge-title">The Oversharing Check</p>
+            <p class="challenge-body">Use the SharePoint Admin Centre (if you have access) or ask IT to run a Data Access Governance report for one site your team owns. Identify any content shared via broad links (all company, anyone with the link) that should be more restricted. Draft a one-paragraph remediation plan for the top three oversharing risks you find.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Permissions</span><span class="challenge-feature-tag">Governance</span><span class="challenge-feature-tag">Data access</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><h2>Conclusion &amp; Reflections</h2><p>Take a moment to reflect &mdash; it&rsquo;s what makes the learning stick.</p></div></div>
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list"><li>SharePoint content quality directly determines Copilot quality across all M365 apps &mdash; metadata hygiene is not an IT concern, it&rsquo;s a Copilot quality concern.</li><li>Site agent output quality is a direct function of how well documents in the library are structured and tagged. Metadata is the difference.</li><li>AI-generated pages must go through a named content owner review before publication. Never configure away the private draft default.</li><li>Copilot does not create new permission problems &mdash; it surfaces existing ones. Fix the permission model before deployment, not after.</li><li>Test any site agent with questions you would not want answered before publishing it to a broad audience.</li></ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list"><li>If Copilot&rsquo;s quality across all M365 apps depends on the quality of your SharePoint content, what does that say about information management work that has been treated as administrative overhead?</li><li>Copilot does not create new permission problems &mdash; it surfaces existing ones. Is that reassuring or concerning? What does it tell you about the state of your organisation&rsquo;s data governance?</li><li>If a colleague reads an AI-generated FAQ answer on your intranet and makes a decision based on it that turns out to be wrong, where does the responsibility sit?</li></ul>
+          </article>
+        </div>
+        <div class="callout brand" style="margin-top:18px;">
+          <h4>Supplemental reading</h4>
+          <ul><li><a href="https://support.microsoft.com/en-us/office/copilot-in-sharepoint" target="_blank">Copilot in SharePoint overview &mdash; Microsoft Support</a></li><li><a href="https://learn.microsoft.com/en-us/sharepoint/sharepoint-copilot-best-practices" target="_blank">SharePoint Copilot best practices &mdash; Microsoft Learn</a></li></ul>
+        </div>
+        <div class="page-nav">
+          <a class="button secondary" href="excel.html">Back: Excel</a>
+          <a class="button primary" href="powerpoint.html">Next: PowerPoint</a>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="prompt-library">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Prompt Library</h2>
+          <p>Every prompt from this page in one place. Search or filter by workflow stage, then copy directly into Copilot.</p>
+        </div></div>
+        <div class="pl-bar">
+          <div class="pl-search-wrap">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input class="pl-search" id="pl-search" type="search" placeholder="Search prompts&hellip;" aria-label="Search prompts">
+          </div>
+          <div class="pl-filters" id="pl-filters" role="group" aria-label="Filter by category">
+            <button class="pl-filter-btn active" data-filter="all" type="button">All</button>
+            <button class="pl-filter-btn" data-filter="page" type="button">Page Authoring</button>
+            <button class="pl-filter-btn" data-filter="agent" type="button">Site Agent</button>
+            <button class="pl-filter-btn" data-filter="search" type="button">File Search</button>
+            <button class="pl-filter-btn" data-filter="governance" type="button">Governance</button>
+            <button class="pl-filter-btn clear-btn" id="pl-clear" type="button">Clear</button>
+          </div>
+          <span class="pl-count" id="pl-count"></span>
+        </div>
+        <div class="pl-grid" id="pl-grid">
+          <div class="pl-entry" data-tags="pageauthoring">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Create a news post</span>
+              <span class="pl-tag">Page Authoring</span>
+            </div>
+            <div class="pl-entry-text">Create a news post announcing [topic]. Audience: [team]. Include: [key section 1], [key section 2], and a call-to-action to [next step]. Tone: professional but not stiff. Reference the attached [file name].</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Create a news post announcing [topic]. Audience: [team]. Include: [key section 1], [key section 2], and a call-to-action to [next step]. Tone: professional but not stiff. Reference the attached [file name].">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="pageauthoring">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Rewrite a section</span>
+              <span class="pl-tag">Page Authoring</span>
+            </div>
+            <div class="pl-entry-text">Rewrite this section in a more concise tone. Cut it to 3 short paragraphs. Keep all factual claims but remove the explanatory padding.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Rewrite this section in a more concise tone. Cut it to 3 short paragraphs. Keep all factual claims but remove the explanatory padding.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="pageauthoring">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Suggest visual layouts</span>
+              <span class="pl-tag">Page Authoring</span>
+            </div>
+            <div class="pl-entry-text">Suggest three alternative visual layouts for this section that would work better for a mobile reader.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Suggest three alternative visual layouts for this section that would work better for a mobile reader.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="siteagent">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Agent query: find active documents</span>
+              <span class="pl-tag">Site Agent</span>
+            </div>
+            <div class="pl-entry-text">List all documents in this library tagged as [Document Type] with a status of Active, sorted by most recently modified.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="List all documents in this library tagged as [Document Type] with a status of Active, sorted by most recently modified.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="siteagent">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Agent query: document comparison</span>
+              <span class="pl-tag">Site Agent</span>
+            </div>
+            <div class="pl-entry-text">What are the key differences between the [Date A] and [Date B] versions of [document name]?</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="What are the key differences between the [Date A] and [Date B] versions of [document name]?">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="siteagent">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Agent query: topic summary with gaps</span>
+              <span class="pl-tag">Site Agent</span>
+            </div>
+            <div class="pl-entry-text">Based on the documents in this site, summarise everything related to [topic]. List any open questions or gaps where the documentation is unclear.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Based on the documents in this site, summarise everything related to [topic]. List any open questions or gaps where the documentation is unclear.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="siteagent">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Agent query: compliance questions</span>
+              <span class="pl-tag">Site Agent</span>
+            </div>
+            <div class="pl-entry-text">What are the three most common compliance questions our team faces, and what does our documentation say about each? Flag gaps where the answer is unclear.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="What are the three most common compliance questions our team faces, and what does our documentation say about each? Flag gaps where the answer is unclear.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="filesearch">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Copilot Chat file search</span>
+              <span class="pl-tag">File Search</span>
+            </div>
+            <div class="pl-entry-text">Find all documents in SharePoint related to [topic] from the last [timeframe]. Return the five most relevant with a one-sentence description of each.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Find all documents in SharePoint related to [topic] from the last [timeframe]. Return the five most relevant with a one-sentence description of each.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="filesearch">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Document reasoning</span>
+              <span class="pl-tag">File Search</span>
+            </div>
+            <div class="pl-entry-text">Based on the project documentation in [site name], what decisions are still open and who is responsible for each?</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Based on the project documentation in [site name], what decisions are still open and who is responsible for each?">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="governance">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Metadata audit prompt</span>
+              <span class="pl-tag">Governance</span>
+            </div>
+            <div class="pl-entry-text">Based on the documents in this site, what are the three most common questions our team would ask? Flag any gaps where the documentation is unclear or missing.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Based on the documents in this site, what are the three most common questions our team would ask? Flag any gaps where the documentation is unclear or missing.">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="pl-no-results" id="pl-no-results">No prompts match your search. Try a different keyword or clear the filters.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (function(){
+    var search=document.getElementById('pl-search');
+    var grid=document.getElementById('pl-grid');
+    var noRes=document.getElementById('pl-no-results');
+    var countEl=document.getElementById('pl-count');
+    var clearBtn=document.getElementById('pl-clear');
+    var filterBtns=Array.from(document.querySelectorAll('#pl-filters .pl-filter-btn[data-filter]'));
+    var entries=Array.from(grid.querySelectorAll('.pl-entry'));
+    var activeFilter='all';
+    function updateCount(v){countEl.textContent=v===entries.length?entries.length+' prompts':v+' of '+entries.length+' prompts';}
+    function applyFilters(){
+      var q=search.value.trim().toLowerCase();var v=0;
+      entries.forEach(function(e){
+        var txt=(e.querySelector('.pl-entry-text').textContent+' '+e.querySelector('.pl-entry-label').textContent+' '+(e.dataset.tags||'')).toLowerCase();
+        var mf=activeFilter==='all'||(e.dataset.tags||'').toLowerCase().includes(activeFilter);
+        var ms=!q||txt.includes(q);
+        var show=mf&&ms;e.style.display=show?'':'none';if(show)v++;
+      });
+      noRes.style.display=v===0?'block':'none';updateCount(v);
+      clearBtn.classList.toggle('visible',activeFilter!=='all'||q.length>0);
+    }
+    filterBtns.forEach(function(btn){
+      if(btn.id==='pl-clear')return;
+      btn.addEventListener('click',function(){
+        activeFilter=btn.dataset.filter;
+        filterBtns.forEach(function(b){b.classList.toggle('active',b.dataset.filter===activeFilter);});
+        applyFilters();
+      });
+    });
+    clearBtn.addEventListener('click',function(){activeFilter='all';search.value='';filterBtns.forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});applyFilters();});
+    search.addEventListener('input',applyFilters);
+    applyFilters();
+  })();
+  </script>
+</body>
+</html>

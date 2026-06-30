@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | AI vs Search</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    .ts-wrap{font-family:'DM Sans',sans-serif}
+    .ts-row{display:flex;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--border);opacity:0;transition:opacity .35s ease}
+    .ts-row:last-child{border-bottom:none}
+    .ts-connector{display:flex;align-items:center;padding-left:64px;height:28px}
+    .ts-left{width:148px;flex-shrink:0;border:1.5px solid var(--brand);border-radius:10px;padding:10px 12px;background:var(--brand)}
+    .ts-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.06em;margin-bottom:4px;text-transform:uppercase}
+    .ts-val{font-size:13px;font-weight:500;color:#fff;line-height:1.4}
+    .ts-mid{flex:1;min-width:0}
+    .ts-mid-lbl{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.06em;margin-bottom:8px;text-align:center;text-transform:uppercase}
+    .ts-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    .ts-opt{border:1.5px solid var(--border);border-radius:10px;padding:9px 6px 8px;text-align:center;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
+    .ts-opt:hover{border-color:var(--brand);background:var(--brand-soft)}
+    .ts-opt.ts-sel{border:2px solid var(--brand);background:var(--brand-soft);cursor:default}
+    .ts-opt.ts-dim{opacity:.25;cursor:default;pointer-events:none}
+    .ts-opt-word{font-size:13px;font-weight:600;color:var(--brand-2);margin-bottom:2px}
+    .ts-opt.ts-sel .ts-opt-word{color:var(--brand)}
+    .ts-opt-pct{font-size:11px;color:var(--brand)}
+    .ts-rarrow{width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .ts-rl{width:14px;height:2px;background:var(--border)}
+    .ts-rh{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--border)}
+    .ts-next{width:100px;flex-shrink:0;border:2px solid var(--brand);border-radius:10px;padding:10px;background:var(--brand-soft);text-align:center}
+    .ts-nlbl{font-size:10px;color:var(--brand);font-weight:600;letter-spacing:.05em;margin-bottom:4px;text-transform:uppercase}
+    .ts-nword{font-size:14px;font-weight:600;color:var(--brand-2)}
+    .ts-next.ts-empty{background:#fff;border-color:var(--border)}
+    .ts-next.ts-empty .ts-nword{color:var(--muted)}
+    .ts-complete{margin-top:1.25rem;border-top:1px solid var(--border);padding-top:1.25rem;opacity:0;transition:opacity .4s}
+    .ts-complete.ts-vis{opacity:1}
+    .ts-final-card{border:1px solid rgba(32,77,137,.18);border-radius:12px;padding:1rem 1.1rem;background:var(--brand-soft)}
+    .ts-final-lbl{font-size:10px;color:var(--brand);letter-spacing:.06em;font-weight:700;text-transform:uppercase;margin-bottom:8px}
+    .ts-final-text{font-size:14px;line-height:1.75;color:var(--text)}
+    .ts-picked{color:var(--brand);font-weight:600}
+    .ts-gen{color:var(--body)}
+    .ts-restart-btn{margin-top:1rem;font-size:13px;background:#fff;border:1.5px solid var(--border);border-radius:99px;padding:8px 18px;color:var(--body);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+    .ts-restart-btn:hover{border-color:var(--brand);color:var(--brand)}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 1</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="ai-vs-search.html" data-nav-link>AI vs Search</a>
+        <a href="bias.html" data-nav-link>Bias</a>
+        <a href="context.html" data-nav-link>Context</a>
+        <a href="feedback.html" data-nav-link>Feedback</a>
+        <a href="homework.html" data-nav-link>Homework</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Session 1</div>
+            <h1 class="title">How Search and AI Actually Work</h1>
+            <p class="lede">This section explains the difference between search engines and AI tools, shows where hallucinations come from, and gives a practical rule for deciding when to search and when to use AI.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Know the difference between Search vs. AI and choose the right one for the task.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Core idea</span>
+            <p>Search finds existing content. AI generates a response from patterns learned during training. Misusing AI for plain search tasks without due caution will give you fabricated results.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>AI and Search in a Nutshell</h2>
+            <p>The following section covers the theory behind AI and search engines, and how the mechanics of AI cause hallucinations.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>How search engines work</summary>
+          <div class="details-body">
+                        <figure class="figure">
+              <img class="figure-img details-img" src="../assets/img/w1s1_search.webp" alt="How search engines work">
+            </figure>
+            <div class="pull-quote">
+              <div class="pull-quote-brain">
+                <i class="ti ti-brain" aria-hidden="true"></i>
+                <span>Think through metaphor</span>
+              </div>
+              <div class="pull-quote-line"></div>
+              <div class="pull-quote-text">
+                <p>Think of Google as a librarian. When you describe what you're looking for, the librarian checks the catalog and hands you the most relevant matches ranked by fit. They'll always point you to the original source rather then recalling the book contents from memory. Search works the same way: it points you to the best matching sources, but doesn't interpret them for you. Relevance and accuracy are still your call.</p>
+              </div>
+            </div>
+            <p></p>
+            <p>Search engines update their ''catalog' continuously, so they're your best for checking current facts, original sources, and quick lookups. And because search points you to the source rather than interpreting it, it won't fabricate — if you're reading from a reputable source, the content is likely accurate.</p>
+
+          </div>
+        </details>
+
+<details>
+  <summary>How AI tools work</summary>
+  <div class="details-body">
+    <p>AI tools like ChatGPT or Claude trained on a massive amount of text, including books, articles, and websites, to identify patterns in what words tend to follow other words. When you ask a question, it doesn't look anything up. It predicts the most likely first word of an answer, then the next, then the next. Every word is a calculated guess based on patterns and nothing more.</p>
+    <figure class="figure" style="width:94%;margin:20px auto;">
+      <div style="background:rgba(255,255,255,0.9);border:1px solid rgba(221,212,199,0.92);border-radius:18px;padding:20px 22px;box-shadow:0 16px 28px rgba(23,15,5,0.05);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <span class="eyebrow-chip chip-brand" style="margin-bottom:0;flex-shrink:0;">Try it</span>
+          <span style="font-size:13px;color:var(--muted);line-height:1.5;">Pick the most likely next word at each step — see how a language model builds a response one token at a time.</span>
+        </div>
+        <div id="ts-rowWrap" class="ts-wrap"></div>
+        <div class="ts-complete" id="ts-completeSec">
+          <div class="ts-final-card">
+            <div class="ts-final-lbl">Generated answer</div>
+            <div class="ts-final-text" id="ts-finalText"></div>
+          </div>
+          <button class="ts-restart-btn" onclick="tsRestart()"><i class="ti ti-refresh" aria-hidden="true"></i> Start over</button>
+        </div>
+      </div>
+    </figure>
+    <div class="pull-quote">
+      <div class="pull-quote-brain">
+        <i class="ti ti-brain" aria-hidden="true"></i>
+        <span>Think through metaphor</span>
+      </div>
+      <div class="pull-quote-line"></div>
+      <div class="pull-quote-text">
+        <p>Think of an A-list actor preparing to play a lawyer. They sit in on real trials, study courtroom language, and absorb how arguments are structured. Eventually they can sound remarkably like a lawyer, and much of what they say will actually be correct. But you would never take legal advice from them over a real attorney. The performance is convincing. The expertise isn't there.</p>
+      </div>
+    </div>
+    <figure class="figure">
+              <img class="figure-img details-img" src="../assets/img/s1_actor.png" alt="How search engines work">
+            </figure>
+    <p>AI knowledge has a hard cutoff. Training ends at a point in time and anything after that doesn't exist to the model. There is no internal fact-check, and the output always sounds finished regardless.</p>
+    <p>That said, imitation is extremely useful on the right tasks. Drafting, summarizing, explaining, and brainstorming are all pattern-heavy tasks where AI performs well precisely because it has absorbed so much of how humans do them. Know what you're working with and it becomes a powerful tool.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Hallucinations</summary>
+  <div class="details-body">
+    <p>We established that AI picks the most probable next word, one at a time, and can only guess. When those guesses are wrong, we call it a hallucination.</p>
+
+    <div class="pull-quote">
+      <div class="pull-quote-brain">
+        <i class="ti ti-brain" aria-hidden="true"></i>
+        <span>Think through metaphor</span>
+      </div>
+      <div class="pull-quote-line"></div>
+      <div class="pull-quote-text">
+        <p>If someone asks what's currently in your fridge, you can guess and probably get close, or you can open the fridge and actually check. On its own, AI cannot open the fridge and will always resort to guessing.</p>
+      </div>
+    </div>
+
+    <figure class="figure">
+      <img class="figure-img details-img" src="../assets/img/s1_hallu.png" alt="Hallucinations in AI">
+    </figure>
+
+    <p>Hallucinations sound plausible and fit the context, because we are still picking the most likely word to follow, which makes them hard to catch. In most cases you need to already know the correct answer to spot one. The more niche the question, the harder it is for AI to guess correctly and for you to validate.</p>
+
+    <p>Most AI tools like Copilot and Claude can choose to search the internet and interpret the results rather than guess. This reduces the problem but does not eliminate it. Whether a response came from search or training data is rarely obvious, and even search-assisted answers can go wrong if the source was misread or the wrong one was used. We will look at this in more detail in Session 2.</p>
+
+    <p>We can never eliminate hallucinations entirely, but three things reduce how often they cause problems:</p>
+
+    <ul class="list">
+      <li>
+        <strong>Use search for current facts, specific figures, or anything that needs a source.</strong> Don't ask AI to guess what search can answer directly. Try the query below in Google before asking AI.
+        <div class="prompt-box" style="margin-top: 10px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Example search query</div>
+            <button class="copy-button" type="button" data-copy-text="Current FCC political advertising disclosure requirements 2025">Copy</button>
+          </div>
+          <p class="prompt-text">Current FCC political advertising disclosure requirements 2025</p>
+        </div>
+      </li>
+      <li style="margin-top: 14px;">
+        <strong>For niche topics or industry-specific language, give AI context before asking.</strong> Paste a paragraph from an internal SOP or workflow description, then ask your question. It improves results but won't guarantee them.
+      </li>
+      <li style="margin-top: 14px;">
+        <strong>Ask AI whether it searched or guessed.</strong> The habit of asking matters even when the answer is uncertain.
+        <div class="prompt-box" style="margin-top: 10px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Copy prompt</div>
+            <button class="copy-button" type="button" data-copy-text="Did you search for this or is this from your training data?">Copy</button>
+          </div>
+          <p class="prompt-text">Did you search for this or is this from your training data?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="callout neutral" style="margin-top: 18px;">
+      <h4>The tradeoff</h4>
+      <p>AI is always a tradeoff of speed versus accuracy. You become a stronger user when you learn to use AI to improve speed while mitigating hallucination risk. A good rule of thumb: the time needed is reduced, but the effort is frequently the same or even higher.</p>
+    </div>
+
+  </div>
+</details>
+
+
+        <details>
+          <summary>Search vs. AI Cheat Sheet</summary>
+          <div class="details-body">
+           <p>Use the comparison below when deciding what tool to reach for first.</p>
+            <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th><b>What it does</b></th>
+                <th>Search engine</th>
+                <th>AI tool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Function</b></td>
+                <td>Finds existing content</td>
+                <td>Generates a response</td>
+              </tr>
+              <tr>
+                <td><b>Source</b></td>
+                <td>Pre-built index of web pages</td>
+                <td>Patterns learned during training</td>
+              </tr>
+              <tr>
+                <td><b>Best used for</b></td>
+                <td>Current facts, sources, news, specific lookups</td>
+                <td>Drafting, summarizing, explaining, brainstorming</td>
+              </tr>
+              <tr>
+                <td><b>Main risk</b></td>
+                <td>Outdated or irrelevant results</td>
+                <td>Confidently wrong answers</td>
+              </tr>
+              <tr>
+                <td><b>Output</b></td>
+                <td>Links to pages</td>
+                <td>Generated text</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          </div>
+        </details>
+
+        <div class="callout neutral" style="margin-top:18px;">
+          <h4>In practice</h4>
+          <p>Search is great for finding specific, current, real things. AI is great for drafting, summarizing, explaining, and brainstorming. The point of the difference is not to avoid AI — it is to know when you need a live source instead of a pattern-based answer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Ampersand Spotlight</h2>
+            <p>Below are department-specific examples showing when search is a better fit and when AI is a better fit. All in the context of Ampersand!</p>
+          </div>
+        </div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Department</th>
+        <th>Use search for</th>
+        <th>Use AI for</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Ad Operations</b></td><td>Nielsen DMA rankings, current FCC political windows, station call letters or team match-ups for sporting events</td><td>Drafting an email explaining a discrepancy, creating macros or scripts to reformat ad logs for individual client specs, building templates for operational workflows</td></tr>
+      <tr><td><b>Sales</b></td><td>Current agency assignments for a client, specific competitor capability verification, Nielsen DMA rankings, political windows, team match-ups for sporting events</td><td>Executive summaries for clients, new business prospecting emails, positioning an agency ask into a clear narrative for an MVPD lead, creating macros or scripts to align planning workspaces, ideating how to position our offering against a competitor</td></tr>
+      <tr><td><b>Political Advertising</b></td><td>Current FEC filings, lowest unit rate windows, legal names and addresses for disclaimers</td><td>Order confirmation letters, internal campaign summaries, automations to consolidate multiple files into a single output</td></tr>
+      <tr><td><b>Finance &amp; Billing Operations</b></td><td>Exchange rates, IRS regulations or tax code sections, vendor W-9 status</td><td>Vendor contract summaries, billing discrepancy explainers, budget narrative drafts, step-by-step instructions for Excel functions and macro capabilities</td></tr>
+      <tr><td><b>HR &amp; People</b></td><td>FMLA rules, state leave law, benchmark salary reports, compliance training requirements</td><td>Crafting job descriptions, policy update drafts, summarizing employment laws, comparing insurance plans based on benefit grids</td></tr>
+      <tr><td><b>Marketing &amp; Comms</b></td><td>Competitor press releases, award submission deadlines, brand mentions or media pickups</td><td>Social copy, press release drafts, event invitations, facilitated creative ideation for visual concepts, scripts to reformat PPTs based on a defined design guide</td></tr>
+      <tr><td><b>Technology &amp; Engineering</b></td><td>Official API docs, third-party error codes, vendor capabilities</td><td>Plain-language explanations for technical proposals, requirements docs from bullet notes, internal documentation drafts, cross-referencing files and combining sprint notes into a single output</td></tr>
+      <tr><td><b>Data &amp; Insights</b></td><td>Methodology benchmarks, industry measurement standards, current attribution partner capabilities and measurement offerings</td><td>Drafting narrative summaries around aggregated campaign results, positioning insights for client-facing storytelling, structuring how to present performance findings clearly</td></tr>
+      <tr><td><b>Any Department</b></td><td>Any answer that must be current, sourced, or legally exact</td><td>Any task where structure, tone, or a first draft is the hard part — specifics get verified later</td></tr>
+    </tbody>
+  </table>
+</div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Practice: Training Discretion</h2>
+            <p>We could reason about when to use AI vs. search for hours — but in day-to-day work, there's no time for that. Instead, we recommend building intuition through practice so the right call becomes second nature.</p>
+          </div>
+        </div>
+
+        <div class="shell">
+        <article class="card">
+  <span class="eyebrow-chip chip-success">Exercise</span>
+  <p class="act-title">Search or AI?</p>
+  <p class="act-sub">Describe a task, decide what you think it is, then see what the analysis says.</p>
+
+  <label style="font-size:12px; font-weight:500; color:var(--muted); margin-bottom:6px; display:block;" for="task-input">Describe your task</label>
+  <textarea id="task-input" style="width:100%; min-height:80px; resize:vertical; font-family:'DM Sans',sans-serif; font-size:14px; box-sizing:border-box;" placeholder="e.g. Find out what a competitor announced last week..."></textarea>
+
+  <div style="margin-top:14px;">
+    <label style="font-size:12px; font-weight:500; color:var(--muted); margin-bottom:6px; display:block;">What do you think this is?</label>
+    <div style="display:flex; gap:10px;">
+      <button class="toggle-btn" id="btn-search"><i class="ti ti-search" style="font-size:14px; margin-right:5px;" aria-hidden="true"></i>Search</button>
+      <button class="toggle-btn" id="btn-ai"><i class="ti ti-brain" style="font-size:14px; margin-right:5px;" aria-hidden="true"></i>AI</button>
+    </div>
+  </div>
+
+  <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+    <button class="submit-btn" id="submit-btn">Analyze task</button>
+    <button class="button secondary" id="reset-btn" type="button">Reset</button>
+  </div>
+
+  <div class="result-wrap" id="result-wrap">
+    <hr style="border:none; border-top:1px solid var(--border); margin:22px 0;">
+
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+      <span style="font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted);">Answer:</span>
+      <span class="verdict-badge" id="verdict-badge"></span>
+    </div>
+
+    <div class="reflect-row" id="reflect-row">
+      <i id="reflect-icon" style="font-size:16px;"></i>
+      <span id="reflect-text"></span>
+    </div>
+
+    <div class="result-section">
+      <div style="font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:6px;">Explanation</div>
+      <div class="result-text" id="result-explanation"></div>
+    </div>
+
+    <div class="result-section">
+      <div style="font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:6px;">Reframing — what would the opposite look like?</div>
+      <div class="result-text" id="result-reframe"></div>
+    </div>
+
+    <button class="act-copy-btn" id="act-copy-btn">
+      <i class="ti ti-copy" style="font-size:15px;" aria-hidden="true"></i>
+      Copy result
+    </button>
+    
+        </div>
+      </article>
+     </div>
+        
+    </section>
+
+
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Conclusion & Reflections</h2>
+        <p>Take a moment to reflect — it's what makes the learning stick.</p>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <article class="card soft">
+        <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+        <ul class="list">
+          <li>Search finds. AI generates. Different tools, different jobs.</li>
+          <li>AI picks the most probable next word. Useful for drafting, unreliable for facts.</li>
+          <li>Hallucinations are structural, not a bug. AI has no way to know when it's wrong, and the output always sounds finished regardless.</li>
+          <li>The more niche the question you ask AI, the harder it is to guess correctly and the harder it is for you to spot the mistake.</li>
+          <li>AI saves time. It rarely saves effort.</li>
+        </ul>
+      </article>
+
+      <article class="card soft">
+        <span class="eyebrow-chip chip-brand">Reflection</span>
+        <ul class="list">
+          <li>Think of a recent task you used AI for. Would search have been a better fit?</li>
+          <li>Have you ever acted on an AI response without verifying it? What was at stake?</li>
+          <li>In your role, what information would be most dangerous to get wrong?</li>
+          <li>What changes if you treat every AI output as a first draft?</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout brand" style="margin-top:18px;">
+      <h4>Supplemental reading</h4>
+      <ul>
+        <li><a href="https://google.com/search/howsearchworks">How Search Works</a></li>
+        <li><a href="https://www.3blue1brown.com/lessons/mini-llm">Large Language Models Explained Briefly</a></li>
+        <li><a href="https://ibm.com/think/topics/large-language-models">What is a Large Language Model?</a></li>
+      </ul>
+    </div>
+
+    <div class="page-nav">
+      <a class="button secondary" href="../index.html">Back to overview</a>
+      <a class="button primary" href="bias.html">Next: Bias</a>
+    </div>
+  </div>
+</section>
+  </main>
+
+<script>
+const TS_STEPS = [
+  {
+    choices: [
+      { word: "Regular", prob: 32 },
+      { word: "There", prob: 18 },
+      { word: "Exercise", prob: 12 },
+      { word: "The", prob: 9 }
+    ]
+  },
+  {
+    choices: {
+      "Regular":   [{ word: "exercise", prob: 45 }, { word: "physical", prob: 16 }, { word: "activity", prob: 13 }, { word: "routine", prob: 8 }],
+      "There":     [{ word: "are", prob: 51 }, { word: "is", prob: 22 }, { word: "have", prob: 11 }, { word: "exist", prob: 7 }],
+      "Exercise":  [{ word: "has", prob: 38 }, { word: "offers", prob: 24 }, { word: "provides", prob: 18 }, { word: "delivers", prob: 9 }],
+      "The":       [{ word: "benefits", prob: 44 }, { word: "main", prob: 19 }, { word: "health", prob: 14 }, { word: "key", prob: 10 }]
+    }
+  },
+  {
+    choices: {
+      "Regular_exercise":  [{ word: "can", prob: 38 }, { word: "helps", prob: 17 }, { word: "is", prob: 15 }, { word: "improves", prob: 9 }],
+      "Regular_physical":  [{ word: "activity", prob: 42 }, { word: "fitness", prob: 21 }, { word: "exercise", prob: 14 }, { word: "training", prob: 8 }],
+      "Regular_activity":  [{ word: "can", prob: 35 }, { word: "and", prob: 20 }, { word: "like", prob: 12 }, { word: "such", prob: 9 }],
+      "Regular_routine":   [{ word: "can", prob: 36 }, { word: "will", prob: 22 }, { word: "helps", prob: 15 }, { word: "may", prob: 10 }],
+      "There_are":         [{ word: "many", prob: 47 }, { word: "several", prob: 28 }, { word: "numerous", prob: 13 }, { word: "various", prob: 8 }],
+      "There_is":          [{ word: "strong", prob: 33 }, { word: "compelling", prob: 21 }, { word: "growing", prob: 18 }, { word: "clear", prob: 14 }],
+      "There_have":        [{ word: "been", prob: 72 }, { word: "always", prob: 12 }, { word: "long", prob: 8 }, { word: "historically", prob: 5 }],
+      "There_exist":       [{ word: "many", prob: 44 }, { word: "several", prob: 29 }, { word: "numerous", prob: 17 }, { word: "multiple", prob: 7 }],
+      "Exercise_has":      [{ word: "many", prob: 41 }, { word: "numerous", prob: 22 }, { word: "several", prob: 16 }, { word: "well-doc", prob: 9 }],
+      "Exercise_offers":   [{ word: "many", prob: 39 }, { word: "numerous", prob: 24 }, { word: "a", prob: 18 }, { word: "significant", prob: 10 }],
+      "Exercise_provides": [{ word: "many", prob: 37 }, { word: "numerous", prob: 26 }, { word: "a", prob: 17 }, { word: "significant", prob: 11 }],
+      "Exercise_delivers": [{ word: "many", prob: 35 }, { word: "significant", prob: 27 }, { word: "impressive", prob: 16 }, { word: "measurable", prob: 12 }],
+      "The_benefits":      [{ word: "of", prob: 68 }, { word: "include", prob: 14 }, { word: "are", prob: 11 }, { word: "from", prob: 5 }],
+      "The_main":          [{ word: "benefits", prob: 52 }, { word: "advantage", prob: 19 }, { word: "reasons", prob: 15 }, { word: "purpose", prob: 8 }],
+      "The_health":        [{ word: "benefits", prob: 58 }, { word: "advantages", prob: 17 }, { word: "impacts", prob: 13 }, { word: "effects", prob: 9 }],
+      "The_key":           [{ word: "benefits", prob: 49 }, { word: "advantages", prob: 22 }, { word: "reasons", prob: 15 }, { word: "outcomes", prob: 9 }]
+    }
+  },
+  {
+    choices: {
+      "can":        [{ word: "help", prob: 31 }, { word: "improve", prob: 20 }, { word: "reduce", prob: 14 }, { word: "boost", prob: 10 }],
+      "helps":      [{ word: "improve", prob: 35 }, { word: "reduce", prob: 22 }, { word: "boost", prob: 16 }, { word: "maintain", prob: 12 }],
+      "is":         [{ word: "essential", prob: 28 }, { word: "beneficial", prob: 24 }, { word: "known", prob: 18 }, { word: "proven", prob: 14 }],
+      "improves":   [{ word: "cardiovascular", prob: 29 }, { word: "overall", prob: 23 }, { word: "mental", prob: 19 }, { word: "physical", prob: 16 }],
+      "activity":   [{ word: "can", prob: 34 }, { word: "is", prob: 26 }, { word: "helps", prob: 18 }, { word: "may", prob: 11 }],
+      "fitness":    [{ word: "levels", prob: 38 }, { word: "improves", prob: 24 }, { word: "benefits", prob: 16 }, { word: "gains", prob: 11 }],
+      "exercise":   [{ word: "can", prob: 36 }, { word: "helps", prob: 24 }, { word: "may", prob: 15 }, { word: "will", prob: 10 }],
+      "training":   [{ word: "can", prob: 33 }, { word: "offers", prob: 22 }, { word: "provides", prob: 18 }, { word: "improves", prob: 14 }],
+      "many":       [{ word: "benefits", prob: 42 }, { word: "health", prob: 23 }, { word: "studies", prob: 14 }, { word: "proven", prob: 10 }],
+      "several":    [{ word: "benefits", prob: 45 }, { word: "key", prob: 21 }, { word: "important", prob: 15 }, { word: "significant", prob: 11 }],
+      "numerous":   [{ word: "benefits", prob: 48 }, { word: "health", prob: 19 }, { word: "studies", prob: 13 }, { word: "proven", prob: 8 }],
+      "various":    [{ word: "benefits", prob: 44 }, { word: "physical", prob: 20 }, { word: "health", prob: 17 }, { word: "documented", prob: 10 }],
+      "multiple":   [{ word: "benefits", prob: 46 }, { word: "health", prob: 21 }, { word: "physical", prob: 16 }, { word: "proven", prob: 10 }],
+      "strong":     [{ word: "evidence", prob: 52 }, { word: "scientific", prob: 24 }, { word: "research", prob: 14 }, { word: "consensus", prob: 7 }],
+      "compelling": [{ word: "evidence", prob: 55 }, { word: "research", prob: 22 }, { word: "scientific", prob: 13 }, { word: "proof", prob: 7 }],
+      "growing":    [{ word: "body", prob: 44 }, { word: "evidence", prob: 28 }, { word: "research", prob: 17 }, { word: "amount", prob: 8 }],
+      "clear":      [{ word: "evidence", prob: 47 }, { word: "research", prob: 25 }, { word: "benefits", prob: 15 }, { word: "proof", prob: 8 }],
+      "been":       [{ word: "many", prob: 38 }, { word: "numerous", prob: 25 }, { word: "studies", prob: 19 }, { word: "documented", prob: 11 }],
+      "of":         [{ word: "regular", prob: 38 }, { word: "exercise", prob: 29 }, { word: "physical", prob: 18 }, { word: "consistent", prob: 9 }],
+      "include":    [{ word: "improved", prob: 35 }, { word: "better", prob: 26 }, { word: "stronger", prob: 18 }, { word: "enhanced", prob: 13 }],
+      "are":        [{ word: "wide-ranging", prob: 32 }, { word: "numerous", prob: 27 }, { word: "significant", prob: 18 }, { word: "well-known", prob: 14 }],
+      "benefits":   [{ word: "include", prob: 36 }, { word: "are", prob: 27 }, { word: "range", prob: 18 }, { word: "encompass", prob: 10 }],
+      "will":       [{ word: "improve", prob: 33 }, { word: "boost", prob: 24 }, { word: "benefit", prob: 19 }, { word: "enhance", prob: 12 }],
+      "may":        [{ word: "improve", prob: 30 }, { word: "help", prob: 25 }, { word: "reduce", prob: 20 }, { word: "boost", prob: 14 }],
+      "and":        [{ word: "improve", prob: 28 }, { word: "boost", prob: 22 }, { word: "reduce", prob: 18 }, { word: "support", prob: 14 }]
+    }
+  }
+];
+
+const TS_ENDINGS = {
+  "help":           " reduce stress, improve sleep, and lower chronic disease risk. Even 30 minutes a day makes a measurable difference.",
+  "improve":        " cardiovascular health, strengthen muscles, boost mood, and reduce disease risk. Consistency matters more than intensity.",
+  "reduce":         " stress, lower blood pressure, and cut the risk of heart disease and type 2 diabetes. Better sleep follows too.",
+  "boost":          " energy, sharpen focus, improve sleep quality, and reduce chronic disease risk. Short daily sessions compound over time.",
+  "maintain":       " a healthy weight, protect bone density, and support long-term cardiovascular and mental health.",
+  "essential":      " for maintaining both physical and mental health — reducing disease risk, improving mood, and extending lifespan.",
+  "beneficial":     " for cardiovascular health, mental wellbeing, metabolic function, and longevity. Even modest movement produces measurable gains.",
+  "known":          " to reduce heart disease risk, improve mental health, and support a healthy body weight across all age groups.",
+  "proven":         " to reduce inflammation, strengthen bones, improve mood, and lower chronic disease risk — backed by decades of research.",
+  "levels":         " improve across all dimensions — strength, endurance, flexibility, and recovery — with consistent training over time.",
+  "evidence":       " is overwhelming: reduced chronic disease risk, better mental health, stronger muscles, and a longer lifespan.",
+  "body":           " of research supporting exercise continues to grow, confirming benefits from cardiovascular health to mental wellbeing.",
+  "benefits":       " are wide-ranging — improved heart health, stronger muscles, better mental clarity, and significantly reduced disease risk.",
+  "include":        " improved cardiovascular health, stronger muscles, better mood, sharper cognition, and reduced risk of chronic disease.",
+  "regular":        " exercise include improved cardiovascular health, stronger muscles, better mood, and significantly reduced disease risk.",
+  "default":        " improve mood, boost energy, strengthen muscles, and support heart health. Even a daily 30-minute walk makes a difference."
+};
+
+const tsState = { picks: [] };
+
+function tsGetChoices(stepIdx) {
+  const s = TS_STEPS[stepIdx];
+  if (stepIdx === 0) return s.choices;
+  if (stepIdx === 1) return s.choices[tsState.picks[0]] || s.choices["Regular"];
+  if (stepIdx === 2) return s.choices[tsState.picks[0] + "_" + tsState.picks[1]] || s.choices["Regular_exercise"];
+  if (stepIdx === 3) return s.choices[tsState.picks[2]] || [{ word: "help", prob: 31 }, { word: "improve", prob: 20 }, { word: "reduce", prob: 14 }, { word: "boost", prob: 10 }];
+}
+
+function tsMakeArrow() {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", "20");
+  svg.setAttribute("height", "28");
+  svg.setAttribute("viewBox", "0 0 20 28");
+  svg.style.display = "block";
+  svg.innerHTML = `
+    <line x1="10" y1="0" x2="10" y2="18" stroke="#204d89" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+    <polyline points="4,14 10,24 16,14" fill="none" stroke="#204d89" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.4"/>
+  `;
+  return svg;
+}
+
+function tsBuildRow(stepIdx) {
+  const frag = document.createDocumentFragment();
+
+  if (stepIdx > 0) {
+    const connRow = document.createElement("div");
+    connRow.className = "ts-connector";
+    connRow.appendChild(tsMakeArrow());
+    frag.appendChild(connRow);
+  }
+
+  const row = document.createElement("div");
+  row.className = "ts-row";
+  row.id = "ts-row-" + stepIdx;
+
+  const leftBox = document.createElement("div");
+  leftBox.className = "ts-left";
+  if (stepIdx === 0) {
+    leftBox.innerHTML = `<div class="ts-lbl">Question</div><div class="ts-val">What are the benefits of exercise?</div>`;
+  } else {
+    leftBox.innerHTML = `<div class="ts-lbl">Answer so far</div><div class="ts-val">${tsState.picks.slice(0, stepIdx).join(" ")}</div>`;
+  }
+
+  const midCol = document.createElement("div");
+  midCol.className = "ts-mid";
+  midCol.innerHTML = `<div class="ts-mid-lbl">Most likely words to follow</div>`;
+  const optGrid = document.createElement("div");
+  optGrid.className = "ts-opts";
+  optGrid.id = "ts-opts-" + stepIdx;
+  tsGetChoices(stepIdx).forEach(c => {
+    const btn = document.createElement("div");
+    btn.className = "ts-opt";
+    btn.dataset.word = c.word;
+    btn.innerHTML = `<div class="ts-opt-word">${c.word}</div><div class="ts-opt-pct">${c.prob}%</div>`;
+    btn.onclick = () => tsPick(stepIdx, c.word);
+    optGrid.appendChild(btn);
+  });
+  midCol.appendChild(optGrid);
+
+  const rightArrow = document.createElement("div");
+  rightArrow.className = "ts-rarrow";
+  rightArrow.innerHTML = `<div class="ts-rl"></div><div class="ts-rh"></div>`;
+
+  const nextBox = document.createElement("div");
+  nextBox.className = "ts-next ts-empty";
+  nextBox.id = "ts-nxt-" + stepIdx;
+  nextBox.innerHTML = `<div class="ts-nlbl">Next word</div><div class="ts-nword" id="ts-nxtw-${stepIdx}">—</div>`;
+
+  row.appendChild(leftBox);
+  row.appendChild(midCol);
+  row.appendChild(rightArrow);
+  row.appendChild(nextBox);
+  frag.appendChild(row);
+  return frag;
+}
+
+function tsPick(stepIdx, word) {
+  if (tsState.picks.length !== stepIdx) return;
+  tsState.picks.push(word);
+
+  document.getElementById("ts-opts-" + stepIdx).querySelectorAll(".ts-opt").forEach(btn => {
+    btn.classList.add(btn.dataset.word === word ? "ts-sel" : "ts-dim");
+    btn.onclick = null;
+  });
+
+  const nxtBox = document.getElementById("ts-nxt-" + stepIdx);
+  nxtBox.classList.remove("ts-empty");
+  document.getElementById("ts-nxtw-" + stepIdx).textContent = word;
+
+  if (stepIdx < 3) {
+    setTimeout(() => {
+      const frag = tsBuildRow(stepIdx + 1);
+      document.getElementById("ts-rowWrap").appendChild(frag);
+      const newRow = document.getElementById("ts-row-" + (stepIdx + 1));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        newRow.style.opacity = "1";
+        newRow.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }));
+    }, 350);
+  } else {
+    setTimeout(tsShowComplete, 450);
+  }
+}
+
+function tsShowComplete() {
+  const last = tsState.picks[3];
+  const ending = TS_ENDINGS[last] || TS_ENDINGS["default"];
+  document.getElementById("ts-finalText").innerHTML =
+    `<span class="ts-picked">${tsState.picks.join(" ")}</span><span class="ts-gen">${ending}</span>`;
+  const sec = document.getElementById("ts-completeSec");
+  sec.classList.add("ts-vis");
+  sec.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function tsRestart() {
+  tsState.picks = [];
+  document.getElementById("ts-rowWrap").innerHTML = "";
+  document.getElementById("ts-completeSec").classList.remove("ts-vis");
+  document.getElementById("ts-finalText").innerHTML = "";
+  tsInit();
+}
+
+function tsInit() {
+  const frag = tsBuildRow(0);
+  document.getElementById("ts-rowWrap").appendChild(frag);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const r = document.getElementById("ts-row-0");
+    if (r) r.style.opacity = "1";
+  }));
+}
+
+tsInit();
+</script>
+</body>
+</html>

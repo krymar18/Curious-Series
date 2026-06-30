@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Group and Count Themes Across Multiple Items</title>
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <link rel="stylesheet" href="../../assets/lab.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <div class="lab-header-strip">
+    <span class="lab-header-strip-brand">Curious AI Series</span>
+    <span class="lab-header-strip-title">Lab C3 · Analysis</span>
+  </div>
+  <main>
+    <div class="shell" style="max-width:860px;margin:0 auto;padding:32px 24px 64px;">
+
+      <!-- Lab nav -->
+      <div class="lab-nav">
+        <a href="../pattern-recognition.html" class="lab-nav-back">Pattern Recognition</a>
+        <div class="lab-nav-steps"><div class="lab-nav-step-dot done"></div><div class="lab-nav-step-dot done"></div><div class="lab-nav-step-dot current"></div><div class="lab-nav-step-dot "></div></div>
+        <a href="c4.html" class="lab-nav-next">C4 — Find the Anomaly</a>
+      </div>
+
+      <!-- Header -->
+      <div class="lab-tag lab-tag-analysis">Lab C3 · Analysis</div>
+      <h1 style="font-size:28px;font-weight:800;color:var(--text);margin:0 0 10px;">Group and Count Themes Across Multiple Items</h1>
+      <p style="font-size:15px;line-height:1.65;color:var(--body);margin:0 0 4px;">Paste a set of similar items and ask Copilot to group them by theme with counts — then challenge the most prominent pattern to test whether it is signal or coincidence.</p>
+      <div class="lab-meta-row">
+        <span class="lab-meta-pill"><i class="ti ti-clock"></i> 10 – 12 min</span>
+        <span class="lab-meta-pill"><i class="ti ti-tool"></i> 5–15 similar text items: notes, responses, or records</span>
+        <span class="lab-meta-pill"><i class="ti ti-sparkles"></i> M365 Copilot Premium</span>
+      </div>
+
+      <!-- Steps -->
+      <div class="lab-steps">
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">1</div>
+            <div class="lab-step-title">Gather and paste your items</div>
+            <div class="lab-step-app">Copilot Chat</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Gather 5–15 similar items of text — call notes, survey responses, client feedback, error messages. Number them 1 to N and paste them into Copilot Chat.</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 1 — Group and count
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('Group the following [call notes / responses / records] by theme. For each theme: (1) a label, (2) how many items fall into it, (3) one representative example. List themes by frequency, highest first.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">Group the following [call notes / responses / records] by theme. For each theme: (1) a label, (2) how many items fall into it, (3) one representative example. List themes by frequency, highest first.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look">◉</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">Look for</div>
+                <div class="lab-row-text">Notice the most common theme. Does it reflect what you expected, or is it a surprise? A surprise is worth investigating; confirmation of what you already knew is worth questioning.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">2</div>
+            <div class="lab-step-title">Challenge the top pattern</div>
+            <div class="lab-step-app">Copilot Chat</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Ask Copilot to test whether the top theme is a real signal:</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 2 — Challenge the pattern
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('For the most common theme you identified: what alternative explanation could produce the same pattern in this data? Is this a real signal or could it be coincidental clustering?')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">For the most common theme you identified: what alternative explanation could produce the same pattern in this data? Is this a real signal or could it be coincidental clustering?</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon rfl">◈</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label rfl">Reflect</div>
+                <div class="lab-row-text">Would you have found any of these themes reading manually? How long would that have taken? Which theme is most actionable and what would you do with it?</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Takeaways -->
+      <div class="lab-takeaway" style="margin-top:24px;">
+        <div class="lab-takeaway-label">Key Takeaways</div>
+        <ul>
+              <li>AI will find a pattern in almost any dataset — the pattern is real in the text but may not be real in the world. Always ask for the alternative explanation.</li>
+              <li>"Group and count" produces more actionable output than "what are the themes?" — the count forces a ranking that tells you where to focus first.</li>
+              <li>The most useful insight is usually the theme you did not expect, not the one that confirms what you already thought.</li>
+        </ul>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="lab-footer-nav">
+        <a href="c2.html" class="lab-footer-prev">C2 — Find Document Gaps</a>
+        <a href="../pattern-recognition.html" class="lab-footer-back">↩ Back to Pattern Recognition</a>
+        <a href="c4.html" class="lab-footer-next">C4 — Find the Anomaly</a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Copilot in Teams</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    /* ── Reliability badge ── */
+    .rel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .rel-solid   { background: var(--success-soft); color: var(--success); }
+    .rel-mixed   { background: var(--accent-soft);  color: var(--accent);  }
+    .rel-limited { background: var(--danger-soft);  color: var(--danger);  }
+
+    /* ── License chip ── */
+    .lic-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      background: var(--brand-soft);
+      color: var(--brand);
+      white-space: nowrap;
+    }
+
+    /* ── Sub-feature block inside a cluster ── */
+    .sub-feature {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-soft);
+      overflow: clip;
+      margin-top: 18px;
+    }
+    .sub-feature-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.7);
+    }
+    .sub-feature-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text);
+      flex: 1;
+      min-width: 0;
+    }
+    .sub-feature-body {
+      padding: 16px 18px;
+      color: var(--body);
+      line-height: 1.75;
+    }
+    .sub-feature-body > p:first-child { margin-top: 0; }
+    .sub-feature-body > p:last-child,
+    .sub-feature-body > ul:last-child { margin-bottom: 0; }
+
+    /* ── Nested exercise collapsible ── */
+    .exercise-details {
+      margin-top: 14px;
+      background: var(--success-soft);
+      border: 1.5px solid rgba(29,106,59,0.22);
+      border-radius: var(--radius-sm);
+      overflow: clip;
+    }
+    .exercise-details summary {
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--success);
+      background: transparent;
+    }
+    .exercise-details summary::after { color: var(--success); }
+    .exercise-details .exercise-body {
+      padding: 0 16px 16px;
+      color: var(--body);
+      line-height: 1.75;
+    }
+    .exercise-details .exercise-body ol,
+    .exercise-details .exercise-body ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .exercise-details .exercise-body li + li { margin-top: 6px; }
+
+    /* ── Reliability table inside sub-feature ── */
+    .rel-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.94);
+      margin-top: 12px;
+    }
+    .rel-table-wrap table { min-width: 520px; }
+
+    /* ── Ethics cards ── */
+    .ethics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .ethics-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.88);
+    }
+    .ethics-card-icon {
+      font-size: 22px;
+      color: var(--brand);
+      margin-bottom: 8px;
+    }
+    .ethics-card h4 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .ethics-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--body);
+      line-height: 1.7;
+    }
+    @media (max-width: 680px) {
+      .ethics-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Challenge cards ── */
+    .challenge-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: 0 16px 28px rgba(23,15,5,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .challenge-number {
+      font-size: 2.2rem;
+      font-family: 'DM Serif Display', serif;
+      color: var(--brand);
+      line-height: 1;
+      opacity: 0.2;
+    }
+    .challenge-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0;
+    }
+    .challenge-body {
+      font-size: 0.92rem;
+      color: var(--body);
+      line-height: 1.75;
+      margin: 0;
+    }
+    .challenge-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .challenge-feature-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px;
+      background: var(--brand-soft);
+      color: var(--brand);
+    }
+
+    /* ── Use-case boxes (Excellent at / Better avoided) ── */
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .use-case-box {
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+    .use-case-box.excellent {
+      background: var(--success-soft);
+      border: 1.5px solid rgba(29,106,59,0.22);
+    }
+    .use-case-box.avoid {
+      background: var(--accent-soft);
+      border: 1.5px solid rgba(122,77,29,0.22);
+    }
+    .use-case-box-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .use-case-box.excellent .use-case-box-label { color: var(--success); }
+    .use-case-box.avoid    .use-case-box-label { color: var(--accent); }
+    .use-case-box ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--body);
+    }
+    .use-case-box ul li + li { margin-top: 4px; }
+
+    /* ── Prompt library ── */
+    .pl-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .pl-search-wrap {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+    .pl-search-wrap i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 16px;
+      pointer-events: none;
+    }
+    .pl-search {
+      width: 100%;
+      padding: 9px 12px 9px 36px;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      font: inherit;
+      font-size: 14px;
+      background: var(--surface);
+      color: var(--text);
+      transition: border-color 0.15s;
+      box-sizing: border-box;
+    }
+    .pl-search:focus {
+      outline: none;
+      border-color: var(--brand);
+    }
+    .pl-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .pl-filter-btn {
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--body);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .pl-filter-btn:hover { border-color: var(--brand); color: var(--brand); }
+    .pl-filter-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+    .pl-filter-btn.clear-btn {
+      border-color: transparent;
+      color: var(--muted);
+      display: none;
+    }
+    .pl-filter-btn.clear-btn:hover { color: var(--danger); }
+    .pl-filter-btn.clear-btn.visible { display: inline-flex; }
+    .pl-grid {
+      display: grid;
+      gap: 10px;
+    }
+    .pl-entry {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: clip;
+      transition: border-color 0.15s;
+    }
+    .pl-entry:hover { border-color: rgba(32,77,137,0.3); }
+    .pl-entry-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 10px 14px;
+      background: rgba(32,77,137,0.04);
+      border-bottom: 1px solid rgba(32,77,137,0.08);
+    }
+    .pl-entry-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand);
+      flex: 1;
+      min-width: 0;
+    }
+    .pl-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: var(--brand-soft);
+      color: var(--brand);
+      white-space: nowrap;
+    }
+    .pl-entry-text {
+      padding: 10px 14px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+    .pl-entry-foot {
+      padding: 0 14px 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .pl-no-results {
+      text-align: center;
+      padding: 32px 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-style: italic;
+      display: none;
+    }
+    .pl-count {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── Override details-body indent for this page ── */
+    .details-body > p { margin-left: 0; }
+    .details-body > .callout { margin-left: 0; }
+    .details-body > .table-wrap { margin-left: 0; }
+    .details-body > .sub-feature { margin-left: 0; }
+    .sub-feature-body .prompt-box { margin-top: 12px; margin-left: 0; }
+    .sub-feature-body .callout { margin-top: 12px; }
+    .sub-feature-body .grid { margin-left: 0; }
+    section .prompt-box { margin-left: 0; }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 2</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="teams.html" data-nav-link>Teams</a>
+        <a href="outlook.html" data-nav-link>Outlook</a>
+        <a href="chat.html" data-nav-link>Chat</a>
+        <a href="excel.html" data-nav-link>Excel</a>
+        <a href="sharepoint.html" data-nav-link>SharePoint</a>
+        <a href="powerpoint.html" data-nav-link>PowerPoint</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners &bull; Session 2</div>
+            <h1 class="title">Copilot in Teams</h1>
+            <p class="lede">A practical reference for every major Copilot feature inside Microsoft Teams — what each one does, where it&rsquo;s reliable, and how to use it in real work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBJECTIVE + KEY IDEA -->
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Know what Copilot can and cannot do inside Teams &mdash; and build the habit of reaching for the right feature at the right moment instead of defaulting to a single workflow for everything.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>Copilot in Teams is not one tool &mdash; it&rsquo;s a set of distinct features tied to different moments in a meeting or conversation. The value is in knowing which one to use when, not in turning everything on at once.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LICENSE REFERENCE -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>What You Have</h2>
+            <p>Everyone in this training has Microsoft 365 Copilot &mdash; the full license tier. Expand below for the full breakdown of what each tier unlocks, so you understand where the ceiling is for colleagues on lower tiers.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>License tiers &mdash; M365 Base, Teams Premium &amp; M365 Copilot</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>License</th>
+                    <th>Cost (approx)</th>
+                    <th>What it adds in Teams</th>
+                    <th>Key limitation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Microsoft 365 Base</b></td>
+                    <td>Included in M365</td>
+                    <td>Basic meeting recap, full transcript, attendance report, chat summarisation (30-day)</td>
+                    <td>No AI chapters, no live Copilot, no Facilitator, no Audio Recap</td>
+                  </tr>
+                  <tr>
+                    <td><b>Teams Premium</b></td>
+                    <td>~$10/user/month</td>
+                    <td>Intelligent Recap (chapters, speaker timeline), live translation (40+ languages), advanced meeting security</td>
+                    <td>No live meeting Copilot, no Facilitator, no cross-app actions</td>
+                  </tr>
+                  <tr style="background: var(--brand-soft);">
+                    <td><b>Microsoft 365 Copilot &mdash; &#10003; You are here</b></td>
+                    <td>~$30/user/month</td>
+                    <td>Everything in Teams Premium plus live meeting Q&amp;A, Facilitator agent, Audio Recap, cross-app actions, @Copilot in group chats, message compose</td>
+                    <td>Requires M365 base license; most features also require transcription to be running</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <div class="callout neutral" style="margin-top: 14px;">
+          <h4>The one rule that applies to almost everything</h4>
+          <p>Transcription must be running for Copilot to work in or after a meeting. No transcript = no recap, no live Q&amp;A, no Facilitator notes. Enable automatic transcription in Teams Admin Center, or start it manually at the beginning of any meeting where you want Copilot features.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE CLUSTERS -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Features</h2>
+            <p>Four clusters &mdash; grouped by when in your workflow you&rsquo;d reach for them. Each sub-feature includes what it does, how reliable it is, prompts you can copy directly, and an exercise to try in Teams.</p>
+          </div>
+        </div>
+
+        <!-- CLUSTER 1: MEETING RECORD -->
+        <details>
+          <summary>Meeting Record &mdash; Recap, Intelligent Recap &amp; Audio Recap</summary>
+          <div class="details-body">
+            <p>The meeting record features generate automatically after a recorded meeting. They don&rsquo;t require anything during the call &mdash; but the quality of the output depends heavily on how explicitly people spoke.</p>
+
+            <!-- Standard Recap -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Standard Meeting Recap</span>
+                <span class="lic-chip">M365 Base+</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>Generates automatically after a transcribed meeting. Produces a text summary, an action item list with attribution, a full transcript, and an attendance report &mdash; all stored in the meeting event in Teams Calendar, accessible to all attendees.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Capturing explicit decisions and named action items stated aloud</li>
+                      <li>Creating a searchable record of who attended and what was said</li>
+                      <li>Post-meeting follow-up when you were in the room</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Decisions made in the chat tab or via side conversations</li>
+                      <li>Implied agreements or non-verbal consensus</li>
+                      <li>High-stakes action items where misattribution has real consequences</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="rel-table-wrap">
+                  <table>
+                    <thead><tr><th>What it captures</th><th>Reliability</th><th>Why</th></tr></thead>
+                    <tbody>
+                      <tr><td>Explicit decisions stated aloud</td><td><span class="rel-badge rel-solid">High</span></td><td>Direct statement, speaker-attributed</td></tr>
+                      <tr><td>Named action items with owner</td><td><span class="rel-badge rel-solid">High</span></td><td>Clear verb + owner pattern recognised reliably</td></tr>
+                      <tr><td>Deadlines mentioned aloud</td><td><span class="rel-badge rel-mixed">Medium</span></td><td>Captured if stated clearly, missed if implied</td></tr>
+                      <tr><td>Decisions made in the chat tab simultaneously</td><td><span class="rel-badge rel-limited">Low</span></td><td>Recap does not read the meeting chat thread</td></tr>
+                      <tr><td>Implied consensus or non-verbal agreement</td><td><span class="rel-badge rel-limited">None</span></td><td>Audio only &mdash; no visual input</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="pull-quote" style="margin-top: 16px;">
+                  <div class="pull-quote-brain">
+                    <i class="ti ti-bulb" aria-hidden="true"></i>
+                    <span>In practice</span>
+                  </div>
+                  <div class="pull-quote-line"></div>
+                  <div class="pull-quote-text">
+                    <p>A 60-second verbal close &mdash; &ldquo;So to recap: we agreed on X, Marcus owns Y by Thursday, and we&rsquo;ll revisit Z next week&rdquo; &mdash; produces a dramatically better AI summary than a meeting that ends with everyone just dropping off the call.</p>
+                  </div>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Post-meeting recap prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="List every decision made in this meeting. Format as a numbered list. For each decision include: the decision itself, who owns it if stated, and any deadline mentioned.">Copy</button>
+                  </div>
+                  <p class="prompt-text">List every decision made in this meeting. Format as a numbered list. For each decision include: the decision itself, who owns it if stated, and any deadline mentioned.</p>
+                </div>
+
+                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Your First Recap</summary>
+                  <div class="exercise-body">
+                    <ol>
+                      <li>Schedule a 15-minute test meeting with at least one other person. Before it starts, enable automatic transcription in Meeting Options.</li>
+                      <li>During the meeting, explicitly state three made-up decisions with owners and fake deadlines. Say them out loud clearly.</li>
+                      <li>After the meeting, open the Recap tab in Teams Calendar and compare the AI summary to what was actually said.</li>
+                      <li>Open the Copilot pane and paste the prompt above.</li>
+                      <li><strong>Reflection:</strong> What was captured accurately? What was missed or misattributed?</li>
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <!-- Intelligent Recap -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Intelligent Recap</span>
+                <span class="lic-chip">Teams Premium+</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>Builds on standard recap with AI-generated topic chapters, a clickable speaker timeline, and custom summary types. A 90-minute meeting becomes a navigable document &mdash; click any chapter heading to jump directly to that moment in the recording.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Long or recurring meetings where finding a specific discussion is painful</li>
+                      <li>Briefing yourself on what someone specific said or committed to</li>
+                      <li>Creating a navigable archive of decisions over time</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Forwarding the Executive Report without reading it first</li>
+                      <li>Meetings where nuance and subtext matter more than the stated words</li>
+                      <li>Short stand-ups under 15 minutes &mdash; chapters won&rsquo;t add value</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="grid two" style="margin-top: 14px; gap: 10px;">
+                  <div class="callout neutral">
+                    <h4>Speaker Summary</h4>
+                    <p>Per-person breakdown: what each attendee said, what they were assigned, and what they asked. Most useful for reviewing a meeting you couldn&rsquo;t attend &mdash; go straight to one person&rsquo;s contributions instead of reading the full transcript.</p>
+                  </div>
+                  <div class="callout neutral">
+                    <h4>Executive Report</h4>
+                    <p>A condensed version for stakeholders not in the room &mdash; strategic context, key decisions, next steps. Review before forwarding. It can flatten nuanced or unresolved discussions into confident-sounding statements.</p>
+                  </div>
+                </div>
+
+                <div class="prompt-box" style="margin-top: 14px;">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Speaker summary prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="Generate a speaker summary. For each participant: summarise their key contributions, any tasks they were assigned, and any questions they raised that remain open.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Generate a speaker summary. For each participant: summarise their key contributions, any tasks they were assigned, and any questions they raised that remain open.</p>
+                </div>
+
+                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Intelligent Recap Navigation</summary>
+                  <div class="exercise-body">
+                    <ol>
+                      <li>Open a completed meeting in Teams Calendar that has an Intelligent Recap.</li>
+                      <li>Review the chapter headings in the AI Summary tab. Do the titles accurately describe each segment?</li>
+                      <li>Click a chapter heading to jump to that moment in the recording &mdash; does it land in the right place?</li>
+                      <li>Open Custom Summary &rarr; Speaker Summary. Review what was attributed to one person. Is it accurate?</li>
+                      <li><strong>Reflection:</strong> For which recurring Ampersand meetings would chapters save the most time?</li>
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <!-- Audio Recap -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Audio Recap</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>Converts the meeting transcript into a short podcast-style spoken summary &mdash; two AI voices discussing the highlights conversationally. Available on desktop and mobile. Designed for catching up on missed meetings when reading isn&rsquo;t practical.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Catching up on a missed meeting during a commute or walk</li>
+                      <li>Users who absorb spoken information better than written summaries</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Meetings with detailed technical content, figures, or decisions needing verification</li>
+                      <li>Situations where you&rsquo;d naturally forward the summary &mdash; it&rsquo;s audio only</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="callout neutral" style="margin-top: 12px;">
+                  <h4>What it is &mdash; and what it isn&rsquo;t</h4>
+                  <p>The voices are synthetic and the conversational framing is AI-generated. It&rsquo;s a performance of a summary, not a recording of the meeting. It does not replace the text recap &mdash; it&rsquo;s an additional format. Some people absorb spoken summaries more effectively; others find the format disorienting. Try it once before deciding whether it&rsquo;s useful for you.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </details>
+
+        <!-- CLUSTER 2: LIVE MEETING -->
+        <details>
+          <summary>Live Meeting &mdash; Copilot During Calls &amp; Facilitator Agent</summary>
+          <div class="details-body">
+            <p>These features run during an active meeting. Live Copilot is private &mdash; only you see it. Facilitator is visible to the whole group. Both require transcription to be running, and both work best in meetings that are at least 15&ndash;20 minutes in.</p>
+
+            <!-- Live Copilot -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Live Meeting Copilot</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>A private real-time AI assistant in a sidebar during any active Teams meeting. Other participants cannot see your queries or Copilot&rsquo;s responses. Open it from the sparkle icon in the meeting controls toolbar.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Catching up after joining late without interrupting the conversation</li>
+                      <li>Checking what action items have been assigned before a meeting closes</li>
+                      <li>Surfacing unresolved questions in a complex multi-topic discussion</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Meetings under 15 minutes &mdash; not enough transcript content to summarise</li>
+                      <li>Relying on it for the current moment &mdash; it lags 1&ndash;2 minutes behind</li>
+                      <li>Meetings with heavy crosstalk or multiple simultaneous speakers</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="rel-table-wrap" style="margin-top: 14px;">
+                  <table>
+                    <thead><tr><th>What to ask</th><th>Example</th><th>Best moment</th></tr></thead>
+                    <tbody>
+                      <tr><td>Catch up on join</td><td>&ldquo;I just joined &mdash; what have I missed?&rdquo;</td><td>Joining late, no need to interrupt the call</td></tr>
+                      <tr><td>Decision check</td><td>&ldquo;What decisions have been made so far?&rdquo;</td><td>Near the end of the meeting, before closing</td></tr>
+                      <tr><td>Action item scan</td><td>&ldquo;What open action items have been mentioned?&rdquo;</td><td>30&ndash;45 mins into a long meeting</td></tr>
+                      <tr><td>Unresolved tensions</td><td>&ldquo;What questions or disagreements remain open?&rdquo;</td><td>Complex discussions with multiple positions</td></tr>
+                      <tr><td>Speaker summary</td><td>&ldquo;Summarise what [person] has said so far.&rdquo;</td><td>Want to follow up on a specific person&rsquo;s points</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="callout neutral" style="margin-top: 14px;">
+                  <h4>Reliability caveat</h4>
+                  <p>Live Copilot has a 1&ndash;2 minute context lag &mdash; it summarises what was said recently, not what&rsquo;s happening right now. It cannot see shared screens, read the meeting chat, or access pre-meeting documents unless those were also transcribed. Performs poorly in meetings with heavy crosstalk or multiple simultaneous speakers.</p>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Late-join prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="I just joined — what have I missed? Summarise the key points and any decisions made so far.">Copy</button>
+                  </div>
+                  <p class="prompt-text">I just joined &mdash; what have I missed? Summarise the key points and any decisions made so far.</p>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Pre-close check prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="What open questions or unresolved issues remain from this discussion? List each with the person who raised it if clear.">Copy</button>
+                  </div>
+                  <p class="prompt-text">What open questions or unresolved issues remain from this discussion? List each with the person who raised it if clear.</p>
+                </div>
+
+                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Live Copilot in Your Next Meeting</summary>
+                  <div class="exercise-body">
+                    <ol>
+                      <li>In your next meeting where you join late, open the Copilot pane immediately and use the late-join prompt above.</li>
+                      <li>At the 30-minute mark of a long meeting, ask: &ldquo;What action items have been discussed so far? Who owns each one?&rdquo;</li>
+                      <li>Near the end, use the pre-close prompt. Compare its output to your own mental list of what&rsquo;s unresolved.</li>
+                      <li><strong>Reflection:</strong> Did using Copilot during the meeting change how you participated? Were you more or less attentive to the conversation?</li>
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <!-- Facilitator -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Facilitator Agent</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>Shifts Copilot from your personal assistant to a meeting-wide AI participant. When the organiser enables Facilitator, it captures highlights and decisions in a shared notes document visible to all participants in real time &mdash; and posts updates to the meeting chat as the conversation progresses.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Project kickoffs and working sessions where shared notes are expected</li>
+                      <li>Reducing the manual note-taking burden on a specific person</li>
+                      <li>Creating a real-time shared record for distributed teams</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Performance reviews, HR discussions, or sensitive negotiations &mdash; shared AI notes change the dynamic</li>
+                      <li>Any meeting where participants haven&rsquo;t been told it&rsquo;s running</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="grid two" style="margin-top: 14px; gap: 10px;">
+                  <div class="callout brand">
+                    <h4>How to enable it</h4>
+                    <p>Before the meeting: Meeting Options &rarr; Copilot &rarr; &ldquo;During and after the meeting&rdquo; &rarr; enable Allow Facilitator. Or during an active meeting, open the Copilot pane and select &ldquo;Add to this meeting.&rdquo;</p>
+                  </div>
+                  <div class="callout neutral">
+                    <h4>Facilitator vs. personal Copilot</h4>
+                    <p>Personal Copilot answers your private questions. Facilitator assists the group. Both can run simultaneously &mdash; but Facilitator&rsquo;s output is shared with everyone in the meeting, so what it captures is visible to all participants.</p>
+                  </div>
+                </div>
+
+                <div class="callout gold" style="margin-top: 14px;">
+                  <h4>Disclose it before you use it</h4>
+                  <p>When Facilitator is active, participants should know. In performance reviews, HR discussions, or client negotiations, shared AI note-taking changes how people speak. State it at the start of the meeting &mdash; &ldquo;I&rsquo;m running Copilot Facilitator, which is taking shared notes for all of us&rdquo; &mdash; before enabling it.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </details>
+
+        <!-- CLUSTER 3: CHAT & CHANNELS -->
+        <details>
+          <summary>Chat &amp; Channels &mdash; Summarisation, @Copilot &amp; Message Drafting</summary>
+          <div class="details-body">
+            <p>These features work outside of meetings &mdash; in your ongoing Teams chats and channels. They reduce the time it takes to get up to speed on a thread, and help you draft messages without starting from a blank compose box.</p>
+
+            <!-- Chat summarisation -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Chat &amp; Channel Summarisation</span>
+                <span class="lic-chip">M365 Base+</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>In any 1:1 or group chat, open the Copilot sidebar (icon, top right) to summarise the last 30 days of conversation. In channels, Copilot can summarise a long thread before you reply &mdash; useful for avoiding the classic mistake of asking a question that was answered three days ago.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Getting up to speed on a chat thread you&rsquo;ve been away from</li>
+                      <li>Identifying what was decided or agreed across a long back-and-forth</li>
+                      <li>Checking who said what before adding your reply to a channel thread</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Decisions made in shared files or attachments &mdash; Copilot cannot read them</li>
+                      <li>Tracking commitments made via emoji reactions or link-only messages</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="callout neutral" style="margin-top: 12px;">
+                  <h4>What Copilot cannot read in chat</h4>
+                  <p>Files attached to messages, links (only the link text, not the destination page), Loop components, images, and emoji reactions are all excluded from summaries. Decisions made in a shared document won&rsquo;t be captured unless they were also stated in the chat text itself.</p>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Chat decisions prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="What decisions or agreements were made in this chat over the last two weeks? List them with the date and who made each decision.">Copy</button>
+                  </div>
+                  <p class="prompt-text">What decisions or agreements were made in this chat over the last two weeks? List them with the date and who made each decision.</p>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Channel thread prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="Summarise this channel thread. What is the main topic being discussed? What decisions or conclusions have been reached, if any? What questions remain open?">Copy</button>
+                  </div>
+                  <p class="prompt-text">Summarise this channel thread. What is the main topic being discussed? What decisions or conclusions have been reached, if any? What questions remain open?</p>
+                </div>
+
+                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Chat Summarisation</summary>
+                  <div class="exercise-body">
+                    <ol>
+                      <li>Open a Teams group chat that&rsquo;s been active in the last 30 days.</li>
+                      <li>Open the Copilot pane and use the decisions prompt above.</li>
+                      <li>Click one of the sources Copilot cites &mdash; does it scroll to the correct message?</li>
+                      <li>Find a channel thread with 10+ replies. Use the thread prompt before adding your reply.</li>
+                      <li><strong>Reflection:</strong> What context did the summary miss that you knew from being in the conversation?</li>
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <!-- @Copilot -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">@Copilot in Group Chats</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>Copilot can be added as a participant to any Teams group chat. Once added, any member can @mention it and its response is posted to the whole group. To add it: click &ldquo;Add people&rdquo; &rarr; search for Copilot, or type @Copilot directly in the compose box to invoke it.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Summarising the thread for a new member joining a group chat mid-project</li>
+                      <li>Drafting a meeting agenda from open topics the group has been discussing</li>
+                      <li>Answering shared questions where the whole group benefits from the answer</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Questions that reveal what you don&rsquo;t know &mdash; the whole group sees both question and answer</li>
+                      <li>Sensitive topics where the AI response visible to all participants could create issues</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="callout neutral" style="margin-top: 12px;">
+                  <h4>This is public, not private</h4>
+                  <p>When you @Copilot in a group chat, everyone sees both the question and the answer. Before tagging it, consider whether your question &mdash; or what it might reveal about what you don&rsquo;t know &mdash; is appropriate for all participants to see.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Message Compose -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Message Compose &amp; Reply Assist</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>In any Teams chat or channel, click the Copilot icon in the compose box to draft a message from a plain-language description. Choose from six tone options before accepting. For replies, right-click any message and select &ldquo;Reply with Copilot&rdquo; to generate a contextual draft response.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Breaking out of default tone &mdash; seeing the same message in six registers is genuinely useful</li>
+                      <li>First drafts for announcements, updates, or requests where you know what to say but not how</li>
+                      <li>Quick professional replies to messages you&rsquo;re unsure how to word</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Messages requiring relationship context Copilot doesn&rsquo;t have</li>
+                      <li>Sending without personalising &mdash; Copilot-drafted replies that are wrong are worse than no reply</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="rel-table-wrap" style="margin-top: 12px;">
+                  <table>
+                    <thead><tr><th>Tone</th><th>Best used for</th></tr></thead>
+                    <tbody>
+                      <tr><td><b>Casual</b></td><td>Quick updates to teammates you work with closely</td></tr>
+                      <tr><td><b>Professional</b></td><td>Stakeholder communications, formal requests, escalations</td></tr>
+                      <tr><td><b>Confident</b></td><td>Recommendations, pushing back on decisions, requests for action</td></tr>
+                      <tr><td><b>Enthusiastic</b></td><td>Announcements, wins, recognition messages</td></tr>
+                      <tr><td><b>Informational</b></td><td>Status updates, process instructions, documentation</td></tr>
+                      <tr><td><b>Concise</b></td><td>Busy senior stakeholders, quick confirmations, short updates</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="prompt-box" style="margin-top: 14px;">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Compose example</div>
+                    <button class="copy-button" type="button" data-copy-text="Draft a message to my team letting them know the weekly operations review is moving from Tuesday to Thursday this week, and that everyone needs to review the attached fulfillment report beforehand. Professional but not stiff.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Draft a message to my team letting them know the weekly operations review is moving from Tuesday to Thursday this week, and that everyone needs to review the attached fulfillment report beforehand. Professional but not stiff.</p>
+                </div>
+
+                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Message Drafting</summary>
+                  <div class="exercise-body">
+                    <ol>
+                      <li>Think of a real message you need to send this week &mdash; an update, a request, a piece of news.</li>
+                      <li>Use Copilot compose. Describe what you want to say in plain language &mdash; not how to say it.</li>
+                      <li>Generate the message in at least three different tones. Compare them side by side.</li>
+                      <li>Choose the closest version, edit it, and send.</li>
+                      <li><strong>Reflection:</strong> Did Copilot produce something you wouldn&rsquo;t have written yourself? Was that better or worse?</li>
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+          </div>
+        </details>
+
+        <!-- CLUSTER 4: BEYOND TEAMS -->
+        <details>
+          <summary>Beyond Teams &mdash; Scheduling, Cross-App Actions &amp; Language</summary>
+          <div class="details-body">
+            <p>These features extend Copilot beyond a single meeting or chat thread. Cross-app actions turn a meeting transcript into a working document, email draft, or slide deck. Scheduling removes coordination overhead. Language features make multilingual meetings more accessible to all participants.</p>
+
+            <!-- Cross-app -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Cross-App Actions</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>From the Recap tab of any transcribed meeting, you can ask Copilot to produce documents in other M365 apps without leaving Teams. The meeting record becomes the starting point for downstream communication and project work.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Producing a follow-up email, action item table, or status doc directly from a meeting transcript</li>
+                      <li>Removing the post-meeting gap between &ldquo;meeting ended&rdquo; and &ldquo;follow-up sent&rdquo;</li>
+                      <li>Generating a first draft that you edit rather than write from scratch</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Final client-facing outputs sent without review &mdash; attribution errors in a recap become attribution errors in the email</li>
+                      <li>Meetings where the key context was in a shared screen or document, not the audio</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="rel-table-wrap" style="margin-top: 12px;">
+                  <table>
+                    <thead><tr><th>Starting point</th><th>What you can produce</th><th>Output location</th></tr></thead>
+                    <tbody>
+                      <tr><td>Meeting transcript</td><td>Follow-up email summarising decisions and action items</td><td>Outlook draft</td></tr>
+                      <tr><td>Meeting transcript</td><td>Table of action items with owners and due dates</td><td>Word or Excel</td></tr>
+                      <tr><td>Meeting transcript</td><td>One-page project status update</td><td>Word document</td></tr>
+                      <tr><td>Meeting notes</td><td>Slide deck summarising key decisions</td><td>PowerPoint</td></tr>
+                      <tr><td>Chat thread</td><td>Formal proposal or brief based on the discussion</td><td>Word document</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="prompt-box" style="margin-top: 14px;">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Post-meeting follow-up email prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="Using the transcript from this meeting, draft an email to the attendees summarising: (1) the three key decisions made, (2) each person's action item and deadline, (3) the date of our next check-in. Keep the tone professional and the length under 200 words.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Using the transcript from this meeting, draft an email to the attendees summarising: (1) the three key decisions made, (2) each person&rsquo;s action item and deadline, (3) the date of our next check-in. Keep the tone professional and the length under 200 words.</p>
+                </div>
+
+                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Post-Meeting Cross-App</summary>
+                  <div class="exercise-body">
+                    <ol>
+                      <li>After your next recorded meeting, open the Recap tab and use the follow-up email prompt above.</li>
+                      <li>Review the draft &mdash; does it accurately capture the decisions and action items?</li>
+                      <li>Edit before sending. Note what you had to change.</li>
+                      <li>Bonus: Ask Copilot to generate a table of action items from the same transcript, then paste it into Excel.</li>
+                      <li><strong>Reflection:</strong> What part of your post-meeting workflow could this reliably handle? What still requires human judgment?</li>
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <!-- Scheduling -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Scheduling from Chat</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>From inside a Teams chat, Copilot can find shared availability, create calendar invites, draft meeting agendas, and book rooms &mdash; without leaving the conversation.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Finding shared availability and drafting an agenda in one step, without switching apps</li>
+                      <li>Turning a chat discussion directly into a scheduled follow-up meeting</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Room bookings &mdash; depends on Exchange configuration and frequently fails</li>
+                      <li>Meetings with external guests &mdash; availability lookups break for people outside your tenant</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="callout neutral" style="margin-top: 12px;">
+                  <h4>Where it&rsquo;s unreliable</h4>
+                  <p>Room booking depends on your organisation&rsquo;s room calendars being configured in Exchange &mdash; the most inconsistent part of this feature. Availability lookups work for internal attendees but break for external guests. Copilot can schedule but cannot re-schedule or cancel without confirmation. Treat it as a fast first step that you verify before sending.</p>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Scheduling prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="Find a time next week when I'm free for a 30-minute meeting with [colleague name]. Draft a 3-item agenda based on what we've discussed in this chat. Send the invite with the agenda attached.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Find a time next week when I&rsquo;m free for a 30-minute meeting with [colleague name]. Draft a 3-item agenda based on what we&rsquo;ve discussed in this chat. Send the invite with the agenda attached.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Language -->
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Language, Translation &amp; Accessibility</span>
+                <span class="lic-chip">Teams Premium+</span>
+              </div>
+              <div class="sub-feature-body">
+                <p>Teams Copilot includes multilingual features that reduce friction in global meetings and improve participation for non-native speakers. Enabling Multilingual Speech Recognition is one of the highest-leverage setup steps for any team with mixed language participants &mdash; it directly improves the quality of transcripts and therefore every downstream feature that depends on them.</p>
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul>
+                      <li>Improving transcript and recap accuracy for non-native English speakers via Multilingual Speech Recognition</li>
+                      <li>Letting each participant follow captions in their own language without changing the meeting audio</li>
+                      <li>Delivering post-meeting recaps to each attendee in their own language automatically</li>
+                    </ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul>
+                      <li>Relying on the Interpreter Agent for languages outside its current 9 &mdash; coverage is limited</li>
+                      <li>Expecting interpreted audio to appear in the recording &mdash; it isn&rsquo;t captured</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="rel-table-wrap" style="margin-top: 12px;">
+                  <table>
+                    <thead><tr><th>Feature</th><th>What it does</th><th>License</th><th>Key note</th></tr></thead>
+                    <tbody>
+                      <tr><td><b>Live translated captions</b></td><td>Real-time caption translation in each attendee&rsquo;s preferred language &mdash; 40+ languages</td><td>Teams Premium</td><td>Per-participant setting; meeting audio unchanged</td></tr>
+                      <tr><td><b>Multilingual Speech Recognition</b></td><td>Each presenter sets their own spoken language, improving transcription accuracy for non-native speakers</td><td>Teams Premium</td><td>Organiser enables; dramatically improves recap quality in mixed-language meetings</td></tr>
+                      <tr><td><b>Recap in your language</b></td><td>Post-meeting recap auto-generated in the language each participant selected during the meeting</td><td>Teams Premium</td><td>Each attendee gets their recap in their own language</td></tr>
+                      <tr><td><b>Interpreter Agent</b></td><td>Real-time spoken translation &mdash; AI voices translate speakers live for participants who prefer audio over captions</td><td>Teams Premium + M365 Copilot</td><td>9 languages; interpreted audio is NOT recorded</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- AMPERSAND SPOTLIGHT: ETHICS -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Ampersand Spotlight &mdash; Using This Responsibly</h2>
+            <p>Copilot in Teams records, stores, and makes searchable what people say in meetings. That changes how the tool should be deployed &mdash; not whether to deploy it.</p>
+          </div>
+        </div>
+
+        <div class="ethics-grid">
+
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-speakerphone" aria-hidden="true"></i></div>
+            <h4>Disclose transcription before the meeting starts</h4>
+            <p>Teams shows a notification when transcription starts, but it&rsquo;s easy to miss. State it verbally: &ldquo;I&rsquo;m recording and transcribing this meeting with Copilot &mdash; the summary will be accessible to all attendees afterward.&rdquo; In some jurisdictions, recording without explicit consent of all participants has legal implications that Microsoft&rsquo;s platform does not manage for you.</p>
+          </div>
+
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-lock" aria-hidden="true"></i></div>
+            <h4>Some meeting types shouldn&rsquo;t be transcribed by default</h4>
+            <p>Performance reviews, sensitive HR conversations, and active negotiations change in character when participants know their words are being stored in a searchable database. Define which meeting types require opt-in transcription rather than automatic recording &mdash; and communicate that standard to the team before it becomes an issue.</p>
+          </div>
+
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-eye-check" aria-hidden="true"></i></div>
+            <h4>Review recaps before forwarding them</h4>
+            <p>A well-formatted AI summary creates an impression of accuracy the underlying model doesn&rsquo;t always support. Recaps can misattribute ideas, present deferred decisions as resolved, or drop the condition attached to an action item. Read it before forwarding it anywhere &mdash; especially to stakeholders who weren&rsquo;t in the room.</p>
+          </div>
+
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-database" aria-hidden="true"></i></div>
+            <h4>Your data stays in your M365 tenant</h4>
+            <p>Microsoft&rsquo;s position: prompts, responses, and meeting content processed by M365 Copilot remain within your Microsoft 365 service boundary and are not used to train foundational models. Transcript retention is configurable by admin &mdash; default varies by tenant policy, typically 60&ndash;180 days. Users can delete Copilot activity history via the My Account portal.</p>
+          </div>
+
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+            <h4>External guests need to know too</h4>
+            <p>If Ampersand hosts a meeting with external guests, those participants should be told the meeting is being transcribed and summarised by AI &mdash; before the meeting begins, not at the end. This is both courtesy and, in some US states and EU countries, a legal obligation.</p>
+          </div>
+
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-mood-puzzled" aria-hidden="true"></i></div>
+            <h4>Persistent recording changes how people speak</h4>
+            <p>Knowing that meetings are summarised and stored affects candour in brainstorming, willingness to commit to things in early-stage discussions, and how people handle disagreement on the record. This isn&rsquo;t a reason to avoid Copilot &mdash; it&rsquo;s a reason to think about meeting culture alongside the tool rollout, not after it.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PRACTICE CHALLENGES -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Practice Challenges</h2>
+            <p>These aren&rsquo;t feature walkthroughs. Each challenge requires combining multiple Copilot capabilities to complete a real work scenario. Do them in Teams.</p>
+          </div>
+        </div>
+
+        <div class="grid three" style="align-items: start;">
+
+          <div class="challenge-card">
+            <div class="challenge-number">01</div>
+            <p class="challenge-title">The Invisible Meeting</p>
+            <p class="challenge-body">You missed a meeting two days ago. A decision was made that affects something you&rsquo;re working on, and you need to fully understand it before your EOD deadline &mdash; without asking anyone. Use only Copilot to get what you need, understand the context, and draft a one-paragraph response that shows you&rsquo;re up to speed.</p>
+            <div class="challenge-features">
+              <span class="challenge-feature-tag">Recap</span>
+              <span class="challenge-feature-tag">Transcript</span>
+              <span class="challenge-feature-tag">Chat summary</span>
+              <span class="challenge-feature-tag">Message compose</span>
+            </div>
+          </div>
+
+          <div class="challenge-card">
+            <div class="challenge-number">02</div>
+            <p class="challenge-title">The Clean Handoff</p>
+            <p class="challenge-body">Take a completed meeting and produce everything the next person would need to pick it up without talking to you: a summary of what was decided, a table of action items with owners, a follow-up email to attendees, and a draft agenda for the follow-up meeting. Don&rsquo;t write a single word yourself.</p>
+            <div class="challenge-features">
+              <span class="challenge-feature-tag">Intelligent Recap</span>
+              <span class="challenge-feature-tag">Cross-app actions</span>
+              <span class="challenge-feature-tag">Scheduling</span>
+              <span class="challenge-feature-tag">Outlook draft</span>
+            </div>
+          </div>
+
+          <div class="challenge-card">
+            <div class="challenge-number">03</div>
+            <p class="challenge-title">The Audit</p>
+            <p class="challenge-body">Pick a Teams channel or group chat that&rsquo;s been active for at least three weeks. Use Copilot to pull every commitment or action item mentioned in that thread. Then check: were they followed up on? What&rsquo;s still outstanding? Produce a one-page summary of the gap between what was said and what happened.</p>
+            <div class="challenge-features">
+              <span class="challenge-feature-tag">Chat summarisation</span>
+              <span class="challenge-feature-tag">@Copilot in chat</span>
+              <span class="challenge-feature-tag">Channel threads</span>
+              <span class="challenge-feature-tag">Cross-reference</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Conclusion &amp; Reflections</h2>
+            <p>Take a moment to reflect &mdash; it&rsquo;s what makes the learning stick.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list">
+              <li>Copilot in Teams is not one tool &mdash; it&rsquo;s a set of features with different triggers, behaviours, and reliability levels.</li>
+              <li>Almost everything depends on transcription being on. That&rsquo;s the prerequisite, not an afterthought.</li>
+              <li>Recap quality reflects how explicitly people spoke. Vague meetings produce vague summaries.</li>
+              <li>Live Copilot lags 1&ndash;2 minutes and can&rsquo;t see screens or chat. It&rsquo;s a catch-up tool, not a real-time scribe.</li>
+              <li>AI summaries look authoritative. Read them before forwarding &mdash; they can misattribute and flatten nuance.</li>
+              <li>Cross-app actions are where the real leverage is: turning a meeting into a draft email, doc, or deck before you close your laptop.</li>
+            </ul>
+          </article>
+
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>Which part of your current meeting workflow costs you the most time &mdash; prep, follow-up, catching up, or briefing others?</li>
+              <li>If Copilot generates a summary of your meetings anyway, what does that change about what you need to accomplish in the room?</li>
+              <li>Have you ever forwarded a meeting summary without reading it? What was at stake?</li>
+              <li>Which meeting types at Ampersand should not be transcribed by default &mdash; and do you have a standard for that today?</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="callout brand" style="margin-top: 18px;">
+          <h4>Supplemental reading</h4>
+          <ul>
+            <li><a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog/introducing-copilot-memory-a-more-productive-and-personalized-ai-for-the-way-you/4432059" target="_blank">Introducing Copilot Memory &mdash; Microsoft Tech Community</a></li>
+            <li><a href="https://support.microsoft.com/en-us/microsoft-365-copilot/how-microsoft-365-copilot-chat-history-works" target="_blank">How Copilot chat history works &mdash; Microsoft Support</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/copilot-personalization-memory" target="_blank">Manage Copilot personalization and memory &mdash; Microsoft Learn</a></li>
+          </ul>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="../index.html">Back to Overview</a>
+          <a class="button primary" href="outlook.html">Next: Outlook</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMPT LIBRARY -->
+    <section class="section" id="prompt-library">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Prompt Library</h2>
+            <p>Every prompt from this page in one place. Search by keyword or filter by workflow stage. Copy any prompt directly into Copilot.</p>
+          </div>
+        </div>
+
+        <div class="pl-bar">
+          <div class="pl-search-wrap">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input class="pl-search" id="pl-search" type="search" placeholder="Search prompts&hellip;" aria-label="Search prompts">
+          </div>
+          <div class="pl-filters" id="pl-filters" role="group" aria-label="Filter by workflow stage">
+            <button class="pl-filter-btn active" data-filter="all" type="button">All</button>
+            <button class="pl-filter-btn" data-filter="pre-meeting" type="button">Pre-meeting</button>
+            <button class="pl-filter-btn" data-filter="during" type="button">During meeting</button>
+            <button class="pl-filter-btn" data-filter="post-meeting" type="button">Post-meeting</button>
+            <button class="pl-filter-btn" data-filter="chat" type="button">Chat &amp; channels</button>
+            <button class="pl-filter-btn" data-filter="drafting" type="button">Drafting</button>
+            <button class="pl-filter-btn clear-btn" id="pl-clear" type="button">Clear</button>
+          </div>
+          <span class="pl-count" id="pl-count"></span>
+        </div>
+
+        <div class="pl-grid" id="pl-grid">
+
+          <div class="pl-entry" data-tags="pre-meeting scheduling">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Draft agenda from chat context</span>
+              <span class="pl-tag">Pre-meeting</span>
+              <span class="pl-tag">Scheduling</span>
+            </div>
+            <div class="pl-entry-text">Find a time next week when I'm free for a 30-minute meeting with [colleague name]. Draft a 3-item agenda based on what we've discussed in this chat. Send the invite with the agenda attached.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Find a time next week when I'm free for a 30-minute meeting with [colleague name]. Draft a 3-item agenda based on what we've discussed in this chat. Send the invite with the agenda attached.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="during live-meeting catch-up">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Late-join catch-up</span>
+              <span class="pl-tag">During meeting</span>
+              <span class="pl-tag">Live Copilot</span>
+            </div>
+            <div class="pl-entry-text">I just joined — what have I missed? Summarise the key points and any decisions made so far.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="I just joined — what have I missed? Summarise the key points and any decisions made so far.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="during live-meeting action-items">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">In-meeting action item check</span>
+              <span class="pl-tag">During meeting</span>
+              <span class="pl-tag">Live Copilot</span>
+            </div>
+            <div class="pl-entry-text">What action items have been discussed so far? Who owns each one?</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="What action items have been discussed so far? Who owns each one?">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="during live-meeting open-questions">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Surface unresolved issues before close</span>
+              <span class="pl-tag">During meeting</span>
+              <span class="pl-tag">Live Copilot</span>
+            </div>
+            <div class="pl-entry-text">What open questions or unresolved issues remain from this discussion? List each with the person who raised it if clear.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="What open questions or unresolved issues remain from this discussion? List each with the person who raised it if clear.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="post-meeting recap decisions">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">List all decisions from a meeting</span>
+              <span class="pl-tag">Post-meeting</span>
+              <span class="pl-tag">Recap</span>
+            </div>
+            <div class="pl-entry-text">List every decision made in this meeting. Format as a numbered list. For each decision include: the decision itself, who owns it if stated, and any deadline mentioned.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="List every decision made in this meeting. Format as a numbered list. For each decision include: the decision itself, who owns it if stated, and any deadline mentioned.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="post-meeting recap speaker">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Speaker summary</span>
+              <span class="pl-tag">Post-meeting</span>
+              <span class="pl-tag">Intelligent Recap</span>
+            </div>
+            <div class="pl-entry-text">Generate a speaker summary. For each participant: summarise their key contributions, any tasks they were assigned, and any questions they raised that remain open.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Generate a speaker summary. For each participant: summarise their key contributions, any tasks they were assigned, and any questions they raised that remain open.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="post-meeting cross-app follow-up email">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Draft post-meeting follow-up email</span>
+              <span class="pl-tag">Post-meeting</span>
+              <span class="pl-tag">Cross-app</span>
+            </div>
+            <div class="pl-entry-text">Using the transcript from this meeting, draft an email to the attendees summarising: (1) the three key decisions made, (2) each person's action item and deadline, (3) the date of our next check-in. Keep the tone professional and the length under 200 words.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Using the transcript from this meeting, draft an email to the attendees summarising: (1) the three key decisions made, (2) each person's action item and deadline, (3) the date of our next check-in. Keep the tone professional and the length under 200 words.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="post-meeting recap executive">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Executive report for stakeholders</span>
+              <span class="pl-tag">Post-meeting</span>
+              <span class="pl-tag">Intelligent Recap</span>
+            </div>
+            <div class="pl-entry-text">Generate an executive report from this meeting suitable for sharing with stakeholders who were not present. Focus on strategic context, key decisions, and next steps. Keep it under 150 words.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Generate an executive report from this meeting suitable for sharing with stakeholders who were not present. Focus on strategic context, key decisions, and next steps. Keep it under 150 words.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="chat decisions summary">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Find decisions in a chat thread</span>
+              <span class="pl-tag">Chat &amp; channels</span>
+              <span class="pl-tag">Summarisation</span>
+            </div>
+            <div class="pl-entry-text">What decisions or agreements were made in this chat over the last two weeks? List them with the date and who made each decision.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="What decisions or agreements were made in this chat over the last two weeks? List them with the date and who made each decision.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="chat channel thread summary">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Summarise a channel thread before replying</span>
+              <span class="pl-tag">Chat &amp; channels</span>
+              <span class="pl-tag">Summarisation</span>
+            </div>
+            <div class="pl-entry-text">Summarise this channel thread. What is the main topic being discussed? What decisions or conclusions have been reached, if any? What questions remain open?</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Summarise this channel thread. What is the main topic being discussed? What decisions or conclusions have been reached, if any? What questions remain open?">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="drafting compose message">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Draft a team update message</span>
+              <span class="pl-tag">Drafting</span>
+              <span class="pl-tag">Message Compose</span>
+            </div>
+            <div class="pl-entry-text">Draft a message to my team letting them know the weekly operations review is moving from Tuesday to Thursday this week, and that everyone needs to review the attached fulfillment report beforehand. Professional but not stiff.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Draft a message to my team letting them know the weekly operations review is moving from Tuesday to Thursday this week, and that everyone needs to review the attached fulfillment report beforehand. Professional but not stiff.">Copy</button>
+            </div>
+          </div>
+
+          <div class="pl-entry" data-tags="post-meeting cross-app action-items">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Generate action item table from transcript</span>
+              <span class="pl-tag">Post-meeting</span>
+              <span class="pl-tag">Cross-app</span>
+            </div>
+            <div class="pl-entry-text">Using this meeting transcript, build a table of every action item mentioned. Columns: action, owner, deadline (if stated), status (open). Format it so I can paste it directly into Excel.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Using this meeting transcript, build a table of every action item mentioned. Columns: action, owner, deadline (if stated), status (open). Format it so I can paste it directly into Excel.">Copy</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pl-no-results" id="pl-no-results">No prompts match your search. Try a different keyword or clear the filters.</div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+  (function () {
+    var search  = document.getElementById('pl-search');
+    var grid    = document.getElementById('pl-grid');
+    var noRes   = document.getElementById('pl-no-results');
+    var countEl = document.getElementById('pl-count');
+    var clearBtn = document.getElementById('pl-clear');
+    var filterBtns = Array.from(document.querySelectorAll('#pl-filters .pl-filter-btn[data-filter]'));
+    var entries = Array.from(grid.querySelectorAll('.pl-entry'));
+    var activeFilter = 'all';
+
+    function updateCount(visible) {
+      countEl.textContent = visible === entries.length ? entries.length + ' prompts' : visible + ' of ' + entries.length + ' prompts';
+    }
+
+    function applyFilters() {
+      var query = search.value.trim().toLowerCase();
+      var visible = 0;
+      entries.forEach(function (entry) {
+        var text  = (entry.querySelector('.pl-entry-text').textContent + ' ' + entry.querySelector('.pl-entry-label').textContent + ' ' + (entry.dataset.tags || '')).toLowerCase();
+        var matchesFilter = activeFilter === 'all' || (entry.dataset.tags || '').toLowerCase().includes(activeFilter);
+        var matchesSearch = !query || text.includes(query);
+        var show = matchesFilter && matchesSearch;
+        entry.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      noRes.style.display = visible === 0 ? 'block' : 'none';
+      updateCount(visible);
+      clearBtn.classList.toggle('visible', activeFilter !== 'all' || query.length > 0);
+    }
+
+    filterBtns.forEach(function (btn) {
+      if (btn.id === 'pl-clear') return;
+      btn.addEventListener('click', function () {
+        activeFilter = btn.dataset.filter;
+        filterBtns.forEach(function (b) { b.classList.toggle('active', b.dataset.filter === activeFilter); });
+        applyFilters();
+      });
+    });
+
+    clearBtn.addEventListener('click', function () {
+      activeFilter = 'all';
+      search.value = '';
+      filterBtns.forEach(function (b) { b.classList.toggle('active', b.dataset.filter === 'all'); });
+      applyFilters();
+    });
+
+    search.addEventListener('input', applyFilters);
+
+    applyFilters();
+  })();
+  </script>
+
+</body>
+</html>

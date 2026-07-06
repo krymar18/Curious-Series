@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Read a Thread Completely in 10 Minutes</title>
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <link rel="stylesheet" href="../../assets/lab.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <div class="lab-header-strip">
+    <span class="lab-header-strip-brand">Curious AI Series</span>
+    <span class="lab-header-strip-title">Lab B1 · Outlook</span>
+  </div>
+  <main>
+    <div class="shell" style="max-width:860px;margin:0 auto;padding:32px 24px 64px;">
+
+      <!-- Lab nav -->
+      <div class="lab-nav">
+        <a href="../language.html" class="lab-nav-back">Working with Language</a>
+        <div class="lab-nav-steps"><div class="lab-nav-step-dot current"></div><div class="lab-nav-step-dot "></div><div class="lab-nav-step-dot "></div></div>
+        <a href="b2.html" class="lab-nav-next">B2 — Draft, Critique, Fix</a>
+      </div>
+
+      <!-- Header -->
+      <div class="lab-tag lab-tag-outlook">Lab B1 · Outlook</div>
+      <h1 style="font-size:28px;font-weight:800;color:var(--text);margin:0 0 10px;">Read a Thread Completely in 10 Minutes</h1>
+      <p style="font-size:15px;line-height:1.65;color:var(--body);margin:0 0 4px;">Summarise a thread, surface the unanswered questions and dropped commitments, and identify who needs to act next — without reading every email.</p>
+      <div class="lab-meta-row">
+        <span class="lab-meta-pill"><i class="ti ti-clock"></i> 8 – 10 min</span>
+        <span class="lab-meta-pill"><i class="ti ti-tool"></i> An email thread with 5+ messages</span>
+        <span class="lab-meta-pill"><i class="ti ti-sparkles"></i> M365 Copilot Premium</span>
+      </div>
+
+      <!-- Steps -->
+      <div class="lab-steps">
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">1</div>
+            <div class="lab-step-title">Summarise the thread</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Open the thread in Outlook. Click the <strong>Copilot</strong> button in the toolbar (top right of the reading pane). Run both prompts in the same thread — do not open a new chat.</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 1 — Summary
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('Summarise this email thread. I want to know: (1) What started this conversation? (2) What has been agreed or decided so far. (3) What is still unresolved or has not been responded to. (4) Who has been most active and what is each person&#39;s apparent position. Keep each section to 3 sentences maximum.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">Summarise this email thread. I want to know: (1) What started this conversation? (2) What has been agreed or decided so far. (3) What is still unresolved or has not been responded to. (4) Who has been most active and what is each person's apparent position. Keep each section to 3 sentences maximum.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look">◉</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">Look for</div>
+                <div class="lab-row-text">Does Copilot accurately represent each person's position, or does it flatten everyone into a single neutral narrative? Check whether the "unresolved" section reflects what you know to still be open.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">2</div>
+            <div class="lab-step-title">Surface what nobody has answered</div>
+            <div class="lab-step-app">Outlook · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon act">▶</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label act">Do this</div>
+                <div class="lab-row-text">Stay in the same thread. Send the second prompt:</div>
+              </div>
+            </div>
+            <div class="lab-prompt">
+              <div class="lab-prompt-label">
+                Prompt 2 — Find the gaps
+                <button class="lab-copy-btn" onclick="navigator.clipboard.writeText('What direct questions were asked in this thread that have not been answered? What commitments were made that have no follow-up? What topic was raised once and then dropped without resolution? List each one with the name of the person who raised it.')">Copy</button>
+              </div>
+              <p class="lab-prompt-text">What direct questions were asked in this thread that have not been answered? What commitments were made that have no follow-up? What topic was raised once and then dropped without resolution? List each one with the name of the person who raised it.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon rfl">◈</div>
+              <div class="lab-row-content">
+                <div class="lab-row-label rfl">Reflect</div>
+                <div class="lab-row-text">Were any of the unanswered questions raised by you? Are any of the dropped commitments yours? This prompt is most useful as a self-check, not just a tool for tracking other people's follow-through.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Takeaways -->
+      <div class="lab-takeaway" style="margin-top:24px;">
+        <div class="lab-takeaway-label">Key Takeaways</div>
+        <ul>
+              <li>Reading a thread with Copilot is a verification task — your job is to check the output, not accept it. Copilot can misread who said what.</li>
+              <li>The most important unanswered question in any thread is usually the one you forgot you raised. Run the gaps prompt as a self-check before replying.</li>
+              <li>A thread summary without an "unresolved" section is incomplete. If Copilot does not include one, ask for it explicitly.</li>
+        </ul>
+      </div>
+
+      <!-- Footer nav -->
+      <div class="lab-footer-nav">
+        <span></span>
+        <a href="../language.html" class="lab-footer-back">↩ Back to Working with Language</a>
+        <a href="b2.html" class="lab-footer-next">B2 — Draft, Critique, Fix</a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

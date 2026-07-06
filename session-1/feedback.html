@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Section 4 — Feedback, Iteration & Memory</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Week 1 — Section 4</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="ai-vs-search.html" data-nav-link>AI vs Search</a>
+        <a href="bias.html" data-nav-link>Bias</a>
+        <a href="context.html" data-nav-link>Context</a>
+        <a href="feedback.html" data-nav-link>Feedback</a>
+        <a href="homework.html" data-nav-link>Homework</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners • Week 1 • Section 4</div>
+            <h1 class="title">Feedback, Iteration &amp; Memory</h1>
+            <p class="lede">How AI learns from feedback, how to get better outputs through iteration, and how Copilot remembers what matters across sessions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Understand the difference between model-level feedback and in-session iteration, develop a practical feedback habit, and learn how to use Copilot's memory features to carry your preferences forward.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>Your first prompt is a draft, not an order. The skill isn't writing a perfect prompt — it's knowing how to steer from where you land to where you want to be.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- THEORY -->
+<!-- THEORY -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Theory</h2>
+      </div>
+    </div>
+
+    <details>
+      <summary>Stay in the conversation</summary>
+      <div class="details-body">
+        <p>When the first output is wrong, most people open a new chat and start over. That's the most common mistake — it erases everything the AI already knows about your task. Instead, correct it in the same thread.</p>
+
+        <div class="grid two" style="margin-top: 14px;">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-success">Stay in the thread</span>
+            <ul class="list">
+              <li>The AI already knows your task, your context, and what it tried.</li>
+              <li>Your correction steers from a known starting point.</li>
+              <li>Each round gets faster — you're narrowing, not starting over.</li>
+            </ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Don't open a new chat</span>
+            <ul class="list">
+              <li>A new chat loses all shared context.</li>
+              <li>You'll get a similar first output and repeat yourself.</li>
+              <li>The problem was missing correction, not a bad prompt.</li>
+            </ul>
+          </article>
+        </div>
+
+        <p style="margin-top: 16px;">This is called <strong>in-session iteration</strong> — and it's the habit that separates people who get good outputs from people who don't.</p>
+
+        <div class="callout neutral" style="margin-top: 14px;">
+          <h4>What about thumbs up / thumbs down?</h4>
+          <p>Those buttons feed into how future versions of the model are trained — not your current session. Think of it like a comment card at a restaurant: the kitchen doesn't remake your meal, but enough cards about the same dish eventually change the menu. Use them, but don't rely on them to fix what's in front of you.</p>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Give feedback that actually moves the output</summary>
+      <div class="details-body">
+        <p>The AI doesn't get defensive. You can say "this is corporate garbage, rewrite it as plain English" and it will. Directness works better than politely asking it to "improve" something. The difference is specificity.</p>
+
+        <div class="grid two" style="margin-top: 14px;">
+                    <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Vague — doesn't work</span>
+            <ul class="list">
+              <li>"Make it better."</li>
+              <li>"Improve the tone."</li>
+              <li>"This isn't quite right."</li>
+              <li>"Make it more professional."</li>
+              <li>"I don't like it — try again."</li>
+            </ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-success">Specific — works</span>
+            <ul class="list">
+              <li>"The reader is a non-technical sales manager. Rewrite for them."</li>
+              <li>"Cut this to 3 sentences. Nothing else."</li>
+              <li>"The second paragraph is redundant — remove it."</li>
+              <li>"Here's an email I like: [paste]. Match that tone."</li>
+              <li>"Stop using the word 'leverage.' Replace every instance."</li>
+            </ul>
+          </article>
+        </div>
+
+        <p style="margin-top: 16px;"><strong>When you don't know what's wrong, fix in this order:</strong> structure first (is the format off?), content second (missing something or wrong direction?), tone last. Tone corrections on a badly structured response are wasted effort.</p>
+
+        <p style="margin-top: 16px;"><strong>Techniques worth keeping.</strong></p>
+        <ul class="list">
+          <li><strong>Ask for options before committing.</strong> "Give me three different openings." Choosing is faster than correcting.</li>
+          <li><strong>Tell it what to keep.</strong> "The second paragraph is perfect. Only rewrite the first and third."</li>
+          <li><strong>Use contrast.</strong> "Version A is too formal, version B is too casual. Find the middle."</li>
+          <li><strong>Name the problem, not the solution.</strong> "This sounds like it was written by a committee" is more useful than "make it more personal."</li>
+          <li><strong>Ask it to critique itself.</strong> "What's weak about this response?" Then use that as your next prompt.</li>
+          <li><strong>Make it show its reasoning.</strong> Add "explain your thinking before you answer" when you need to catch a wrong assumption early — before it shapes the whole output.</li>
+        </ul>
+
+        <p style="margin-top: 16px;">The underlying principle is <strong>iterative prompting</strong> — treating every output as a draft and every correction as steering, not starting over.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Tell Copilot what to remember</summary>
+      <div class="details-body">
+        <p>Copilot's memory feature is on by default, but it won't remember anything unless you tell it to explicitly. It doesn't save automatically — you have to set it. Do this at the start of any session where you'll do repeated work.</p>
+
+        <div class="prompt-box" style="margin-top: 14px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Copy prompt — tell Copilot what to remember</div>
+            <button class="copy-button" type="button" data-copy-text="Please remember the following about how I work: I write for non-technical audiences and prefer plain language. I'm in [your team] at Ampersand — a multiscreen TV advertising company. I prefer bullet points unless I ask for prose. Keep emails under 5 lines unless the situation requires more.">Copy</button>
+          </div>
+          <p class="prompt-text">Please remember the following about how I work: I write for non-technical audiences and prefer plain language. I'm in [your team] at Ampersand — a multiscreen TV advertising company. I prefer bullet points unless I ask for prose. Keep emails under 5 lines unless the situation requires more.</p>
+        </div>
+
+        <p style="margin-top: 16px;"><strong>What Copilot memory can hold.</strong></p>
+        <ul class="list">
+          <li>Preferences you state explicitly — tone, format, length constraints.</li>
+          <li>Your role, team, and working context.</li>
+          <li>Recurring topics and project names you reference often.</li>
+          <li>For Microsoft 365 Copilot users: context pulled from Teams meetings, Outlook threads, and SharePoint via Microsoft Graph.</li>
+        </ul>
+
+        <div class="callout neutral" style="margin-top: 14px;">
+          <h4>Managing memory</h4>
+          <p>To view, edit, or delete what Copilot has stored: Settings → Account → Privacy → Personalization and memory. You can also tell Copilot directly — "forget that I prefer bullet points" — and it will remove that entry. Your IT admin may have adjusted memory settings at the org level; if the option isn't visible, check before the next session.</p>
+        </div>
+
+        <p style="margin-top: 16px;">This is <strong>Copilot Memory</strong> — generally available as of mid-2025, on by default, user-controlled.</p>
+      </div>
+    </details>
+
+
+
+  </div>
+</section>
+
+
+    <!-- AMPERSAND SPOTLIGHT -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Ampersand Spotlight</h2>
+
+          </div>
+        </div>
+
+
+
+         <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Department</th>
+        <th>Persona block</th>
+        <th>Key preferences to store</th>
+        <th>Standing constraints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Sales Ops</b></td><td>Cable ad operations at Ampersand. Audience: internal teams and MVPD partners. Outputs are operational, not marketing.</td><td>Short, process-oriented tone. Numbered steps preferred for SOPs. Plain language — no ad-agency style.</td><td>Never generate compliance or rate language. Flag anything touching political ad rules for human review.</td></tr>
+      <tr><td><b>Sales</b></td><td>Sales lead at a multiscreen TV advertising company building out a bedrock of set-top box viewership insights. Audience: clients ranging from local buyers to national agencies.</td><td>Client-facing tone: confident but not pushy. Emails under 150 words unless recaps. Always include a clear next step.</td><td>No pricing without my input. No competitive claims that need verification. Avoid generic ad-industry buzzwords.</td></tr>
+      <tr><td><b>Political Advertising</b></td><td>Political advertising coordinator at Ampersand. Audience: political buyers, agencies, and internal compliance reviewers.</td><td>Precise and factual tone. Bullet format for order summaries. Use correct FEC and FCC terminology.</td><td>Never generate disclaimer language — always placeholder. Flag any compliance detail for verification against primary source.</td></tr>
+      <tr><td><b>Marketing</b></td><td>Marketing team at Ampersand. Outputs include social copy, press release drafts, event invitations, and facilitated creative ideation. Audience varies: external for press and social, internal stakeholders for event and creative alignment.</td><td>Tone matches the output type: polished and brand-consistent for external copy, conversational and exploratory for creative ideation. For visual concepting, prioritize asking clarifying questions and presenting rough directional ideas over finished descriptions.</td><td>No final creative output without Marketing review. Visual ideation is a facilitation tool only. Flag any concept that references licensed IP, league branding, or third-party imagery before advancing.</td></tr>
+      <tr><td><b>Finance &amp; Billing Operations</b></td><td>Finance team at a multiscreen TV advertising company. Audience: internal leadership and occasionally external partners.</td><td>Structured and precise. Tables preferred over prose for numbers. Executive summaries in plain language, detail in appendix.</td><td>Never fabricate figures. All numbers come from me — AI handles structure and language only.</td></tr>
+      <tr><td><b>HR &amp; People</b></td><td>People team at Ampersand. Outputs include job postings, internal communications, employee handbook content, and career development guidance. Audience shifts by output: candidates and hiring managers for job content, all-staff for internal comms, individual employees for career guidance.</td><td>Warm but direct tone. Inclusive language always. Job postings follow consistent format: overview, responsibilities, requirements. Internal comms lead with the action or deadline, then context. Career guidance is conversational, not prescriptive.</td><td>No legal or policy language without HR review. Flag anything touching leave, termination, accommodation, or compensation for verification. Never present policy as final without noting it should be confirmed against the current handbook.</td></tr>
+      <tr><td><b>Technology &amp; Engineering</b></td><td>Technology team at Ampersand. Audience varies between technical peers and non-technical internal stakeholders. Outputs include internal documentation, system and platform communications, and status updates.</td><td>Calibrate language to a non-technical audience. Lead with impact and status, then cause and resolution timeline. Plain language, no jargon. Keep updates concise and action-oriented.</td><td>Outage and incident communications always go through the NOC template before sending. No security-sensitive detail in prompts. Never speculate on root cause or resolution time without confirmed information from the engineering team.</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="shell" style="margin-top: 32px;">
+    <details>
+      <summary>Pull your preferences out of any conversation</summary>
+      <div class="details-body">
+        <p>Every correction you make in a session reveals something about how you work. Run this prompt at the end of any session where you did real iteration — it writes up everything you implicitly told the AI into a reusable document you can paste at the start of future sessions.</p>
+
+        <div class="prompt-box" style="margin-top: 14px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Retrieval prompt</div>
+            <button class="copy-button" type="button" data-copy-text="Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session to get to this quality of output immediately.">Copy</button>
+          </div>
+          <p class="prompt-text">Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session to get to this quality of output immediately.</p>
+        </div>
+
+        <p style="margin-top: 14px;">If the output is too generic:</p>
+
+        <div class="prompt-box" style="margin-top: 10px;">
+          <div class="prompt-box-head">
+            <div class="prompt-box-label">Follow-up if output is vague</div>
+            <button class="copy-button" type="button" data-copy-text="This is too generic. Go back through our conversation and pull out the specific corrections I made — exact things I rejected, exact language I preferred, specific structural choices I pushed for. Make it concrete enough that someone who has never talked to me could match my style.">Copy</button>
+          </div>
+          <p class="prompt-text">This is too generic. Go back through our conversation and pull out the specific corrections I made — exact things I rejected, exact language I preferred, specific structural choices I pushed for. Make it concrete enough that someone who has never talked to me could match my style.</p>
+        </div>
+
+        <p style="margin-top: 14px;">Save the output somewhere you can copy from quickly — OneNote, a pinned Teams message, or the Copilot memory prompt above. This is the foundation of a <strong>personal prompt library</strong>: a running document of your preferences, persona, and constraints that you paste at the start of sessions to skip setup entirely.</p>
+      </div>
+    </details>
+    </div>
+      </div>
+    </section>
+
+<!-- PRACTICE ACTIVITY -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Practice Activity — Full Iteration Loop</h2>
+        <p>Take the worst sentence imaginable and use AI to turn it into something true about your actual work. One conversation, start to finish — don't open a new chat between steps.</p>
+      </div>
+    </div>
+
+    <article class="card">
+      <span class="eyebrow-chip chip-success">Exercise</span>
+      <p class="act-title">Rewrite it until it's yours</p>
+      <p class="act-sub">Start with the jargon below. End with one sentence that actually describes what you do at Ampersand — and a preferences doc you'll reuse.</p>
+
+      <div class="callout neutral" style="margin-top: 16px;">
+        <p style="font-style: italic; margin: 0;">"In today's fast-paced and ever-evolving business landscape, it is of paramount importance that organizations leverage synergistic frameworks to holistically optimize cross-functional stakeholder engagement and drive scalable value creation across all verticals."</p>
+      </div>
+
+      <ul class="list" style="margin-top: 16px;">
+        <li><strong>Step 1 — Cold start.</strong> Paste the text, ask for a rewrite. No context. Notice how generic the output is.</li>
+        <li><strong>Step 2 — Add context.</strong> Tell it what Ampersand does and what your role involves. Ask it to try again.</li>
+        <li><strong>Step 3 — Name one specific problem.</strong> Not "make it better" — one exact thing that's wrong.</li>
+        <li><strong>Step 4 — Give a tone reference.</strong> Paste a sentence you like. Ask it to match that.</li>
+        <li><strong>Step 5 — Constrain it.</strong> "One sentence, under 20 words. Keep the Ampersand detail."</li>
+        <li><strong>Step 6 — Ask it to critique itself.</strong> "What's the weakest part?" Use the answer as your last correction.</li>
+        <li><strong>Step 7 — Run the retrieval prompt.</strong> Save the output. That's your first prompt library entry.</li>
+      </ul>
+
+      <div class="prompt-box" style="margin-top: 16px;">
+        <div class="prompt-box-head">
+          <div class="prompt-box-label">Retrieval prompt — run after Step 6</div>
+          <button class="copy-button" type="button" data-copy-text="Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.">Copy</button>
+        </div>
+        <p class="prompt-text">Review our conversation so far. Identify all the corrections, preferences, and instructions I gave you — explicitly or implicitly. Rewrite them into a single reusable document describing my writing preferences: tone, format, what I kept correcting, and what I responded well to. Write it as a short reference I can paste at the start of a future session.</p>
+      </div>
+
+    </article>
+
+  </div>
+</section>
+
+
+
+    <section class="section">
+      <div class="shell">
+         <div class="section-head">
+          <div>
+            <h2>Conclusion & Reflections</h2>
+            <p>Take a moment to reflect — it's what makes the learning stick.</p>
+          </div>
+        </div>
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Take aways</span>
+            <ul class="list">
+              <li>Thumbs up/down shapes the model over time. In-session iteration changes your output right now.</li>
+              <li>Stay in the conversation. Starting over erases context and resets your progress.</li>
+              <li>Good feedback names the problem — structure, content, or tone — not just the feeling that something is off.</li>
+              <li>Copilot Memory works best when you tell it what to remember explicitly, not when you hope it infers it.</li>
+              <li>The retrieval prompt converts your feedback history into a reusable document — run it at the end of any productive session.</li>
+              <li>Your prompt library compounds. Each session that ends with a retrieval prompt makes the next one faster.</li>
+
+            </ul>
+          </article>
+
+           <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>When you got a bad output this week, did you iterate or start over? What would have changed if you'd stayed in the conversation?</li>
+              <li>Did Copilot's memory carry anything forward from a previous session? Was it useful or surprising?</li>
+              <li>After running the retrieval prompt, did the output match how you actually think about your own writing preferences? What was missing?</li>
+              <li>What's one correction you keep making to AI outputs that you haven't written down yet?</li>
+              <li>Looking at the Ampersand spotlight table — what would you add or change for your specific role?</li>
+            </ul>
+          </article>
+        </div>
+          <div class="callout brand" style="margin-top:18px;">
+          <h4>Supplemental reading</h4>
+          <ul>
+            <li><a href="https://towardsdatascience.com/explained-simply-reinforcement-learning-from-human-feedback/" target="_blank">Reinforcement Learning from Human Feedback, explained simply — Towards Data Science</a></li>
+              <li><a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog/introducing-copilot-memory-a-more-productive-and-personalized-ai-for-the-way-you/4432059" target="_blank">Introducing Copilot Memory — Microsoft Tech Community</a></li>
+              <li><a href="https://support.microsoft.com/en-us/microsoft-365-copilot/how-microsoft-365-copilot-chat-history-works" target="_blank">How Copilot chat history works — Microsoft Support</a></li>
+              <li><a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/copilot-personalization-memory" target="_blank">Manage Copilot personalization and memory — Microsoft Learn</a></li>
+            
+          </ul>
+        </div>
+          <div class="page-nav">
+          <a class="button secondary" href="../index.html">Back to overview</a>
+          <a class="button primary" href="homework.html">Next: Homework</a>
+        </div>
+
+    </section>
+
+  </main>
+</body>
+</html>

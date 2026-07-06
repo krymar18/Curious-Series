@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Copilot in Outlook</title>
+
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    .lic-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.05em;background:var(--brand-soft);color:var(--brand);white-space:nowrap}
+    .sub-feature{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-soft);overflow:clip;margin-top:18px}
+    .sub-feature-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.7)}
+    .sub-feature-title{font-size:.96rem;font-weight:800;color:var(--text);flex:1;min-width:0}
+    .sub-feature-body{padding:16px 18px;color:var(--body);line-height:1.75}
+    .sub-feature-body>p:first-child{margin-top:0}
+    .sub-feature-body>p:last-child,.sub-feature-body>ul:last-child{margin-bottom:0}
+    .exercise-details{margin-top:14px;background:var(--success-soft);border:1.5px solid rgba(29,106,59,.22);border-radius:var(--radius-sm);overflow:clip}
+    .exercise-details summary{padding:12px 16px;font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--success);background:transparent}
+    .exercise-details summary::after{color:var(--success)}
+    .exercise-details .exercise-body{padding:0 16px 16px;color:var(--body);line-height:1.75}
+    .exercise-details .exercise-body ol,.exercise-details .exercise-body ul{margin:0;padding-left:20px}
+    .exercise-details .exercise-body li+li{margin-top:6px}
+    .rel-table-wrap{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border);background:rgba(255,255,255,.94);margin-top:12px}
+    .rel-table-wrap table{min-width:520px}
+    .ethics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .ethics-card{border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 20px;background:rgba(255,255,255,.88)}
+    .ethics-card-icon{font-size:22px;color:var(--brand);margin-bottom:8px}
+    .ethics-card h4{margin:0 0 8px;font-size:.95rem;color:var(--text)}
+    .ethics-card p{margin:0;font-size:.9rem;color:var(--body);line-height:1.7}
+    @media(max-width:680px){.ethics-grid{grid-template-columns:1fr}}
+    .challenge-card{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px;box-shadow:0 16px 28px rgba(23,15,5,.05);display:flex;flex-direction:column;gap:10px}
+    .challenge-number{font-size:2.2rem;font-family:'DM Serif Display',serif;color:var(--brand);line-height:1;opacity:.2}
+    .challenge-title{font-size:1.05rem;font-weight:800;color:var(--text);margin:0}
+    .challenge-body{font-size:.92rem;color:var(--body);line-height:1.75;margin:0}
+    .challenge-features{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+    .challenge-feature-tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+    .use-case-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .use-case-box{border-radius:var(--radius-sm);padding:12px 14px}
+    .use-case-box.excellent{background:var(--success-soft);border:1.5px solid rgba(29,106,59,.22)}
+    .use-case-box.avoid{background:var(--accent-soft);border:1.5px solid rgba(122,77,29,.22)}
+    .use-case-box-label{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+    .use-case-box.excellent .use-case-box-label{color:var(--success)}
+    .use-case-box.avoid .use-case-box-label{color:var(--accent)}
+    .use-case-box ul{margin:0;padding-left:16px;font-size:.88rem;line-height:1.7;color:var(--body)}
+    .use-case-box ul li+li{margin-top:4px}
+    .pl-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-sm)}
+    .pl-search-wrap{flex:1;min-width:200px;position:relative}
+    .pl-search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;pointer-events:none}
+    .pl-search{width:100%;padding:9px 12px 9px 36px;border:1.5px solid var(--border);border-radius:99px;font:inherit;font-size:14px;background:var(--surface);color:var(--text);transition:border-color .15s;box-sizing:border-box}
+    .pl-search:focus{outline:none;border-color:var(--brand)}
+    .pl-filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .pl-filter-btn{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);font:inherit;font-size:12px;font-weight:600;color:var(--body);cursor:pointer;transition:all .15s;white-space:nowrap}
+    .pl-filter-btn:hover{border-color:var(--brand);color:var(--brand)}
+    .pl-filter-btn.active{background:var(--brand);border-color:var(--brand);color:#fff}
+    .pl-filter-btn.clear-btn{border-color:transparent;color:var(--muted);display:none}
+    .pl-filter-btn.clear-btn:hover{color:var(--danger)}
+    .pl-filter-btn.clear-btn.visible{display:inline-flex}
+    .pl-grid{display:grid;gap:10px}
+    .pl-entry{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:clip;transition:border-color .15s}
+    .pl-entry:hover{border-color:rgba(32,77,137,.3)}
+    .pl-entry-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:rgba(32,77,137,.04);border-bottom:1px solid rgba(32,77,137,.08)}
+    .pl-entry-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);flex:1;min-width:0}
+    .pl-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--brand-soft);color:var(--brand);white-space:nowrap}
+    .pl-entry-text{padding:10px 14px;font-size:13.5px;line-height:1.7;color:var(--text);white-space:pre-wrap}
+    .pl-entry-foot{padding:0 14px 10px;display:flex;justify-content:flex-end}
+    .pl-count{font-size:12px;color:var(--muted);font-weight:500}
+    .pl-no-results{text-align:center;padding:32px 0;color:var(--muted);font-size:.92rem;font-style:italic;display:none}
+    .details-body>p{margin-left:0}
+    .details-body>.callout{margin-left:0}
+    .details-body>.table-wrap{margin-left:0}
+    .details-body>.sub-feature{margin-left:0}
+    .sub-feature-body .prompt-box{margin-top:12px;margin-left:0}
+    .sub-feature-body .callout{margin-top:12px}
+    .sub-feature-body .grid{margin-left:0}
+    section .prompt-box{margin-left:0}
+  </style>
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners &bull; Session 2</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="teams.html" data-nav-link>Teams</a>
+        <a href="outlook.html" data-nav-link>Outlook</a>
+        <a href="chat.html" data-nav-link>Chat</a>
+        <a href="excel.html" data-nav-link>Excel</a>
+        <a href="sharepoint.html" data-nav-link>SharePoint</a>
+        <a href="powerpoint.html" data-nav-link>PowerPoint</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners &bull; Session 2</div>
+            <h1 class="title">Copilot in Outlook</h1>
+            <p class="lede">A practical reference for every major Copilot feature inside Microsoft Outlook &mdash; reading, drafting, scheduling, and the proactive features most people never discover.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Use Copilot to process email faster, draft more effectively, and prepare for meetings without the manual back-and-forth &mdash; without losing your voice in the messages that matter.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>Outlook is where Copilot has the broadest view of your work: email history, calendar, and meeting context simultaneously. That cross-signal intelligence is its core value &mdash; and its most important risk to understand.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>What You Have</h2>
+          <p>Everyone in this training has M365 Copilot. Expand below to see the full tier comparison for reference when helping colleagues on lower plans.</p>
+        </div></div>
+        <details>
+          <summary>License tier breakdown</summary>
+          <div class="details-body">
+            <div class="table-wrap"><table>
+              <thead><tr><th>License</th><th>Cost</th><th>What it adds</th><th>Key limitation</th></tr></thead>
+              <tbody>
+<tr><td><b>M365 Base</b></td><td>Included</td><td>Basic thread summary card on long emails</td><td>No Copilot pane, no drafting, no scheduling, no inbox queries</td></tr>
+<tr style="background:var(--brand-soft)"><td><b>M365 Copilot &mdash; &#10003; You are here</b></td><td>~$30/user/mo</td><td>Full Copilot pane, draft from brief, coaching mode, reply assist, inbox-wide queries, scheduled prompts, meeting prep, calendar conflict resolution</td><td>Scheduled prompts require setup; meeting prep quality depends on transcribed Teams history</td></tr></tbody>
+            </table></div>
+          </div>
+        </details>
+        <div class="callout neutral" style="margin-top:14px;">
+          <h4>The most important Outlook setting</h4>
+          <p>For inbox-wide queries and meeting prep to work well, your inbox needs to reflect how you actually communicate. Decisions made on Teams calls and referenced only obliquely in email will be missed. The quality of what Copilot returns reflects your communication habits.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Features</h2>
+          <p>Three categories &mdash; reading, writing, and scheduling. Each has a different reliability profile and a different ideal workflow.</p>
+        </div></div>
+
+        <details>
+          <summary>Reading Assistance &mdash; Thread Summary, Action Items &amp; Inbox Queries</summary>
+          <div class="details-body">
+            <p>The most reliable category. Copilot reads email threads and your inbox to surface what matters without you having to read everything.</p>
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Thread Summary</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Quickly catching up on long threads without reading every reply</li><li>Extracting the core issue and open questions before a meeting</li><li>Processing high-volume inboxes faster by reading summaries first</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Implied commitments or tone that only the full thread conveys</li><li>Forwarding the summary without reading it — misattribution is the most common error</li><li>Threads where subtext, relationship history, or tone matters more than stated content</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Thread summary prompt</div>
+                    <button class="copy-button" type="button" data-copy-text="Summarise this thread in three bullet points: the main issue, what has been agreed so far, and what is still outstanding or unresolved.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Summarise this thread in three bullet points: the main issue, what has been agreed so far, and what is still outstanding or unresolved.</p>
+                </div>                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Action item extraction</div>
+                    <button class="copy-button" type="button" data-copy-text="Extract all action items from this thread. For each: the task, the owner, and any deadline mentioned. Format as a numbered list.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Extract all action items from this thread. For each: the task, the owner, and any deadline mentioned. Format as a numbered list.</p>
+                </div>                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Thread Summary in Practice</summary>
+                  <div class="exercise-body"><ol><li>Open a thread with 10+ replies you haven't read yet.</li><li>Open the Copilot summary card. Read it before reading the thread.</li><li>Now read the thread. What did the summary get right? What did it miss or misattribute?</li><li><strong>Reflection:</strong> For which types of email would you trust the summary enough to act on it directly?</li></ol></div>
+                </details>
+              </div>
+            </div>            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Inbox-Wide Queries</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Surfacing pending items from a specific person or project across many threads</li><li>End-of-week accountability sweeps across your whole inbox</li><li>Finding decisions or commitments you made that you need to follow up on</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Implied commitments — Copilot misses 'I'll look into it' type language</li><li>Old content: results degrade significantly beyond 3–4 weeks</li><li>Situations where key decisions happened on Teams or in meetings, not email</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Inbox-wide pending items</div>
+                    <button class="copy-button" type="button" data-copy-text="What emails from [person or company] in the last 30 days still need a response from me?">Copy</button>
+                  </div>
+                  <p class="prompt-text">What emails from [person or company] in the last 30 days still need a response from me?</p>
+                </div>                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Today's inbox prioritisation</div>
+                    <button class="copy-button" type="button" data-copy-text="Prioritise my unread emails today: (1) needs immediate action, (2) reply this week, (3) FYI only. For each action item, tell me what is needed and by when.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Prioritise my unread emails today: (1) needs immediate action, (2) reply this week, (3) FYI only. For each action item, tell me what is needed and by when.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary>Writing Assistance &mdash; Drafting, Coaching &amp; Reply Assist</summary>
+          <div class="details-body">
+            <p>The highest daily-use category. Copilot generates, refines, and coaches email drafts — but the judgment about what to say always stays with you.</p>
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Draft from Brief</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Routine communications where speed matters more than personal voice: scheduling, updates, confirmations</li><li>Breaking out of blank-page paralysis on longer, structured emails</li><li>Generating across multiple tone options to find the right register quickly</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Sensitive messages where your personal relationship and judgment matter — write it yourself and use coaching instead</li><li>Messages where the recipient would expect your voice specifically</li><li>Sending without personalising — an obviously AI-drafted email to the wrong person is worse than no email</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Draft from brief</div>
+                    <button class="copy-button" type="button" data-copy-text="Draft an email to [name] about [topic]. Key points: [1], [2], [3]. Tone: professional but not stiff. Length: concise.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Draft an email to [name] about [topic]. Key points: [1], [2], [3]. Tone: professional but not stiff. Length: concise.</p>
+                </div>                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Draft vs Coach Comparison</summary>
+                  <div class="exercise-body"><ol><li>Think of a real email you need to send this week.</li><li>Use Draft with Copilot. Write a plain-language brief — not the email itself. Accept the draft.</li><li>Discard it. Write the email yourself. Run Coaching by Copilot on your version.</li><li>Compare: which is better? Where did the generated draft fail? What did coaching catch?</li><li><strong>Reflection:</strong> For this type of email, which workflow saved more time?</li></ol></div>
+                </details>
+              </div>
+            </div>            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Coaching Mode</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Sensitive messages: client escalations, performance feedback, difficult internal communications</li><li>Any email where you would hesitate before sending — write it yourself first, then coach</li><li>Catching unintended tone, buried asks, or passive-aggressive phrasing you didn&rsquo;t notice</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Emails under 100 characters — Copilot needs enough text to analyse</li><li>Messages where you want Copilot to replace your judgment, not improve your delivery</li><li>Treating coaching suggestions as mandatory — they are inputs, not corrections</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Coaching refinement</div>
+                    <button class="copy-button" type="button" data-copy-text="Review my draft and suggest improvements for tone, clarity, and conciseness. I want it to sound direct but not abrupt. Flag anything that could land badly.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Review my draft and suggest improvements for tone, clarity, and conciseness. I want it to sound direct but not abrupt. Flag anything that could land badly.</p>
+                </div>
+              </div>
+            </div>            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Reply Assist</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Quick contextual replies where the thread gives Copilot enough to work with</li><li>Inline editing of your own draft: shorter, different tone, rephrase a specific paragraph</li><li>Mobile email processing — the vibe writing experience is particularly fluid on the Outlook app</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Replies requiring specific knowledge only you have — Copilot writes from the thread, not from your history</li><li>Sensitive threads where a wrong AI reply could damage a relationship</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Rewrite to be more direct</div>
+                    <button class="copy-button" type="button" data-copy-text="Rewrite my draft reply to be more direct. Lead with the answer, not the context. Cut it by 30%. Keep the professional tone.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Rewrite my draft reply to be more direct. Lead with the answer, not the context. Cut it by 30%. Keep the professional tone.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary>Scheduling &mdash; Meeting from Thread, Calendar Prep &amp; Scheduled Prompts</summary>
+          <div class="details-body">
+            <p>The most powerful scheduling category in M365. Meeting prep and scheduled prompts are both underused and genuinely valuable.</p>
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Meeting from Thread &amp; Calendar Prep</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Creating a meeting invite directly from a long email thread — Copilot drafts the agenda from the open questions</li><li>Meeting prep briefings before recurring client calls or senior leadership check-ins</li><li>Synthesising context from emails, Teams recaps, and shared files before a meeting</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Complex scheduling across external attendees — availability lookups break outside the tenant</li><li>Executing reschedule actions without reviewing — never let conflict resolution send emails automatically</li><li>Assuming prep briefings are complete — they depend on transcribed Teams history being available</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Meeting prep briefing</div>
+                    <button class="copy-button" type="button" data-copy-text="Prepare me for my meeting with [name/team] on [date]. Summarise: what we last discussed, any open items I committed to, and what they are likely to want to address based on recent emails.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Prepare me for my meeting with [name/team] on [date]. Summarise: what we last discussed, any open items I committed to, and what they are likely to want to address based on recent emails.</p>
+                </div>
+              </div>
+            </div>            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Scheduled Prompts</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Monday morning week-start briefings — prevents inbox surprises before they compound</li><li>Friday accountability sweeps across commitments made during the week</li><li>Client-specific monitoring: surface anything from a key account that needs your attention</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Vague scheduled prompts — they produce vague summaries. Write them with specific scope and constraints</li><li>Treating the output as a replacement for your own inbox check — it&rsquo;s a supplement, not a substitute</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Monday morning briefing (set as scheduled prompt)</div>
+                    <button class="copy-button" type="button" data-copy-text="Review this week's emails. Flag anything still needing a reply, summarise my key commitments, and list any meetings today I should prepare for.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Review this week's emails. Flag anything still needing a reply, summarise my key commitments, and list any meetings today I should prepare for.</p>
+                </div>                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Friday accountability sweep (set as scheduled prompt)</div>
+                    <button class="copy-button" type="button" data-copy-text="List all emails where I committed to something this week and have not yet replied or followed up. Include the original email subject, the commitment, and the recipient.">Copy</button>
+                  </div>
+                  <p class="prompt-text">List all emails where I committed to something this week and have not yet replied or followed up. Include the original email subject, the commitment, and the recipient.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Ampersand Spotlight &mdash; Using This Responsibly</h2>
+          <p>Copilot drafts in your name and reads your entire inbox. Both carry real implications for how you communicate and what gets surfaced.</p>
+        </div></div>
+        <div class="ethics-grid">
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-user-check" aria-hidden="true"></i></div>
+            <h4>AI-drafted emails carry your name</h4>
+            <p>When Copilot drafts an email, the sender line says it came from you. For routine coordination this is fine. For sensitive messages &mdash; client complaints, personal acknowledgments, difficult conversations &mdash; the recipient may reasonably expect your voice. Ask yourself: if they knew this was AI-drafted, would it change how they receive it?</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-inbox" aria-hidden="true"></i></div>
+            <h4>Inbox-wide queries surface everything</h4>
+            <p>Copilot can see your entire inbox, including conversations you may have forgotten &mdash; HR threads, salary discussions, legal communications, personal messages. AI-assisted search makes previously buried content trivially findable. Be deliberate about what you ask it to surface.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
+            <h4>Scheduling autonomy is a trust decision</h4>
+            <p>Copilot&rsquo;s scheduling features can send invitations and reschedule notifications on your behalf. Never let conflict resolution execute changes without reviewing the proposed actions. A rescheduling email sent to an external client before you see it is very difficult to recover from.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-clock" aria-hidden="true"></i></div>
+            <h4>Scheduled prompts are standing instructions</h4>
+            <p>A scheduled prompt is an instruction you set once that Copilot executes automatically on a recurring basis. Write specific, constrained prompts. Vague standing instructions produce vague weekly summaries that provide no value &mdash; or worse, surface incomplete information that gives false confidence.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Practice Challenges</h2>
+          <p>These aren&rsquo;t feature walkthroughs. Each challenge combines multiple Copilot capabilities in a real scenario. Do them in the app.</p>
+        </div></div>
+        <div class="grid three" style="align-items:start;">
+          <div class="challenge-card">
+            <div class="challenge-number">01</div>
+            <p class="challenge-title">The Inbox Audit</p>
+            <p class="challenge-body">Pick a project that has been running for at least three weeks. Use Copilot to surface every commitment made across all email threads related to that project. Cross-check: were they all followed up on? Produce a one-paragraph accountability summary without reading a single thread manually.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Thread summary</span><span class="challenge-feature-tag">Inbox queries</span><span class="challenge-feature-tag">Action items</span></div>
+          </div>
+          <div class="challenge-card">
+            <div class="challenge-number">02</div>
+            <p class="challenge-title">Draft, Coach, Send</p>
+            <p class="challenge-body">Take the most important email you need to send this week. Generate a version with Copilot from a brief. Write a version yourself. Run coaching on both. Identify what each approach got right and wrong. Send the better version &mdash; edited, not raw.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Draft from brief</span><span class="challenge-feature-tag">Coaching mode</span><span class="challenge-feature-tag">Tone control</span></div>
+          </div>
+          <div class="challenge-card">
+            <div class="challenge-number">03</div>
+            <p class="challenge-title">The Pre-Meeting Package</p>
+            <p class="challenge-body">For your next recurring client or stakeholder meeting, use Copilot to build a full prep package: what was discussed last time, what you committed to, what they are likely to raise, and a draft opening message. Do it without opening a single prior email thread manually.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Meeting prep</span><span class="challenge-feature-tag">Thread summary</span><span class="challenge-feature-tag">Scheduled prompts</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><h2>Conclusion &amp; Reflections</h2><p>Take a moment to reflect &mdash; it&rsquo;s what makes the learning stick.</p></div></div>
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list"><li>Thread summary is the most reliable feature &mdash; use it as your default for long threads before you read or reply.</li><li>Draft from brief works best with a detailed prompt. The more specific the brief, the better the draft.</li><li>Coaching mode is underused. For high-stakes messages, write it yourself and let Copilot improve the delivery.</li><li>Meeting prep quality depends on transcribed Teams history. Better meetings produce better prep briefings.</li><li>Scheduled prompts are set-it-and-forget-it only if you write specific prompts. Vague prompts produce vague outputs.</li></ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list"><li>Think about where you spend the most time in email. Which of the three categories &mdash; reading, drafting, scheduling &mdash; would free up the most time?</li><li>For which types of email would you never use Copilot to generate? What makes those different?</li><li>If Copilot briefed you before every meeting, what would you still need to prepare manually &mdash; and why?</li><li>Have you ever sent an email and later regretted the tone? Would coaching mode have caught it?</li></ul>
+          </article>
+        </div>
+        <div class="callout brand" style="margin-top:18px;">
+          <h4>Supplemental reading</h4>
+          <ul><li><a href="https://support.microsoft.com/en-us/office/copilot-in-outlook" target="_blank">Copilot in Outlook overview &mdash; Microsoft Support</a></li><li><a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog" target="_blank">Microsoft 365 Copilot Blog &mdash; Tech Community</a></li></ul>
+        </div>
+        <div class="page-nav">
+          <a class="button secondary" href="teams.html">Back: Teams</a>
+          <a class="button primary" href="chat.html">Next: Chat</a>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="prompt-library">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Prompt Library</h2>
+          <p>Every prompt from this page in one place. Search or filter by workflow stage, then copy directly into Copilot.</p>
+        </div></div>
+        <div class="pl-bar">
+          <div class="pl-search-wrap">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input class="pl-search" id="pl-search" type="search" placeholder="Search prompts&hellip;" aria-label="Search prompts">
+          </div>
+          <div class="pl-filters" id="pl-filters" role="group" aria-label="Filter by category">
+            <button class="pl-filter-btn active" data-filter="all" type="button">All</button>
+            <button class="pl-filter-btn" data-filter="reading" type="button">Reading</button>
+            <button class="pl-filter-btn" data-filter="drafting" type="button">Drafting</button>
+            <button class="pl-filter-btn" data-filter="scheduling" type="button">Scheduling</button>
+            <button class="pl-filter-btn clear-btn" id="pl-clear" type="button">Clear</button>
+          </div>
+          <span class="pl-count" id="pl-count"></span>
+        </div>
+        <div class="pl-grid" id="pl-grid">
+          <div class="pl-entry" data-tags="reading">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Thread summary</span>
+              <span class="pl-tag">Reading</span>
+            </div>
+            <div class="pl-entry-text">Summarise this thread in three bullet points: the main issue, what has been agreed so far, and what is still outstanding or unresolved.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Summarise this thread in three bullet points: the main issue, what has been agreed so far, and what is still outstanding or unresolved.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="reading">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Action item extraction</span>
+              <span class="pl-tag">Reading</span>
+            </div>
+            <div class="pl-entry-text">Extract all action items from this thread. For each: the task, the owner, and any deadline mentioned. Format as a numbered list.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Extract all action items from this thread. For each: the task, the owner, and any deadline mentioned. Format as a numbered list.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="reading">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Inbox pending items</span>
+              <span class="pl-tag">Reading</span>
+            </div>
+            <div class="pl-entry-text">What emails from [person or company] in the last 30 days still need a response from me?</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="What emails from [person or company] in the last 30 days still need a response from me?">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="reading">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Today's inbox prioritisation</span>
+              <span class="pl-tag">Reading</span>
+            </div>
+            <div class="pl-entry-text">Prioritise my unread emails today: (1) needs immediate action, (2) reply this week, (3) FYI only. For each action item, tell me what is needed and by when.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Prioritise my unread emails today: (1) needs immediate action, (2) reply this week, (3) FYI only. For each action item, tell me what is needed and by when.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="drafting">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Draft from brief</span>
+              <span class="pl-tag">Drafting</span>
+            </div>
+            <div class="pl-entry-text">Draft an email to [name] about [topic]. Key points: [1], [2], [3]. Tone: professional but not stiff. Length: concise.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Draft an email to [name] about [topic]. Key points: [1], [2], [3]. Tone: professional but not stiff. Length: concise.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="drafting">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Coaching review</span>
+              <span class="pl-tag">Drafting</span>
+            </div>
+            <div class="pl-entry-text">Review my draft and suggest improvements for tone, clarity, and conciseness. I want it to sound direct but not abrupt. Flag anything that could land badly.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Review my draft and suggest improvements for tone, clarity, and conciseness. I want it to sound direct but not abrupt. Flag anything that could land badly.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="drafting">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Rewrite to be more direct</span>
+              <span class="pl-tag">Drafting</span>
+            </div>
+            <div class="pl-entry-text">Rewrite my draft reply to be more direct. Lead with the answer, not the context. Cut it by 30%. Keep the professional tone.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Rewrite my draft reply to be more direct. Lead with the answer, not the context. Cut it by 30%. Keep the professional tone.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="scheduling">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Meeting prep briefing</span>
+              <span class="pl-tag">Scheduling</span>
+            </div>
+            <div class="pl-entry-text">Prepare me for my meeting with [name/team] on [date]. Summarise: what we last discussed, any open items I committed to, and what they are likely to want to address based on recent emails.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Prepare me for my meeting with [name/team] on [date]. Summarise: what we last discussed, any open items I committed to, and what they are likely to want to address based on recent emails.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="scheduling">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Monday morning briefing (scheduled prompt)</span>
+              <span class="pl-tag">Scheduling</span>
+            </div>
+            <div class="pl-entry-text">Review this week's emails. Flag anything still needing a reply, summarise my key commitments, and list any meetings today I should prepare for.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Review this week's emails. Flag anything still needing a reply, summarise my key commitments, and list any meetings today I should prepare for.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="scheduling">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Friday accountability sweep (scheduled prompt)</span>
+              <span class="pl-tag">Scheduling</span>
+            </div>
+            <div class="pl-entry-text">List all emails where I committed to something this week and have not yet replied or followed up. Include the original email subject, the commitment, and the recipient.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="List all emails where I committed to something this week and have not yet replied or followed up. Include the original email subject, the commitment, and the recipient.">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="pl-no-results" id="pl-no-results">No prompts match your search. Try a different keyword or clear the filters.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (function(){
+    var search=document.getElementById('pl-search');
+    var grid=document.getElementById('pl-grid');
+    var noRes=document.getElementById('pl-no-results');
+    var countEl=document.getElementById('pl-count');
+    var clearBtn=document.getElementById('pl-clear');
+    var filterBtns=Array.from(document.querySelectorAll('#pl-filters .pl-filter-btn[data-filter]'));
+    var entries=Array.from(grid.querySelectorAll('.pl-entry'));
+    var activeFilter='all';
+    function updateCount(v){countEl.textContent=v===entries.length?entries.length+' prompts':v+' of '+entries.length+' prompts';}
+    function applyFilters(){
+      var q=search.value.trim().toLowerCase();var v=0;
+      entries.forEach(function(e){
+        var txt=(e.querySelector('.pl-entry-text').textContent+' '+e.querySelector('.pl-entry-label').textContent+' '+(e.dataset.tags||'')).toLowerCase();
+        var mf=activeFilter==='all'||(e.dataset.tags||'').toLowerCase().includes(activeFilter);
+        var ms=!q||txt.includes(q);
+        var show=mf&&ms;e.style.display=show?'':'none';if(show)v++;
+      });
+      noRes.style.display=v===0?'block':'none';updateCount(v);
+      clearBtn.classList.toggle('visible',activeFilter!=='all'||q.length>0);
+    }
+    filterBtns.forEach(function(btn){
+      if(btn.id==='pl-clear')return;
+      btn.addEventListener('click',function(){
+        activeFilter=btn.dataset.filter;
+        filterBtns.forEach(function(b){b.classList.toggle('active',b.dataset.filter===activeFilter);});
+        applyFilters();
+      });
+    });
+    clearBtn.addEventListener('click',function(){activeFilter='all';search.value='';filterBtns.forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});applyFilters();});
+    search.addEventListener('input',applyFilters);
+    applyFilters();
+  })();
+  </script>
+</body>
+</html>

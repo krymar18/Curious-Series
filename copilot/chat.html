@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Copilot Chat</title>
+
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    .lic-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.05em;background:var(--brand-soft);color:var(--brand);white-space:nowrap}
+    .sub-feature{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-soft);overflow:clip;margin-top:18px}
+    .sub-feature-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.7)}
+    .sub-feature-title{font-size:.96rem;font-weight:800;color:var(--text);flex:1;min-width:0}
+    .sub-feature-body{padding:16px 18px;color:var(--body);line-height:1.75}
+    .sub-feature-body>p:first-child{margin-top:0}
+    .sub-feature-body>p:last-child,.sub-feature-body>ul:last-child{margin-bottom:0}
+    .exercise-details{margin-top:14px;background:var(--success-soft);border:1.5px solid rgba(29,106,59,.22);border-radius:var(--radius-sm);overflow:clip}
+    .exercise-details summary{padding:12px 16px;font-size:.88rem;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--success);background:transparent}
+    .exercise-details summary::after{color:var(--success)}
+    .exercise-details .exercise-body{padding:0 16px 16px;color:var(--body);line-height:1.75}
+    .exercise-details .exercise-body ol,.exercise-details .exercise-body ul{margin:0;padding-left:20px}
+    .exercise-details .exercise-body li+li{margin-top:6px}
+    .rel-table-wrap{overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border);background:rgba(255,255,255,.94);margin-top:12px}
+    .rel-table-wrap table{min-width:520px}
+    .ethics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .ethics-card{border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 20px;background:rgba(255,255,255,.88)}
+    .ethics-card-icon{font-size:22px;color:var(--brand);margin-bottom:8px}
+    .ethics-card h4{margin:0 0 8px;font-size:.95rem;color:var(--text)}
+    .ethics-card p{margin:0;font-size:.9rem;color:var(--body);line-height:1.7}
+    @media(max-width:680px){.ethics-grid{grid-template-columns:1fr}}
+    .challenge-card{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px;box-shadow:0 16px 28px rgba(23,15,5,.05);display:flex;flex-direction:column;gap:10px}
+    .challenge-number{font-size:2.2rem;font-family:'DM Serif Display',serif;color:var(--brand);line-height:1;opacity:.2}
+    .challenge-title{font-size:1.05rem;font-weight:800;color:var(--text);margin:0}
+    .challenge-body{font-size:.92rem;color:var(--body);line-height:1.75;margin:0}
+    .challenge-features{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+    .challenge-feature-tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+    .use-case-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .use-case-box{border-radius:var(--radius-sm);padding:12px 14px}
+    .use-case-box.excellent{background:var(--success-soft);border:1.5px solid rgba(29,106,59,.22)}
+    .use-case-box.avoid{background:var(--accent-soft);border:1.5px solid rgba(122,77,29,.22)}
+    .use-case-box-label{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+    .use-case-box.excellent .use-case-box-label{color:var(--success)}
+    .use-case-box.avoid .use-case-box-label{color:var(--accent)}
+    .use-case-box ul{margin:0;padding-left:16px;font-size:.88rem;line-height:1.7;color:var(--body)}
+    .use-case-box ul li+li{margin-top:4px}
+    .pl-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-sm)}
+    .pl-search-wrap{flex:1;min-width:200px;position:relative}
+    .pl-search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;pointer-events:none}
+    .pl-search{width:100%;padding:9px 12px 9px 36px;border:1.5px solid var(--border);border-radius:99px;font:inherit;font-size:14px;background:var(--surface);color:var(--text);transition:border-color .15s;box-sizing:border-box}
+    .pl-search:focus{outline:none;border-color:var(--brand)}
+    .pl-filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .pl-filter-btn{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);font:inherit;font-size:12px;font-weight:600;color:var(--body);cursor:pointer;transition:all .15s;white-space:nowrap}
+    .pl-filter-btn:hover{border-color:var(--brand);color:var(--brand)}
+    .pl-filter-btn.active{background:var(--brand);border-color:var(--brand);color:#fff}
+    .pl-filter-btn.clear-btn{border-color:transparent;color:var(--muted);display:none}
+    .pl-filter-btn.clear-btn:hover{color:var(--danger)}
+    .pl-filter-btn.clear-btn.visible{display:inline-flex}
+    .pl-grid{display:grid;gap:10px}
+    .pl-entry{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:clip;transition:border-color .15s}
+    .pl-entry:hover{border-color:rgba(32,77,137,.3)}
+    .pl-entry-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:rgba(32,77,137,.04);border-bottom:1px solid rgba(32,77,137,.08)}
+    .pl-entry-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);flex:1;min-width:0}
+    .pl-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--brand-soft);color:var(--brand);white-space:nowrap}
+    .pl-entry-text{padding:10px 14px;font-size:13.5px;line-height:1.7;color:var(--text);white-space:pre-wrap}
+    .pl-entry-foot{padding:0 14px 10px;display:flex;justify-content:flex-end}
+    .pl-count{font-size:12px;color:var(--muted);font-weight:500}
+    .pl-no-results{text-align:center;padding:32px 0;color:var(--muted);font-size:.92rem;font-style:italic;display:none}
+    .details-body>p{margin-left:0}
+    .details-body>.callout{margin-left:0}
+    .details-body>.table-wrap{margin-left:0}
+    .details-body>.sub-feature{margin-left:0}
+    .sub-feature-body .prompt-box{margin-top:12px;margin-left:0}
+    .sub-feature-body .callout{margin-top:12px}
+    .sub-feature-body .grid{margin-left:0}
+    section .prompt-box{margin-left:0}
+  </style>
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners &bull; Session 2</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="teams.html" data-nav-link>Teams</a>
+        <a href="outlook.html" data-nav-link>Outlook</a>
+        <a href="chat.html" data-nav-link>Chat</a>
+        <a href="excel.html" data-nav-link>Excel</a>
+        <a href="sharepoint.html" data-nav-link>SharePoint</a>
+        <a href="powerpoint.html" data-nav-link>PowerPoint</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Beginners &bull; Session 2</div>
+            <h1 class="title">Copilot Chat</h1>
+            <p class="lede">A practical reference for the command centre of M365 Copilot &mdash; the only surface that simultaneously queries your email, Teams, SharePoint, calendar, and the web from a single conversation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Use Copilot Chat to synthesise across your full M365 environment, find files by topic rather than filename, turn AI output into shared living documents, and run research that combines your internal data with current public information.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>Copilot Chat sees more of your work context than any individual tool. Cross-app synthesis is its highest-value capability and its most error-prone. Any synthesis you act on or share should be verified against source content for its most consequential claims.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>What You Have</h2>
+          <p>Everyone in this training has M365 Copilot. Expand for the full tier comparison &mdash; the free tier is available to all M365 users but only works on public web content.</p>
+        </div></div>
+        <details>
+          <summary>License tier breakdown</summary>
+          <div class="details-body">
+            <div class="table-wrap"><table>
+              <thead><tr><th>License</th><th>Cost</th><th>What it adds</th><th>Key limitation</th></tr></thead>
+              <tbody>
+<tr><td><b>M365 Base (free Copilot Chat)</b></td><td>Free</td><td>Web-grounded answers via Bing, basic image generation</td><td>No access to your M365 data (emails, files, Teams, calendar) &mdash; web only</td></tr>
+<tr style="background:var(--brand-soft)"><td><b>M365 Copilot &mdash; &#10003; You are here</b></td><td>~$30/user/mo</td><td>Work mode (full M365 tenant access: emails, Teams, SharePoint, calendar, meeting recaps), web mode, file search by topic, cross-app synthesis, Copilot Pages, Context IQ, model selector (Auto / GPT-5.5 / Claude), Researcher and Analyst agents, scheduled prompts</td><td>Cross-app synthesis quality depends on how well your M365 content is labelled and structured; some agents are metered (pay-per-query)</td></tr></tbody>
+            </table></div>
+          </div>
+        </details>
+        <div class="callout neutral" style="margin-top:14px;">
+          <h4>Work mode vs Web mode</h4>
+          <p>Copilot Chat operates in two grounding modes. Work mode draws on your M365 tenant data (emails, files, chats, meetings) and stays within your M365 security boundary. Web mode draws on Bing-indexed public content. In a work context, default to Work mode unless you specifically need current public information.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Features</h2>
+          <p>Cross-app synthesis, file search, Copilot Pages, web research, and agents &mdash; all from a single conversational interface.</p>
+        </div></div>
+
+        <details>
+          <summary>Cross-App Synthesis &mdash; The Core Capability</summary>
+          <div class="details-body">
+            <p>The highest-value use of Copilot Chat: synthesising context across email, Teams, SharePoint, calendar, and meeting recaps to answer a question no single app could answer alone.</p>
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Cross-Source Queries &amp; Work Catch-Up</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Project briefings that pull from emails, Teams chats, SharePoint, and meeting recaps simultaneously</li><li>Work catch-ups after absence &mdash; surfacing what happened across all channels while you were away</li><li>Pre-meeting context synthesis: what you last discussed, outstanding commitments, likely agenda items</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Informal content &mdash; quick Teams messages, one-line emails &mdash; is often missed by synthesis</li><li>Open discussions presented as reached conclusions &mdash; always verify consequential claims against source content</li><li>Coverage gaps after absence: Copilot may miss content from channels it didn&rsquo;t index; supplement with manual activity review</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Project briefing</div>
+                    <button class="copy-button" type="button" data-copy-text="Give me a one-paragraph briefing on [project/topic]. What has been decided, what is still open, what do I need to action? Sources: my emails and Teams from the last two weeks. Cite your sources.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Give me a one-paragraph briefing on [project/topic]. What has been decided, what is still open, what do I need to action? Sources: my emails and Teams from the last two weeks. Cite your sources.</p>
+                </div>                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Work catch-up after absence</div>
+                    <button class="copy-button" type="button" data-copy-text="I was out [time period]. What did I miss? Cover: emails needing a reply, key decisions made in Teams, and any meetings that happened without me.">Copy</button>
+                  </div>
+                  <p class="prompt-text">I was out [time period]. What did I miss? Cover: emails needing a reply, key decisions made in Teams, and any meetings that happened without me.</p>
+                </div>                <details class="exercise-details">
+                  <summary><i class="ti ti-flask" aria-hidden="true"></i> Exercise &mdash; Cross-App Synthesis in Practice</summary>
+                  <div class="exercise-body"><ol><li>Choose a project that has had activity in email, Teams, and at least one meeting in the last two weeks.</li><li>Use the project briefing prompt above. Review the output against what you know to be true.</li><li>Identify: one thing it got right, one thing it missed, and one thing it misframed or oversimplified.</li><li><strong>Reflection:</strong> What would you need to change about how your team communicates for this to be reliably accurate?</li></ol></div>
+                </details>
+              </div>
+            </div>            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">File Search &amp; Context IQ</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Finding files by describing what they contain rather than what they&rsquo;re named</li><li>Scoping a query to a specific channel, file, or person using the &lsquo;/&rsquo; key (Context IQ)</li><li>Comparing two documents side by side &mdash; contracts, proposals, policy versions &mdash; without opening either app</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Poorly named files in deeply nested folders &mdash; findability degrades with bad information architecture</li><li>Files you don&rsquo;t have permission to see &mdash; Copilot Chat works within permissions, not around them</li><li>Assuming results are exhaustive &mdash; files that aren&rsquo;t indexed or accessible won&rsquo;t surface</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Topic-based file search</div>
+                    <button class="copy-button" type="button" data-copy-text="Find all documents in my SharePoint and OneDrive related to [topic] from the last [timeframe]. Return the five most relevant with a one-sentence description of each.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Find all documents in my SharePoint and OneDrive related to [topic] from the last [timeframe]. Return the five most relevant with a one-sentence description of each.</p>
+                </div>                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Document comparison</div>
+                    <button class="copy-button" type="button" data-copy-text="Based on /[file 1] and /[file 2], what are the key differences in how these two [proposals / contracts / approaches] handle [specific issue]?">Copy</button>
+                  </div>
+                  <p class="prompt-text">Based on /[file 1] and /[file 2], what are the key differences in how these two [proposals / contracts / approaches] handle [specific issue]?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary>Copilot Pages, Web Research &amp; Agents</summary>
+          <div class="details-body">
+            <p>Copilot Pages turns AI output into a shared living document. Web mode brings current external information into the conversation. Agents extend the capability further.</p>
+            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Copilot Pages</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Turning a Copilot output into a shareable, collaborative Loop document that the team can edit and contribute to</li><li>Creating a running project status page that replaces status email chains</li><li>Building a shared research document without leaving M365</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Pages require Loop to be enabled in your tenant &mdash; verify with IT before building workflows around it</li><li>Treating a Pages document as authoritative without the team verifying and contributing to it</li><li>Confusing Pages with SharePoint pages &mdash; they are Loop documents (informal, fast, collaborative), not published intranet content</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Turn output into a Page</div>
+                    <button class="copy-button" type="button" data-copy-text="Turn this output into a Copilot Page I can share with [team]. Add a section for open questions they can contribute to.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Turn this output into a Copilot Page I can share with [team]. Add a section for open questions they can contribute to.</p>
+                </div>
+              </div>
+            </div>            <div class="sub-feature">
+              <div class="sub-feature-head">
+                <span class="sub-feature-title">Web Research &amp; Model Selection</span>
+                <span class="lic-chip">M365 Copilot</span>
+              </div>
+              <div class="sub-feature-body">
+                <div class="use-case-grid">
+                  <div class="use-case-box excellent">
+                    <div class="use-case-box-label"><i class="ti ti-circle-check"></i> Excellent at</div>
+                    <ul><li>Current industry news, competitor context, regulatory updates, and benchmarking data not in your internal files</li><li>Background research for proposals requiring up-to-date public information</li><li>Selecting Claude for long document analysis or nuanced writing tasks; GPT-5.5 for structured data and analytical reasoning</li></ul>
+                  </div>
+                  <div class="use-case-box avoid">
+                    <div class="use-case-box-label"><i class="ti ti-alert-triangle"></i> Better avoided for</div>
+                    <ul><li>Treating web-sourced claims as verified &mdash; Bing-indexed content varies widely in source quality and recency</li><li>Using web mode when work mode would answer the question from your internal data</li><li>Switching models mid-conversation &mdash; start a new conversation when changing models to avoid context inconsistencies</li></ul>
+                  </div>
+                </div>
+                                <div class="prompt-box">
+                  <div class="prompt-box-head">
+                    <div class="prompt-box-label">Web research briefing</div>
+                    <button class="copy-button" type="button" data-copy-text="Using web search, brief me on [topic]. What is the current state, who are the key players, and what has changed in the last 12 months? Cite sources and note anything particularly recent.">Copy</button>
+                  </div>
+                  <p class="prompt-text">Using web search, brief me on [topic]. What is the current state, who are the key players, and what has changed in the last 12 months? Cite sources and note anything particularly recent.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Ampersand Spotlight &mdash; Using This Responsibly</h2>
+          <p>Copilot Chat can see more of your work than any individual tool. That cross-channel visibility is its core value &mdash; and its most significant tension.</p>
+        </div></div>
+        <div class="ethics-grid">
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-eye" aria-hidden="true"></i></div>
+            <h4>Cross-app visibility dissolves channel boundaries</h4>
+            <p>Email, Teams, and meetings exist as separate channels partly for reasons &mdash; some things are discussed there for speed, some for audit trail, some because participants wanted a private conversation. A cross-app query surfaces content from all channels simultaneously, regardless of the intent behind the original communication. Be deliberate about what you ask it to synthesise.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-alert-circle" aria-hidden="true"></i></div>
+            <h4>Synthesis errors compound</h4>
+            <p>When Copilot combines information from multiple sources, it may conflate projects sharing a name, present an open discussion as a conclusion, or miss a critical Teams message that would change the summary. Any cross-app synthesis used for a decision should be verified against source content for its most consequential claims.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+            <h4>Web sources are not all equal</h4>
+            <p>When Copilot uses web grounding, it cites sources &mdash; but not all sources are equal. The formatting of Copilot&rsquo;s response does not distinguish between a peer-reviewed analysis and vendor marketing copy. Source quality evaluation is your responsibility, not Copilot&rsquo;s.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-card-icon"><i class="ti ti-shield" aria-hidden="true"></i></div>
+            <h4>Agents may be metered</h4>
+            <p>Some agents in Copilot Chat are pay-per-query rather than covered by your flat licence. This applies to certain third-party agents and compute-intensive Microsoft capabilities. Check with IT which agents have metered pricing before including them in team workflows.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Practice Challenges</h2>
+          <p>These aren&rsquo;t feature walkthroughs. Each challenge combines multiple Copilot capabilities in a real scenario. Do them in the app.</p>
+        </div></div>
+        <div class="grid three" style="align-items:start;">
+          <div class="challenge-card">
+            <div class="challenge-number">01</div>
+            <p class="challenge-title">The Cross-App Briefing</p>
+            <p class="challenge-body">Choose a project with activity spread across email, Teams, and at least one SharePoint document. Use a single Copilot Chat conversation to produce a one-page project briefing: current status, open decisions, your outstanding commitments, and what the key stakeholders are likely to raise next. Verify every claim against a source.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Cross-app synthesis</span><span class="challenge-feature-tag">File search</span><span class="challenge-feature-tag">Work mode</span></div>
+          </div>
+          <div class="challenge-card">
+            <div class="challenge-number">02</div>
+            <p class="challenge-title">The Research Sprint</p>
+            <p class="challenge-body">Use Copilot Chat to produce a competitive briefing on a topic relevant to Ampersand&rsquo;s market &mdash; multiscreen TV advertising, connected TV trends, or addressable advertising. Use web mode for public context and work mode for internal context. Turn the output into a Copilot Page. Share it with at least one colleague and ask them to add one correction or gap.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Web research</span><span class="challenge-feature-tag">Copilot Pages</span><span class="challenge-feature-tag">Work + Web mode</span></div>
+          </div>
+          <div class="challenge-card">
+            <div class="challenge-number">03</div>
+            <p class="challenge-title">The Scheduled Prompt Setup</p>
+            <p class="challenge-body">Set up two scheduled prompts &mdash; one for Monday morning and one for Friday afternoon &mdash; that would genuinely change how you manage your week. Run them for two weeks. After the second week, assess: what was accurate and useful, what was consistently wrong or missing, and what manual task you can now stop doing.</p>
+            <div class="challenge-features"><span class="challenge-feature-tag">Scheduled prompts</span><span class="challenge-feature-tag">Cross-app synthesis</span><span class="challenge-feature-tag">Inbox management</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head"><div><h2>Conclusion &amp; Reflections</h2><p>Take a moment to reflect &mdash; it&rsquo;s what makes the learning stick.</p></div></div>
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list"><li>Copilot Chat is the only M365 surface that queries email, Teams, SharePoint, calendar, and the web simultaneously &mdash; that cross-signal capability is its core value.</li><li>Cross-app synthesis is the most powerful feature and the most error-prone. Verify consequential claims against source content before acting or sharing.</li><li>Use Context IQ (the / key) to scope queries to specific channels, files, or people when you want precision over breadth.</li><li>Copilot Pages turns AI output into a collaborative living document &mdash; use it to replace status email chains with a shared, editable record.</li><li>Work mode stays in your M365 boundary; Web mode uses Bing. Default to Work mode unless you need current public information.</li></ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list"><li>Copilot Chat can brief you on a project by reading your emails, Teams chats, and meeting notes simultaneously. What does that change about how you manage information across those channels?</li><li>A cross-app synthesis gives you a confident-sounding summary. What would you verify before acting on it?</li><li>If Copilot Chat can surface everything a colleague has said about a topic across email, Teams, and meetings &mdash; what does that do to the informal, candid conversations that happen in those channels?</li></ul>
+          </article>
+        </div>
+        <div class="callout brand" style="margin-top:18px;">
+          <h4>Supplemental reading</h4>
+          <ul><li><a href="https://support.microsoft.com/en-us/copilot/microsoft-365/" target="_blank">Copilot Chat overview &mdash; Microsoft Support</a></li><li><a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog" target="_blank">Microsoft 365 Copilot Blog &mdash; Tech Community</a></li></ul>
+        </div>
+        <div class="page-nav">
+          <a class="button secondary" href="outlook.html">Back: Outlook</a>
+          <a class="button primary" href="excel.html">Next: Excel</a>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="prompt-library">
+      <div class="shell">
+        <div class="section-head"><div>
+          <h2>Prompt Library</h2>
+          <p>Every prompt from this page in one place. Search or filter by workflow stage, then copy directly into Copilot.</p>
+        </div></div>
+        <div class="pl-bar">
+          <div class="pl-search-wrap">
+            <i class="ti ti-search" aria-hidden="true"></i>
+            <input class="pl-search" id="pl-search" type="search" placeholder="Search prompts&hellip;" aria-label="Search prompts">
+          </div>
+          <div class="pl-filters" id="pl-filters" role="group" aria-label="Filter by category">
+            <button class="pl-filter-btn active" data-filter="all" type="button">All</button>
+            <button class="pl-filter-btn" data-filter="synthesis" type="button">Cross-App</button>
+            <button class="pl-filter-btn" data-filter="search" type="button">File Search</button>
+            <button class="pl-filter-btn" data-filter="web" type="button">Web Research</button>
+            <button class="pl-filter-btn" data-filter="pages" type="button">Pages &amp; Artifacts</button>
+            <button class="pl-filter-btn clear-btn" id="pl-clear" type="button">Clear</button>
+          </div>
+          <span class="pl-count" id="pl-count"></span>
+        </div>
+        <div class="pl-grid" id="pl-grid">
+          <div class="pl-entry" data-tags="cross-app">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Project briefing</span>
+              <span class="pl-tag">Cross-App</span>
+            </div>
+            <div class="pl-entry-text">Give me a one-paragraph briefing on [project/topic]. What has been decided, what is still open, what do I need to action? Sources: my emails and Teams from the last two weeks. Cite your sources.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Give me a one-paragraph briefing on [project/topic]. What has been decided, what is still open, what do I need to action? Sources: my emails and Teams from the last two weeks. Cite your sources.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="cross-app">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Work catch-up after absence</span>
+              <span class="pl-tag">Cross-App</span>
+            </div>
+            <div class="pl-entry-text">I was out [time period]. What did I miss? Cover: emails needing a reply, key decisions made in Teams, and any meetings that happened without me.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="I was out [time period]. What did I miss? Cover: emails needing a reply, key decisions made in Teams, and any meetings that happened without me.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="cross-app">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Pre-meeting context</span>
+              <span class="pl-tag">Cross-App</span>
+            </div>
+            <div class="pl-entry-text">Before my meeting with [name] tomorrow, summarise our last three interactions and any commitments I made that are still outstanding.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Before my meeting with [name] tomorrow, summarise our last three interactions and any commitments I made that are still outstanding.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="filesearch">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Topic-based file search</span>
+              <span class="pl-tag">File Search</span>
+            </div>
+            <div class="pl-entry-text">Find all documents in my SharePoint and OneDrive related to [topic] from the last [timeframe]. Return the five most relevant with a one-sentence description of each.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Find all documents in my SharePoint and OneDrive related to [topic] from the last [timeframe]. Return the five most relevant with a one-sentence description of each.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="filesearch">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Document comparison</span>
+              <span class="pl-tag">File Search</span>
+            </div>
+            <div class="pl-entry-text">Based on /[file 1] and /[file 2], what are the key differences in how these two [proposals / contracts / approaches] handle [specific issue]?</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Based on /[file 1] and /[file 2], what are the key differences in how these two [proposals / contracts / approaches] handle [specific issue]?">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="webresearch">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Web research briefing</span>
+              <span class="pl-tag">Web Research</span>
+            </div>
+            <div class="pl-entry-text">Using web search, brief me on [topic]. What is the current state, who are the key players, and what has changed in the last 12 months? Cite sources.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Using web search, brief me on [topic]. What is the current state, who are the key players, and what has changed in the last 12 months? Cite sources.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="webresearch">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Competitor context</span>
+              <span class="pl-tag">Web Research</span>
+            </div>
+            <div class="pl-entry-text">What do competitors typically say about [capability or claim] in their marketing materials? Give me three examples with sources.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="What do competitors typically say about [capability or claim] in their marketing materials? Give me three examples with sources.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="pagesartifacts">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Turn output into a Page</span>
+              <span class="pl-tag">Pages & Artifacts</span>
+            </div>
+            <div class="pl-entry-text">Turn this output into a Copilot Page I can share with [team]. Add a section for open questions they can contribute to.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Turn this output into a Copilot Page I can share with [team]. Add a section for open questions they can contribute to.">Copy</button>
+            </div>
+          </div>
+          <div class="pl-entry" data-tags="pagesartifacts">
+            <div class="pl-entry-head">
+              <span class="pl-entry-label">Draft shareable status update</span>
+              <span class="pl-tag">Pages & Artifacts</span>
+            </div>
+            <div class="pl-entry-text">Draft a project status update using my emails and Teams messages from [project] in the last two weeks. Include: decisions made, open items, and blockers. Format it as a structured document I can share.</div>
+            <div class="pl-entry-foot">
+              <button class="copy-button" type="button" data-copy-text="Draft a project status update using my emails and Teams messages from [project] in the last two weeks. Include: decisions made, open items, and blockers. Format it as a structured document I can share.">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="pl-no-results" id="pl-no-results">No prompts match your search. Try a different keyword or clear the filters.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (function(){
+    var search=document.getElementById('pl-search');
+    var grid=document.getElementById('pl-grid');
+    var noRes=document.getElementById('pl-no-results');
+    var countEl=document.getElementById('pl-count');
+    var clearBtn=document.getElementById('pl-clear');
+    var filterBtns=Array.from(document.querySelectorAll('#pl-filters .pl-filter-btn[data-filter]'));
+    var entries=Array.from(grid.querySelectorAll('.pl-entry'));
+    var activeFilter='all';
+    function updateCount(v){countEl.textContent=v===entries.length?entries.length+' prompts':v+' of '+entries.length+' prompts';}
+    function applyFilters(){
+      var q=search.value.trim().toLowerCase();var v=0;
+      entries.forEach(function(e){
+        var txt=(e.querySelector('.pl-entry-text').textContent+' '+e.querySelector('.pl-entry-label').textContent+' '+(e.dataset.tags||'')).toLowerCase();
+        var mf=activeFilter==='all'||(e.dataset.tags||'').toLowerCase().includes(activeFilter);
+        var ms=!q||txt.includes(q);
+        var show=mf&&ms;e.style.display=show?'':'none';if(show)v++;
+      });
+      noRes.style.display=v===0?'block':'none';updateCount(v);
+      clearBtn.classList.toggle('visible',activeFilter!=='all'||q.length>0);
+    }
+    filterBtns.forEach(function(btn){
+      if(btn.id==='pl-clear')return;
+      btn.addEventListener('click',function(){
+        activeFilter=btn.dataset.filter;
+        filterBtns.forEach(function(b){b.classList.toggle('active',b.dataset.filter===activeFilter);});
+        applyFilters();
+      });
+    });
+    clearBtn.addEventListener('click',function(){activeFilter='all';search.value='';filterBtns.forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});applyFilters();});
+    search.addEventListener('input',applyFilters);
+    applyFilters();
+  })();
+  </script>
+</body>
+</html>

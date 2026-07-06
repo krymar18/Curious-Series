@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Lab A — Teams Challenge</title>
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <link rel="stylesheet" href="../../assets/session-2.css">
+  <script defer src="../../assets/site.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    /* ── Lab page styles ── */
+    .lab-hero-tag { display:inline-flex;align-items:center;gap:6px;background:#e8f0fb;border:1px solid #b8d0f5;border-radius:100px;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#204d89;margin-bottom:14px; }
+    .lab-intro-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px; }
+    @media(max-width:700px){.lab-intro-grid{grid-template-columns:1fr;}}
+    .lab-meta-card { background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px; }
+    .lab-meta-label { font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:4px; }
+    .lab-meta-value { font-size:14px;font-weight:600;color:var(--text); }
+
+    /* ── Step cards ── */
+    .lab-step { border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px; }
+    .lab-step-head { display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border-bottom:1px solid var(--border); }
+    .lab-step-num { flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center; }
+    .lab-step-title { font-size:15px;font-weight:700;color:var(--text); }
+    .lab-step-app { margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap; }
+    .lab-step-body { padding:16px 18px;display:flex;flex-direction:column;gap:14px; }
+
+    /* ── Row types within a step ── */
+    .lab-row { display:flex;align-items:flex-start;gap:12px; }
+    .lab-row-icon { flex-shrink:0;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px; }
+    .lab-row-icon.action  { background:#e8f0fb;color:#204d89; }
+    .lab-row-icon.prompt  { background:#edf7f0;color:#1a6b3a; }
+    .lab-row-icon.look    { background:#fef3e2;color:#92500a; }
+    .lab-row-icon.reflect { background:#f3eeff;color:#6b21a8; }
+    .lab-row-icon.ethics  { background:#fdf0ee;color:#b91c1c; }
+    .lab-row-content { flex:1;min-width:0; }
+    .lab-row-label { font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px; }
+    .lab-row-label.action  { color:#204d89; }
+    .lab-row-label.prompt  { color:#1a6b3a; }
+    .lab-row-label.look    { color:#92500a; }
+    .lab-row-label.reflect { color:#6b21a8; }
+    .lab-row-label.ethics  { color:#b91c1c; }
+    .lab-row-text { font-size:13.5px;line-height:1.6;color:var(--body); }
+
+    /* ── Section dividers ── */
+    .lab-section-head { margin:28px 0 16px;padding-bottom:10px;border-bottom:2px solid var(--brand);display:flex;align-items:center;gap:10px; }
+    .lab-section-head h3 { font-size:17px;font-weight:700;color:var(--text);margin:0; }
+    .lab-section-tag { font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:var(--brand-soft);color:var(--brand); }
+
+    /* ── Checkpoint boxes ── */
+    .lab-checkpoint { background:#f0f9f4;border:1.5px solid #a8d5b5;border-radius:10px;padding:14px 16px;margin:4px 0; }
+    .lab-checkpoint-label { font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#1a6b3a;margin-bottom:6px; }
+    .lab-checkpoint ul { margin:0;padding-left:18px; }
+    .lab-checkpoint li { font-size:13px;line-height:1.6;color:var(--body);margin-bottom:3px; }
+
+    /* ── Ethics callout ── */
+    .lab-ethics { background:#fdf0ee;border:1.5px solid #f5c5bb;border-radius:10px;padding:14px 16px;margin:4px 0; }
+    .lab-ethics-label { font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b91c1c;margin-bottom:6px; }
+    .lab-ethics p,.lab-ethics li { font-size:13px;line-height:1.6;color:var(--body); }
+    .lab-ethics ul { margin:6px 0 0;padding-left:18px; }
+
+    /* ── Progress tracker ── */
+    .lab-progress { display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px; }
+    .lab-prog-dot { width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .2s;cursor:pointer; }
+    .lab-prog-dot.done { background:var(--brand); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Beginners • Session 2</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../../index.html" data-nav-link>Overview</a>
+        <a href="../language.html" data-nav-link>Working with Language</a>
+        <a href="../pattern-recognition.html" data-nav-link>Pattern Recognition</a>
+        <a href="../creativity.html" data-nav-link>Creativity</a>
+        <a href="../technical.html" data-nav-link>Technical Translation</a>
+        <a href="../agentic.html" data-nav-link>Agentic Workflows</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="lab-hero-tag"><i class="ti ti-brand-teams" aria-hidden="true"></i> Lab A — Teams</div>
+            <h1 class="title">From Meeting to Communication</h1>
+            <p class="lede">A real Teams meeting happened. Copilot was there. This lab walks you through using Copilot to extract everything useful from it — then turn it into the documentation, follow-ups, and audience-adapted communications that should come out of every meeting but rarely do.</p>
+            <div class="lab-intro-grid">
+              <div class="lab-meta-card">
+                <div class="lab-meta-label">Time required</div>
+                <div class="lab-meta-value">30 – 45 minutes</div>
+              </div>
+              <div class="lab-meta-card">
+                <div class="lab-meta-label">What you need</div>
+                <div class="lab-meta-value">A recorded Teams meeting with a transcript</div>
+              </div>
+              <div class="lab-meta-card">
+                <div class="lab-meta-label">Licence required</div>
+                <div class="lab-meta-value">Microsoft 365 Copilot (Premium)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+
+        <div class="callout neutral">
+          <h4>Before you start</h4>
+          <p>Find a Teams meeting that was recorded in the last two weeks. It should have at least three participants and cover a real project or topic — the more substantive the meeting, the more useful this lab will be. Open it in Teams before you begin. If you cannot find a recorded meeting, ask your manager or team lead if there is a recent one you can use.</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 1 — READING THE MEETING
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Part 1</span>
+          <h3>Reading the Meeting</h3>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">1</div>
+            <div class="lab-step-title">Get the plain-language summary</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Open the meeting in Teams. Click the <strong>Recap</strong> tab, then open Copilot. Paste the prompt below.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Summarise this meeting in plain language. Structure it as: (1) Purpose — what was the meeting for? (2) Key decisions made. (3) Key information shared. (4) What was not resolved or left open. Keep each section to 3 sentences maximum.">Copy</button></div>
+              <p class="prompt-text">Summarise this meeting in plain language. Structure it as: (1) Purpose — what was the meeting for? (2) Key decisions made. (3) Key information shared. (4) What was not resolved or left open. Keep each section to 3 sentences maximum.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Does the summary capture what you remember the meeting being about? Is the "not resolved" section accurate, or is it empty when it should not be? Notice how long it took Copilot to produce this vs. how long it would have taken you to write it manually.</div>
+              </div>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon reflect"><i class="ti ti-brain" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label reflect">Reflect</div>
+                <div class="lab-row-text">Did Copilot miss anything you consider significant? If so, what type of thing — a decision, a concern someone raised, a commitment someone made? That gap tells you something about where you still need to be the note-taker.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">2</div>
+            <div class="lab-step-title">Extract action items with owners</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">In the same Copilot thread, send the next prompt. Do not open a new chat — Copilot already has context from Step 1.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="List every action item from this meeting. For each one: (1) the action, (2) who owns it by name, (3) any deadline mentioned, (4) whether the person explicitly agreed to it or it was assigned to them. If no deadline was mentioned, say so.">Copy</button></div>
+              <p class="prompt-text">List every action item from this meeting. For each one: (1) the action, (2) who owns it by name, (3) any deadline mentioned, (4) whether the person explicitly agreed to it or it was assigned to them. If no deadline was mentioned, say so.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Check whether actions are attributed to the right people — misattribution is the most common error in AI meeting notes. Also note the distinction Copilot makes between items that were explicitly agreed vs. assigned — that difference matters when following up.</div>
+              </div>
+            </div>
+            <div class="lab-ethics">
+              <div class="lab-ethics-label"><i class="ti ti-shield" aria-hidden="true"></i> Ethics checkpoint</div>
+              <p>Before sharing AI-generated action items with the people they name: read every item. An incorrect attribution sent to a colleague creates a paper trail with wrong information in it. You are responsible for what you forward — AI-generated does not mean reviewed.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">3</div>
+            <div class="lab-step-title">Q&amp;A — ask specific questions of the transcript</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Pick one topic, decision, or person from your meeting summary and ask a specific question about it. Use the example below as a template, replacing the bracketed parts with something real from your meeting.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt — adapt to your meeting</div><button class="copy-button" type="button" data-copy-text="What exactly did [name or topic] say about [specific subject]? Quote the relevant part of the transcript. If they said nothing about it, say so rather than summarising nearby content.">Copy</button></div>
+              <p class="prompt-text">What exactly did [name or topic] say about [specific subject]? Quote the relevant part of the transcript. If they said nothing about it, say so rather than summarising nearby content.</p>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Follow-up prompt</div><button class="copy-button" type="button" data-copy-text="Was there any pushback or disagreement on this in the meeting? If so, who raised it and what was their concern?">Copy</button></div>
+              <p class="prompt-text">Was there any pushback or disagreement on this in the meeting? If so, who raised it and what was their concern?</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Notice whether Copilot quotes the transcript or paraphrases. A quote you can verify. A paraphrase you cannot — it may be accurate or it may be a close approximation. For high-stakes questions, always ask for the quote. If Copilot cannot quote it, the answer may not be in the transcript.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">4</div>
+            <div class="lab-step-title">Find related emails on the same project</div>
+            <div class="lab-step-app">Copilot Chat · SharePoint</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Open <strong>Copilot Chat</strong> (copilot.microsoft.com or the Copilot app). Use the prompt below to search across your emails and SharePoint for content related to the same project or topic as your meeting. Replace the brackets with the actual project name or topic.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Find emails and documents related to [project name or topic] from the last 30 days. For each one: who sent it or created it, the date, and a one-sentence summary of what it covers. Flag any that contain decisions or commitments that were not mentioned in my Teams meeting today.">Copy</button></div>
+              <p class="prompt-text">Find emails and documents related to [project name or topic] from the last 30 days. For each one: who sent it or created it, the date, and a one-sentence summary of what it covers. Flag any that contain decisions or commitments that were not mentioned in my Teams meeting today.</p>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">SharePoint-specific prompt</div><button class="copy-button" type="button" data-copy-text="Search SharePoint for any documents or pages about [project name or topic]. Summarise what each one covers and highlight anything that might contradict or add to what was discussed in my recent meeting.">Copy</button></div>
+              <p class="prompt-text">Search SharePoint for any documents or pages about [project name or topic]. Summarise what each one covers and highlight anything that might contradict or add to what was discussed in my recent meeting.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Are there decisions made over email that contradict what was decided in the meeting? Is there a document on SharePoint that should have been discussed but wasn't? This cross-referencing step is where Copilot's access across M365 adds real value — a single prompt covers emails, chats, and SharePoint simultaneously.</div>
+              </div>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon reflect"><i class="ti ti-brain" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label reflect">Reflect</div>
+                <div class="lab-row-text">Did Copilot surface anything you had forgotten or were not aware of? If there were contradictions between the email record and the meeting discussion — which one reflects the current agreed position?</div>
+              </div>
+            </div>
+            <div class="lab-ethics">
+              <div class="lab-ethics-label"><i class="ti ti-shield" aria-hidden="true"></i> Ethics checkpoint</div>
+              <p>Copilot Chat with work data accesses emails and documents shared with you within your organisation's M365 tenancy. It cannot access content from other tenancies, personal email accounts, or content you do not have permission to view. Be aware of what you are asking it to surface — particularly if the meeting or project involves sensitive HR, financial, or legal content.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">5</div>
+            <div class="lab-step-title">Adjust the summary using what you found</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Go back to your Teams Copilot thread. If you found anything in Step 4 that adds context or changes the picture — a prior decision, an outstanding document, a conflicting commitment — paste it in and ask Copilot to revise the summary.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Revise the meeting summary from earlier. Add the following context that was not in the transcript: [paste the relevant detail from Step 4]. Update the 'not resolved' section if this changes what is still open. Keep the same structure.">Copy</button></div>
+              <p class="prompt-text">Revise the meeting summary from earlier. Add the following context that was not in the transcript: [paste the relevant detail from Step 4]. Update the 'not resolved' section if this changes what is still open. Keep the same structure.</p>
+            </div>
+            <div class="lab-checkpoint">
+              <div class="lab-checkpoint-label">Part 1 checkpoint — before moving on, confirm:</div>
+              <ul>
+                <li>You have a summary you would be comfortable sharing with someone who missed the meeting</li>
+                <li>Action items are attributed to the correct people</li>
+                <li>The open items section reflects what you know to still be unresolved</li>
+                <li>You have cross-referenced with relevant emails or SharePoint documents</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 2 — WRITING FROM THE MEETING
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Part 2</span>
+          <h3>Writing from the Meeting</h3>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">6</div>
+            <div class="lab-step-title">Draft a Teams channel follow-up</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Still in your Teams Copilot thread. Ask Copilot to draft a channel message using the summary it has already built. Specify the audience — your immediate team — and keep it short.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Using the meeting summary above, draft a Teams channel message for the project team. It should cover: what was decided, who owns what next step, and what is still open. Audience: people who were in the meeting. Tone: direct and operational, not formal. Under 150 words.">Copy</button></div>
+              <p class="prompt-text">Using the meeting summary above, draft a Teams channel message for the project team. It should cover: what was decided, who owns what next step, and what is still open. Audience: people who were in the meeting. Tone: direct and operational, not formal. Under 150 words.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Does it read like something you would actually send? Or does it still feel like AI wrote it — filler language, over-formal, or missing your team's normal register? That gap is what a manual editing pass closes.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">7</div>
+            <div class="lab-step-title">Transform it — rewrite for a different audience</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Now ask Copilot to rewrite the same information as a formal internal memo — for someone senior who was not in the meeting and needs to understand the outcome without context.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Rewrite the meeting summary as a formal internal memo. Audience: a senior stakeholder who was not in the meeting and has no prior context on this project. Format: Subject, Background (2 sentences max), Decisions Made, Next Steps with owners, Open Items. Tone: professional and precise. Under 200 words.">Copy</button></div>
+              <p class="prompt-text">Rewrite the meeting summary as a formal internal memo. Audience: a senior stakeholder who was not in the meeting and has no prior context on this project. Format: Subject, Background (2 sentences max), Decisions Made, Next Steps with owners, Open Items. Tone: professional and precise. Under 200 words.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon reflect"><i class="ti ti-brain" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label reflect">Reflect on the difference</div>
+                <div class="lab-row-text">Compare the channel message (Step 6) and the memo (Step 7) side by side. The facts are the same. What changed? Vocabulary, structure, assumed knowledge, level of formality. This is exactly what "transforming text" means — same content, different register. How long would this have taken to produce manually?</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">8</div>
+            <div class="lab-step-title">Rewrite as a one-paragraph Slack or email update</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">One more transformation — this time for a partner or external-adjacent colleague who needs a brief update but not the full detail.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Condense the meeting summary into a single paragraph update for someone adjacent to the project — not a direct team member, but someone who needs to stay informed. Include only: the key outcome, the most important next step, and whether anything is blocked. Maximum 60 words.">Copy</button></div>
+              <p class="prompt-text">Condense the meeting summary into a single paragraph update for someone adjacent to the project — not a direct team member, but someone who needs to stay informed. Include only: the key outcome, the most important next step, and whether anything is blocked. Maximum 60 words.</p>
+            </div>
+            <div class="lab-checkpoint">
+              <div class="lab-checkpoint-label">Part 2 checkpoint — you now have three versions:</div>
+              <ul>
+                <li>A team channel message (operational, short, direct)</li>
+                <li>A formal memo (structured, precise, context-included)</li>
+                <li>A one-paragraph update (concise, outcome-focused)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PART 3 — ETHICS AND QUALITY CHECK
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Part 3</span>
+          <h3>Ethics and Quality Check</h3>
+        </div>
+
+        <!-- Step 9 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">9</div>
+            <div class="lab-step-title">What should not have been summarised</div>
+            <div class="lab-step-app">Reflection</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-ethics">
+              <div class="lab-ethics-label"><i class="ti ti-shield" aria-hidden="true"></i> Ethics — before you share anything</div>
+              <ul>
+                <li><strong>Confidential or sensitive discussion.</strong> If the meeting included HR matters, personal performance feedback, legal discussions, or financial detail not intended for broad circulation — that content should not appear in a summary you forward. AI does not redact; you do.</li>
+                <li><strong>Opinions and tone.</strong> AI transcription captures what was said but loses how it was said. A comment that was clearly meant as a joke, sarcastic, or hypothetical may appear in a summary as a statement of fact or intent. Read everything before it goes out.</li>
+                <li><strong>Attribution of disagreement.</strong> If Copilot noted that someone raised an objection, confirm this is accurate and that the person is comfortable with it being in writing before distributing. Putting pushback in a document without consent changes the dynamic.</li>
+                <li><strong>AI-generated ≠ verified.</strong> You are responsible for the accuracy of what you send. "Copilot wrote it" is not a defence for incorrect meeting notes.</li>
+              </ul>
+            </div>
+            <div class="lab-row" style="margin-top:12px;">
+              <div class="lab-row-icon reflect"><i class="ti ti-brain" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label reflect">Reflect</div>
+                <div class="lab-row-text">Go back through your three outputs. Is there anything in them that should not be in writing? Anything that needs to be softened, attributed more carefully, or removed entirely before sharing? Make those edits now — before considering these drafts final.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 10 -->
+        <div class="lab-step">
+          <div class="lab-step-head">
+            <div class="lab-step-num">10</div>
+            <div class="lab-step-title">Ask Copilot what it missed</div>
+            <div class="lab-step-app">Teams · Copilot</div>
+          </div>
+          <div class="lab-step-body">
+            <div class="lab-row">
+              <div class="lab-row-icon action"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label action">Do this</div>
+                <div class="lab-row-text">Return to your Teams Copilot thread one more time. Ask it directly what it may have missed or handled poorly.</div>
+              </div>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><div class="prompt-box-label">Copy prompt</div><button class="copy-button" type="button" data-copy-text="Looking at the summary and outputs you have produced from this meeting: what are you least confident about? Where might the transcript have been unclear, incomplete, or where might your summary have simplified something that was more nuanced? Tell me where I should double-check against the original recording.">Copy</button></div>
+              <p class="prompt-text">Looking at the summary and outputs you have produced from this meeting: what are you least confident about? Where might the transcript have been unclear, incomplete, or where might your summary have simplified something that was more nuanced? Tell me where I should double-check against the original recording.</p>
+            </div>
+            <div class="lab-row">
+              <div class="lab-row-icon look"><i class="ti ti-eye" aria-hidden="true"></i></div>
+              <div class="lab-row-content">
+                <div class="lab-row-label look">What to look for</div>
+                <div class="lab-row-text">Does Copilot identify real gaps — moments where multiple people spoke at once, technical terms that may have been transcribed incorrectly, sections where tone was ambiguous? This self-critique prompt is one of the most useful habits you can build.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             FINAL REFLECTIONS
+        ══════════════════════════════════════════ -->
+        <div class="lab-section-head">
+          <span class="lab-section-tag">Wrap-up</span>
+          <h3>Final Reflections</h3>
+        </div>
+
+        <div class="grid two" style="margin-bottom:24px;">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">What you practised</span>
+            <ul class="list">
+              <li>Reading a meeting: plain-language summary, action items, open items, Q&amp;A</li>
+              <li>Cross-referencing with emails and SharePoint to complete the picture</li>
+              <li>Adjusting the summary based on what you found elsewhere</li>
+              <li>Transforming the same content for three different audiences and registers</li>
+              <li>Ethics review before sharing anything AI-generated</li>
+              <li>Asking Copilot to surface its own uncertainty</li>
+            </ul>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Questions to take away</span>
+            <ul class="list">
+              <li>How long would this have taken without Copilot? Where did it save the most time?</li>
+              <li>Which step required the most manual review or correction?</li>
+              <li>Was there anything in the outputs you would not have been comfortable sharing without editing?</li>
+              <li>What would need to change about how your team runs meetings to make this workflow smoother?</li>
+              <li>What habit from this lab would be worth doing after every significant meeting?</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="../language.html">Back: Working with Language</a>
+          <a class="button primary" href="language-outlook.html">Next: Lab B — Outlook Challenge</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

@@ -378,6 +378,181 @@
             </div>
           </div>
         </details>
+       
+        <!-- ── 3.3 EVALUATION ── -->
+       
+
+
+    </section>
+
+    <section class="section" id="strategy-section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Prompt strategies</h2>
+            <p>The strategies are grouped by what they do, not by difficulty level. Use the sections below as a quick reference.</p>
+          </div>
+        </div>
+
+        <div class="level-filter-bar" id="level-filter-bar">
+          <span class="level-filter-label">
+            Filter by level
+            <span class="level-filter-info-wrap">
+              <button class="level-filter-info-btn" type="button" aria-label="What do the levels mean?" aria-expanded="false" id="level-info-btn">i</button>
+              <div class="level-filter-popover" id="level-filter-popover" hidden>
+                <strong>Complexity levels</strong>
+                <ul>
+                  <li><b>Basic</b> — No setup needed. Works in any tool. Great starting point.</li>
+                  <li><b>Advanced</b> — Needs a bit more thought or structure, but widely applicable.</li>
+                  <li><b>Pro</b> — Layered techniques for high-stakes or nuanced outputs.</li>
+                </ul>
+              </div>
+            </span>
+          </span>
+          <div class="level-filter-btns" role="group" aria-label="Complexity level filters">
+            <button class="level-btn" data-level="Basic" type="button" aria-pressed="false">
+              <span class="level-btn-dot" aria-hidden="true"></span>Basic
+              <span class="level-btn-tip">No setup needed. Ask directly, iterate as you go.</span>
+            </button>
+            <button class="level-btn" data-level="Advanced" type="button" aria-pressed="false">
+              <span class="level-btn-dot" aria-hidden="true"></span>Advanced
+              <span class="level-btn-tip">More structure needed — good for recurring or multi-part tasks.</span>
+            </button>
+            <button class="level-btn" data-level="Pro" type="button" aria-pressed="false">
+              <span class="level-btn-dot" aria-hidden="true"></span>Pro
+              <span class="level-btn-tip">Layered techniques for high-stakes or complex outputs.</span>
+            </button>
+            <button class="level-btn-clear" type="button" id="level-filter-clear" aria-label="Clear all level filters">Clear</button>
+          </div>
+        </div>
+
+        <details data-strategy-group>
+          <summary>Group 1 — How much guidance you give the AI</summary>
+          <div class="details-body">
+            <p>Use zero-shot when the task is clear. Use few-shot when you need a specific structure or pattern repeated reliably.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr data-level="Basic"><td><b>Zero-shot prompting</b></td><td><span class="level-badge">Basic</span></td><td>Ask directly with no examples. Fast, but less controlled.</td></tr>
+                  <tr data-level="Basic"><td><b>Few-shot prompting</b></td><td><span class="level-badge">Basic</span></td><td>Give 2–5 examples of the output you want before your request. Dramatically improves consistency when format matters.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details data-strategy-group>
+          <summary>Group 2 — How you frame the request</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr data-level="Basic"><td><b>Direct instruction prompting</b></td><td><span class="level-badge">Basic</span></td><td>Tell the AI exactly what to do. Best for structured, precise outputs.</td></tr>
+                  <tr data-level="Basic"><td><b>Question-based prompting</b></td><td><span class="level-badge">Basic</span></td><td>Frame the request as a question. Pushes the AI toward focused, informative answers.</td></tr>
+                  <tr data-level="Basic"><td><b>Open-ended prompting</b></td><td><span class="level-badge">Basic</span></td><td>Leave the prompt broad and exploratory. Better for brainstorming and creative tasks.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details data-strategy-group>
+          <summary>Group 3 — How you control the reasoning process</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr data-level="Basic"><td><b>Step-by-step instruction prompting</b></td><td><span class="level-badge">Basic</span></td><td>Ask the AI to work through tasks in explicit sequence. Reduces errors on multi-part tasks.</td></tr>
+                  <tr data-level="Advanced"><td><b>Chain-of-thought prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Instruct the AI to show its reasoning at each step. Effective for logic, analysis, or decisions.</td></tr>
+                  <tr data-level="Advanced"><td><b>Prompt chaining</b></td><td><span class="level-badge">Advanced</span></td><td>Break a complex task into a sequence of smaller prompts, each building on the last.</td></tr>
+                  <tr data-level="Advanced"><td><b>Task decomposition prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Similar to prompt chaining but the decomposition is built into a single prompt rather than separate turns.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details data-strategy-group>
+          <summary>Group 4 — How you set identity and perspective</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr data-level="Advanced"><td><b>Role-based prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Assign the AI a professional role. Shapes tone, vocabulary, and approach.</td></tr>
+                  <tr data-level="Advanced"><td><b>Persona-based prompting</b></td><td><span class="level-badge">Advanced</span></td><td>More detailed than role-based — adds personality, values, communication style.</td></tr>
+                  <tr data-level="Pro"><td><b>Complex persona prompting</b></td><td><span class="level-badge">Pro</span></td><td>Full character brief: background, constraints, communication style, goals.</td></tr>
+                  <tr data-level="Pro"><td><b>Multiple personas prompting</b></td><td><span class="level-badge">Pro</span></td><td>Run the same task through several distinct personas simultaneously.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details data-strategy-group>
+          <summary>Group 5 — How you refine and recover</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr data-level="Basic"><td><b>Iterative prompting</b></td><td><span class="level-badge">Basic</span></td><td>Follow up with corrections and refinements. The default way most people use AI.</td></tr>
+                  <tr data-level="Basic"><td><b>Confirmatory prompting</b></td><td><span class="level-badge">Basic</span></td><td>Ask the AI to confirm its understanding before it answers. Catches misinterpretations early.</td></tr>
+                  <tr data-level="Basic"><td><b>Negative prompting</b></td><td><span class="level-badge">Basic</span></td><td>Tell the AI what to avoid. Highly effective for tone, format, or content exclusions.</td></tr>
+                  <tr data-level="Pro"><td><b>Self-reflection prompting</b></td><td><span class="level-badge">Pro</span></td><td>Ask the AI to critique and revise its own output.</td></tr>
+                  <tr data-level="Pro"><td><b>Fallback prompting</b></td><td><span class="level-badge">Pro</span></td><td>Build fallback alternatives directly into the prompt in case the primary request fails.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details data-strategy-group>
+          <summary>Group 6 — How you load context</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr data-level="Basic"><td><b>Contextual prompting</b></td><td><span class="level-badge">Basic</span></td><td>Add background information directly into the prompt to ground the response.</td></tr>
+                  <tr data-level="Advanced"><td><b>Context expansion prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Gradually build context across a conversation rather than front-loading it all.</td></tr>
+                  <tr data-level="Advanced"><td><b>Scenario-based prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Frame the task inside a realistic situation to make the output more applicable.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <div class="callout brand" style="margin-top:18px;">
+          <h4>How to choose a strategy</h4>
+          <ol class="list">
+            <li>How defined is the output I need? If you know exactly what you want, lean toward direct instruction or few-shot. If you're exploring, open-ended or scenario-based gives the AI more room.</li>
+            <li>How complex is the task? Single, clear request — one strategy, one prompt. Multi-part task — prompt chaining or task decomposition.</li>
+            <li>How much do I trust the first output? High-stakes — build in a checkpoint. Routine task — iterate quickly instead.</li>
+          </ol>
+          <p class="muted">Can you combine strategies? Yes. A persona sets the frame. Direct instruction defines the task. Negative prompting removes what you don't want. They stack.</p>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="section" id="ai-overview-section">
+      <div class="shell">
+
+
+        <div class="section-head">
+          <div>
+            <h2>Personas Deep Dive</h2>
+           </div>
+        </div>
+
+
+
+
+ 
         <details>
           <summary>Personas and Perspectives</summary>
           <div class="details-body">
@@ -555,162 +730,6 @@
 
 
     </section>
-
-    <section class="section" id="strategy-section">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Prompt strategies</h2>
-            <p>The strategies are grouped by what they do, not by difficulty level. Use the sections below as a quick reference.</p>
-          </div>
-        </div>
-
-        <div class="level-filter-bar" id="level-filter-bar">
-          <span class="level-filter-label">
-            Filter by level
-            <span class="level-filter-info-wrap">
-              <button class="level-filter-info-btn" type="button" aria-label="What do the levels mean?" aria-expanded="false" id="level-info-btn">i</button>
-              <div class="level-filter-popover" id="level-filter-popover" hidden>
-                <strong>Complexity levels</strong>
-                <ul>
-                  <li><b>Basic</b> — No setup needed. Works in any tool. Great starting point.</li>
-                  <li><b>Advanced</b> — Needs a bit more thought or structure, but widely applicable.</li>
-                  <li><b>Pro</b> — Layered techniques for high-stakes or nuanced outputs.</li>
-                </ul>
-              </div>
-            </span>
-          </span>
-          <div class="level-filter-btns" role="group" aria-label="Complexity level filters">
-            <button class="level-btn" data-level="Basic" type="button" aria-pressed="false">
-              <span class="level-btn-dot" aria-hidden="true"></span>Basic
-              <span class="level-btn-tip">No setup needed. Ask directly, iterate as you go.</span>
-            </button>
-            <button class="level-btn" data-level="Advanced" type="button" aria-pressed="false">
-              <span class="level-btn-dot" aria-hidden="true"></span>Advanced
-              <span class="level-btn-tip">More structure needed — good for recurring or multi-part tasks.</span>
-            </button>
-            <button class="level-btn" data-level="Pro" type="button" aria-pressed="false">
-              <span class="level-btn-dot" aria-hidden="true"></span>Pro
-              <span class="level-btn-tip">Layered techniques for high-stakes or complex outputs.</span>
-            </button>
-            <button class="level-btn-clear" type="button" id="level-filter-clear" aria-label="Clear all level filters">Clear</button>
-          </div>
-        </div>
-
-        <details data-strategy-group>
-          <summary>Group 1 — How much guidance you give the AI</summary>
-          <div class="details-body">
-            <p>Use zero-shot when the task is clear. Use few-shot when you need a specific structure or pattern repeated reliably.</p>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
-                <tbody>
-                  <tr data-level="Basic"><td><b>Zero-shot prompting</b></td><td><span class="level-badge">Basic</span></td><td>Ask directly with no examples. Fast, but less controlled.</td></tr>
-                  <tr data-level="Basic"><td><b>Few-shot prompting</b></td><td><span class="level-badge">Basic</span></td><td>Give 2–5 examples of the output you want before your request. Dramatically improves consistency when format matters.</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </details>
-
-        <details data-strategy-group>
-          <summary>Group 2 — How you frame the request</summary>
-          <div class="details-body">
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
-                <tbody>
-                  <tr data-level="Basic"><td><b>Direct instruction prompting</b></td><td><span class="level-badge">Basic</span></td><td>Tell the AI exactly what to do. Best for structured, precise outputs.</td></tr>
-                  <tr data-level="Basic"><td><b>Question-based prompting</b></td><td><span class="level-badge">Basic</span></td><td>Frame the request as a question. Pushes the AI toward focused, informative answers.</td></tr>
-                  <tr data-level="Basic"><td><b>Open-ended prompting</b></td><td><span class="level-badge">Basic</span></td><td>Leave the prompt broad and exploratory. Better for brainstorming and creative tasks.</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </details>
-
-        <details data-strategy-group>
-          <summary>Group 3 — How you control the reasoning process</summary>
-          <div class="details-body">
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
-                <tbody>
-                  <tr data-level="Basic"><td><b>Step-by-step instruction prompting</b></td><td><span class="level-badge">Basic</span></td><td>Ask the AI to work through tasks in explicit sequence. Reduces errors on multi-part tasks.</td></tr>
-                  <tr data-level="Advanced"><td><b>Chain-of-thought prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Instruct the AI to show its reasoning at each step. Effective for logic, analysis, or decisions.</td></tr>
-                  <tr data-level="Advanced"><td><b>Prompt chaining</b></td><td><span class="level-badge">Advanced</span></td><td>Break a complex task into a sequence of smaller prompts, each building on the last.</td></tr>
-                  <tr data-level="Advanced"><td><b>Task decomposition prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Similar to prompt chaining but the decomposition is built into a single prompt rather than separate turns.</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </details>
-
-        <details data-strategy-group>
-          <summary>Group 4 — How you set identity and perspective</summary>
-          <div class="details-body">
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
-                <tbody>
-                  <tr data-level="Advanced"><td><b>Role-based prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Assign the AI a professional role. Shapes tone, vocabulary, and approach.</td></tr>
-                  <tr data-level="Advanced"><td><b>Persona-based prompting</b></td><td><span class="level-badge">Advanced</span></td><td>More detailed than role-based — adds personality, values, communication style.</td></tr>
-                  <tr data-level="Pro"><td><b>Complex persona prompting</b></td><td><span class="level-badge">Pro</span></td><td>Full character brief: background, constraints, communication style, goals.</td></tr>
-                  <tr data-level="Pro"><td><b>Multiple personas prompting</b></td><td><span class="level-badge">Pro</span></td><td>Run the same task through several distinct personas simultaneously.</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </details>
-
-        <details data-strategy-group>
-          <summary>Group 5 — How you refine and recover</summary>
-          <div class="details-body">
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
-                <tbody>
-                  <tr data-level="Basic"><td><b>Iterative prompting</b></td><td><span class="level-badge">Basic</span></td><td>Follow up with corrections and refinements. The default way most people use AI.</td></tr>
-                  <tr data-level="Basic"><td><b>Confirmatory prompting</b></td><td><span class="level-badge">Basic</span></td><td>Ask the AI to confirm its understanding before it answers. Catches misinterpretations early.</td></tr>
-                  <tr data-level="Basic"><td><b>Negative prompting</b></td><td><span class="level-badge">Basic</span></td><td>Tell the AI what to avoid. Highly effective for tone, format, or content exclusions.</td></tr>
-                  <tr data-level="Pro"><td><b>Self-reflection prompting</b></td><td><span class="level-badge">Pro</span></td><td>Ask the AI to critique and revise its own output.</td></tr>
-                  <tr data-level="Pro"><td><b>Fallback prompting</b></td><td><span class="level-badge">Pro</span></td><td>Build fallback alternatives directly into the prompt in case the primary request fails.</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </details>
-
-        <details data-strategy-group>
-          <summary>Group 6 — How you load context</summary>
-          <div class="details-body">
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Strategy</th><th>Level</th><th>What it does</th></tr></thead>
-                <tbody>
-                  <tr data-level="Basic"><td><b>Contextual prompting</b></td><td><span class="level-badge">Basic</span></td><td>Add background information directly into the prompt to ground the response.</td></tr>
-                  <tr data-level="Advanced"><td><b>Context expansion prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Gradually build context across a conversation rather than front-loading it all.</td></tr>
-                  <tr data-level="Advanced"><td><b>Scenario-based prompting</b></td><td><span class="level-badge">Advanced</span></td><td>Frame the task inside a realistic situation to make the output more applicable.</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </details>
-
-        <div class="callout brand" style="margin-top:18px;">
-          <h4>How to choose a strategy</h4>
-          <ol class="list">
-            <li>How defined is the output I need? If you know exactly what you want, lean toward direct instruction or few-shot. If you're exploring, open-ended or scenario-based gives the AI more room.</li>
-            <li>How complex is the task? Single, clear request — one strategy, one prompt. Multi-part task — prompt chaining or task decomposition.</li>
-            <li>How much do I trust the first output? High-stakes — build in a checkpoint. Routine task — iterate quickly instead.</li>
-          </ol>
-          <p class="muted">Can you combine strategies? Yes. A persona sets the frame. Direct instruction defines the task. Negative prompting removes what you don't want. They stack.</p>
-        </div>
-      </div>
-    </section>
-
-   
-
 
 
 

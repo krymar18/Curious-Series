@@ -122,6 +122,109 @@
     .ts-restart-btn { margin-top: 1rem; font-size: 13px; background: #fff; border: 1.5px solid var(--border); border-radius: 99px; padding: 8px 18px; color: var(--body); cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; transition: .15s; display: inline-flex; align-items: center; gap: 6px; }
     .ts-restart-btn:hover { border-color: var(--brand); color: var(--brand); }
 
+    /* ── Use-case box ── */
+    .use-case-box {
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 14px 16px; background: var(--surface); margin: 14px 0;
+    }
+    .use-case-box-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .use-case-box-icon {
+      width: 22px; height: 22px; background: var(--brand); color: #fff;
+      border-radius: 6px; display: inline-flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .use-case-box-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--brand);
+    }
+    .use-case-box ul { margin: 0; padding: 0 0 0 16px; display: flex; flex-direction: column; gap: 6px; }
+    .use-case-box li { font-size: 13px; line-height: 1.5; color: var(--body); }
+
+    /* ── AI / Human handles labels ── */
+    .handles-label, .limitation-section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin: 18px 0 8px;
+    }
+
+    /* ── Limitation block (flashcard / match game) ── */
+    .lim-block {
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      overflow: hidden; margin-top: 8px;
+    }
+    .lim-toggle { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .lim-toggle-btn {
+      flex: 1; padding: 9px 14px; font-size: 12px; font-weight: 600; font-family: inherit;
+      background: transparent; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; color: var(--muted); transition: all 0.15s;
+    }
+    .lim-toggle-btn.active { color: var(--brand); border-bottom-color: var(--brand); background: var(--brand-soft); }
+    .lim-toggle-btn:hover:not(.active) { color: var(--body); background: var(--bg); }
+    .limitation-wrap { padding: 12px 14px; }
+    .limitation-list { display: flex; flex-direction: column; gap: 8px; }
+    .limitation-item {
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface);
+    }
+    .limitation-item > summary {
+      padding: 12px 14px; font-size: 13px; font-weight: 500; cursor: pointer;
+      color: var(--text); list-style: none; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .limitation-item > summary::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--brand);
+      flex-shrink: 0; opacity: 0.45; margin-top: 5px; transition: opacity 0.15s;
+    }
+    .limitation-item[open] > summary::before { opacity: 1; }
+    .limitation-item > summary::-webkit-details-marker { display: none; }
+    .limitation-fix {
+      border-top: 1px solid var(--border); padding: 12px 14px;
+      background: var(--brand-soft); font-size: 13px; line-height: 1.6; color: var(--body);
+    }
+    .limitation-fix-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--brand); margin-bottom: 6px;
+    }
+    /* Match game */
+    .match-game { padding: 12px 14px; display: none; }
+    .lim-mode-match .limitation-wrap { display: none; }
+    .lim-mode-match .match-game { display: block; }
+    .match-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .match-col-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .match-card {
+      border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 12px;
+      font-size: 12px; line-height: 1.5; cursor: pointer; background: var(--surface);
+      transition: border-color 0.15s, background 0.15s; color: var(--body);
+      min-height: 52px; display: flex; align-items: center; margin-bottom: 8px;
+    }
+    .match-card:hover:not(.matched):not(.disabled) { border-color: var(--brand); background: var(--brand-soft); }
+    .match-card.selected { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); font-weight: 500; }
+    .match-card.matched { border-color: var(--success); background: rgba(47,143,91,0.08); color: var(--success); cursor: default; opacity: 0.75; }
+    .match-card.wrong { border-color: var(--danger); background: rgba(179,67,43,0.07); animation: mg-shake 0.3s ease; }
+    .match-status { text-align: center; font-size: 13px; font-weight: 600; color: var(--brand); margin-top: 6px; min-height: 20px; }
+    .match-reset-btn {
+      display: none; margin: 10px auto 0; font-size: 12px; font-weight: 600;
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: 99px;
+      padding: 6px 16px; color: var(--body); cursor: pointer; font-family: inherit; transition: all 0.15s;
+    }
+    .match-reset-btn:hover { border-color: var(--brand); color: var(--brand); }
+    @keyframes mg-shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* ── Tradeoff callout ── */
+    .tradeoff-callout {
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 16px 18px; background: var(--surface); margin-top: 16px;
+    }
+    .tradeoff-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 4px;
+    }
+    .tradeoff-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .tradeoff-callout p { font-size: 13px; line-height: 1.6; color: var(--body); margin: 0; }
+
     /* ── Topic divider banner ── */
     .topic-divider {
       background: var(--brand); color: #fff;
@@ -149,6 +252,7 @@
         <a href="../index.html" data-nav-link>Overview</a>
         <a href="ai-overview.html" data-nav-link>AI Overview</a>
         <a href="BDRpL1.html" data-nav-link>BD Lab</a>
+        <a href="../copilot/teams.html" data-nav-link>Copilot Premium</a>
       </nav>
     </div>
   </header>
@@ -163,7 +267,9 @@
             <h1 class="title">AI Overview</h1>
             <p class="lede">Prompting strategies and filters, how AI and search work, bias in AI, and iterating with feedback — the full Session 1 reference in one place.</p>
             <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
-             </div>
+              <a class="button primary" href="#strategy-section">Prompt Strategies</a>
+              <a class="button secondary" href="#ai-overview-section">Quick AI Overview</a>
+            </div>
           </div>
         </div>
       </div>
@@ -174,7 +280,7 @@
          ============================================================ -->
 
 
-    <section class="section">
+    <section class="section" id="ai-overview-section">
       <div class="shell">
         <div class="grid two" style="margin-bottom: 18px;">
           <article class="card">
@@ -749,6 +855,110 @@ tsInit();
       document.addEventListener('click', function () { popover.hidden = true; infoBtn.setAttribute('aria-expanded', 'false'); });
       popover.addEventListener('click', function (e) { e.stopPropagation(); });
     }
+  })();
+  </script>
+
+  <!-- ── Flashcard / Match-game toggle JS ── -->
+  <script>
+  (function () {
+    function shuffle(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+      }
+      return arr;
+    }
+
+    function initMatchGame(block) {
+      var gameDiv = block.querySelector('.match-game');
+      if (gameDiv.dataset.initialized) return;
+      gameDiv.dataset.initialized = '1';
+
+      var items = Array.from(block.querySelectorAll('.limitation-item'));
+      var pairs = items.map(function (item, i) {
+        var summary = item.querySelector('summary').textContent.trim();
+        var fixEl = item.querySelector('.limitation-fix');
+        var fix = fixEl.cloneNode(true);
+        fix.querySelector('.limitation-fix-label') && fix.querySelector('.limitation-fix-label').remove();
+        var fixText = fix.textContent.trim();
+        return { id: i, limitation: summary, fix: fixText };
+      });
+
+      var leftItems  = shuffle(pairs.slice());
+      var rightItems = shuffle(pairs.slice());
+
+      var html = '<div class="match-cols">';
+      html += '<div><div class="match-col-label">Limitation</div>';
+      leftItems.forEach(function (p) {
+        html += '<div class="match-card" data-pair-id="' + p.id + '" data-side="left">' + p.limitation + '</div>';
+      });
+      html += '</div>';
+      html += '<div><div class="match-col-label">How to address it</div>';
+      rightItems.forEach(function (p) {
+        html += '<div class="match-card" data-pair-id="' + p.id + '" data-side="right">' + p.fix + '</div>';
+      });
+      html += '</div></div>';
+      html += '<div class="match-status"></div>';
+      html += '<button class="match-reset-btn" type="button">Play again</button>';
+      gameDiv.innerHTML = html;
+
+      var selectedLeft = null;
+      var matched = 0;
+      var total = pairs.length;
+      var statusEl = gameDiv.querySelector('.match-status');
+      var resetBtn = gameDiv.querySelector('.match-reset-btn');
+
+      resetBtn.addEventListener('click', function () {
+        delete gameDiv.dataset.initialized;
+        initMatchGame(block);
+      });
+
+      gameDiv.querySelectorAll('.match-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          if (card.classList.contains('matched') || card.classList.contains('disabled')) return;
+          var side = card.dataset.side;
+
+          if (side === 'left') {
+            gameDiv.querySelectorAll('.match-card[data-side="left"]').forEach(function (c) { c.classList.remove('selected'); });
+            card.classList.add('selected');
+            selectedLeft = card;
+          } else if (selectedLeft && side === 'right') {
+            if (selectedLeft.dataset.pairId === card.dataset.pairId) {
+              selectedLeft.classList.remove('selected');
+              selectedLeft.classList.add('matched');
+              card.classList.add('matched');
+              selectedLeft = null;
+              matched++;
+              if (matched === total) {
+                statusEl.textContent = 'All matched! ✓';
+                resetBtn.style.display = 'block';
+              }
+            } else {
+              var wrong = selectedLeft;
+              wrong.classList.add('wrong'); card.classList.add('wrong');
+              setTimeout(function () {
+                wrong.classList.remove('wrong', 'selected');
+                card.classList.remove('wrong');
+                selectedLeft = null;
+              }, 400);
+            }
+          }
+        });
+      });
+    }
+
+    document.querySelectorAll('.lim-toggle-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var block = btn.closest('.lim-block');
+        var mode = btn.dataset.mode;
+        block.querySelectorAll('.lim-toggle-btn').forEach(function (b) {
+          b.classList.toggle('active', b === btn);
+        });
+        block.classList.remove('lim-mode-flashcard', 'lim-mode-match');
+        block.classList.add('lim-mode-' + mode);
+        if (mode === 'match') initMatchGame(block);
+      });
+    });
   })();
   </script>
 </body>

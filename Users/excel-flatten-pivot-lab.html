@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curious AI Series | Lab: Mastering AI in Excel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{
+  --brand: #204d89;
+  --brand-2: #16325c;
+  --brand-soft: rgba(32,77,137,0.08);
+  --brand-line: rgba(32,77,137,0.22);
+  --gold: #b8862e;
+  --gold-soft: rgba(184,134,46,0.12);
+  --success: #2f8f5b;
+  --success-soft: rgba(47,143,91,0.12);
+  --format: #6b4f9e;
+  --format-soft: rgba(107,79,158,0.10);
+  --danger: #b3432b;
+  --danger-soft: rgba(179,67,43,0.10);
+  --border: #ddd4c7;
+  --muted: #8a8172;
+  --text: #241d15;
+  --body: #3c352b;
+  --bg: #faf7f1;
+  --surface: #ffffff;
+  --radius-sm: 14px;
+  --radius-lg: 20px;
+  --shadow: 0 16px 28px rgba(23,15,5,0.06);
+}
+*{ box-sizing: border-box; }
+body{
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--body);
+  line-height: 1.6;
+}
+.shell{ max-width: 900px; margin: 0 auto; padding: 0 24px; }
+a{ color: var(--brand); }
+
+/* ---------- Topbar ---------- */
+.topbar{ border-bottom: 1px solid var(--border); background: var(--surface); }
+.topbar-inner{ display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; flex-wrap: wrap; gap: 12px; }
+.brand{ display: flex; align-items: center; gap: 12px; }
+.brand-mark{
+  width: 38px; height: 38px; border-radius: 10px; background: var(--brand);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px; letter-spacing: 0.02em; flex-shrink: 0;
+}
+.brand-title{ font-weight: 700; font-size: 15px; color: var(--text); }
+.brand-subtitle{ font-size: 12px; color: var(--muted); margin-top: 1px; }
+.nav a{
+  font-size: 13px; font-weight: 600; color: var(--body); text-decoration: none;
+  padding: 8px 4px; border-bottom: 2px solid transparent;
+}
+.nav a:hover{ color: var(--brand); border-bottom-color: var(--brand-line); }
+.nav a.is-current{ color: var(--brand); border-bottom-color: var(--brand); }
+
+/* ---------- Hero ---------- */
+.hero{ padding: 40px 0 8px; }
+.hero-card{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.hero-inner{ padding: 34px 36px; }
+.eyebrow{
+  display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--brand); margin-bottom: 10px;
+}
+.title{ font-size: 30px; font-weight: 800; color: var(--text); margin: 0 0 12px; letter-spacing: -0.01em; }
+.lede{ font-size: 15px; color: var(--body); max-width: 640px; margin: 0; }
+
+/* ---------- Sections / cards ---------- */
+.section{ padding: 28px 0; }
+.section-head{ margin-bottom: 18px; }
+.section-head h2{ font-size: 21px; font-weight: 800; color: var(--text); margin: 0 0 6px; }
+.section-head p{ font-size: 14px; color: var(--muted); margin: 0; max-width: 640px; }
+.grid{ display: grid; gap: 16px; }
+.grid.two{ grid-template-columns: 1fr 1fr; }
+@media (max-width: 700px){ .grid.two{ grid-template-columns: 1fr; } }
+.card{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 20px 22px; box-shadow: 0 3px 10px rgba(23,15,5,0.04);
+}
+.card.soft{ background: var(--bg); box-shadow: none; }
+.card p{ margin: 0; font-size: 14px; }
+.eyebrow-chip{
+  display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 10px;
+}
+.chip-brand{ background: var(--brand-soft); color: var(--brand); }
+.chip-gold{ background: var(--gold-soft); color: var(--gold); }
+.chip-success{ background: var(--success-soft); color: var(--success); }
+
+/* ---------- Part blocks ---------- */
+.part-block{ margin-bottom: 30px; padding: 26px 28px; }
+.part-tag{
+  display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.07em; text-transform: uppercase; color: #fff; background: var(--brand);
+  padding: 5px 12px; border-radius: 100px; margin-bottom: 12px;
+}
+.part-title{ font-size: 19px; font-weight: 800; color: var(--text); margin: 0 0 14px; }
+.part-block p{ font-size: 14.5px; margin: 0 0 14px; }
+.part-block p:last-child{ margin-bottom: 0; }
+.part-lead{ font-weight: 700; color: var(--text); margin-bottom: 4px !important; }
+
+/* ---------- Lists ---------- */
+.list{ margin: 0 0 14px; padding-left: 20px; font-size: 14.5px; }
+.list li{ margin-bottom: 7px; }
+.list li:last-child{ margin-bottom: 0; }
+
+/* ---------- Prompt box (blue) ---------- */
+.prompt-box{
+  border: 1px solid var(--brand-line); border-radius: 12px; background: var(--brand-soft);
+  padding: 14px 16px; margin: 14px 0;
+}
+.prompt-box-head{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.prompt-box-label{ font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand); }
+.prompt-text{ margin: 0; font-size: 14px; color: var(--brand-2); font-style: italic; line-height: 1.6; }
+.copy-button{
+  font-family: inherit; font-size: 12px; font-weight: 700; color: var(--brand);
+  background: #fff; border: 1px solid var(--brand-line); border-radius: 100px;
+  padding: 5px 13px; cursor: pointer; transition: all .15s; display: inline-flex; align-items: center; gap: 5px;
+}
+.copy-button:hover{ background: var(--brand); color: #fff; }
+.copy-button.copied{ background: var(--success); color: #fff; border-color: var(--success); }
+
+/* ---------- Callouts ---------- */
+.callout{ border-radius: var(--radius-sm); padding: 16px 18px; margin: 16px 0; }
+.callout h4{ margin: 0 0 6px; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 7px; }
+.callout p{ margin: 0; font-size: 13.5px; }
+.callout.neutral{ background: var(--bg); border: 1px solid var(--border); }
+.callout.neutral h4{ color: var(--text); }
+.callout.brand{ background: var(--brand-soft); border: 1px solid var(--brand-line); }
+.callout.brand h4{ color: var(--brand); }
+.callout.lifehack{ background: var(--gold-soft); border: 1px solid rgba(184,134,46,0.28); }
+.callout.lifehack h4{ color: var(--gold); }
+.callout.privacy{ background: var(--success-soft); border: 1px solid rgba(47,143,91,0.28); }
+.callout.privacy h4{ color: var(--success); }
+
+.carry-note{
+  font-size: 12.5px; font-weight: 700; color: var(--brand); margin: -4px 0 14px !important;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ---------- Reflect card ---------- */
+.reflect-card{ margin-top: 16px; }
+
+/* ================================================================
+   Prompt digest — collapsible Role / Context / Task / Format
+   ================================================================ */
+.prompt-digest{
+  margin-top: 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: linear-gradient(150deg, rgba(32,77,137,0.05), rgba(184,134,46,0.04) 60%, rgba(107,79,158,0.04));
+  padding: 2px 20px; overflow: hidden;
+}
+.prompt-digest[open]{ padding-bottom: 18px; }
+.prompt-digest summary{
+  padding: 14px 0; display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; list-style: none;
+}
+.prompt-digest summary::-webkit-details-marker{ display: none; }
+.prompt-digest summary::after{ content: '+'; font-size: 20px; color: var(--brand); line-height: 1; }
+.prompt-digest[open] summary::after{ content: '\2212'; }
+.digest-summary-main{ display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--text); }
+.digest-summary-main i{ font-size: 16px; color: var(--brand); }
+.digest-dots{ display: flex; gap: 5px; }
+.digest-dots i{ width: 8px; height: 8px; border-radius: 50%; font-style: normal; display: block; }
+.digest-dots i.role{ background: var(--brand); }
+.digest-dots i.context{ background: var(--gold); }
+.digest-dots i.task{ background: var(--success); }
+.digest-dots i.format{ background: var(--format); }
+.digest-sub{ font-size: 12.5px; color: var(--muted); margin: 0 0 12px; }
+.digest-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+@media (max-width: 600px){ .digest-grid{ grid-template-columns: 1fr; } }
+.digest-card{
+  background: var(--surface); border-radius: 12px; padding: 13px 15px;
+  border-top: 3px solid var(--border); box-shadow: 0 3px 10px rgba(23,15,5,0.045);
+}
+.digest-card.role{ border-top-color: var(--brand); }
+.digest-card.context{ border-top-color: var(--gold); }
+.digest-card.task{ border-top-color: var(--success); }
+.digest-card.format{ border-top-color: var(--format); }
+.digest-card-head{
+  display: flex; align-items: center; gap: 7px; font-size: 10.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+}
+.digest-card-head i{ font-size: 14px; }
+.digest-card.role .digest-card-head{ color: var(--brand); }
+.digest-card.context .digest-card-head{ color: var(--gold); }
+.digest-card.task .digest-card-head{ color: var(--success); }
+.digest-card.format .digest-card-head{ color: var(--format); }
+.digest-card p{ margin: 0; font-size: 12.5px; color: var(--body); line-height: 1.5; }
+.digest-strategies{ border-top: 1px solid var(--border); padding-top: 12px; }
+.digest-strategies-label{
+  display: block; font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--muted); margin-bottom: 8px;
+}
+.digest-pills{ display: flex; gap: 7px; flex-wrap: wrap; }
+.digest-pill{
+  font-size: 11.5px; font-weight: 700; color: var(--brand-2); background: #fff;
+  border: 1px solid var(--brand-line); padding: 4px 11px; border-radius: 100px;
+  cursor: pointer; font-family: inherit;
+}
+.digest-pill:hover{ background: var(--brand-soft); }
+
+/* ---------- Strategy popover ---------- */
+.strategy-popover{
+  position: fixed; z-index: 200; width: 300px; background: #fff;
+  border: 1px solid var(--brand-line); border-radius: 14px; box-shadow: 0 20px 40px rgba(23,15,5,0.18);
+  padding: 16px 18px; display: none;
+}
+.strategy-popover.sp-open{ display: block; }
+.sp-close{
+  position: absolute; top: 8px; right: 10px; border: none; background: none; cursor: pointer;
+  font-size: 18px; color: var(--muted); line-height: 1;
+}
+.sp-close:hover{ color: var(--brand); }
+.sp-title{ font-size: 13.5px; font-weight: 700; color: var(--brand-2); margin: 0 20px 8px 0; }
+.sp-what{ font-size: 12.5px; color: var(--body); margin: 0 0 11px; line-height: 1.55; }
+.sp-elsewhere{
+  font-size: 12px; color: var(--body); margin: 0; line-height: 1.5;
+  background: var(--brand-soft); padding: 9px 11px; border-radius: 9px;
+}
+.sp-elsewhere-label{
+  display: block; font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--brand); margin-bottom: 3px;
+}
+
+/* ---------- Footer nav ---------- */
+.page-nav{ display: flex; justify-content: space-between; margin-top: 10px; }
+.button{ display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 700; padding: 10px 18px; border-radius: 100px; text-decoration: none; }
+.button.primary{ background: var(--brand); color: #fff; }
+.button.secondary{ background: #fff; color: var(--body); border: 1px solid var(--border); }
+</style>
+</head>
+<body class="bdlab">
+
+<header class="topbar">
+  <div class="shell topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">AI</div>
+      <div>
+        <div class="brand-title">Curious AI Series</div>
+        <div class="brand-subtitle">Standalone Lab</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html">Overview</a>
+      <a href="ai-overview.html">AI Overview</a>
+      <a href="BDRpL1.html">BD Lab</a>
+      <a href="../copilot/teams.html">Copilot Premium</a>
+      <a href="excel-flatten-pivot-lab.html" class="is-current">Excel</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="shell">
+    <div class="hero-card">
+      <div class="hero-inner">
+        <div class="eyebrow">Lab &middot; Excel</div>
+        <h1 class="title">Mastering AI in Excel</h1>
+        <p class="lede">Use Copilot as an agent inside a live workbook: flatten a nested report, add calculated columns, build pivots, then compress the whole process into one prompt and a reusable script.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <h2>Before You Begin</h2>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>Before we begin, here are a few tips for using Copilot in Excel:</strong></p>
+      <ul class="list">
+        <li>Save your file as an .xlsx before you start.</li>
+        <li>Refer to columns by their data names rather than cell letters. For example, say "apply conditional formatting to the Total Impressions column" instead of "apply conditional formatting to column E." This gives Copilot the context it needs and makes the prompt easier to reuse across different files.</li>
+        <li>When using AI on a work document, save a backup copy first in case the AI changes or disrupts the data.</li>
+      </ul>
+      <p>In this lab, we will use Copilot as an agent. Instead of asking questions about the data, we will have it generate formulas and scripts that transform the file through Excel. Because we are using AI to control Excel rather than analyze the data directly, many restrictions on using AI with certain data will not apply, giving us more freedom.</p>
+    </div>
+
+    <div class="callout privacy">
+      <h4><i class="ti ti-shield-lock" aria-hidden="true"></i>Quick note on privacy</h4>
+      <p>One benefit of using Copilot in Excel is that it works within the workbook, so the data stays in the file and is not shared with other apps, including Copilot Chat. This helps keep the data contained while still allowing us to use AI safely.</p>
+    </div>
+
+    <p class="carry-note"><i class="ti ti-arrow-loop-right" aria-hidden="true"></i>Carry forward: stay in the same Copilot chat through every part below. Part 4 depends on it.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 1 — FLATTEN THE REPORT
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-1">
+      <span class="part-tag"><i class="ti ti-table" aria-hidden="true"></i>Part 1</span>
+      <h3 class="part-title">Flatten the Report</h3>
+      <p style="font-style:italic;color:var(--muted);margin-top:-8px;">Getting one row per spot out of a nested avail.</p>
+
+      <p class="part-lead">Why does formatting matter?</p>
+      <p>Many Excel exports we use every day include merged cells, sub headers, and multiple header rows. These can make the report easier to scan visually, but they make Excel's built-in filtering, pivoting, and analysis tools much harder to use.</p>
+
+      <p>Flattening the data turns it into a consistent Excel table, which makes it easier to (with or without AI):</p>
+      <ul class="list">
+        <li>Filter data</li>
+        <li>Build pivot tables</li>
+        <li>Create charts</li>
+        <li>Apply formulas across rows</li>
+        <li>Navigate Excel faster</li>
+      </ul>
+
+      <p>The lab prompts are designed to give Copilot for Excel a clear sense of the end goal, so the AI can ask clarifying questions and adapt the steps to your specific file. The hope is that you can reuse this prompt across most report formats, with Copilot guiding you through any questions specific to the use case.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="This sheet is an order schedule. I want to analyze it using Excel's built-in tools, so I need it reformatted as a proper table first, flattened. Take a look, tell me the best way to do it, and ask me anything that's unclear before you start.">Copy</button>
+        </div>
+        <p class="prompt-text">"This sheet is an order schedule. I want to analyze it using Excel's built-in tools, so I need it reformatted as a proper table first, flattened. Take a look, tell me the best way to do it, and ask me anything that's unclear before you start."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>No persona assigned. Copilot works directly as an Excel agent, not a role-played expert.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>"This sheet is an order schedule." Naming the file type anchors Copilot to the real data instead of a generic table.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Reformat into a flattened table, and recommend the best way to do it before acting.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>Open. The only fixed rule is to ask first if anything is unclear.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="contextual">Contextual prompting</span>
+            <span class="digest-pill" data-strategy="confirmatory">Confirmatory prompting</span>
+            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="card soft reflect-card">
+        <span class="eyebrow-chip chip-brand">Reflection questions</span>
+        <ul class="list" style="margin-bottom:0;">
+          <li>How can we confirm that AI completed the process correctly and no data was lost?</li>
+          <li>How would you revise the prompt upfront to reduce or eliminate Copilot's clarifying questions?</li>
+          <li>Think of an Excel export with complicated formatting and try a similar prompt on it. Did it work? What challenges came up?</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 2 — ADD CALCULATED COLUMNS
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-2">
+      <span class="part-tag"><i class="ti ti-sum" aria-hidden="true"></i>Part 2</span>
+      <h3 class="part-title">Add Calculated Columns</h3>
+
+      <p class="part-lead">What does each line cost, and cost to reach someone?</p>
+      <p>Excel exports often include fixed calculated values, which can make analysis harder. AI can help convert those static calculations into Excel formulas, add new formulas, and apply calculations or transformations that make the analysis faster and more useful.</p>
+
+      <p>For open-ended analysis, AI can also help you brainstorm useful formulas and identify calculations worth testing first. Use the prompt below to start exploring what might be interesting in our sample avail.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt 1</span>
+          <button class="copy-button" type="button" data-copy-text="Look at this table and suggest a few formulas that would help me understand cost and performance here. What would you add first, and why?">Copy</button>
+        </div>
+        <p class="prompt-text">"Look at this table and suggest a few formulas that would help me understand cost and performance here. What would you add first, and why?"</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned. Still working directly on the table, not through a persona.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>"This table." Builds on the flattened output from Part 1, so nothing needs re-explaining.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Suggest formulas for cost and performance, then name which one to try first.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>Open. A short list with reasoning attached, not one fixed answer.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="contextual">Contextual prompting</span>
+            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
+          </div>
+        </div>
+      </details>
+
+      <p>In this case, AI saves time on Excel formula syntax, applies multiple formulas at once, and helps create more complex formulas that may not be worth building manually. For example, we can transform the daypart column into three separate fields: days in M-Su format, start time, and end time, with the time fields formatted for easier filtering.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt 2</span>
+          <button class="copy-button" type="button" data-copy-text="Good, add those directly to the table. Build three or four of them at once.">Copy</button>
+        </div>
+        <p class="prompt-text">"Good, add those directly to the table. Build three or four of them at once."</p>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:-8px;">A direct follow-up in the same thread: it names an exact quantity and skips back to Prompt 1's suggestions instead of restating the task.</p>
+
+      <div class="card soft reflect-card">
+        <span class="eyebrow-chip chip-brand">Reflection questions</span>
+        <ul class="list" style="margin-bottom:0;">
+          <li>How can we verify that the transformations and formulas are working correctly?</li>
+          <li>What are the main risks of using Copilot to generate formulas this way?</li>
+          <li>Major file transformations can take Copilot much longer than simple text responses. How can we account for that inefficiency, and is AI still worth using for this task?</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 3 — BUILD A PIVOT
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-3">
+      <span class="part-tag"><i class="ti ti-chart-pie" aria-hidden="true"></i>Part 3</span>
+      <h3 class="part-title">Build a Pivot</h3>
+
+      <p>Once we have finished analyzing the raw table and added any needed calculations, it is time to use one of Excel's most powerful tools: pivot tables. Pivots let us group data by specific values and calculate sums, averages, counts, and other summaries for each group. Built-in filters and slicers also make it easier to explore the data. AI's real advantage is that it can generate multiple pivot tables at once, letting you spend more time analyzing the results instead of building the tables.</p>
+
+      <p>Start by asking Copilot to brainstorm pivot tables that could be useful for this dataset.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt 1</span>
+          <button class="copy-button" type="button" data-copy-text="Look at this table and suggest a pivot table that would show where the budget is going. What would you set up, and why?">Copy</button>
+        </div>
+        <p class="prompt-text">"Look at this table and suggest a pivot table that would show where the budget is going. What would you set up, and why?"</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>"This table," now including the calculated columns added in Part 2.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Suggest a pivot table for budget allocation, and explain the choice.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>Open. Reasoning expected alongside the suggestion.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="contextual">Contextual prompting</span>
+            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
+          </div>
+        </div>
+      </details>
+
+      <p>Different users prefer to view pivots in different ways. Personally, I prefer seeing pivot data in a table rather than the default pivot format. AI can quickly convert pivots into the format you need with a prompt like this:</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt 2</span>
+          <button class="copy-button" type="button" data-copy-text="Turn all pivot tables on this tab into tabular form, remove subtotals, and repeat the values in any grouped columns.">Copy</button>
+        </div>
+        <p class="prompt-text">"Turn all pivot tables on this tab into tabular form, remove subtotals, and repeat the values in any grouped columns."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>The pivot tables just created in this tab.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Convert to tabular form, drop subtotals, repeat grouped column values.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>A flat table, not the default nested pivot layout.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+            <span class="digest-pill" data-strategy="negative">Negative prompting</span>
+          </div>
+        </div>
+      </details>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 4 — ONE BIG PROMPT
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-4">
+      <span class="part-tag"><i class="ti ti-stack-2" aria-hidden="true"></i>Part 4</span>
+      <h3 class="part-title">One Big Prompt</h3>
+
+      <p>When working with a new format or analyzing data for the first time, it is usually best to start with smaller steps. This helps limit unintended actions by the AI agent. However, using Copilot one step at a time can become inefficient if we do it every time, making it less likely that we save meaningful time or effort on analytical tasks. I think of the first pass as teaching AI the workflow and deciding what the technical process should be. Once that is clear, we can ask Copilot to turn the process into one large, multistep prompt that takes us from the starting point to the final output, so we can move directly into analysis. Copilot will still need time to complete the steps, but having everything combined lets you switch to another task, check email, or respond to pending Slacks, then return to completed calculations and summary tables.</p>
+
+      <p>After testing the larger prompt, save it to your prompt library so it is easier to reuse later.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="Combine everything we just did (flatten, the cost columns, the pivot, and the table conversion) into one prompt.">Copy</button>
+        </div>
+        <p class="prompt-text">"Combine everything we just did (flatten, the cost columns, the pivot, and the table conversion) into one prompt."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>Everything already done in this thread: the flatten, the cost columns, the pivot, and the table conversion.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Combine all four prior steps into a single prompt.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>One prompt that reruns the whole chain end to end.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="context-expansion">Context expansion prompting</span>
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+          </div>
+        </div>
+      </details>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 5 — MAKE IT A SCRIPT
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-5">
+      <span class="part-tag"><i class="ti ti-code" aria-hidden="true"></i>Part 5</span>
+      <h3 class="part-title">Make It a Script</h3>
+
+      <p>The all-in-one prompt from the previous step can speed up execution, but it still relies heavily on AI. That means it can take time, use up personal AI credits, and create opportunities for hallucinations or mistakes.</p>
+
+      <p>If the starting format is consistent, we can take the process further by using traditional automation for the full workflow. A script can run faster, produce more consistent results than AI, and be accessed directly in Excel or shared with the team.</p>
+
+      <p>Good thing, copilot can help us create that script.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="Turn that same process into an Office Script I can run in the excel online.">Copy</button>
+        </div>
+        <p class="prompt-text">"Turn that same process into an Office Script I can run in the excel online."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>The same combined process from Part 4, still in the same thread.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Convert the process into an Office Script that runs in Excel Online.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>Runnable script code, not a text explanation.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="context-expansion">Context expansion prompting</span>
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="callout neutral">
+        <h4>Rule of thumb</h4>
+        <p>A good rule of thumb: if your Excel file comes from a regular export, such as Power BI, AND Platform, or a similar system, the format is usually consistent enough to try automating the full process with a script.</p>
+      </div>
+
+      <div class="card soft reflect-card">
+        <span class="eyebrow-chip chip-brand">Reflection questions</span>
+        <ul class="list" style="margin-bottom:0;">
+          <li>After generating the script, what checks should we run to confirm it works as intended?</li>
+          <li>When would creating an automation script not be the best approach?</li>
+          <li>What steps could make the automation more reusable across a wider range of cases?</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <div class="page-nav">
+      <a class="button secondary" href="../index.html">Back to overview</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="strategy-popover" id="strategy-popover" role="dialog" aria-hidden="true">
+  <button class="sp-close" type="button" aria-label="Close">&times;</button>
+  <div class="sp-title" id="sp-title"></div>
+  <p class="sp-what" id="sp-what"></p>
+  <p class="sp-elsewhere"><span class="sp-elsewhere-label">Try it elsewhere</span><span id="sp-elsewhere-text"></span></p>
+</div>
+
+<script>
+(function(){
+
+  // ---------- Copy buttons ----------
+  document.querySelectorAll('.copy-button[data-copy-text]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = btn.getAttribute('data-copy-text');
+      navigator.clipboard.writeText(text).then(function(){
+        var original = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function(){
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    });
+  });
+
+  // ---------- Strategy popovers ----------
+  var STRATEGY_INFO = {
+    'contextual': {
+      title: 'Contextual prompting',
+      what: "Ground the request in what the AI can already see, like the sheet or table, instead of describing the task in the abstract. Copilot reads the actual data instead of guessing at a generic version of it.",
+      elsewhere: 'Say "this table" instead of describing columns from memory. Copilot in Excel can see the workbook directly.'
+    },
+    'confirmatory': {
+      title: 'Confirmatory prompting',
+      what: "Ask the AI to confirm its plan or flag anything unclear before it acts. That way it doesn't guess silently and hope the result matches what you meant.",
+      elsewhere: 'Add "ask me anything that\'s unclear before you start" whenever a wrong first guess would be expensive to undo.'
+    },
+    'open-ended': {
+      title: 'Open-ended prompting',
+      what: "Leave the exact output loose and ask for judgment instead of a fixed structure. Useful when you want ideas or options, not one locked-in answer.",
+      elsewhere: 'Ask "what would you add first, and why" instead of naming the exact formula you want. You get the reasoning along with the answer.'
+    },
+    'direct-instruction': {
+      title: 'Direct instruction prompting',
+      what: "Tell the AI exactly what to do, in order, with no room for interpretation. Works best once you already know the outcome you want.",
+      elsewhere: 'Once you know which formulas you want, name them directly instead of asking Copilot to suggest them again.'
+    },
+    'negative': {
+      title: 'Negative prompting',
+      what: "Tell the AI what to remove or avoid, not only what to add. Removing subtotals or excess formatting matters as much as the formulas themselves.",
+      elsewhere: 'In any cleanup task, add one line naming what should not be in the final result.'
+    },
+    'context-expansion': {
+      title: 'Context expansion prompting',
+      what: "Build on everything already done earlier in the same conversation instead of restating it. Copilot already has the flatten, the formulas, and the pivot in view.",
+      elsewhere: 'Say "combine everything we just did" instead of re-listing every step. It only works if you stayed in the same thread.'
+    }
+  };
+
+  var popover = document.getElementById('strategy-popover');
+  var spTitle = document.getElementById('sp-title');
+  var spWhat = document.getElementById('sp-what');
+  var spElsewhere = document.getElementById('sp-elsewhere-text');
+  var activePill = null;
+
+  function closePopover(){
+    popover.classList.remove('sp-open');
+    popover.setAttribute('aria-hidden', 'true');
+    activePill = null;
+  }
+
+  function openPopover(pill){
+    var key = pill.getAttribute('data-strategy');
+    var info = STRATEGY_INFO[key];
+    if (!info) return;
+    spTitle.textContent = info.title;
+    spWhat.textContent = info.what;
+    spElsewhere.textContent = info.elsewhere;
+
+    popover.classList.add('sp-open');
+    popover.setAttribute('aria-hidden', 'false');
+
+    var rect = pill.getBoundingClientRect();
+    var popW = 300;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var left = rect.left;
+    if (left + popW + 16 > vw) left = vw - popW - 16;
+    if (left < 16) left = 16;
+
+    var popH = popover.offsetHeight || 160;
+    var top = rect.bottom + 8;
+    if (top + popH + 16 > vh) top = rect.top - popH - 8;
+    if (top < 16) top = 16;
+
+    popover.style.left = left + 'px';
+    popover.style.top = top + 'px';
+  }
+
+  document.querySelectorAll('.digest-pill[data-strategy]').forEach(function(pill){
+    pill.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (activePill === pill) { closePopover(); return; }
+      activePill = pill;
+      openPopover(pill);
+    });
+  });
+
+  popover.querySelector('.sp-close').addEventListener('click', closePopover);
+  document.addEventListener('click', function(e){
+    if (popover.classList.contains('sp-open') && !popover.contains(e.target)) closePopover();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closePopover();
+  });
+
+})();
+</script>
+
+</body>
+</html>

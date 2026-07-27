@@ -233,9 +233,44 @@ a{ color: var(--brand); }
 
 /* ---------- Footer nav ---------- */
 .page-nav{ display: flex; justify-content: space-between; margin-top: 10px; }
-.button{ display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 700; padding: 10px 18px; border-radius: 100px; text-decoration: none; }
-.button.primary{ background: var(--brand); color: #fff; }
-.button.secondary{ background: #fff; color: var(--body); border: 1px solid var(--border); }
+.button{
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px; border-radius: 100px; font-size: 13.5px; font-weight: 700;
+  text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+  font-family: inherit; transition: transform .12s, background .15s, border-color .15s;
+}
+.button:hover{ transform: translateY(-1px); }
+.button.primary{ background: var(--brand); color: #fff; border-color: var(--brand); }
+.button.primary:hover{ background: var(--brand-2); border-color: var(--brand-2); }
+.button.secondary{ background: var(--surface); border-color: var(--border); color: var(--body); }
+.button.secondary:hover{ border-color: var(--brand); color: var(--brand); }
+
+/* ── Hero actions ── */
+.hero-actions{ display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+
+/* ── Step tracker ── */
+.step-tracker{ display: flex; gap: 6px; overflow-x: auto; }
+.step-dot{
+  flex-shrink: 0; display: flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 700; color: var(--muted);
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 100px; padding: 6px 13px 6px 8px; cursor: pointer;
+  text-decoration: none; white-space: nowrap;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.step-dot span.num{
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--border); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 10.5px;
+}
+.step-dot:hover{ border-color: var(--brand); color: var(--brand); }
+.step-dot.is-active{ border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
+.step-dot.is-active span.num{ background: var(--brand); }
+.lab-step-nav{
+  position: sticky; top: 68px; z-index: 20;
+  background: var(--bg); padding: 10px 0 14px;
+  border-bottom: 1px solid var(--border); margin-bottom: 8px;
+}
 </style>
 </head>
 <body class="bdlab">
@@ -251,7 +286,7 @@ a{ color: var(--brand); }
     </div>
     <nav class="nav" aria-label="Primary">
       <a href="../index.html">Overview</a>
-      <a href="ai-overview.html">AI Overview</a>
+      <a href="ai-overview.html">Users Overview</a>
       <a href="BDRpL1.html">BD Lab</a>
       <a href="excel-flatten-pivot-lab.html" class="is-current">Excel</a>
       <a href="../copilot/teams.html">Copilot Premium</a>
@@ -268,12 +303,16 @@ a{ color: var(--brand); }
         <div class="eyebrow">Lab &middot; Excel</div>
         <h1 class="title">Mastering AI in Excel</h1>
         <p class="lede">Use Copilot as an agent inside a live workbook: flatten a nested report, add calculated columns, build pivots, then compress the whole process into one prompt and a reusable script.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#part-1">Start Part 1</a>
+          <a class="button secondary" href="#before-you-begin">Before You Begin</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="before-you-begin">
   <div class="shell">
     <div class="section-head">
       <div>
@@ -297,6 +336,20 @@ a{ color: var(--brand); }
     </div>
 
     <p class="carry-note"><i class="ti ti-arrow-loop-right" aria-hidden="true"></i>Carry forward: stay in the same Copilot chat through every part below. Part 4 depends on it.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-block: 0;">
+  <div class="shell">
+    <div class="lab-step-nav">
+      <nav class="step-tracker" id="step-tracker" aria-label="Lab parts">
+        <a class="step-dot" href="#part-1"><span class="num">1</span>Flatten</a>
+        <a class="step-dot" href="#part-2"><span class="num">2</span>Columns</a>
+        <a class="step-dot" href="#part-3"><span class="num">3</span>Pivot</a>
+        <a class="step-dot" href="#part-4"><span class="num">4</span>One Prompt</a>
+        <a class="step-dot" href="#part-5"><span class="num">5</span>Script</a>
+      </nav>
+    </div>
   </div>
 </section>
 
@@ -812,6 +865,42 @@ a{ color: var(--brand); }
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape') closePopover();
   });
+
+  // ---------- Step tracker ----------
+  (function(){
+    var tracker = document.getElementById('step-tracker');
+    if (!tracker) return;
+    var dots = Array.prototype.slice.call(tracker.querySelectorAll('.step-dot'));
+    var steps = dots.map(function(dot){
+      var id = dot.getAttribute('href').replace('#','');
+      return document.getElementById(id);
+    }).filter(Boolean);
+    if (!steps.length) return;
+    var setActive = function(id){
+      dots.forEach(function(dot){
+        dot.classList.toggle('is-active', dot.getAttribute('href') === '#'+id);
+      });
+    };
+    if ('IntersectionObserver' in window){
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-140px 0px -60% 0px', threshold: 0.01 });
+      steps.forEach(function(el){ observer.observe(el); });
+    }
+    dots.forEach(function(dot){
+      dot.addEventListener('click', function(e){
+        e.preventDefault();
+        var id = dot.getAttribute('href').replace('#','');
+        var target = document.getElementById(id);
+        if (target){
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setActive(id);
+        }
+      });
+    });
+  })();
 
 })();
 </script>

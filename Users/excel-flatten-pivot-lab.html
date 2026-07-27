@@ -155,6 +155,22 @@ a{ color: var(--brand); }
 .callout.privacy{ background: var(--success-soft); border: 1px solid rgba(47,143,91,0.28); }
 .callout.privacy h4{ color: var(--success); }
 
+/* ---------- Copilot modes card ---------- */
+.modes-list{ display: flex; flex-direction: column; gap: 12px; margin: 12px 0 0; }
+.mode-item{ display: flex; gap: 12px; align-items: flex-start; }
+.mode-tag{
+  display: inline-flex; align-items: center; font-size: 10.5px; font-weight: 800;
+  letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px;
+  border-radius: 100px; white-space: nowrap; flex-shrink: 0; vertical-align: middle;
+}
+.mode-item .mode-tag{ margin-top: 2px; }
+.mode-tag.edit{ background: var(--brand-soft); color: var(--brand); }
+.mode-tag.plan{ background: var(--gold-soft); color: var(--gold); }
+.mode-tag.chat{ background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+.mode-item p{ margin: 0; font-size: 14px; }
+.mode-decide{ margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.mode-decide-label{ font-size: 13px; font-weight: 800; color: var(--text); display: block; margin-bottom: 8px; }
+
 .carry-note{
   font-size: 12.5px; font-weight: 700; color: var(--brand); margin: -4px 0 14px !important;
   display: flex; align-items: center; gap: 6px;
@@ -346,6 +362,32 @@ a{ color: var(--brand); }
     <div class="callout privacy">
       <h4><i class="ti ti-shield-lock" aria-hidden="true"></i>Quick note on privacy</h4>
       <p>One benefit of using Copilot in Excel is that it works within the workbook, so the data stays in the file and is not shared with other apps, including Copilot Chat. This helps keep the data contained while still allowing us to use AI safely.</p>
+    </div>
+
+    <div class="card" style="margin-top: 14px;">
+      <p style="margin: 0; font-size: 14.5px;"><strong>Copilot in Excel has three modes: edit, plan, or chat, with edit as the default.</strong></p>
+      <div class="modes-list">
+        <div class="mode-item">
+          <span class="mode-tag edit">Edit (Allow editing)</span>
+          <p>Copilot works directly in the workbook. It's built for complex, multi-step tasks: reshaping data, merging sheets, building reports with multiple elements.</p>
+        </div>
+        <div class="mode-item">
+          <span class="mode-tag plan">Plan</span>
+          <p>Copilot first builds a structured plan you review and confirm before anything runs. Use this when the task is big enough to ensure that the approach is correct before execution starts.</p>
+        </div>
+        <div class="mode-item">
+          <span class="mode-tag chat">Chat only</span>
+          <p>Copilot analyzes workbook data and gives insights without making any changes. Good for one-off questions.</p>
+        </div>
+      </div>
+      <div class="mode-decide">
+        <span class="mode-decide-label">How to decide:</span>
+        <ul class="list" style="margin-bottom: 0;">
+          <li>Task is well-defined and you trust the approach &rarr; <span class="mode-tag edit">Edit</span> Fastest path.</li>
+          <li>Task is ambiguous, high-stakes, or touches a lot of the sheet (reordering columns across 20 tabs, restructuring a model) &rarr; <span class="mode-tag plan">Plan</span></li>
+          <li>You just want an answer, a formula explanation, or a data read &rarr; <span class="mode-tag chat">Chat only</span> No risk of it touching anything.</li>
+        </ul>
+      </div>
     </div>
 
     <p class="carry-note"><i class="ti ti-arrow-loop-right" aria-hidden="true"></i>Carry forward: stay in the same Copilot chat through every part below. Part 4 depends on it.</p>

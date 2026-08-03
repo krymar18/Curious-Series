@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root{
+      --brand: #204d89;
+      --brand-2: #16325c;
+      --brand-soft: rgba(32,77,137,0.08);
+      --brand-line: rgba(32,77,137,0.22);
+      --gold: #b8862e;
+      --gold-soft: rgba(184,134,46,0.12);
+      --success: #2f8f5b;
+      --success-soft: rgba(47,143,91,0.12);
+      --border: #ddd4c7;
+      --muted: #8a8172;
+      --text: #241d15;
+      --body: #3c352b;
+      --bg: #faf7f1;
+      --surface: #ffffff;
+      --radius-sm: 14px;
+      --radius-lg: 20px;
+      --shadow: 0 16px 28px rgba(23,15,5,0.06);
+    }
+    *{ box-sizing: border-box; }
+    body{ margin: 0; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--body); line-height: 1.6; }
+    .shell{ max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    a{ color: var(--brand); }
+
+    /* ── Topbar ── */
+    .topbar{
+      position: sticky; top: 0; z-index: 30;
+      background: rgba(246,241,232,0.84); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(221,212,199,0.8);
+    }
+    .topbar-inner{
+      min-height: 74px; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px; padding: 0 24px;
+    }
+    .brand{ display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark{
+      width: 42px; height: 42px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 12px 24px rgba(32,77,137,0.22);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; letter-spacing: 0.02em; flex-shrink: 0;
+    }
+    .brand-title{ font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--text); line-height: 1.1; }
+    .brand-subtitle{ font-size: 0.9rem; color: var(--muted); }
+    .nav{ display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .nav a{
+      padding: 9px 13px; border-radius: 999px; color: var(--body);
+      border: 1px solid transparent; transition: 0.18s ease;
+      font-size: 0.92rem; white-space: nowrap; text-decoration: none; font-weight: 600;
+    }
+    .nav a:hover{ background: rgba(255,255,255,0.8); border-color: var(--border); color: var(--text); }
+    .nav a.is-current{ background: var(--brand); color: #fff; box-shadow: 0 10px 20px rgba(32,77,137,0.18); }
+
+    /* ── Hero ── */
+    .hero{ padding: 40px 0 8px; }
+    .hero-card{
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow);
+    }
+    .hero-inner{ padding: 34px 36px; }
+    .eyebrow{
+      display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--brand); margin-bottom: 10px;
+    }
+    .title{ font-size: 30px; font-weight: 800; color: var(--text); margin: 0 0 12px; letter-spacing: -0.01em; }
+    .lede{ font-size: 15px; color: var(--body); max-width: 640px; margin: 0; }
+
+    /* ── Section & cards ── */
+    .section{ padding: 28px 0 48px; }
+    .section-head{ margin-bottom: 20px; }
+    .section-head h2{ font-size: 21px; font-weight: 800; color: var(--text); margin: 0 0 6px; }
+    .section-head p{ font-size: 14px; color: var(--muted); margin: 0; }
+    .grid{ display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 700px){ .grid{ grid-template-columns: 1fr; } }
+    @media (min-width: 701px) and (max-width: 860px){ .grid{ grid-template-columns: 1fr 1fr; } }
+    .card{
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 22px 24px;
+      box-shadow: 0 3px 10px rgba(23,15,5,0.04);
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.18s, transform 0.18s;
+    }
+    .card:hover{ box-shadow: 0 8px 24px rgba(23,15,5,0.09); transform: translateY(-2px); }
+    .card h3{ font-size: 16px; font-weight: 800; color: var(--text); margin: 0 0 8px; }
+    .card p{ font-size: 14px; color: var(--body); margin: 0 0 18px; flex: 1; line-height: 1.65; }
+    .eyebrow-chip{
+      display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 12px;
+    }
+    .chip-brand{ background: var(--brand-soft); color: var(--brand); }
+    .chip-gold{ background: var(--gold-soft); color: var(--gold); }
+    .chip-success{ background: var(--success-soft); color: var(--success); }
+    .card-link{
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700; color: var(--brand); text-decoration: none;
+      padding: 8px 16px; border-radius: 100px; border: 1.5px solid var(--brand-line);
+      background: var(--brand-soft); transition: 0.15s ease; align-self: flex-start;
+    }
+    .card-link:hover{ background: var(--brand); color: #fff; border-color: var(--brand); }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="shell topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">AI</div>
+      <div>
+        <div class="brand-title">Curious AI Series</div>
+        <div class="brand-subtitle">Curious Users</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html">Overview</a>
+      <a href="ai-overview.html">Users Intro</a>
+      <a href="labs.html" class="is-current">Labs</a>
+      <a href="wrap-up.html">Wrap Up</a>
+      <a href="../copilot/teams.html">Copilot</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="shell">
+      <div class="hero-card">
+        <div class="hero-inner">
+          <div class="eyebrow">Curious Users</div>
+          <h1 class="title">Labs</h1>
+          <p class="lede">Hands-on exercises for applying AI in real workflows — from BD research and pitch-building to Excel data transformation and media buy consolidation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="grid">
+
+        <article class="card">
+          <span class="eyebrow-chip chip-brand">BD</span>
+          <h3>BD Research Lab</h3>
+          <p>Research a client, build the pitch, and pressure-test it — a 7-step applied lab using personas, evaluation, and synthesis.</p>
+          <a class="card-link" href="BDRpL1.html">Open BD Lab <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </article>
+
+        <article class="card">
+          <span class="eyebrow-chip chip-gold">Excel</span>
+          <h3>Mastering AI in Excel</h3>
+          <p>Flatten a nested report, add calculated columns, build pivots, then compress the whole process into one prompt and a reusable script.</p>
+          <a class="card-link" href="excel-flatten-pivot-lab.html">Open Excel Lab <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </article>
+
+        <article class="card">
+          <span class="eyebrow-chip chip-gold">Excel &middot; Markets</span>
+          <h3>Media Buy Data Consolidation</h3>
+          <p>Rename WIP sheets, flatten them into one combined table, build a roll-up with PivotTables, add slicers, then compress the whole workflow into one end-to-end prompt.</p>
+          <a class="card-link" href="markets-session2-excel-lab.html">Open Markets Lab <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

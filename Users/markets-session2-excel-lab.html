@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curious AI Series | Lab: Mastering AI in Excel</title>
+<title>Curious AI Series | Lab: Media Buy Data Consolidation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -236,6 +236,16 @@ a{ color: var(--brand); }
   cursor: pointer; font-family: inherit;
 }
 .digest-pill:hover{ background: var(--brand-soft); }
+.static-pill{
+  font-size: 11.5px; font-weight: 700; color: var(--brand-2); background: #fff;
+  border: 1px solid var(--brand-line); padding: 4px 11px; border-radius: 100px;
+  font-family: inherit; display: inline-block;
+}
+.digest-generic-note{
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+  font-size: 12.5px; color: var(--muted); line-height: 1.55;
+}
+.digest-generic-note strong{ color: var(--body); }
 
 /* ---------- Strategy popover ---------- */
 .strategy-popover{
@@ -300,6 +310,34 @@ a{ color: var(--brand); }
   background: var(--bg); padding: 10px 0 14px;
   border-bottom: 1px solid var(--border); margin-bottom: 8px;
 }
+
+.toggle-note{ margin: 8px 2px 0; font-size: 13px; color: var(--muted); font-style: italic; }
+
+/* ---------- Approach sub-headers (Part 3) ---------- */
+.approach-tag{
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 11px; border-radius: 100px;
+  margin-bottom: 10px;
+}
+.approach-tag.a{ background: var(--gold-soft); color: var(--gold); }
+.approach-tag.b{ background: var(--success-soft); color: var(--success); }
+.approach-title{ font-size: 16px; font-weight: 800; color: var(--text); margin: 0 0 4px; }
+.approach-sub{ font-style: italic; color: var(--muted); font-size: 13.5px; margin: 0 0 12px !important; }
+.approach-block{ margin: 20px 0 24px; padding-top: 4px; }
+.approach-divider{ border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+/* ---------- Comparison table ---------- */
+.table-wrap{
+  overflow-x: auto; margin: 16px 0; border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.table-wrap table{ width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); }
+.table-wrap thead th{
+  text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+  color: #fff; background: var(--brand); padding: 10px 14px;
+}
+.table-wrap tbody td{ padding: 10px 14px; border-top: 1px solid var(--border); vertical-align: top; color: var(--body); }
+.table-wrap tbody tr:nth-child(even){ background: var(--bg); }
 </style>
 </head>
 <body class="bdlab">
@@ -310,7 +348,7 @@ a{ color: var(--brand); }
       <div class="brand-mark">AI</div>
       <div>
         <div class="brand-title">Curious AI Series</div>
-        <div class="brand-subtitle">Curious Users</div>
+        <div class="brand-subtitle">Curious Users • Markets • Session 2</div>
       </div>
     </div>
     <nav class="nav" aria-label="Primary">
@@ -329,9 +367,9 @@ a{ color: var(--brand); }
   <div class="shell">
     <div class="hero-card">
       <div class="hero-inner">
-        <div class="eyebrow">Lab &middot; Excel</div>
-        <h1 class="title">Mastering AI in Excel</h1>
-        <p class="lede">Use Copilot as an agent inside a live workbook: flatten a nested report, add calculated columns, build pivots, then compress the whole process into one prompt and a reusable script.</p>
+        <div class="eyebrow">Lab &middot; Excel &middot; Markets</div>
+        <h1 class="title">Media Buy Data Consolidation &amp; Analysis</h1>
+        <p class="lede">Use Copilot as an agent inside a live workbook: rename WIP sheets, flatten them into one combined table, build a roll-up with PivotTables, add slicers, then compress the whole workflow into one end-to-end prompt.</p>
         <div class="hero-actions">
           <a class="button primary" href="#part-1">Start Part 1</a>
           <a class="button secondary" href="#before-you-begin">Before You Begin</a>
@@ -390,7 +428,7 @@ a{ color: var(--brand); }
       </div>
     </div>
 
-    <p class="carry-note"><i class="ti ti-arrow-loop-right" aria-hidden="true"></i>Carry forward: stay in the same Copilot chat through every part below. Part 4 depends on it.</p>
+    <p class="carry-note"><i class="ti ti-arrow-loop-right" aria-hidden="true"></i>Carry forward: stay in the same Copilot chat through every part below. Part 5 depends on it.</p>
   </div>
 </section>
 
@@ -398,25 +436,97 @@ a{ color: var(--brand); }
   <div class="shell">
     <div class="lab-step-nav">
       <nav class="step-tracker" id="step-tracker" aria-label="Lab parts">
-        <a class="step-dot" href="#part-1"><span class="num">1</span>Flatten</a>
-        <a class="step-dot" href="#part-2"><span class="num">2</span>Columns</a>
-        <a class="step-dot" href="#part-3"><span class="num">3</span>Pivot</a>
-        <a class="step-dot" href="#part-4"><span class="num">4</span>One Prompt</a>
-        <a class="step-dot" href="#part-5"><span class="num">5</span>Script</a>
+        <a class="step-dot" href="#part-1"><span class="num">1</span>Rename</a>
+        <a class="step-dot" href="#part-2"><span class="num">2</span>Combine</a>
+        <a class="step-dot" href="#part-3"><span class="num">3</span>Roll-Up</a>
+        <a class="step-dot" href="#part-4"><span class="num">4</span>Slicers</a>
+        <a class="step-dot" href="#part-5"><span class="num">5</span>End-to-End</a>
       </nav>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     PART 1 — FLATTEN THE REPORT
+     PART 1 — RENAME SHEETS TO MEANINGFUL IDENTIFIERS
      ============================================================ -->
 <section class="section">
   <div class="shell">
     <article class="card part-block" id="part-1">
-      <span class="part-tag"><i class="ti ti-table" aria-hidden="true"></i>Part 1</span>
-      <h3 class="part-title">Flatten the Report</h3>
-      <p style="font-style:italic;color:var(--muted);margin-top:-8px;">Getting one row per spot out of a nested avail.</p>
+      <span class="part-tag"><i class="ti ti-tag" aria-hidden="true"></i>Part 1</span>
+      <h3 class="part-title">Rename Sheets to Meaningful Identifiers</h3>
+      <p style="font-style:italic;color:var(--muted);margin-top:-8px;">Turning Sheet1, Sheet1 (2), and so on into DMA numbers you can actually navigate by.</p>
+
+      <p>Rename generic sheet names to their DMAs numbers for easier navigation.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="Rename each tab as Market for that order">Copy</button>
+        </div>
+        <p class="prompt-text">"Rename each tab as Market for that order"</p>
+      </div>
+      <p class="toggle-note">Copilot will likely ask where the DMA number lives on each sheet before it acts.</p>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down for the specific prompt.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>No persona assigned. Copilot works directly as an Excel agent.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>"The WIP number is located in cell B9 of each sheet." Points Copilot straight to the source instead of asking it to guess.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Rename every sheet in the workbook to match its WIP number.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>Renamed tabs only &mdash; no new sheets or structural changes.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used &mdash; specific prompt</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+            <span class="digest-pill" data-strategy="contextual">Contextual prompting</span>
+          </div>
+        </div>
+        <div class="digest-generic-note">
+          <strong>Generic version:</strong> drops the cell reference and adds "ask questions if unclear," trading direct instruction for open-ended and confirmatory prompting.
+        </div>
+      </details>
+
+      <div class="callout neutral">
+        <h4><i class="ti ti-bulb" aria-hidden="true"></i>Note</h4>
+        <p>When working with AI, it is often faster to describe the data and how it should be used rather than pointing to a specific cell immediately. This gives Copilot more context about the dataset, improving follow-up prompts and making the overall workflow easier. In many cases, this can be more efficient than manually correcting individual cells.</p>
+      </div>
+
+      <div class="card soft reflect-card">
+        <span class="eyebrow-chip chip-brand">Reflection questions</span>
+        <ul class="list" style="margin-bottom:0;">
+          <li>How would you confirm every sheet renamed correctly without opening each one by hand?</li>
+          <li>What happens if two sheets share the same WIP number? How should Copilot handle that case?</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 2 — CREATE A COMBINED / FLATTENED DATA TABLE
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-2">
+      <span class="part-tag"><i class="ti ti-table" aria-hidden="true"></i>Part 2</span>
+      <h3 class="part-title">Create a Combined / Flattened Data Table</h3>
 
       <p class="part-lead">Why does formatting matter?</p>
       <p>Many Excel exports we use every day include merged cells, sub headers, and multiple header rows. These can make the report easier to scan visually, but they make Excel's built-in filtering, pivoting, and analysis tools much harder to use.</p>
@@ -430,14 +540,14 @@ a{ color: var(--brand); }
         <li>Navigate Excel faster</li>
       </ul>
 
-      <p>The lab prompts are designed to give Copilot for Excel a clear sense of the end goal, so the AI can ask clarifying questions and adapt the steps to your specific file. The hope is that you can reuse this prompt across most report formats, with Copilot guiding you through any questions specific to the use case.</p>
+      <p>One benefit of using Copilot is that it can handle multiple steps at once. While flattening the data, we can also ask it to add any missing calculated columns to save time.</p>
 
       <div class="prompt-box">
         <div class="prompt-box-head">
           <span class="prompt-box-label">Prompt to use</span>
-          <button class="copy-button" type="button" data-copy-text="This sheet is an order schedule. I want to analyze it using Excel's built-in tools, so I need it reformatted as a proper table first, flattened. Take a look, tell me the best way to do it, and ask me anything that's unclear before you start.">Copy</button>
+          <button class="copy-button" type="button" data-copy-text="Create a new sheet called &quot;Combined&quot; with a flattened table that pulls data from all 5 market sheets. Include these columns: Market, System, Network, Daypart, week date, units per week, rate, IMP, and a calculated column for total cost (rate x unit) and total IMP (IMP x unit). Each sheet can be structured differently, so you will have to look at the contents, as the row/columns will not always be consistent">Copy</button>
         </div>
-        <p class="prompt-text">"This sheet is an order schedule. I want to analyze it using Excel's built-in tools, so I need it reformatted as a proper table first, flattened. Take a look, tell me the best way to do it, and ask me anything that's unclear before you start."</p>
+        <p class="prompt-text">"Create a new sheet called &ldquo;Combined&rdquo; with a flattened table that pulls data from all 5 market sheets. Include these columns: Market, System, Network, Daypart, week date, units per week, rate, IMP, and a calculated column for total cost (rate &times; unit) and total IMP (IMP &times; unit). Each sheet can be structured differently, so you will have to look at the contents, as the row/columns will not always be consistent"</p>
       </div>
 
       <details class="prompt-digest">
@@ -445,41 +555,42 @@ a{ color: var(--brand); }
           <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
           <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
         </summary>
-        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down for the specific prompt.</p>
         <div class="digest-grid">
           <div class="digest-card role">
             <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
-            <p>No persona assigned. Copilot works directly as an Excel agent, not a role-played expert.</p>
+            <p>None assigned.</p>
           </div>
           <div class="digest-card context">
             <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
-            <p>"This sheet is an order schedule." Naming the file type anchors Copilot to the real data instead of a generic table.</p>
+            <p>All 5 WIP sheets, renamed in Part 1. The target output is named directly: "Combined."</p>
           </div>
           <div class="digest-card task">
             <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
-            <p>Reformat into a flattened table, and recommend the best way to do it before acting.</p>
+            <p>Flatten and combine into one table with eight named columns, including a calculated Total Cost column.</p>
           </div>
           <div class="digest-card format">
             <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
-            <p>Open. The only fixed rule is to ask first if anything is unclear.</p>
+            <p>A new sheet called "Combined," structured as a flat table.</p>
           </div>
         </div>
         <div class="digest-strategies">
-          <span class="digest-strategies-label">Strategies used</span>
+          <span class="digest-strategies-label">Strategies used &mdash; specific prompt</span>
           <div class="digest-pills">
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
             <span class="digest-pill" data-strategy="contextual">Contextual prompting</span>
-            <span class="digest-pill" data-strategy="confirmatory">Confirmatory prompting</span>
-            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
           </div>
+        </div>
+        <div class="digest-generic-note">
+          <strong>Generic version:</strong> open-ended prompting &mdash; leaves column selection and structure for Copilot to propose. Copilot's approach here is to analyze each sheet's structure, map equivalent columns across sheets, and normalize the data into one consistent format.
         </div>
       </details>
 
       <div class="card soft reflect-card">
         <span class="eyebrow-chip chip-brand">Reflection questions</span>
         <ul class="list" style="margin-bottom:0;">
-          <li>How can we confirm that AI completed the process correctly and no data was lost?</li>
-          <li>How would you revise the prompt upfront to reduce or eliminate Copilot's clarifying questions?</li>
-          <li>Think of an Excel export with complicated formatting and try a similar prompt on it. Did it work? What challenges came up?</li>
+          <li>How can you confirm the flattening didn't drop or duplicate any rows?</li>
+          <li>What would you check first if the column mapping across sheets looked wrong?</li>
         </ul>
       </div>
     </article>
@@ -487,309 +598,135 @@ a{ color: var(--brand); }
 </section>
 
 <!-- ============================================================
-     PART 2 — ADD CALCULATED COLUMNS
-     ============================================================ -->
-<section class="section">
-  <div class="shell">
-    <article class="card part-block" id="part-2">
-      <span class="part-tag"><i class="ti ti-sum" aria-hidden="true"></i>Part 2</span>
-      <h3 class="part-title">Add Calculated Columns</h3>
-
-      <p class="part-lead">What does each line cost, and cost to reach someone?</p>
-      <p>Excel exports often include fixed calculated values, which can make analysis harder. AI can help convert those static calculations into Excel formulas, add new formulas, and apply calculations or transformations that make the analysis faster and more useful.</p>
-
-      <p>For open-ended analysis, AI can also help you brainstorm useful formulas and identify calculations worth testing first. Use the prompt below to start exploring what might be interesting in our sample avail.</p>
-
-      <div class="prompt-box">
-        <div class="prompt-box-head">
-          <span class="prompt-box-label">Prompt 1</span>
-          <button class="copy-button" type="button" data-copy-text="Look at this table and suggest a few formulas that would help me understand cost and performance here. What would you add first, and why?">Copy</button>
-        </div>
-        <p class="prompt-text">"Look at this table and suggest a few formulas that would help me understand cost and performance here. What would you add first, and why?"</p>
-      </div>
-
-      <details class="prompt-digest">
-        <summary>
-          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
-          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
-        </summary>
-        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
-        <div class="digest-grid">
-          <div class="digest-card role">
-            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
-            <p>None assigned. Still working directly on the table, not through a persona.</p>
-          </div>
-          <div class="digest-card context">
-            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
-            <p>"This table." Builds on the flattened output from Part 1, so nothing needs re-explaining.</p>
-          </div>
-          <div class="digest-card task">
-            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
-            <p>Suggest formulas for cost and performance, then name which one to try first.</p>
-          </div>
-          <div class="digest-card format">
-            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
-            <p>Open. A short list with reasoning attached, not one fixed answer.</p>
-          </div>
-        </div>
-        <div class="digest-strategies">
-          <span class="digest-strategies-label">Strategies used</span>
-          <div class="digest-pills">
-            <span class="digest-pill" data-strategy="contextual">Contextual prompting</span>
-            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
-          </div>
-        </div>
-      </details>
-
-      <p>In this case, AI saves time on Excel formula syntax, applies multiple formulas at once, and helps create more complex formulas that may not be worth building manually. For example, we can transform the daypart column into three separate fields: days in M-Su format, start time, and end time, with the time fields formatted for easier filtering.</p>
-
-      <div class="prompt-box">
-        <div class="prompt-box-head">
-          <span class="prompt-box-label">Prompt 2</span>
-          <button class="copy-button" type="button" data-copy-text="Good, add those directly to the table. Build three or four of them at once.">Copy</button>
-        </div>
-        <p class="prompt-text">"Good, add those directly to the table. Build three or four of them at once."</p>
-      </div>
-      <p style="font-size:13px;color:var(--muted);margin-top:-8px;">A direct follow-up in the same thread: it names an exact quantity and skips back to Prompt 1's suggestions instead of restating the task.</p>
-
-      <div class="card soft reflect-card">
-        <span class="eyebrow-chip chip-brand">Reflection questions</span>
-        <ul class="list" style="margin-bottom:0;">
-          <li>How can we verify that the transformations and formulas are working correctly?</li>
-          <li>What are the main risks of using Copilot to generate formulas this way?</li>
-          <li>Major file transformations can take Copilot much longer than simple text responses. How can we account for that inefficiency, and is AI still worth using for this task?</li>
-        </ul>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- ============================================================
-     PART 3 — BUILD A PIVOT
+     PART 3 — CREATE SUMMARY ROLL-UP TABLES
      ============================================================ -->
 <section class="section">
   <div class="shell">
     <article class="card part-block" id="part-3">
       <span class="part-tag"><i class="ti ti-chart-pie" aria-hidden="true"></i>Part 3</span>
-      <h3 class="part-title">Build a Pivot</h3>
+      <h3 class="part-title">Create Summary Roll-Up Tables</h3>
 
-      <p>Once we have finished analyzing the raw table and added any needed calculations, it is time to use one of Excel's most powerful tools: pivot tables. Pivots let us group data by specific values and calculate sums, averages, counts, and other summaries for each group. Built-in filters and slicers also make it easier to explore the data. AI's real advantage is that it can generate multiple pivot tables at once, letting you spend more time analyzing the results instead of building the tables.</p>
+      <p class="part-lead">Objective</p>
+      <p>After creating the raw table with all WIPs and any required calculated columns, the next step is to build the roll-up. There are two main approaches. By default, Excel may try to generate formulas for each cell in the roll-up table. This can work, but it is slow because Copilot adds the formulas one at a time, and Excel recalculates the workbook after each new formula. With a larger dataset, this can cause Excel to freeze and make the prompt take much longer to finish. In testing, execution took at least 20 minutes. We recommend avoiding this method unless the dataset is small or you are using it mainly as a learning exercise and are comfortable waiting.</p>
 
-      <p>Start by asking Copilot to brainstorm pivot tables that could be useful for this dataset.</p>
+      
+      <div class="approach-block">
 
-      <div class="prompt-box">
-        <div class="prompt-box-head">
-          <span class="prompt-box-label">Prompt 1</span>
-          <button class="copy-button" type="button" data-copy-text="Look at this table and suggest a pivot table that would show where the budget is going. What would you set up, and why?">Copy</button>
+        <h4 class="approach-title">PivotTable-based roll-up</h4>
+
+
+        <div class="prompt-box">
+          <div class="prompt-box-head">
+            <span class="prompt-box-label">Prompt to use</span>
+            <button class="copy-button" type="button" data-copy-text="I would like to create a pivot table which will allow me to view summaries across all Markets. I will care about seeing Markets, Systems and total Cost, units and total IMP (the last three will need to be values). I would then like to add in slicers that will help me see networks and dayparts if desired">Copy</button>
+          </div>
+          <p class="prompt-text">"I would like to create a pivot table which will allow me to view summaries across all Markets. I will care about seeing Markets, Systems and total Cost, units and total IMP (the last three will need to be values). I would then like to add in slicers that will help me see networks and dayparts if desired"</p>
         </div>
-        <p class="prompt-text">"Look at this table and suggest a pivot table that would show where the budget is going. What would you set up, and why?"</p>
-      </div>
 
-      <details class="prompt-digest">
-        <summary>
-          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
-          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
-        </summary>
-        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
-        <div class="digest-grid">
-          <div class="digest-card role">
-            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
-            <p>None assigned.</p>
+        <details class="prompt-digest">
+          <summary>
+            <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+            <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+          </summary>
+          <p class="digest-sub">Role, context, task, and format &mdash; broken down for the specific prompt.</p>
+          <div class="digest-grid">
+            <div class="digest-card role">
+              <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+              <p>None assigned.</p>
+            </div>
+            <div class="digest-card context">
+              <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+              <p>The same Roll Up sheet from Approach A, now converting to PivotTables.</p>
+            </div>
+            <div class="digest-card task">
+              <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+              <p>Recreate both summaries as PivotTables, and add slicers for Network and WIP #.</p>
+            </div>
+            <div class="digest-card format">
+              <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+              <p>PivotTable-based layout with slicers, not raw formulas.</p>
+            </div>
           </div>
-          <div class="digest-card context">
-            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
-            <p>"This table," now including the calculated columns added in Part 2.</p>
+          <div class="digest-strategies">
+            <span class="digest-strategies-label">Strategies used &mdash; specific prompt</span>
+            <div class="digest-pills">
+              <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+              <span class="digest-pill" data-strategy="negative">Negative prompting</span>
+            </div>
           </div>
-          <div class="digest-card task">
-            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
-            <p>Suggest a pivot table for budget allocation, and explain the choice.</p>
+          <div class="digest-generic-note">
+            <strong>Generic version:</strong> still names PivotTables, but skips the exact field layout &mdash; leaving Copilot to decide how rows, columns, and values are arranged.
           </div>
-          <div class="digest-card format">
-            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
-            <p>Open. Reasoning expected alongside the suggestion.</p>
-          </div>
-        </div>
-        <div class="digest-strategies">
-          <span class="digest-strategies-label">Strategies used</span>
-          <div class="digest-pills">
-            <span class="digest-pill" data-strategy="contextual">Contextual prompting</span>
-            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
-          </div>
-        </div>
-      </details>
-
-      <p>Different users prefer to view pivots in different ways. Personally, I prefer seeing pivot data in a table rather than the default pivot format. AI can quickly convert pivots into the format you need with a prompt like this:</p>
-
-      <div class="prompt-box">
-        <div class="prompt-box-head">
-          <span class="prompt-box-label">Prompt 2</span>
-          <button class="copy-button" type="button" data-copy-text="Turn all pivot tables on this tab into tabular form, remove subtotals, and repeat the values in any grouped columns.">Copy</button>
-        </div>
-        <p class="prompt-text">"Turn all pivot tables on this tab into tabular form, remove subtotals, and repeat the values in any grouped columns."</p>
-      </div>
-
-      <details class="prompt-digest">
-        <summary>
-          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
-          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
-        </summary>
-        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
-        <div class="digest-grid">
-          <div class="digest-card role">
-            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
-            <p>None assigned.</p>
-          </div>
-          <div class="digest-card context">
-            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
-            <p>The pivot tables just created in this tab.</p>
-          </div>
-          <div class="digest-card task">
-            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
-            <p>Convert to tabular form, drop subtotals, repeat grouped column values.</p>
-          </div>
-          <div class="digest-card format">
-            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
-            <p>A flat table, not the default nested pivot layout.</p>
-          </div>
-        </div>
-        <div class="digest-strategies">
-          <span class="digest-strategies-label">Strategies used</span>
-          <div class="digest-pills">
-            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
-            <span class="digest-pill" data-strategy="negative">Negative prompting</span>
-          </div>
-        </div>
-      </details>
-    </article>
-  </div>
-</section>
-
-<!-- ============================================================
-     PART 4 — ONE BIG PROMPT
-     ============================================================ -->
-<section class="section">
-  <div class="shell">
-    <article class="card part-block" id="part-4">
-      <span class="part-tag"><i class="ti ti-stack-2" aria-hidden="true"></i>Part 4</span>
-      <h3 class="part-title">One Big Prompt</h3>
-
-      <p>When working with a new format or analyzing data for the first time, it is usually best to start with smaller steps. This helps limit unintended actions by the AI agent. However, using Copilot one step at a time can become inefficient if we do it every time, making it less likely that we save meaningful time or effort on analytical tasks. I think of the first pass as teaching AI the workflow and deciding what the technical process should be. Once that is clear, we can ask Copilot to turn the process into one large, multistep prompt that takes us from the starting point to the final output, so we can move directly into analysis. Copilot will still need time to complete the steps, but having everything combined lets you switch to another task, check email, or respond to pending Slacks, then return to completed calculations and summary tables.</p>
-
-      <p>After testing the larger prompt, save it to your prompt library so it is easier to reuse later.</p>
-
-      <div class="prompt-box">
-        <div class="prompt-box-head">
-          <span class="prompt-box-label">Prompt to use</span>
-          <button class="copy-button" type="button" data-copy-text="Combine everything we just did (flatten, the cost columns, the pivot, and the table conversion) into one prompt.">Copy</button>
-        </div>
-        <p class="prompt-text">"Combine everything we just did (flatten, the cost columns, the pivot, and the table conversion) into one prompt."</p>
-      </div>
-
-      <details class="prompt-digest">
-        <summary>
-          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
-          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
-        </summary>
-        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
-        <div class="digest-grid">
-          <div class="digest-card role">
-            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
-            <p>None assigned.</p>
-          </div>
-          <div class="digest-card context">
-            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
-            <p>Everything already done in this thread: the flatten, the cost columns, the pivot, and the table conversion.</p>
-          </div>
-          <div class="digest-card task">
-            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
-            <p>Combine all four prior steps into a single prompt.</p>
-          </div>
-          <div class="digest-card format">
-            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
-            <p>One prompt that reruns the whole chain end to end.</p>
-          </div>
-        </div>
-        <div class="digest-strategies">
-          <span class="digest-strategies-label">Strategies used</span>
-          <div class="digest-pills">
-            <span class="digest-pill" data-strategy="context-expansion">Context expansion prompting</span>
-            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
-          </div>
-        </div>
-      </details>
-    </article>
-  </div>
-</section>
-
-<!-- ============================================================
-     PART 5 — MAKE IT A SCRIPT
-     ============================================================ -->
-<section class="section">
-  <div class="shell">
-    <article class="card part-block" id="part-5">
-      <span class="part-tag"><i class="ti ti-code" aria-hidden="true"></i>Part 5</span>
-      <h3 class="part-title">Make It a Script</h3>
-
-      <p>The all-in-one prompt from the previous step can speed up execution, but it still relies heavily on AI. That means it can take time, use up personal AI credits, and create opportunities for hallucinations or mistakes.</p>
-
-      <p>If the starting format is consistent, we can take the process further by using traditional automation for the full workflow. A script can run faster, produce more consistent results than AI, and be accessed directly in Excel or shared with the team.</p>
-
-      <p>Good thing, copilot can help us create that script.</p>
-
-      <div class="prompt-box">
-        <div class="prompt-box-head">
-          <span class="prompt-box-label">Prompt to use</span>
-          <button class="copy-button" type="button" data-copy-text="Turn that same process into an Office Script I can run in the excel online.">Copy</button>
-        </div>
-        <p class="prompt-text">"Turn that same process into an Office Script I can run in the excel online."</p>
-      </div>
-
-      <details class="prompt-digest">
-        <summary>
-          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
-          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
-        </summary>
-        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
-        <div class="digest-grid">
-          <div class="digest-card role">
-            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
-            <p>None assigned.</p>
-          </div>
-          <div class="digest-card context">
-            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
-            <p>The same combined process from Part 4, still in the same thread.</p>
-          </div>
-          <div class="digest-card task">
-            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
-            <p>Convert the process into an Office Script that runs in Excel Online.</p>
-          </div>
-          <div class="digest-card format">
-            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
-            <p>Runnable script code, not a text explanation.</p>
-          </div>
-        </div>
-        <div class="digest-strategies">
-          <span class="digest-strategies-label">Strategies used</span>
-          <div class="digest-pills">
-            <span class="digest-pill" data-strategy="context-expansion">Context expansion prompting</span>
-            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
-          </div>
-        </div>
-      </details>
-
-      <div class="callout neutral">
-        <h4>Rule of thumb</h4>
-        <p>A good rule of thumb: if your Excel file comes from a regular export, such as Power BI, AND Platform, or a similar system, the format is usually consistent enough to try automating the full process with a script.</p>
+        </details>
       </div>
 
       <div class="card soft reflect-card">
         <span class="eyebrow-chip chip-brand">Reflection questions</span>
         <ul class="list" style="margin-bottom:0;">
-          <li>After generating the script, what checks should we run to confirm it works as intended?</li>
-          <li>When would creating an automation script not be the best approach?</li>
-          <li>What steps could make the automation more reusable across a wider range of cases?</li>
+          <li>For this dataset, which approach would you have started with, and why?</li>
+          <li>What would make you switch from formulas to PivotTables mid-project?</li>
         </ul>
       </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 5 — USE ONE END-TO-END PROMPT TO COMPLETE THE WORKFLOW
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-5">
+      <span class="part-tag"><i class="ti ti-stack-2" aria-hidden="true"></i>Part 4</span>
+      <h3 class="part-title">Use One End-to-End Prompt to Complete the Workflow</h3>
+
+      <p class="part-lead">Objective</p>
+      <p>Ask Copilot to pull together one comprehensive prompt based on the earlier steps, instead of writing the full end-to-end prompt yourself.</p>
+
+   
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="Review the steps above in this training lab and create one end-to-end prompt that I can paste into Copilot in Excel. The prompt should tell Copilot how to complete the full workflow from start to finish. The prompt should include clear step-by-step instructions for renaming sheets, creating a Combined sheet, flattening the data, building the PivotTables, adding slicers, and validating the final output. Make the prompt specific enough that Copilot can act on it, but not so rigid that it fails if column names or sheet layouts vary slightly. Include instructions for Copilot to stop and ask me when something is missing, duplicated, unclear, or inconsistent. At the end, include a short checklist I can use to confirm that the generated prompt covers every required step.">Copy</button>
+        </div>
+        <p class="prompt-text">"Review the steps above in this training lab and create one end-to-end prompt that I can paste into Copilot in Excel. The prompt should tell Copilot how to complete the full workflow from start to finish. The prompt should include clear step-by-step instructions for renaming sheets, creating a Combined sheet, flattening the data, building the PivotTables, adding slicers, and validating the final output. Make the prompt specific enough that Copilot can act on it, but not so rigid that it fails if column names or sheet layouts vary slightly. Include instructions for Copilot to stop and ask me when something is missing, duplicated, unclear, or inconsistent. At the end, include a short checklist I can use to confirm that the generated prompt covers every required step."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned. Copilot is asked to write a prompt, not execute one.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>The full workflow already covered in this lab &mdash; renaming, combining, roll-up, and slicers.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Write one end-to-end prompt that runs the whole workflow, plus a checklist to confirm it's complete.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>A ready-to-paste prompt, followed by a short checklist.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="static-pill">Role-free task sequencing</span>
+            <span class="static-pill">Step-by-step prompting</span>
+            <span class="static-pill">Validation prompting</span>
+            <span class="static-pill">Conditional stop-and-ask prompting</span>
+          </div>
+        </div>
+      </details>
     </article>
   </div>
 </section>
@@ -797,7 +734,7 @@ a{ color: var(--brand); }
 <section class="section">
   <div class="shell">
     <div class="page-nav">
-      <a class="button secondary" href="../index.html">Back to overview</a>
+      <a class="button secondary" href="ai-overview.html">Back to overview</a>
     </div>
   </div>
 </section>
@@ -830,6 +767,7 @@ a{ color: var(--brand); }
     });
   });
 
+
   // ---------- Strategy popovers ----------
   var STRATEGY_INFO = {
     'contextual': {
@@ -854,12 +792,12 @@ a{ color: var(--brand); }
     },
     'negative': {
       title: 'Negative prompting',
-      what: "Tell the AI what to remove or avoid, not only what to add. Removing subtotals or excess formatting matters as much as the formulas themselves.",
-      elsewhere: 'In any cleanup task, add one line naming what should not be in the final result.'
+      what: "Tell the AI what to remove or avoid, not only what to add. Ruling out a slower approach matters as much as naming the one you want.",
+      elsewhere: 'In any cleanup or performance task, add one line naming what should not be used in the final result.'
     },
     'context-expansion': {
       title: 'Context expansion prompting',
-      what: "Build on everything already done earlier in the same conversation instead of restating it. Copilot already has the flatten, the formulas, and the pivot in view.",
+      what: "Build on everything already done earlier in the same conversation instead of restating it. Copilot already has the earlier steps in view.",
       elsewhere: 'Say "combine everything we just did" instead of re-listing every step. It only works if you stayed in the same thread.'
     }
   };

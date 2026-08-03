@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Wrap Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    /* ── Design tokens ── */
+    :root{
+      --brand: #204d89;
+      --brand-2: #16325c;
+      --brand-soft: rgba(32,77,137,0.08);
+      --brand-line: rgba(32,77,137,0.22);
+      --gold: #b8862e;
+      --gold-soft: rgba(184,134,46,0.12);
+      --success: #2f8f5b;
+      --success-soft: rgba(47,143,91,0.12);
+      --danger: #b3432b;
+      --danger-soft: rgba(179,67,43,0.10);
+      --border: #ddd4c7;
+      --muted: #8a8172;
+      --text: #241d15;
+      --body: #3c352b;
+      --bg: #faf7f1;
+      --surface: #ffffff;
+      --radius-sm: 14px;
+      --radius-lg: 20px;
+      --shadow: 0 16px 28px rgba(23,15,5,0.06);
+    }
+    *{ box-sizing: border-box; }
+    body{ margin: 0; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--body); line-height: 1.6; }
+    .shell{ max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    a{ color: var(--brand); }
+
+    /* ── Topbar / nav ── */
+    .topbar{
+      position: sticky; top: 0; z-index: 30;
+      background: rgba(246,241,232,0.84); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(221,212,199,0.8);
+    }
+    .topbar-inner{
+      min-height: 74px; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px; padding: 0 24px;
+    }
+    .brand{ display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark{
+      width: 42px; height: 42px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 12px 24px rgba(32,77,137,0.22);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; letter-spacing: 0.02em; flex-shrink: 0;
+    }
+    .brand-title{ font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--text); line-height: 1.1; }
+    .brand-subtitle{ font-size: 0.9rem; color: var(--muted); }
+    .nav{ display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .nav a{
+      padding: 9px 13px; border-radius: 999px; color: var(--body);
+      border: 1px solid transparent; transition: 0.18s ease;
+      font-size: 0.92rem; white-space: nowrap; text-decoration: none; font-weight: 600;
+    }
+    .nav a:hover{ background: rgba(255,255,255,0.8); border-color: var(--border); color: var(--text); }
+    .nav a.is-current{ background: var(--brand); color: #fff; box-shadow: 0 10px 20px rgba(32,77,137,0.18); }
+
+    /* ── Hero ── */
+    .hero{ padding: 40px 0 8px; }
+    .hero-card{ background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+    .hero-inner{ padding: 34px 36px; }
+    .eyebrow{ display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
+    .title{ font-size: 30px; font-weight: 800; color: var(--text); margin: 0 0 12px; letter-spacing: -0.01em; }
+    .lede{ font-size: 15px; color: var(--body); max-width: 640px; margin: 0; }
+
+    /* ── Sections / cards ── */
+    .section{ padding: 28px 0; }
+    .section-head{ margin-bottom: 18px; }
+    .section-head h2{ font-size: 21px; font-weight: 800; color: var(--text); margin: 0 0 6px; }
+    .section-head p{ font-size: 14px; color: var(--muted); margin: 0; max-width: 640px; }
+    .grid{ display: grid; gap: 16px; }
+    .grid.two{ grid-template-columns: 1fr 1fr; }
+    @media (max-width: 700px){ .grid.two{ grid-template-columns: 1fr; } }
+    .card{ background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 22px; box-shadow: 0 3px 10px rgba(23,15,5,0.04); }
+    .card.soft{ background: #fbf8f2; box-shadow: none; }
+    .card p{ margin: 0 0 10px; font-size: 14px; }
+    .card p:last-child{ margin-bottom: 0; }
+    .eyebrow-chip{ display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 10px; }
+    .chip-brand{ background: var(--brand-soft); color: var(--brand); }
+    .chip-gold{ background: var(--gold-soft); color: var(--gold); }
+    .chip-success{ background: var(--success-soft); color: var(--success); }
+
+    /* ── Buttons ── */
+    .button{
+      display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 100px;
+      font-size: 13.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+      font-family: inherit; transition: transform .12s, background .15s, border-color .15s;
+    }
+    .button:hover{ transform: translateY(-1px); }
+    .button.primary{ background: var(--brand); color: #fff; }
+    .button.primary:hover{ background: var(--brand-2); }
+    .button.secondary{ background: transparent; border-color: var(--border); color: var(--body); }
+    .button.secondary:hover{ border-color: var(--brand); color: var(--brand); }
+
+    /* ── Lists ── */
+    ul.list{ margin: 0; padding: 0; list-style: none; }
+    ul.list li{ position: relative; padding-left: 18px; margin-bottom: 9px; font-size: 14.5px; line-height: 1.6; }
+    ul.list li:last-child{ margin-bottom: 0; }
+    ul.list li::before{ content: '–'; position: absolute; left: 0; color: var(--muted); }
+
+    /* ── Callouts ── */
+    .callout{ border-radius: var(--radius-sm); padding: 16px 20px; }
+    .callout h4{ margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .callout p{ margin: 0; font-size: 14px; }
+    .callout.neutral{ background: #f3efe6; }
+    .callout.neutral h4{ color: var(--muted); }
+    .callout.brand{ background: var(--brand-soft); }
+    .callout.brand h4{ color: var(--brand); }
+
+    /* ── Details / summary ── */
+    details{ border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); margin-bottom: 12px; overflow: hidden; }
+    details summary{ padding: 14px 18px; font-weight: 700; font-size: 14.5px; color: var(--text); cursor: pointer; list-style: none; position: relative; }
+    details summary::-webkit-details-marker{ display: none; }
+    details summary::after{ content: '+'; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--brand); font-weight: 700; font-size: 16px; }
+    details[open] summary::after{ content: '–'; }
+    details .details-body{ padding: 0 18px 18px; font-size: 14px; color: var(--body); }
+
+    /* ── Tables ── */
+    .table-wrap{ overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    table{ width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    table thead tr{ background: var(--brand-soft); }
+    table th{ text-align: left; padding: 10px 14px; font-weight: 700; color: var(--brand); border-bottom: 1px solid var(--border); }
+    table td{ padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--body); vertical-align: top; }
+    table tbody tr:last-child td{ border-bottom: none; }
+
+    /* ── Page nav ── */
+    .page-nav{ display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
+
+    /* ── Rule collapsibles ── */
+    .rule-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 50%; margin-right: 10px; vertical-align: middle;
+      background: var(--brand); color: #fff; font-weight: 700; font-size: 12px; flex-shrink: 0;
+    }
+    details.rule-details summary { padding-right: 46px; }
+    .rule-details .details-body p { font-size: 14px; line-height: 1.65; color: var(--body); margin: 0 0 10px; }
+    .rule-details .details-body p:last-of-type { margin-bottom: 0; }
+
+    /* ── Optional reading cards ── */
+    .reading-card {
+      border: 1.5px dashed var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); padding: 14px 16px; margin: 6px 0 22px;
+    }
+    .details-body .reading-card { margin: 14px 0 0; background: var(--bg); }
+    .reading-card-badge {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    }
+    .reading-card-badge-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(145deg, var(--gold), #d9a44a); color: #fff; font-size: 12px;
+      box-shadow: 0 3px 6px rgba(184,134,46,0.35);
+    }
+    .reading-card-badge-text {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gold);
+    }
+    .reading-card-item { margin-bottom: 10px; }
+    .reading-card-item:last-child { margin-bottom: 0; }
+    .reading-card-title {
+      display: block; font-size: 13px; font-weight: 700; color: var(--text);
+      text-decoration: none; margin-bottom: 3px;
+    }
+    .reading-card-title:hover { color: var(--brand); text-decoration: underline; }
+    .reading-card-desc { font-size: 12.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+
+    /* ── Detection section prose ── */
+    .section-prose p { font-size: 14.5px; line-height: 1.7; color: var(--body); margin: 0 0 14px; max-width: 720px; }
+    .section-prose { margin-bottom: 20px; }
+
+    /* ── Human-or-AI pairs ── */
+    .hai-pair {
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); padding: 18px 20px; margin-bottom: 22px;
+    }
+    .hai-pair-head h3 { font-size: 15px; margin: 0 0 14px; color: var(--text); }
+    .hai-instruction {
+      display: inline-flex; align-items: center; gap: 6px; margin: -6px 0 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--brand);
+    }
+    .hai-instruction i { font-size: 14px; }
+    .hai-texts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 700px) { .hai-texts { grid-template-columns: 1fr; } }
+    .hai-text {
+      border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px;
+      background: var(--bg); transition: border-color 0.15s, background 0.15s;
+    }
+    .hai-text-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand); margin-bottom: 6px; }
+    .hai-text-body { font-size: 13px; line-height: 1.6; color: var(--body); margin: 0; font-style: italic; }
+    .hai-text { cursor: pointer; }
+    .hai-pair:not(.hai-checked) .hai-text:hover { border-color: var(--brand); background: var(--brand-soft); }
+    .hai-pair.hai-checked .hai-text { cursor: default; }
+    .hai-text.hai-correct { border-color: var(--success); background: rgba(47,143,91,0.06); }
+    .hai-text.hai-incorrect { border-color: var(--danger); background: rgba(179,67,43,0.05); }
+    .hai-badge {
+      display: inline-block; margin-left: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; padding: 2px 8px; border-radius: 999px; vertical-align: middle;
+    }
+    .hai-badge-ai { background: var(--gold-soft); color: var(--gold); }
+    .hai-badge-human { background: var(--brand-soft); color: var(--brand); }
+    .hai-answer {
+      margin-top: 0; padding-top: 0; border-top: none; max-height: 0; overflow: hidden; transition: 0.2s;
+      font-size: 13px; line-height: 1.6; color: var(--body);
+    }
+    .hai-answer.hai-vis { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); max-height: 600px; }
+
+    /* ── Habit cards ── */
+    .habit-card { margin-bottom: 10px; }
+    .habit-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .habit-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--success); color: #fff; font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .habit-card-head h3 { margin: 0; font-size: 16px; color: var(--text); }
+    .habit-card p { font-size: 14px; line-height: 1.65; color: var(--body); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Users • Wrap Up</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html">Overview</a>
+        <a href="ai-overview.html">Users Intro</a>
+        <a href="labs.html">Labs</a>
+        <a href="wrap-up.html" class="is-current">Wrap Up</a>
+        <a href="../copilot/teams.html">Copilot</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Users • Wrap Up</div>
+            <h1 class="title">Using AI Without Making Enemies</h1>
+            <p class="lede">AI etiquette at work is less about being polite to the tool and more about being responsible to the people affected by your AI-assisted work. Read each rule, check your own behavior against it, and use it before applying AI to client or colleague-facing work.</p>
+            <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+              <a class="button primary" href="#detection-section">The Real Tells</a>
+              <a class="button secondary" href="#hai-section">Human or AI?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RULES -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Five rules for working with AI</h2>
+          </div>
+        </div>
+
+        <details class="rule-details">
+          <summary><span class="rule-num">1</span>Protect sensitive information</summary>
+          <div class="details-body">
+            <p>AI providers use many data protections, but they are not perfect. Because these tools are still new and changing quickly, the risk can be higher than in standard Microsoft workflows. For example, in July 2026, shared Claude chats were reportedly searchable through Google, exposing sensitive client information (only applies to non-enterprise accounts). That does not mean AI should never be used, but it does mean we need to weigh the business value against the data risk.</p>
+            <p>To understand Ampersand's AI risk tolerance, start with the AI policy. If the policy does not clearly cover the data you are using, ask your AI Steering Committee lead for guidance. Avoid putting HR confidential information, business secrets, or client-restricted data into any chatbot unless it has first been anonymized and reviewed by the AI Steering Committee. Also remember that deleting a chat may not delete every stored or archived copy, and vendor records may still be available through legal or law-enforcement requests.</p>
+            <div class="reading-card">
+              <div class="reading-card-badge"><span class="reading-card-badge-icon"><i class="ti ti-telescope" aria-hidden="true"></i></span><span class="reading-card-badge-text">Optional reading</span></div>
+              <div class="reading-card-item">
+                <a class="reading-card-title" href="https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-privacy" target="_blank" rel="noopener">Microsoft Learn — "Data, Privacy, and Security for Microsoft 365 Copilot"</a>
+                <p class="reading-card-desc">Explains permission-based protections and that prompts, responses, and Microsoft Graph data are not used to train foundation models.</p>
+              </div>
+              <div class="reading-card-item">
+                <a class="reading-card-title" href="https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener">OWASP — "LLM Prompt Injection Prevention Cheat Sheet"</a>
+                <p class="reading-card-desc">Pairs with the reading above — explains how jailbreaks and prompt injection can bypass intended behavior and expose sensitive information.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="rule-details">
+          <summary><span class="rule-num">2</span>Disclose AI use when it affects trust</summary>
+          <div class="details-body">
+            <p>AI can speed up work, but it can also hallucinate, miss context, and introduce errors. For internal handoffs, state when AI was used and which part of the process it supported, especially if a colleague will rely on the output. Although some people worry that disclosure can make the work seem less professional, many teams now use AI regularly. Clear disclosure gives reviewers the context they need to catch mistakes, question assumptions, improve the final result, and build shared AI literacy.</p>
+            <p>This guidance applies to internal communication only. For external work, follow the AI or any other relevant policy. If unclear, consult the AI Steering Committee.</p>
+            <div class="reading-card">
+              <div class="reading-card-badge"><span class="reading-card-badge-icon"><i class="ti ti-telescope" aria-hidden="true"></i></span><span class="reading-card-badge-text">Optional reading</span></div>
+              <div class="reading-card-item">
+                <a class="reading-card-title" href="https://www.atlassian.com/blog/ai-at-work/new-research-shows-honesty-about-ai-use-at-work-is-backfiring" target="_blank" rel="noopener">Atlassian — "New research shows honesty about AI use at work is backfiring"</a>
+                <p class="reading-card-desc">Use this to discuss when AI disclosure helps trust, when it creates stigma, and why framing matters.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="rule-details">
+          <summary><span class="rule-num">3</span>Verify before you hand it off</summary>
+          <div class="details-body">
+            <p>Good AI work is about 40% understanding the problem, 10% chatting with the tool, and 50% validating the result. Whoever uses AI is still responsible for checking the output, even if a few small errors may slip through. Always include the review time in your estimate and make the work as accurate as possible before handing it off.</p>
+            <p>Unchecked AI erodes trust within the team and makes collaboration harder. If circumstances benefit from sharing unchecked work, make it explicit during the handoff.</p>
+            <div class="reading-card">
+              <div class="reading-card-badge"><span class="reading-card-badge-icon"><i class="ti ti-telescope" aria-hidden="true"></i></span><span class="reading-card-badge-text">Optional reading</span></div>
+              <div class="reading-card-item">
+                <a class="reading-card-title" href="https://www.hbs.edu/bigs/artificial-intelligence-human-jugment-drives-innovation" target="_blank" rel="noopener">Harvard Business School Institute for Business in Global Society — "AI won't make the call: Why human judgment still drives innovation"</a>
+                <p class="reading-card-desc">Use this to reinforce that AI output still needs human judgment, review, and decision ownership.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="rule-details">
+          <summary><span class="rule-num">4</span>Do not outsource cleanup to colleagues</summary>
+          <div class="details-body">
+            <p>AI has made it easy to create long "working drafts". A 20-page document that takes five minutes to generate can still take someone else 40 minutes to read, question, and clean up. Under most circumstances, AI will include a lot of filler in any non-generic text, make sure to remove it. Making someone read five 20-page documents in one day will likely feel dismissive and will hurt the relationship and productivity.</p>
+            <div class="reading-card">
+              <div class="reading-card-badge"><span class="reading-card-badge-icon"><i class="ti ti-telescope" aria-hidden="true"></i></span><span class="reading-card-badge-text">Optional reading</span></div>
+              <div class="reading-card-item">
+                <a class="reading-card-title" href="https://thenextweb.com/news/ai-workslop-knowledge-decay-harvard-business-review-productivity" target="_blank" rel="noopener">TNW — "Harvard Business Review warns AI 'workslop' is rotting companies from the inside"</a>
+                <p class="reading-card-desc">An accessible summary of how low-quality AI output creates rework, erodes trust, and shifts cleanup onto colleagues.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="rule-details">
+          <summary><span class="rule-num">5</span>Cherish and protect human relationships</summary>
+          <div class="details-body">
+            <p>AI can help draft routine messages, but use judgment before applying it to inter-personal communication. A thank-you note, birthday message, or response to someone's help can feel hollow if it sounds generic or overproduced. As AI becomes part of daily work, we need to be intentional about preserving the human relationships we have spent years building.</p>
+            <div class="reading-card">
+              <div class="reading-card-badge"><span class="reading-card-badge-icon"><i class="ti ti-telescope" aria-hidden="true"></i></span><span class="reading-card-badge-text">Optional reading</span></div>
+              <div class="reading-card-item">
+                <a class="reading-card-title" href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">NIST — "Artificial Intelligence Risk Management Framework"</a>
+                <p class="reading-card-desc">Use this for the broader principle that trustworthy AI requires accountability, transparency, human oversight, privacy, and risk management.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- THE REAL TELLS -->
+    <section class="section" id="detection-section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>The Real Tells</h2>
+            <p>What actually separates AI writing from human writing — and what doesn't.</p>
+          </div>
+        </div>
+
+        <div class="card">
+        <div class="section-prose">
+          <p>A number of so-called "tells" are frequently repeated to the point of becoming common folk wisdom, such as the use of em dashes, semicolons, and writing that sounds excessively polished. On their own, none of these serve as proof that AI was used; em dashes, in fact, appeared long before the development of AI and are widely used in the fields of law, journalism, and academia.</p>
+          <p>While AI is still hard to detect reliably, certain signs can still cause doubt, for example, those relating to unusually even sentence structure or excessively patterned phrasing. In a business context, we don't care as much whether something sounds produced by AI, but rather how it impacts our clients' and colleagues' perception of us. AI-sounding communication can at times damage trust or give the impression that minimal effort has been made.</p>
+          <p>Strong tendencies in AI writing tend to appear in the form of patterns rather than as individual markers: unusually even sentence length, the use of consistently well-polished but general phrasing, repeated explanatory structure, vague transitions, overuse of certain stylistic words, and a style that seems smooth yet contains no specific context or personal details.</p>
+          <p>Yet they remain nothing more than indications and not concrete evidence. While a group of signs may warrant a more detailed examination, they cannot prove that AI was used, particularly since highly skilled human writing can exhibit many of the same characteristics.</p>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Myths — don't rely on these</th>
+                <th>Actual signals — weigh together, never alone</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Uses em dashes</td><td>Even, uniform sentence rhythm all the way through</td></tr>
+              <tr><td>An AI-detection tool (GPTZero, Turnitin, etc.) flagged it</td><td>Detector scores as one weak input only — some detectors misfire heavily on non-native English writing</td></tr>
+              <tr><td>Uses semicolons</td><td>Overused words clustering together (delve, boast, meticulous, tapestry, robust)</td></tr>
+              <tr><td>Sounds formal or polished</td><td>Vague, generic claims with no specific number, name, or date</td></tr>
+              <tr><td>Uses any single "AI word" once</td><td>A closing line that restates the point instead of adding one</td></tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HUMAN OR AI -->
+    <section class="section" id="hai-section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Human or AI?</h2>
+            <p>Read each pair, then click the text you think is <strong>AI-written</strong>. Left/right is shuffled each time you load the page, so going on gut feel about position won't help.</p>
+          </div>
+        </div>
+
+        <div class="hai-pair">
+          <div class="hai-pair-head"><h3>Pair 1 — Client email: billing discrepancy</h3></div>
+          <div class="hai-instruction"><i class="ti ti-click" aria-hidden="true"></i> Click the text you think is AI-written</div>
+          <div class="hai-texts">
+            <div class="hai-text" data-role="human">
+              <div class="hai-text-label"></div>
+              <p class="hai-text-body">"Hi Maria, thanks for flagging this. I checked the March invoice against the trafficking log — the $4,200 discrepancy is from spot #114837 running in the wrong daypart for six days before ops caught it. I've adjusted the invoice and it should hit your portal by Friday. Sorry for the back and forth on this one."</p>
+            </div>
+            <div class="hai-text" data-role="ai">
+              <div class="hai-text-label"></div>
+              <p class="hai-text-body">"Hi Maria, thank you for reaching out regarding this matter. After a comprehensive review of the March invoice, we identified a discrepancy that has now been thoroughly addressed and resolved. Our team is committed to accuracy and transparency, and we appreciate your patience as we worked to rectify this issue."</p>
+            </div>
+          </div>
+          <div class="hai-answer">
+            <strong>Answer:</strong> The AI version never names the number, the spot, or the cause — it's confident and polished with nothing to check. The human version gives a figure, a spot number, a reason, and a date, and ends on an actual apology instead of a closing formula.
+          </div>
+        </div>
+
+        <div class="hai-pair">
+          <div class="hai-pair-head"><h3>Pair 2 • Internal recap: campaign performance meeting</h3></div>
+          <div class="hai-instruction"><i class="ti ti-click" aria-hidden="true"></i> Click the text you think is AI-written</div>
+          <div class="hai-texts">
+            <div class="hai-text" data-role="human">
+              <div class="hai-text-label"></div>
+              <p class="hai-text-body">"Recapping the QBR call: national auto client is pacing 12% behind on the CTV bundle, mostly a Q1 inventory issue on our end, not their targeting. Sales is proposing a makegood in Q2. Data flagged that the attribution partner switch might explain part of the gap too; need to confirm by next week."</p>
+            </div>
+            <div class="hai-text" data-role="ai">
+              <div class="hai-text-label"></div>
+              <p class="hai-text-body">"Great call today! Key takeaways: the campaign is performing well overall, though there are some areas for improvement. The team discussed various strategies to optimize performance and drive better results moving forward. Everyone agreed to reconvene and continue monitoring progress closely."</p>
+            </div>
+          </div>
+          <div class="hai-answer">
+            <strong>Answer:</strong> The AI version has no number, no client name, no owner, and no next step beyond "monitoring." The human version names the client type, the exact percentage, the cause, the proposed fix, and an open question with a deadline.
+          </div>
+        </div>
+
+        <div class="hai-pair">
+          <div class="hai-pair-head"><h3>Pair 3 • Announcement post: product update</h3></div>
+          <div class="hai-instruction"><i class="ti ti-click" aria-hidden="true"></i> Click the text you think is AI-written</div>
+          <div class="hai-texts">
+            <div class="hai-text" data-role="human">
+              <div class="hai-text-label"></div>
+              <p class="hai-text-body">"We just turned on cross-screen deduplication for our set-top box audiences. Small feature, big deal for anyone tired of counting the same household twice across linear and CTV. More on this soon."</p>
+            </div>
+            <div class="hai-text" data-role="ai">
+              <div class="hai-text-label"></div>
+              <p class="hai-text-body">"We are thrilled to announce a groundbreaking new feature that will revolutionize the way our clients approach cross-screen measurement. This innovative solution empowers advertisers to unlock unprecedented insights and drive meaningful results."</p>
+            </div>
+          </div>
+          <div class="hai-answer">
+            <strong>Answer:</strong> The AI version is built almost entirely from the overused-word list (groundbreaking, revolutionize, innovative, empowers, unprecedented, meaningful); it never names an actual feature. The human version names the specific feature and the specific problem it solves, then stops.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HABITS -->
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>How to Keep Building Your AI Skills</h2>
+            <p>The best way to build AI skill is to practice on real work in small, repeatable steps: start with simple tasks, add context as the work gets bigger, save prompts that work, and review AI output before trusting it.</p>
+          </div>
+        </div>
+
+        <article class="card habit-card">
+          <div class="habit-card-head"><span class="habit-num">1</span><h3>Start small</h3></div>
+          <p>Use AI first on one clear task, such as rewriting one paragraph, summarizing one thread, or turning rough notes into bullets. If the result is unpredictable, shrink the task before making the prompt longer.</p>
+        </article>
+
+        <article class="card habit-card">
+          <div class="habit-card-head"><span class="habit-num">2</span><h3>Brief the AI like a teammate</h3></div>
+          <p>For larger tasks, write the prompt like a mini-brief: background, goal, audience, source material, format, tone, constraints, and what a good answer should include.</p>
+        </article>
+
+        <article class="card habit-card">
+          <div class="habit-card-head"><span class="habit-num">3</span><h3>Practice before the deadline</h3></div>
+          <p>Use low-stakes work you already understand, such as an old recap, a rough email, or a training outline. Practice works best when you know what a good answer should look like and have time to compare.</p>
+        </article>
+
+        <article class="card habit-card">
+          <div class="habit-card-head"><span class="habit-num">4</span><h3>Save what works</h3></div>
+          <p>Keep prompts for repeatable work like meeting summaries, client emails, document reviews, spreadsheet checks, and training handouts. Save the prompt changes that improved the result, not just the final output.</p>
+        </article>
+
+        <article class="card habit-card">
+          <div class="habit-card-head"><span class="habit-num">5</span><h3>Review before you rely on it</h3></div>
+          <p>Treat AI output like work from a fast junior teammate. Check names, numbers, dates, claims, tone, and whether the answer skipped an important constraint.</p>
+        </article>
+
+        <div class="section-head" style="margin-top: 28px;">
+          <div><h2 style="font-size: 18px;">Additional readings</h2></div>
+        </div>
+
+        <div class="reading-card">
+          <div class="reading-card-badge"><span class="reading-card-badge-icon"><i class="ti ti-telescope" aria-hidden="true"></i></span><span class="reading-card-badge-text">Optional reading</span></div>
+          <div class="reading-card-item">
+            <a class="reading-card-title" href="https://www.microsoft.com/en-us/worklab/5-new-habits-will-help-you-get-the-most-out-of-ai-in-2024" target="_blank" rel="noopener">Microsoft WorkLab — "These 5 new habits will help you get the most out of AI"</a>
+            <p class="reading-card-desc">Useful for framing AI fluency as a repeated work habit rather than a one-time training topic.</p>
+          </div>
+          <div class="reading-card-item">
+            <a class="reading-card-title" href="https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/" target="_blank" rel="noopener">Microsoft Signal — "Work smarter in 90 days: A real-world guide to using AI"</a>
+            <p class="reading-card-desc">Useful for the start-small approach: pick recurring tasks, practice on one workflow, and build confidence before using AI under deadline pressure.</p>
+          </div>
+          <div class="reading-card-item">
+            <a class="reading-card-title" href="https://claude.com/blog/best-practices-for-prompt-engineering" target="_blank" rel="noopener">Anthropic — "Prompt engineering best practices for 2026"</a>
+            <p class="reading-card-desc">Useful for prompt structure: clear goals, context, examples, constraints, and output instructions.</p>
+          </div>
+        </div>
+
+        <div class="page-nav" style="margin-top: 24px;">
+          <a class="button secondary" href="ai-overview.html">Back to Users Overview</a>
+          <a class="button primary" href="../index.html">Course Overview</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Human-or-AI interactivity ── -->
+  <script>
+  (function () {
+    document.querySelectorAll('.hai-pair').forEach(function (pair) {
+      var texts = pair.querySelector('.hai-texts');
+
+      // Randomize which side (left/right) holds the AI text on each load.
+      if (Math.random() < 0.5) {
+        texts.appendChild(texts.firstElementChild);
+      }
+
+      // Label "Text A" / "Text B" by position only, after shuffling — the
+      // label itself carries no information about which one is AI.
+      Array.from(texts.children).forEach(function (child, i) {
+        child.querySelector('.hai-text-label').textContent = 'Text ' + (i === 0 ? 'A' : 'B');
+      });
+
+      pair.querySelectorAll('.hai-text').forEach(function (textEl) {
+        textEl.addEventListener('click', function () {
+          if (pair.classList.contains('hai-checked')) return;
+          pair.classList.add('hai-checked');
+          var clickedIsAI = textEl.dataset.role === 'ai';
+
+          pair.querySelectorAll('.hai-text').forEach(function (t) {
+            var isAI = t.dataset.role === 'ai';
+            var badge = document.createElement('span');
+            badge.className = 'hai-badge ' + (isAI ? 'hai-badge-ai' : 'hai-badge-human');
+            badge.textContent = isAI ? 'AI' : 'Human';
+            t.querySelector('.hai-text-label').appendChild(badge);
+            if (t === textEl) {
+              t.classList.add(clickedIsAI ? 'hai-correct' : 'hai-incorrect');
+            }
+          });
+
+          pair.querySelector('.hai-answer').classList.add('hai-vis');
+        });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

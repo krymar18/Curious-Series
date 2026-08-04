@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curious AI Series | Lab: Your Personal Custom Summary Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{
+  --brand: #204d89;
+  --brand-2: #16325c;
+  --brand-soft: rgba(32,77,137,0.08);
+  --brand-line: rgba(32,77,137,0.22);
+  --gold: #b8862e;
+  --gold-soft: rgba(184,134,46,0.12);
+  --success: #2f8f5b;
+  --success-soft: rgba(47,143,91,0.12);
+  --format: #6b4f9e;
+  --format-soft: rgba(107,79,158,0.10);
+  --danger: #b3432b;
+  --danger-soft: rgba(179,67,43,0.10);
+  --border: #ddd4c7;
+  --muted: #8a8172;
+  --text: #241d15;
+  --body: #3c352b;
+  --bg: #faf7f1;
+  --surface: #ffffff;
+  --radius-sm: 14px;
+  --radius-lg: 20px;
+  --shadow: 0 16px 28px rgba(23,15,5,0.06);
+}
+*{ box-sizing: border-box; }
+body{
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--body);
+  line-height: 1.6;
+}
+.shell{ max-width: 900px; margin: 0 auto; padding: 0 24px; }
+a{ color: var(--brand); }
+main{ padding-bottom: 60px; }
+
+/* ---------- Topbar ---------- */
+.topbar{
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(246,241,232,0.84);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(221,212,199,0.8);
+}
+.topbar-inner{
+  min-height: 74px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 0 24px;
+}
+.brand{ display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-mark{
+  width: 42px; height: 42px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 12px 24px rgba(32,77,137,0.22);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px; letter-spacing: 0.02em; flex-shrink: 0;
+}
+.brand-title{ font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--text); line-height: 1.1; }
+.brand-subtitle{ font-size: 0.9rem; color: var(--muted); }
+.nav{ display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.nav a{
+  padding: 9px 13px; border-radius: 999px; color: var(--body);
+  border: 1px solid transparent; transition: 0.18s ease;
+  font-size: 0.92rem; white-space: nowrap; text-decoration: none; font-weight: 600;
+}
+.nav a:hover{ background: rgba(255,255,255,0.8); border-color: var(--border); color: var(--text); }
+.nav a.is-current{ background: var(--brand); color: #fff; box-shadow: 0 10px 20px rgba(32,77,137,0.18); }
+
+/* ---------- Hero ---------- */
+.hero{ padding: 40px 0 8px; }
+.hero-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 36px 40px;
+}
+.hero-inner .eyebrow{
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--brand); margin-bottom: 10px;
+}
+.hero-inner .title{ font-size: 30px; font-weight: 800; color: var(--text); margin: 0 0 12px; line-height: 1.25; }
+.hero-inner .lede{ font-size: 15px; color: var(--body); margin: 0; max-width: 680px; }
+
+/* ---------- Layout basics ---------- */
+.section{ padding: 30px 0; }
+.grid{ display: grid; gap: 16px; }
+.grid.two{ grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px){ .grid.two{ grid-template-columns: 1fr; } }
+
+.card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+}
+.card.soft{ background: #fbf8f2; }
+
+.eyebrow-chip{
+  display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 100px; margin-bottom: 10px;
+}
+.chip-brand{ background: var(--brand-soft); color: var(--brand); }
+.chip-gold{ background: var(--gold-soft); color: var(--gold); }
+.chip-success{ background: var(--success-soft); color: var(--success); }
+
+.callout{ border-radius: var(--radius-sm); padding: 16px 18px; border: 1px solid var(--border); }
+.callout h4{ margin: 0 0 6px; font-size: 13.5px; font-weight: 800; }
+.callout p{ margin: 0; font-size: 14px; }
+.callout ul{ margin: 6px 0 0; padding-left: 18px; font-size: 14px; }
+.callout.neutral{ background: #fbf8f2; }
+.callout.brand{ background: var(--brand-soft); border-color: var(--brand-line); }
+.callout.brand h4{ color: var(--brand-2); }
+.callout.gold{ background: var(--gold-soft); border-color: rgba(184,134,46,0.3); }
+.callout.gold h4{ color: var(--gold); }
+.callout.success{ background: var(--success-soft); border-color: rgba(47,143,91,0.3); }
+.callout.success h4{ color: var(--success); }
+.callout.danger{ background: var(--danger-soft); border-color: rgba(179,67,43,0.3); }
+.callout.danger h4{ color: var(--danger); }
+
+.list{ padding-left: 20px; margin: 0; }
+.list li{ margin-bottom: 8px; }
+
+/* ---------- Prompt box ---------- */
+.prompt-box{
+  border: 1px solid var(--brand-line);
+  background: var(--brand-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.prompt-box-head{ display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.prompt-box-label{ font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand); }
+.prompt-text{ margin: 0; font-size: 14px; color: var(--brand-2); font-family: 'DM Sans', sans-serif; }
+.copy-button{
+  font-family: inherit; font-size: 12px; font-weight: 700; color: #fff;
+  background: var(--brand); border: none; border-radius: 100px;
+  padding: 6px 14px; cursor: pointer; flex-shrink: 0; transition: background .15s;
+}
+.copy-button:hover{ background: var(--brand-2); }
+.copy-button.is-copied{ background: var(--success); }
+
+/* ---------- Part / step blocks ---------- */
+.part-block{ margin-bottom: 22px; }
+.part-head{ display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.part-num{
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff; font-weight: 800; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+}
+.part-title{ font-size: 19px; font-weight: 800; color: var(--text); margin: 0; }
+
+.do-row{ display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+.do-icon{
+  width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0; margin-top: 1px;
+  background: var(--brand-soft); color: var(--brand);
+  display: flex; align-items: center; justify-content: center; font-size: 13px;
+}
+.do-label{ font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand); margin-bottom: 3px; }
+.do-text{ font-size: 14px; color: var(--body); }
+
+.steps-list{ margin: 0 0 16px; padding-left: 22px; }
+.steps-list li{ margin-bottom: 10px; font-size: 14px; }
+
+/* ---------- Prompt digest ---------- */
+.prompt-digest{ margin-top: 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); }
+.prompt-digest summary{
+  cursor: pointer; list-style: none; padding: 12px 16px;
+  font-size: 13px; font-weight: 700; color: var(--brand-2);
+  display: flex; align-items: center; gap: 8px;
+}
+.prompt-digest summary::-webkit-details-marker{ display: none; }
+.prompt-digest summary::before{ content: '\25B8'; font-size: 11px; color: var(--brand); transition: transform .15s; }
+.prompt-digest[open] summary::before{ transform: rotate(90deg); }
+.digest-body{ padding: 4px 16px 16px; }
+.digest-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+@media (max-width: 640px){ .digest-grid{ grid-template-columns: 1fr; } }
+.digest-card{ border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; border-top: 3px solid var(--brand); }
+.digest-card.ctx{ border-top-color: var(--gold); }
+.digest-card.task{ border-top-color: var(--success); }
+.digest-card.fmt{ border-top-color: var(--format); }
+.digest-card-label{ font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.digest-card-text{ font-size: 13px; color: var(--body); }
+.digest-pills{ display: flex; gap: 7px; flex-wrap: wrap; }
+.digest-pills-label{ font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.digest-pill{
+  font-family: inherit; font-size: 11.5px; font-weight: 700; color: var(--brand-2);
+  background: #fff; border: 1px solid var(--brand-line);
+  padding: 4px 11px; border-radius: 100px;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+  transition: border-color .15s, background .15s, color .15s;
+}
+.digest-pill::after{
+  content: 'i'; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--brand-soft); color: var(--brand);
+  font-size: 9px; font-weight: 800; font-style: italic;
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.digest-pill:hover{ background: var(--brand-soft); border-color: var(--brand); }
+.digest-pill.is-active{ background: var(--brand); color: #fff; border-color: var(--brand); }
+.digest-pill.is-active::after{ background: rgba(255,255,255,0.25); color: #fff; }
+
+.strategy-popover{
+  position: fixed; z-index: 100; width: 280px; max-width: calc(100vw - 24px);
+  background: var(--surface); border: 1px solid var(--brand-line); border-radius: 14px;
+  box-shadow: var(--shadow); padding: 16px 18px;
+  opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s; pointer-events: none;
+}
+.strategy-popover.is-open{ opacity: 1; transform: translateY(0); pointer-events: auto; }
+.sp-close{
+  position: absolute; top: 8px; right: 9px; width: 22px; height: 22px; border-radius: 50%;
+  background: none; border: none; color: var(--muted); font-size: 15px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.sp-title{ font-size: 13px; font-weight: 800; color: var(--brand-2); margin: 0 0 6px; padding-right: 20px; }
+.sp-what{ font-size: 13px; color: var(--body); margin: 0; }
+
+/* ---------- Reflect ---------- */
+.reflect-list{ padding-left: 20px; margin: 0; }
+.reflect-list li{ margin-bottom: 8px; font-size: 14px; }
+
+/* ---------- Draft marker ---------- */
+.draft-marker{ border: 1px dashed var(--muted); border-radius: var(--radius-sm); padding: 16px 18px; background: #fff; }
+.draft-marker .eyebrow-chip{ background: none; border: 1px solid var(--muted); color: var(--muted); }
+
+/* ---------- Footer nav ---------- */
+.page-nav{ display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.button{
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; border-radius: 100px; padding: 10px 20px;
+  text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+}
+.button.primary{ background: var(--brand); color: #fff; }
+.button.primary:hover{ background: var(--brand-2); }
+.button.secondary{ background: #fff; border-color: var(--border); color: var(--body); }
+.button.secondary:hover{ border-color: var(--brand); color: var(--brand); }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div>
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Users</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html">Overview</a>
+        <a href="ai-overview.html">Users Intro</a>
+        <a href="labs.html" class="is-current">Labs</a>
+        <a href="wrap-up.html">Wrap Up</a>
+        <a href="../copilot/teams.html">Copilot</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Homework Lab</div>
+            <h1 class="title">Build Your Personal Custom Summary Template</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="section">
+      <div class="shell">
+        <article class="card part-block">
+          <div class="part-head">
+            <div class="part-num">1</div>
+            <h2 class="part-title">Get Copilot talking about you</h2>
+          </div>
+
+          <p style="font-size:14.5px; color:var(--body); margin:0 0 10px;">Summary templates can be hard to design because different people need different things from a meeting recap.</p>
+          <p style="font-size:14.5px; color:var(--body); margin:0 0 16px;">This lab guides you through a better process: have Copilot learn your work context, clarify what still matters through follow-up questions, and then help you turn that understanding into a Teams Custom Summary template you can save and reuse.</p>
+
+          <div class="do-row">
+            <div class="do-icon"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+            <div>
+              <div class="do-label">Do this</div>
+              <div class="do-text">Open Copilot Chat and paste the prompt below. Let Copilot run its assessment, then answer its interview questions one at a time.</div>
+            </div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-box-head">
+              <div class="prompt-box-label">Copy prompt &mdash; Meeting Summary Design Coach</div>
+              <button class="copy-button" type="button" data-copy-text="You are a Meeting Summary Design Coach.
+
+Your goal is not to summarize meetings.
+
+Your goal is to help me create the most useful Microsoft Teams Custom Summary template for my work.
+
+Before asking questions or designing a template, review as much of my work context as you can access.
+
+Use available signals such as:
+
+- Recent meetings
+- Meeting transcripts
+- Meeting recaps
+- Emails
+- Chats and Teams conversations
+- Documents and files
+- Projects, initiatives, and recurring topics
+- People I work with frequently
+- Responsibilities and commitments that appear in my work
+
+First, provide a brief assessment of what you believe my role, priorities, and work patterns are based on the available evidence.
+
+Then identify any assumptions, gaps, or uncertainties.
+
+Next, interview me.
+
+Ask one question at a time.
+
+Do not ask generic questions that can already be answered from the context you reviewed.
+
+Only ask questions that are necessary to understand:
+
+- What information is most valuable to me
+- What information is usually noise
+- What decisions I make after meetings
+- Who I communicate outcomes to
+- What I typically do with meeting recaps
+- Whether I care most about actions, decisions, blockers, risks, customer impacts, commitments, deadlines, strategic discussions, or other outcomes
+
+Challenge my assumptions when appropriate.
+
+If my preferences appear inconsistent with my responsibilities or work patterns, explain why and ask follow-up questions.
+
+Continue until you believe you can confidently create a reusable summary template.
+
+When the interview is complete:
+
+1. Summarize your understanding of my needs.
+2. Explain what information should be included in my meeting recaps.
+3. Explain what information should be excluded.
+4. Identify the primary purpose of my recap process.
+5. Create a finished Microsoft Teams Custom Summary template that I can save and reuse.
+6. Explain why this template is likely to work well for someone in my role.
+
+The final template should be:
+- Reusable across many meetings
+- Concise
+- Easy to scan
+- Focused on decision-making and actionability
+- Not tied to any specific project
+- Written in a format that can be pasted directly into Microsoft Teams Custom Summary
+
+Do not create the template until the discovery and interview process is complete.">Copy</button>
+            </div>
+            <pre class="prompt-text" style="white-space:pre-wrap; font-size:13px; line-height:1.6;">You are a Meeting Summary Design Coach.
+
+Your goal is not to summarize meetings.
+
+Your goal is to help me create the most useful Microsoft Teams Custom Summary template for my work.
+
+Before asking questions or designing a template, review as much of my work context as you can access.
+
+Use available signals such as:
+
+- Recent meetings
+- Meeting transcripts
+- Meeting recaps
+- Emails
+- Chats and Teams conversations
+- Documents and files
+- Projects, initiatives, and recurring topics
+- People I work with frequently
+- Responsibilities and commitments that appear in my work
+
+First, provide a brief assessment of what you believe my role, priorities, and work patterns are based on the available evidence.
+
+Then identify any assumptions, gaps, or uncertainties.
+
+Next, interview me.
+
+Ask one question at a time.
+
+Do not ask generic questions that can already be answered from the context you reviewed.
+
+Only ask questions that are necessary to understand:
+
+- What information is most valuable to me
+- What information is usually noise
+- What decisions I make after meetings
+- Who I communicate outcomes to
+- What I typically do with meeting recaps
+- Whether I care most about actions, decisions, blockers, risks, customer impacts, commitments, deadlines, strategic discussions, or other outcomes
+
+Challenge my assumptions when appropriate.
+
+If my preferences appear inconsistent with my responsibilities or work patterns, explain why and ask follow-up questions.
+
+Continue until you believe you can confidently create a reusable summary template.
+
+When the interview is complete:
+
+1. Summarize your understanding of my needs.
+2. Explain what information should be included in my meeting recaps.
+3. Explain what information should be excluded.
+4. Identify the primary purpose of my recap process.
+5. Create a finished Microsoft Teams Custom Summary template that I can save and reuse.
+6. Explain why this template is likely to work well for someone in my role.
+
+The final template should be:
+- Reusable across many meetings
+- Concise
+- Easy to scan
+- Focused on decision-making and actionability
+- Not tied to any specific project
+- Written in a format that can be pasted directly into Microsoft Teams Custom Summary
+
+Do not create the template until the discovery and interview process is complete.</pre>
+          </div>
+
+          <details class="prompt-digest" style="margin-top:14px;">
+            <summary>Prompt digest &mdash; what this prompt is doing</summary>
+            <div class="digest-body">
+              <div class="digest-grid">
+                <div class="digest-card">
+                  <div class="digest-card-label">Role</div>
+                  <div class="digest-card-text">Meeting Summary Design Coach &mdash; not a summarizer, a template designer.</div>
+                </div>
+                <div class="digest-card ctx">
+                  <div class="digest-card-label">Context</div>
+                  <div class="digest-card-text">Whatever Copilot can access: meetings, transcripts, recaps, emails, chats, files, projects, people, commitments.</div>
+                </div>
+                <div class="digest-card task">
+                  <div class="digest-card-label">Task</div>
+                  <div class="digest-card-text">Assess your role and gaps, then interview you one question at a time about what matters in your recaps.</div>
+                </div>
+                <div class="digest-card fmt">
+                  <div class="digest-card-label">Format</div>
+                  <div class="digest-card-text">A finished Teams Custom Summary template &mdash; reusable, concise, not tied to one project.</div>
+                </div>
+              </div>
+              <div class="digest-pills-label">Strategies used</div>
+              <div class="digest-pills">
+                <button class="digest-pill" type="button" data-strategy="role-based">Role-based prompting</button>
+                <button class="digest-pill" type="button" data-strategy="context-expansion">Context expansion prompting</button>
+                <button class="digest-pill" type="button" data-strategy="confirmatory">Confirmatory prompting</button>
+              </div>
+            </div>
+          </details>
+
+          <div class="callout success" style="margin-top:16px;">
+            <h4><i class="ti ti-microphone" aria-hidden="true"></i> Lifehack &mdash; use voice chat, not typing</h4>
+            <p>Try using the Voice chat. Copilot can ask its follow-up questions out loud and you answer right away  without needing to type. To enable it, open Copilot Chat and select the microphone or voice icon.</p>
+          </div>
+
+          <div class="callout gold" style="margin-top:12px;">
+            <h4><i class="ti ti-file-text" aria-hidden="true"></i> Lifehack &mdash; hand it a summary you already liked</h4>
+            <p>When Copilot asks about format, paste in a past recap that you liked. This is a supported way to anchor tone and structure.</p>
+          </div>
+
+          <div class="callout neutral" style="margin-top:12px;">
+            <h4>Note</h4>
+            <p>If Copilot's opening read of your role is off, correct it in your first reply.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="section">
+      <div class="shell">
+        <article class="card part-block">
+          <div class="part-head">
+            <div class="part-num">2</div>
+            <h2 class="part-title">Turn it into a real Custom Summary</h2>
+          </div>
+
+          <ol class="steps-list">
+            <li>Take the finished template Copilot wrote at the end of Step 1.</li>
+            <li>Open a past meeting in Teams that has a transcript. In the meeting chat, select <strong>Recap &rarr; Custom summary &rarr; Create template</strong>, and paste your template in.</li>
+            <li>Select <strong>Preview</strong>. This generates a sample summary using your template against that meeting's actual transcript.</li>
+            <li>Compare the preview to what you actually needed from that meeting. Adjust the template text &mdash; add, cut, or reword sections &mdash; and preview again. Repeat until it looks right.</li>
+            <li>Select <strong>Save and Apply</strong>, and name your template.</li>
+          </ol>
+
+          <div class="callout brand">
+            <h4>Microsoft instructions</h4>
+            <p><a href="https://support.microsoft.com/en-us/office/customize-recap-summaries-in-microsoft-teams-04c45d0b-a729-4013-8351-beaa0dc2031c" target="_blank">Customize recap summaries in Microsoft Teams &rarr;</a></p>
+          </div>
+
+          <div class="callout neutral" style="margin-top:12px;">
+            <h4>Note</h4>
+            <p>If the meeting is part of a recurring series, Teams remembers your template for future occurrences of that series automatically.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="section">
+      <div class="shell">
+        <article class="card part-block">
+          <div class="part-head">
+            <div class="part-num">3</div>
+            <h2 class="part-title">Preview and adjust the template</h2>
+          </div>
+
+          <p style="font-size:14.5px; color:var(--body); margin:0 0 16px;">Use the preview inside the template setup to generate a summary. Adjust the template as needed, and keep refining until the output is close to your ideal output.</p>
+
+          <div class="do-row">
+            <div class="do-icon" style="background:var(--gold-soft); color:var(--gold);"><i class="ti ti-brain" aria-hidden="true"></i></div>
+            <div>
+              <div class="do-label" style="color:var(--gold);">Reflect</div>
+              <ul class="reflect-list">
+                <li>Does the preview capture the information you need?</li>
+                <li>Is anything important missing, such as decisions, action items, owners, blockers, risks, deadlines, or stakeholder-ready language?</li>
+                <li>Is the summary too long, too generic, or too focused on the wrong details?</li>
+                <li>Would this format help you take action later, or would you still need to reread the transcript?</li>
+                <li>Should this be a general recap template, or would it work better as a specific template for a personal recap, stakeholder update, project status meeting, customer discussion, or leadership summary?</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callout neutral" style="margin-top:14px;">
+            <h4>Note</h4>
+            <p>You may end up with more than one useful template. A personal recap template might focus on your own follow-ups, open loops, and future Copilot searches, while a stakeholder summary template might focus on decisions, risks, dependencies, and what a specific audience needs to know.</p>
+          </div>
+
+          <div class="callout danger" style="margin-top:12px;">
+            <h4>Caution</h4>
+            <p>Do not expect the template to be perfect immediately. In most cases, it will take a few weeks of small adjustments before the summary comes out well on the first try (most of the time at least).</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="section">
+      <div class="shell">
+        <article class="card part-block">
+          <div class="part-head">
+            <div class="part-num">4</div>
+            <h2 class="part-title">Put it to work</h2>
+          </div>
+
+          <p style="font-size:14.5px; color:var(--body); margin:0 0 16px;">Start using the template in real meetings, then keep refining it based on the summaries you get. If the output misses important context or overemphasizes the wrong details, make a small change to the template and try again in the next meeting.</p>
+
+          <div class="callout neutral">
+            <h4>Note</h4>
+            <p>The meeting must be transcribedin order for recap and summary to be availible.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="page-nav">
+          <a class="button secondary" href="index.html">&larr; Back to Overview</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Strategy popover (shared, positioned on demand) -->
+  <div class="strategy-popover" id="strategy-popover">
+    <button class="sp-close" id="sp-close" aria-label="Close">&times;</button>
+    <p class="sp-title" id="sp-title"></p>
+    <p class="sp-what" id="sp-what"></p>
+  </div>
+
+<script>
+// ---- Copy buttons ----
+document.querySelectorAll('.copy-button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text = btn.getAttribute('data-copy-text');
+    navigator.clipboard.writeText(text).then(function(){
+      var original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('is-copied');
+      setTimeout(function(){
+        btn.textContent = original;
+        btn.classList.remove('is-copied');
+      }, 1500);
+    });
+  });
+});
+
+// ---- Strategy pill popovers ----
+var STRATEGIES = {
+  'role-based': {
+    title: 'Role-based prompting',
+    what: 'Assign the AI a professional role. Shapes tone, vocabulary, and approach.'
+  },
+  'context-expansion': {
+    title: 'Context expansion prompting',
+    what: 'Gradually build context across a conversation rather than front-loading it all.'
+  },
+  'confirmatory': {
+    title: 'Confirmatory prompting',
+    what: 'Ask the AI to confirm its understanding before it answers. Catches misinterpretations early.'
+  }
+};
+
+var popover = document.getElementById('strategy-popover');
+var spTitle = document.getElementById('sp-title');
+var spWhat = document.getElementById('sp-what');
+var activePill = null;
+
+function closePopover(){
+  popover.classList.remove('is-open');
+  if (activePill) activePill.classList.remove('is-active');
+  activePill = null;
+}
+
+function openPopoverFor(pill){
+  var slug = pill.getAttribute('data-strategy');
+  var data = STRATEGIES[slug];
+  if (!data) return;
+  spTitle.textContent = data.title;
+  spWhat.textContent = data.what;
+
+  document.querySelectorAll('.digest-pill').forEach(function(p){ p.classList.remove('is-active'); });
+  pill.classList.add('is-active');
+  activePill = pill;
+
+  var rect = pill.getBoundingClientRect();
+  var top = rect.bottom + 8;
+  var left = rect.left;
+  var maxLeft = window.innerWidth - 280 - 12;
+  if (left > maxLeft) left = maxLeft;
+  if (left < 12) left = 12;
+  popover.style.top = top + 'px';
+  popover.style.left = left + 'px';
+  popover.classList.add('is-open');
+}
+
+document.querySelectorAll('.digest-pill').forEach(function(pill){
+  pill.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (activePill === pill) { closePopover(); return; }
+    openPopoverFor(pill);
+  });
+});
+
+document.getElementById('sp-close').addEventListener('click', closePopover);
+document.addEventListener('click', function(e){
+  if (!popover.contains(e.target) && !e.target.classList.contains('digest-pill')) closePopover();
+});
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') closePopover();
+});
+</script>
+</body>
+</html>

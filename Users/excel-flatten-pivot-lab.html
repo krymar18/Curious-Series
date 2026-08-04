@@ -403,6 +403,9 @@ a{ color: var(--brand); }
         <a class="step-dot" href="#part-3"><span class="num">3</span>Pivot</a>
         <a class="step-dot" href="#part-4"><span class="num">4</span>One Prompt</a>
         <a class="step-dot" href="#part-5"><span class="num">5</span>Script</a>
+        <a class="step-dot" href="#part-6"><span class="num">6</span>Present</a>
+        <a class="step-dot" href="#part-7"><span class="num">7</span>Formatting</a>
+        <a class="step-dot" href="#part-8"><span class="num">8</span>Sports</a>
       </nav>
     </div>
   </div>
@@ -782,12 +785,222 @@ a{ color: var(--brand); }
         <p>A good rule of thumb: if your Excel file comes from a regular export, such as Power BI, AND Platform, or a similar system, the format is usually consistent enough to try automating the full process with a script.</p>
       </div>
 
+      <div class="callout brand" style="margin-top:12px;">
+        <h4><i class="ti ti-book" aria-hidden="true"></i> Microsoft documentation</h4>
+        <p><a href="https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel" target="_blank">Office Scripts in Excel on the web — official documentation &rarr;</a></p>
+      </div>
+
       <div class="card soft reflect-card">
         <span class="eyebrow-chip chip-brand">Reflection questions</span>
         <ul class="list" style="margin-bottom:0;">
           <li>After generating the script, what checks should we run to confirm it works as intended?</li>
           <li>When would creating an automation script not be the best approach?</li>
           <li>What steps could make the automation more reusable across a wider range of cases?</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 6 — PRESENTATION-READY TAB
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-6">
+      <span class="part-tag"><i class="ti ti-presentation" aria-hidden="true"></i>Part 6</span>
+      <h3 class="part-title">Build a Presentation-Ready Tab</h3>
+
+      <p>PivotTables are useful for calculations, but they can be fragile when you need to apply advanced formatting or share results with a client. Converting them into clean, static Excel tables gives you more control over layout, conditional formatting, and formulas — without risking lost progress if the PivotTable changes.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="Create a new presentation-ready tab that copies the existing PivotTables into simple Excel tables. Add clear section labels. Merge grouped header cells for easier navigation. Simplify column names. Format currency, percentages, dates, and totals correctly. Keep tables separated and easy to read. Verify copied values against the original PivotTables.">Copy</button>
+        </div>
+        <p class="prompt-text">"Create a new presentation-ready tab that copies the existing PivotTables into simple Excel tables. Add clear section labels. Merge grouped header cells for easier navigation. Simplify column names. Format currency, percentages, dates, and totals correctly. Keep tables separated and easy to read. Verify copied values against the original PivotTables."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>The existing PivotTables in the workbook from Part 3.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Copy PivotTables into clean, static Excel tables on a new tab — with section labels, merged headers, simplified column names, and values verified against the originals.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>A formatted Excel tab ready to present or share, with no live PivotTable dependencies.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+            <span class="digest-pill" data-strategy="negative">Negative prompting</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="card soft reflect-card">
+        <span class="eyebrow-chip chip-brand">Reflection questions</span>
+        <ul class="list" style="margin-bottom:0;">
+          <li>If the source PivotTable changes next week, how would you update the presentation tab without redoing everything?</li>
+          <li>What information would you remove for a client-facing version that you'd keep for internal use?</li>
+          <li>When would it be better to just share the PivotTable directly rather than converting it to a static table?</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 7 — CONDITIONAL FORMATTING
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-7">
+      <span class="part-tag"><i class="ti ti-palette" aria-hidden="true"></i>Part 7</span>
+      <h3 class="part-title">Add Conditional Formatting</h3>
+
+      <p>Conditional formatting is one of the most effective ways to make a presentation more interactive and easier to analyze. Copilot can help create several complex color-coding rules at once.</p>
+
+      <p>Start with a broader prompt to let Copilot suggest the right rules for your data:</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="What conditional formatting would help make each table easier and faster to analyze?">Copy</button>
+        </div>
+        <p class="prompt-text">"What conditional formatting would help make each table easier and faster to analyze?"</p>
+      </div>
+
+      <p>Or use a more specific prompt if you already know what you need:</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Specific example</span>
+          <button class="copy-button" type="button" data-copy-text="Apply conditional formatting to Pivot Summary: compare each Week 2 detail cell with its corresponding Week 1 value using percentage change—green/up above +15%, amber/flat from −15% to +15%, and red/down below −15%. Add subtle pale-blue data bars to Total Cost, Total Spots, and Total Impressions. Exclude headers and Grand Total rows, preserve number formats, and add no RAG fills.">Copy</button>
+        </div>
+        <p class="prompt-text">"Apply conditional formatting to Pivot Summary: compare each Week 2 detail cell with its corresponding Week 1 value using percentage change&mdash;green/up above +15%, amber/flat from &minus;15% to +15%, and red/down below &minus;15%. Add subtle pale-blue data bars to Total Cost, Total Spots, and Total Impressions. Exclude headers and Grand Total rows, preserve number formats, and add no RAG fills."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>The presentation tab from Part 6 with clean, static tables.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Apply color-coding rules that make the data easier to scan — either by asking Copilot to recommend them, or by specifying exact rules for week-over-week comparisons and data bars.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>Applied formatting rules on the sheet, with number formats and existing layouts preserved.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+            <span class="digest-pill" data-strategy="negative">Negative prompting</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="card soft reflect-card">
+        <span class="eyebrow-chip chip-brand">Reflection questions</span>
+        <ul class="list" style="margin-bottom:0;">
+          <li>How did you decide between the open-ended prompt and the specific one &mdash; what made the difference?</li>
+          <li>The thresholds (+15%, &minus;15%) are set arbitrarily here &mdash; how would you determine the right thresholds for your actual data?</li>
+          <li>When does too much conditional formatting make a report harder to read, not easier?</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     PART 8 — SPORTS ANALYSIS
+     ============================================================ -->
+<section class="section">
+  <div class="shell">
+    <article class="card part-block" id="part-8">
+      <span class="part-tag"><i class="ti ti-trophy" aria-hidden="true"></i>Part 8</span>
+      <h3 class="part-title">Sports Analysis</h3>
+
+      <p>This is a more advanced task that relies on Copilot's judgment rather than explicit instructions. Instead of describing exact steps, you're asking the model to inspect program names, infer whether they are sports content, and build the formulas and structure needed to separate and analyze that data.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-box-head">
+          <span class="prompt-box-label">Prompt to use</span>
+          <button class="copy-button" type="button" data-copy-text="Create a new Sports Analysis tab using the flattened order-level data. Extract all unique, nonblank program names into a structured table. Add a formula-based Is Sport column that returns TRUE or FALSE. Add a formula-based Sport Type column that identifies the specific league or event, such as NFL or NBA. Map Is Sport and Sport Type back to every row in the flattened data using lookup formulas. Preserve all existing data. Create a separate Sports Analysis tab filtered to rows where Is Sport is TRUE. Recreate the summary tables on the Sports Analysis tab, then add an additional table that uses sport categories as rows. Use intermediary PivotTables for grouping and calculations where helpful.">Copy</button>
+        </div>
+        <p class="prompt-text">"Create a new Sports Analysis tab using the flattened order-level data. Extract all unique, nonblank program names into a structured table. Add a formula-based Is Sport column that returns TRUE or FALSE. Add a formula-based Sport Type column that identifies the specific league or event, such as NFL or NBA. Map Is Sport and Sport Type back to every row in the flattened data using lookup formulas. Preserve all existing data. Create a separate Sports Analysis tab filtered to rows where Is Sport is TRUE. Recreate the summary tables on the Sports Analysis tab, then add an additional table that uses sport categories as rows. Use intermediary PivotTables for grouping and calculations where helpful."</p>
+      </div>
+
+      <details class="prompt-digest">
+        <summary>
+          <span class="digest-summary-main"><i class="ti ti-list-details" aria-hidden="true"></i>Prompt digest</span>
+          <span class="digest-dots" aria-hidden="true"><i class="role"></i><i class="context"></i><i class="task"></i><i class="format"></i></span>
+        </summary>
+        <p class="digest-sub">Role, context, task, and format &mdash; broken down.</p>
+        <div class="digest-grid">
+          <div class="digest-card role">
+            <div class="digest-card-head"><i class="ti ti-user" aria-hidden="true"></i>Role</div>
+            <p>None assigned. Copilot uses its own judgment to identify sports programming by program name.</p>
+          </div>
+          <div class="digest-card context">
+            <div class="digest-card-head"><i class="ti ti-map-pin" aria-hidden="true"></i>Context</div>
+            <p>The flattened order-level data from Part 2, with program names as the key signal for sport detection.</p>
+          </div>
+          <div class="digest-card task">
+            <div class="digest-card-head"><i class="ti ti-target-arrow" aria-hidden="true"></i>Task</div>
+            <p>Build a Sports Analysis tab with formula-driven sport detection, lookup columns added back to the Combined data, and filtered summary tables broken down by sport category.</p>
+          </div>
+          <div class="digest-card format">
+            <div class="digest-card-head"><i class="ti ti-layout-grid" aria-hidden="true"></i>Format</div>
+            <p>A structured program reference table, two new formula columns in the flattened data, and a separate Sports Analysis tab with filtered summary tables.</p>
+          </div>
+        </div>
+        <div class="digest-strategies">
+          <span class="digest-strategies-label">Strategies used</span>
+          <div class="digest-pills">
+            <span class="digest-pill" data-strategy="direct-instruction">Direct instruction prompting</span>
+            <span class="digest-pill" data-strategy="open-ended">Open-ended prompting</span>
+          </div>
+        </div>
+      </details>
+
+      <div class="card soft reflect-card">
+        <span class="eyebrow-chip chip-brand">Reflection questions</span>
+        <ul class="list" style="margin-bottom:0;">
+          <li>How would you verify that Copilot correctly identified all sports programming &mdash; and what would you do with any it got wrong?</li>
+          <li>What happens when a new program name appears in next month's data that wasn't in the original list?</li>
+          <li>Why might it be a good idea to break this prompt into smaller ones? What are the benefits?</li>
         </ul>
       </div>
     </article>

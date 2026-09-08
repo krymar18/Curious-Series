@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Projects and Tools</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  <style>
+    /* ── Page-specific: grouped lists ── */
+    h3.subhead{ font-size: 16px; font-weight: 800; color: var(--text); margin: 26px 0 4px; }
+    h3.subhead:first-of-type{ margin-top: 4px; }
+    p.group-lede{ font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+    .tag-inline{
+      display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--success); background: var(--success-soft); padding: 2px 8px; border-radius: 999px;
+      margin-left: 7px; vertical-align: middle; white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Creators</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="solution-types.html" data-nav-link>Types of AI Solutions</a>
+        <a href="context-and-craft.html" data-nav-link>Context &amp; Craft</a>
+        <a href="projects-and-tools.html" data-nav-link>Projects and Tools</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Creators</div>
+            <h1 class="title">Projects and Tools</h1>
+            <p class="lede">Two things to walk away with: a few concrete project ideas so "we should do something with AI" turns into an actual starting point, and a map of tools people across Ampersand already use — most of which just need to be pushed a bit further.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Give teams a short list of project shapes to recognize their own work in, and a realistic picture of which tools already cover it.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>Most teams don't need a new tool. They need to recognize which of a handful of project shapes their idea actually is, then reach for what's already available.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Project Ideas</h2>
+            <p>Fifteen shapes, grouped by what they actually do. Find the one that matches your idea before you start building.</p>
+          </div>
+        </div>
+
+        <h3 class="subhead">Assistants &amp; Guides</h3>
+        <p class="group-lede">Something a person talks to, or is walked through.</p>
+        <article class="card">
+          <ul class="list">
+            <li><strong>Bounded assistant or agent.</strong> Helps someone complete one repeatable task through conversation — guided intake, routing, search, or calling other tools. Scope stays fixed; it doesn't wander outside its lane.</li>
+            <li><strong>Knowledge retrieval assistant.</strong> Finds, summarizes, and cites the right internal policy, guide, report, or reference. Built for "where do I find..." questions that eat up someone's day.</li>
+            <li><strong>Training or enablement companion.</strong> Walks a user through a process step by step, explains what each step does, checks whether they understood it, and adjusts based on how they're doing.</li>
+          </ul>
+        </article>
+
+        <h3 class="subhead">Analysis &amp; Insight</h3>
+        <p class="group-lede">Turning data into something a person can act on.</p>
+        <article class="card">
+          <ul class="list">
+            <li><strong>Data analysis or prediction project.</strong> Uses a defined dataset to classify, forecast, summarize, detect anomalies, or surface patterns that change a business decision.</li>
+            <li><strong>Exception detection and alerting.</strong> Watches data, files, reports, or process outputs and flags what's unusual — missing values, mismatches, anything that needs escalation.</li>
+            <li><strong>Reporting and narrative generation.</strong> Turns dashboards, spreadsheets, status trackers, or raw metrics into a business summary or variance explanation someone can actually read.</li>
+            <li><strong>Decision-support analysis.</strong> Compares options, surfaces patterns or risks from a defined dataset, and hands a person what they need to make a better call. The person still makes the call.</li>
+          </ul>
+        </article>
+
+        <h3 class="subhead">Automation &amp; Workflow</h3>
+        <p class="group-lede">The process runs itself, AI or not.</p>
+
+        <div class="callout brand" style="margin-bottom: 16px;">
+          <h4>Start here if you're unsure</h4>
+          <p>A single AI step inside a normal automation is the easiest project type to ship, the easiest to audit, and the one most teams should default to before considering anything more open-ended. That's <strong>AI-enabled workflow automation</strong> below — everything else in the automation runs on fixed logic, and AI only touches one step.</p>
+        </div>
+
+        <article class="card">
+          <ul class="list">
+            <li><strong>AI-enabled workflow automation</strong><span class="tag-inline">Recommended starting point</span> — A Power Automate or Power Apps process where AI handles exactly one step — extraction, summarization, classification, drafting, or decision support — while everything else runs on fixed logic. Predictable, auditable, and low-risk to build.</li>
+            <li><strong>Document intake and extraction workflow.</strong> Turns messy documents, emails, forms, PDFs, or spreadsheets into structured fields, classifications, summaries, or follow-up actions.</li>
+            <li><strong>Triage and routing automation.</strong> Reads incoming requests, tickets, emails, or forms and figures out category, urgency, owner, next step, or what's missing.</li>
+            <li><strong>Meeting-to-action workflow.</strong> Turns meeting notes or transcripts into owners, deadlines, open questions, risks, and the follow-up messages that need to go out.</li>
+          </ul>
+        </article>
+
+        <h3 class="subhead">Build Support</h3>
+        <p class="group-lede">AI helping someone build something else.</p>
+        <article class="card">
+          <ul class="list">
+            <li><strong>AI-assisted automation build.</strong> A traditional automation, script, dashboard, or workflow built faster because AI helped with design, formulas, code, documentation, testing, or troubleshooting. The output isn't AI — the build process was.</li>
+            <li><strong>Research and synthesis workflow.</strong> Gathers information from approved sources, separates fact from interpretation, and produces a briefing, comparison, or decision memo.</li>
+            <li><strong>Automation design support.</strong> Uses AI to map out the process, generate formulas, draft scripts, write documentation, or create test cases for a traditional automation.</li>
+            <li><strong>Quality-control support.</strong> Uses AI to inspect an existing workflow, checklist, dashboard, or script and point out gaps, edge cases, or places worth troubleshooting.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Tool Landscape</h2>
+            <p>A practical map, not a course. The point is picking the right starting point and knowing when to ask for help.</p>
+          </div>
+        </div>
+
+        <h3 class="subhead">Microsoft 365 stack</h3>
+        <div class="grid two">
+          <article class="card soft">
+            <h4>Copilot</h4>
+            <p>Grounded chat, research, analysis, meeting prep, document summaries, spreadsheet help, and pulling context across Microsoft 365. Covers Copilot Chat, Researcher, Analyst, Excel support, Teams recap, and Notebook-style context that carries across a session.</p>
+            <a class="card-link" href="https://learn.microsoft.com/en-us/copilot/" target="_blank" rel="noopener">Microsoft 365 Copilot documentation</a>
+          </article>
+          <article class="card soft">
+            <h4>Power Automate</h4>
+            <p>Repeatable process automation with clear triggers, actions, approvals, notifications, and handoffs. Use it when the process is predictable enough to spell out step by step.</p>
+            <a class="card-link" href="https://learn.microsoft.com/en-us/power-automate/" target="_blank" rel="noopener">Power Automate documentation</a>
+          </article>
+          <article class="card soft">
+            <h4>AI Builder</h4>
+            <p>For when a Power Automate flow or Power App needs exactly one AI step: extracting fields, classifying a request, summarizing an input, drafting a message, or producing structured output for whatever runs next.</p>
+            <a class="card-link" href="https://learn.microsoft.com/en-us/ai-builder/overview" target="_blank" rel="noopener">AI Builder documentation</a>
+          </article>
+          <article class="card soft">
+            <h4>Power Apps</h4>
+            <p>A lightweight front end for intake, review, approvals, or status tracking. Use it when the experience matters but a full custom application doesn't.</p>
+            <a class="card-link" href="https://learn.microsoft.com/en-us/power-apps/powerapps-overview" target="_blank" rel="noopener">Power Apps overview</a>
+          </article>
+          <article class="card soft">
+            <h4>Office Scripts, VBA, and Excel macros</h4>
+            <p>Repeatable spreadsheet transformations where a script gets the same result every time, instead of asking AI to redo the same steps by hand.</p>
+            <a class="card-link" href="https://learn.microsoft.com/en-us/office/dev/scripts/" target="_blank" rel="noopener">Office Scripts documentation</a>
+          </article>
+        </div>
+
+        <h3 class="subhead">Beyond Microsoft 365</h3>
+        <div class="grid two">
+          <article class="card soft">
+            <h4>Claude</h4>
+            <p>Advanced prompting, long-context analysis, writing support, coding help, and technical reasoning outside the Microsoft 365 toolset.</p>
+            <a class="card-link" href="https://docs.claude.com" target="_blank" rel="noopener">Claude docs</a>
+          </article>
+          <article class="card soft">
+            <h4>Claude Code or coding agents</h4>
+            <p>For builders editing files, writing scripts, testing code, refactoring, or working inside a repository with real feedback from errors and test results.</p>
+            <a class="card-link" href="https://docs.claude.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code overview</a>
+          </article>
+          <article class="card soft">
+            <h4>Model Context Protocol (MCP)</h4>
+            <p>A connection standard, not a tool you use directly. Worth knowing as the way AI tools plug into real systems, data, and actions without a custom connector for every integration.</p>
+            <a class="card-link" href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener">Introduction</a>
+          </article>
+          <article class="card soft">
+            <h4>Prompt management and evaluation tools</h4>
+            <p>Worth adopting once a team is versioning prompts, comparing outputs, or capturing feedback to test whether a prompt change actually improved quality before rolling it out.</p>
+          </article>
+        </div>
+
+        <h3 class="subhead">Documentation &amp; diagramming</h3>
+        <div class="grid two">
+          <article class="card soft">
+            <h4>Lucid (Lucidchart / Lucidspark)</h4>
+            <p>Mapping a process, sketching a workflow, or diagramming a system before anyone writes a line of automation. Useful for planning a build, not just documenting one after the fact.</p>
+            <a class="card-link" href="https://lucid.co" target="_blank" rel="noopener">lucid.co</a>
+          </article>
+          <article class="card soft">
+            <h4>Scribe</h4>
+            <p>Turns a repeatable click-through process into a step-by-step guide automatically. Record the process once; Scribe writes the instructions and captures the screenshots.</p>
+            <a class="card-link" href="https://scribehow.com" target="_blank" rel="noopener">scribehow.com</a>
+          </article>
+        </div>
+
+        <h3 class="subhead">Custom code</h3>
+        <div class="grid two">
+          <article class="card soft">
+            <h4>Python or JS automations</h4>
+            <p>For when a process needs more flexibility than Power Platform's no-code tools allow: custom API calls, complex data processing, logic that doesn't fit a flow diagram. More setup work, but no ceiling.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Conclusion &amp; Reflections</h2>
+            <p>Take a moment to reflect — it's what makes the learning stick.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list">
+              <li>Fifteen project shapes cover most of what "we should do something with AI" turns into. Find the shape before you pick a tool.</li>
+              <li>A single AI step inside a normal automation is the easiest, lowest-risk project to ship. Default to it when you're unsure.</li>
+              <li>Most of the tool landscape is already in use at Ampersand in some form. The gap is usually depth, not access.</li>
+              <li>Custom code (Python/JS) buys flexibility the no-code Microsoft stack doesn't have, at the cost of more setup work.</li>
+              <li>Documentation and diagramming tools (Lucid, Scribe) belong at the planning stage, not just as an afterthought once something's built.</li>
+            </ul>
+          </article>
+
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>Pick a project idea you've been circling. Which of the fifteen shapes does it actually match?</li>
+              <li>Is there a workflow on your team that's really just "automation plus one AI step" that's been treated as a bigger build than it needs to be?</li>
+              <li>Which tool on this list does your team already use, but only scratch the surface of?</li>
+              <li>Where would a Lucid map or a Scribe guide have saved time on your last build?</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="context-and-craft.html">Back to Context &amp; Craft</a>
+          <a class="button secondary" href="../index.html">Back to overview</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

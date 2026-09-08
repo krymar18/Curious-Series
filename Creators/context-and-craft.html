@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Context &amp; Craft</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Creators</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="solution-types.html" data-nav-link>Types of AI Solutions</a>
+        <a href="context-and-craft.html" data-nav-link>Context &amp; Craft</a>
+        <a href="projects-and-tools.html" data-nav-link>Projects and Tools</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Creators</div>
+            <h1 class="title">Context &amp; Craft</h1>
+            <p class="lede">Context is the fuel. Prompting technique is how efficiently you burn it. This page skips the basics and covers what separates a working prototype from something reliable enough to ship.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Cover what separates a working prototype from something reliable enough to demo or ship — not the basics.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>Context engineering asks a different question than prompt engineering: not "what should I say," but "what should be sitting in the model's attention right now — and what shouldn't."</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Context Engineering</h2>
+            <p>Once you're running multi-turn work instead of one-off asks, what's in the context matters more than how you phrased the ask.</p>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Why More Context Isn't Better</summary>
+          <div class="details-body">
+            <p>Every token added costs attention. Transformers relate every token to every other token — an n² problem, not a linear one. Past a point, more context means a thinner attention budget spread across more competing signals.</p>
+            <p>Anthropic's research calls this <strong>context rot</strong>: recall degrades as the window fills, even before you hit the hard limit. Not a cliff — a slope, and it starts earlier than people expect.</p>
+            <p>The rule: the smallest set of high-signal tokens that gets the outcome beats the biggest set of relevant ones. Minimal doesn't mean short — it means nothing in there that isn't earning its place.</p>
+            <p>Same principle, one level up: a system prompt that's too specific is brittle if-else logic that breaks on the first case you didn't anticipate. Too vague, and the model fills the gap with a guess. Aim for specific enough to steer, loose enough to survive a case you didn't write down.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Building, Moving, and Storing Context</summary>
+          <div class="details-body">
+            <p><strong>Before you start:</strong> sort what already exists, what needs cleaning, and what needs creating from scratch.</p>
+            <p><strong>Moving between chats:</strong> a long thread isn't memory — it's a liability that happens to contain memory. Ask for a state summary (decisions, facts, open questions) or a full handoff prompt: goal, assumptions, sources, format, and what <em>not</em> to re-litigate.</p>
+            <p><strong>Storing outside the chat:</strong> a project brief, decision log, glossary, and prompt library survive the thread ending and let a human audit fact versus assumption. Proof of concept — a shared doc is enough. Production — the same idea becomes a retrieval index or governed knowledge source.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Surviving Tasks Longer Than One Context Window</summary>
+          <div class="details-body">
+            <p>Three distinct techniques, not interchangeable — each fixes a different failure mode.</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Technique</th><th>What it does</th><th>Best for</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><b>Compaction</b></td><td>Summarize the conversation near its limit, restart with the summary plus what was last actually touched</td><td>Long back-and-forth that needs to keep flowing</td></tr>
+                  <tr><td><b>Structured note-taking</b></td><td>The AI keeps a running notes file outside the context window and reads it back after a reset</td><td>Multi-step work with clear milestones</td></tr>
+                  <tr><td><b>Sub-agent delegation</b></td><td>A focused sub-task runs in its own clean context, then returns a short summary instead of its full working history</td><td>Research or exploration that shouldn't cost context everywhere else</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="margin-top:12px;">None of these are "start a new chat and hope." That's the failure mode all three exist to prevent.</p>
+          </div>
+        </details>
+
+        <div class="callout brand" style="margin-top: 16px;">
+          <h4>Tips to Try</h4>
+          <p>Four prompts worth keeping on hand.</p>
+          <div style="display:grid; gap:10px; margin-top:12px;">
+            <div class="prompt-box">
+              <div class="prompt-box-head"><span class="prompt-box-label">Build a project brief</span><button class="copy-button" type="button" data-copy-text="Ask me the minimum set of questions needed to understand this project, then turn my answers into a one-page project brief with goal, users, constraints, source material, assumptions, and open questions.">Copy</button></div>
+              <p class="prompt-text">"Ask me the minimum set of questions needed to understand this project, then turn my answers into a one-page project brief with goal, users, constraints, source material, assumptions, and open questions."</p>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><span class="prompt-box-label">Write a handoff prompt</span><button class="copy-button" type="button" data-copy-text="Write a prompt I can paste into a new chat so the next assistant understands this project, the current state, the preferred style, and what not to revisit.">Copy</button></div>
+              <p class="prompt-text">"Write a prompt I can paste into a new chat so the next assistant understands this project, the current state, the preferred style, and what not to revisit."</p>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><span class="prompt-box-label">Separate fact from assumption</span><button class="copy-button" type="button" data-copy-text="Review the context below and divide it into confirmed facts, assumptions, risks, and items that need validation before use.">Copy</button></div>
+              <p class="prompt-text">"Review the context below and divide it into confirmed facts, assumptions, risks, and items that need validation before use."</p>
+            </div>
+            <div class="prompt-box">
+              <div class="prompt-box-head"><span class="prompt-box-label">Test context quality</span><button class="copy-button" type="button" data-copy-text="Using only the context provided, answer these three test questions. If the answer is missing or uncertain, say what context is needed instead of guessing.">Copy</button></div>
+              <p class="prompt-text">"Using only the context provided, answer these three test questions. If the answer is missing or uncertain, say what context is needed instead of guessing."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Advanced Prompting Techniques</h2>
+            <p>Six techniques that hold up under real production pressure, not just a demo.</p>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Structured Output</summary>
+          <div class="details-body">
+            <p>Ask for JSON or XML against a defined schema so a downstream step parses it instead of scraping prose. Three things need to be explicit: the task, the schema (field names, types, allowed values), and a hard constraint that only that structure comes back — no preamble, no markdown fencing.</p>
+            <p><strong>Sample flow — AI Builder in Power Automate:</strong></p>
+            <ol style="margin:0 0 10px 20px; padding:0; font-size:14px; line-height:1.7;">
+              <li><strong>Trigger:</strong> "When a new email arrives," filtered to the emails you want.</li>
+              <li><strong>Run a Prompt</strong> action, JSON output on, schema like <code>{"customer_name":"","priority":"","issue_category":""}</code>.</li>
+              <li>Branch or route directly on the returned fields — no string-splitting.</li>
+              <li>Send an email or create a record using the fields as dynamic content.</li>
+            </ol>
+            <p class="muted" style="margin-top:0;">If AI Builder won't generate valid JSON, add: "don't include JSON markdown in your answer."</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Grounding on Long Documents</summary>
+          <div class="details-body">
+            <p>Ask the model to quote the relevant passage before answering — it cuts through the noise of a long document. Two placement rules move the needle measurably: long documents near the top of the prompt, the actual question at the bottom. In Anthropic's own testing, query-after-document plus quote-first improved multi-document answer quality by up to 30%.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Sequences and Reasoning Budget</summary>
+          <div class="details-body">
+            <p>Transformers process tokens in parallel — no native counter, no built-in sense of "step 4 of 7." That's why long numbered procedures drift, and "give me the 12th item" is a coin flip.</p>
+            <p><strong>Fix:</strong> force sequencing into the output. Explicit step markers in structured output, chain-of-thought or extended thinking to work through order before answering, and a self-check — "recount the steps, confirm no gaps or repeats" — for anything that matters.</p>
+            <p><strong>Reasoning budget:</strong> API and Claude Code builders are moving from manually-set thinking budgets to <strong>adaptive thinking</strong> — an effort level (low/medium/high/max), not a token guess. Copilot Chat manages this internally; there's no user-facing dial.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Calibrating Prompts and Tools</summary>
+          <div class="details-body">
+            <p><strong>System prompt altitude:</strong> too specific and it's brittle if-else logic that breaks on the first unanticipated case. Too vague and the model guesses. Rewriting a prompt every time a new edge case appears is a sign it's pitched too low.</p>
+            <p><strong>Tool sets:</strong> a bloated toolset with overlapping jobs doesn't add capability — it adds ambiguity. If a person on the team can't say which tool should fire for a request, the model can't either. Fewer, sharper tools beat a big toolbox.</p>
+          </div>
+        </details>
+
+        <div class="callout neutral" style="margin-top: 16px;">
+          <h4>XML tags to separate instructions from data</h4>
+          <p>Wrap data as <code>&lt;document&gt;</code>, <code>&lt;source&gt;</code>, <code>&lt;document_content&gt;</code>, and keep instructions outside those tags. Without a clear boundary, a model can quote instructions back as data, or treat data as an instruction to follow.</p>
+        </div>
+
+        <div class="callout neutral" style="margin-top: 12px;">
+          <h4>Tool split</h4>
+          <p>Claude Code and API builders: the prompting best-practices doc applies directly. Power Automate / AI Builder builders: the same principles live inside Prompt Builder's structured-output setting — point them there instead of asking them to translate concepts across a UI they don't use.</p>
+        </div>
+
+        <div class="callout brand" style="margin-top: 16px;">
+          <h4>References</h4>
+          <ul>
+            <li>Claude — Anthropic — <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Prompting Best Practices</a></li>
+            <li>Claude — Anthropic — <a href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/long-context-tips" target="_blank" rel="noopener">Long Context Tips</a></li>
+            <li>Claude — Anthropic — <a href="https://platform.claude.com/en/docs/build-with-claude/extended-thinking" target="_blank" rel="noopener">Extended Thinking / Adaptive Thinking</a></li>
+            <li>Anthropic Engineering — <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Effective Context Engineering for AI Agents</a></li>
+            <li>Power Automate — AI Builder / Copilot Studio — <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/process-responses-json-output" target="_blank" rel="noopener">JSON Output — Use Your Prompt in Power Automate</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Conclusion &amp; Reflections</h2>
+            <p>Take a moment to reflect — it's what makes the learning stick.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list">
+              <li>Context rot is real — more tokens isn't more knowledge, it's a thinner attention budget.</li>
+              <li>Compaction, structured note-taking, and sub-agent delegation fix different failure modes. Pick the one that matches the task, not the one you know.</li>
+              <li>Structured output turns AI from something you read into something a system can run on.</li>
+              <li>AI has no native counter — sequences need to be forced into the output, not assumed.</li>
+              <li>Fewer, sharper tools and a well-pitched system prompt beat more of either.</li>
+            </ul>
+          </article>
+
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>Where have you seen a long chat quietly get worse before it hit any hard limit?</li>
+              <li>Pick a long-running task you own. Which of the three survival techniques actually fits it?</li>
+              <li>Is there a workflow where you're reading AI output and re-typing it into a system by hand? That's a structured-output candidate.</li>
+              <li>What's one tool or instruction you've added to a prompt "just in case" that's never actually fired?</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="solution-types.html">Back to Types of AI Solutions</a>
+          <a class="button primary" href="projects-and-tools.html">Next: Projects and Tools</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

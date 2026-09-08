@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curious AI Series | Types of AI Solutions</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/site.js"></script>
+  <style>
+    .details-body em{ color: var(--muted); }
+    /* ── Grid tables: add vertical column dividers to match the horizontal row lines ── */
+    table th,
+    table td{ border-right: 1px solid rgba(221, 212, 199, 0.8); }
+    table th:last-child,
+    table td:last-child{ border-right: none; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-copy">
+          <div class="brand-title">Curious AI Series</div>
+          <div class="brand-subtitle">Curious Creators</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html" data-nav-link>Overview</a>
+        <a href="solution-types.html" data-nav-link>Types of AI Solutions</a>
+        <a href="context-and-craft.html" data-nav-link>Context &amp; Craft</a>
+        <a href="projects-and-tools.html" data-nav-link>Projects and Tools</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <div class="eyebrow">Curious Creators</div>
+            <h1 class="title">Types of AI Solutions</h1>
+            <p class="lede">Before building anything, you need to know what you're building. This page breaks down the four AI solution types — classical automation, predictive ML, generative AI, and agentic workflows — and gives you a quick way to decide which one actually fits a project.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="grid two">
+          <article class="card">
+            <span class="eyebrow-chip chip-brand">Objective</span>
+            <p>Match the technology to the actual requirement — not the tool you already know, or the one that's trending.</p>
+          </article>
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key idea</span>
+            <p>AI is not one thing. Four different solution types solve four different problems, and picking the wrong one costs more than it saves.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="callout brand">
+          <h4>Question the data path first</h4>
+          <p>Teams often arrive with a specific solution already in mind — an AND Platform export, a third-party integration, a familiar tool. That instinct is often right. But before accepting the data source as a given, it's worth asking whether it's the right path or just the familiar one. A solution that doesn't make sense for one project can make complete sense viewed across every active initiative.</p>
+          <ul class="list">
+            <li>Can we access the underlying data directly, instead of processing an export?</li>
+            <li>Would a structured data feed serve this project — and future ones — better than a file transfer?</li>
+            <li>Could working with affiliates or internal teams improve how data is structured at the source?</li>
+            <li>Would better data infrastructure here unlock AI capability for other departments too?</li>
+          </ul>
+          <p style="margin-top:10px;">The four solution types below assume that conversation already happened. If it hasn't, have it first.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>The Four Solution Types</h2>
+            <p>Each type solves a different kind of problem. Expand each one to see when it fits, when it doesn't, and how it shows up at Ampersand.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Classical Automation</summary>
+          <div class="details-body">
+            <p><em>Executes a fixed script. Every step defined in advance. Identical output for identical input.</em></p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Use when</th>
+                    <th>Avoid when</th>
+                    <th>Ampersand examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>You can write step-by-step instructions before the process runs; inputs are structured and predictable; steps must run in a specific, unskippable order.</td>
+                    <td>The process changes frequently; inputs are unstructured or vary in format; exceptions can't be listed in advance.</td>
+                    <td>SCX file reformatting, regrouping AND Platform exports, cross-system scheduled data pulls, scheduled reports with fixed logic, fixed approval routing.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid two" style="margin-top: 16px;">
+              <article class="card soft">
+                <span class="eyebrow-chip chip-success">Strengths</span>
+                <ul class="list">
+                  <li>Identical input always produces identical output.</li>
+                  <li>Every step logged and auditable.</li>
+                  <li>Low ongoing oversight once built.</li>
+                  <li>Can call AI at one step for exceptions without losing determinism.</li>
+                </ul>
+              </article>
+              <article class="card soft">
+                <span class="eyebrow-chip chip-gold">Weaknesses</span>
+                <ul class="list">
+                  <li>Brittle — any process change needs a rewrite.</li>
+                  <li>Can't handle inputs that vary in structure.</li>
+                  <li>Fails when it hits something outside its defined scope.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="callout neutral" style="margin-top: 16px;">
+              <h4>Hybrid note</h4>
+              <p>Automation can call an AI model at one specific step — say, to parse a malformed field — while keeping full control of the sequence. This is the most common real-world pattern, and it's covered in the Hybrid section below.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Machine Learning / Predictive Model</summary>
+          <div class="details-body">
+            <p><em>Finds patterns in historical data. Used to forecast, predict, classify, or group.</em></p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Use when</th>
+                    <th>Avoid when</th>
+                    <th>Ampersand examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>You have a large amount of historical data and a decision to make from it — forecast a value, predict an outcome, compare similarities, or group and categorize records. Can sit inside an automation to add targeted discretion.</td>
+                    <td>There isn't enough historical data to train on; the workflow or how you interpret the data changes fast; the output needs to be human language; you need full model explainability and the model type can't provide it; a wrong prediction would be high-compliance-risk and irreversible.</td>
+                    <td>Revenue-at-risk reports and forecasting, predicting inventory and avail availability, optimizing makegood offers, anomalous billing pattern detection, linear regression for market revenue likelihood.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid two" style="margin-top: 16px;">
+              <article class="card soft">
+                <span class="eyebrow-chip chip-success">Strengths</span>
+                <ul class="list">
+                  <li>Trained narrowly on one task, not a general-purpose black box.</li>
+                  <li>Can be validated against held-out historical data before launch.</li>
+                  <li>Adds decision-making at one step inside an automation pipeline.</li>
+                  <li>Data-cleaning investment often improves other processes too.</li>
+                </ul>
+              </article>
+              <article class="card soft">
+                <span class="eyebrow-chip chip-gold">Weaknesses</span>
+                <ul class="list">
+                  <li>Needs substantial, clean historical data — often the hardest part.</li>
+                  <li>Needs retraining when underlying patterns shift.</li>
+                  <li>Real upfront work to label data and define the target correctly.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="callout neutral" style="margin-top: 16px;">
+              <h4>Underutilized at Ampersand</h4>
+              <p>Given the volume of data Ampersand sits on, predictive ML may be the most underused solution type here — forecasting, classification, and anomaly detection across ad ops data is a real, mostly untapped opportunity.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Generative AI / LLM</summary>
+          <div class="details-body">
+            <p><em>Large language models — GPT, Claude, Gemini, etc. Generate and process human language.</em></p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Use when</th>
+                    <th>Avoid when</th>
+                    <th>Ampersand examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>The input or output is human language — emails, meeting notes, chat threads, narrative documents; the task is understanding, drafting, summarizing, or extracting meaning from text; the input can't reasonably be represented as a table.</td>
+                    <td>Consistency is required — LLMs are probabilistic and won't repeat identical output for identical input; there's no way to guarantee human review before the output is acted on; the data is structured (automation plus ML will be cheaper and more reliable); an incorrect or inconsistent output would carry regulatory consequences.</td>
+                    <td>Meeting transcript summaries, client email drafts, policy and process Q&amp;A, extracting fields from unstructured documents, any chatbot or conversational interface.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid two" style="margin-top: 16px;">
+              <article class="card soft">
+                <span class="eyebrow-chip chip-success">Strengths</span>
+                <ul class="list">
+                  <li>Only solution type that handles genuinely unstructured human language.</li>
+                  <li>Broad capability: drafting, summarizing, classifying, extracting, translating, explaining.</li>
+                  <li>Fast to prototype — no training data required.</li>
+                  <li>Can be embedded in automation for a single language-handling step.</li>
+                </ul>
+              </article>
+              <article class="card soft">
+                <span class="eyebrow-chip chip-gold">Weaknesses</span>
+                <ul class="list">
+                  <li>Probabilistic — never fully consistent.</li>
+                  <li>Hallucination risk — confidently wrong outputs.</li>
+                  <li>Expensive at scale compared to automation.</li>
+                  <li>Limited auditability — can't fully explain a given output.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="callout neutral" style="margin-top: 16px;">
+              <h4>Data input warning</h4>
+              <p>Screenshots and PDFs get used to justify a GenAI solution because they're "unstructured" — but ask why the data only exists that way first. Structured records usually exist somewhere, and fixing the data feed beats building an AI Band-Aid on a data transfer problem.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Agentic Workflow</summary>
+          <div class="details-body">
+            <p><em>An LLM given a goal and a set of tools. Selectively and probabilistically decides which automations to trigger at runtime.</em></p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Use when</th>
+                    <th>Avoid when</th>
+                    <th>Ampersand examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Choosing what to do next is too complex or contextual to write as rules, even in theory; many possible actions exist and only a few apply per run; the task involves discovery, synthesis, or research where the right path depends on what's found.</td>
+                    <td>A specific sequence of steps must run in a specific order every time; the process is stable and fully specifiable in advance — automation will be faster, cheaper, and more auditable; a full audit trail of exactly why each step ran is required.</td>
+                    <td>Complex research tasks (internal or web), a troubleshooting agent that queries multiple systems and routes to the right resolution path, end-to-end handling of requests where which systems to query varies by request, a detailed research agent.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid two" style="margin-top: 16px;">
+              <article class="card soft">
+                <span class="eyebrow-chip chip-success">Strengths</span>
+                <ul class="list">
+                  <li>Handles tasks that genuinely can't be scripted in advance.</li>
+                  <li>Navigates variable inputs, multiple systems, and open-ended goals.</li>
+                  <li>Combines LLM judgment with automation tools to get work done, not just generate text.</li>
+                </ul>
+              </article>
+              <article class="card soft">
+                <span class="eyebrow-chip chip-gold">Weaknesses</span>
+                <ul class="list">
+                  <li>Probabilistic — you can't guarantee which tool runs or in what order.</li>
+                  <li>Harder to audit — tool selection varies per run.</li>
+                  <li>A bad early decision can cascade.</li>
+                  <li>Needs ongoing human checkpoints.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="callout neutral" style="margin-top: 16px;">
+              <h4>Most commonly confused pair</h4>
+              <p>Automation vs. agentic gets mixed up more than any other pair in this guide. The difference isn't complexity — it's whether the execution path is known before the process runs. See the comparison below.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Automation vs. Agentic — The Key Distinction</h2>
+            <p>Multi-step doesn't mean agentic. A 40-step automation with branching logic is still automation if every branch can be pre-written.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Classical Automation</th>
+                <th>Agentic Workflow</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Execution</b></td>
+                <td>Fixed sequence, identical every run</td>
+                <td>AI picks its own path at runtime — varies by run</td>
+              </tr>
+              <tr>
+                <td><b>Predictable next step?</b></td>
+                <td>Always</td>
+                <td>No — the agent decides based on what it finds</td>
+              </tr>
+              <tr>
+                <td><b>Handles unstructured input</b></td>
+                <td>No</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><b>Decision-making</b></td>
+                <td>None — every branch pre-written</td>
+                <td>Reasons about context in real time</td>
+              </tr>
+              <tr>
+                <td><b>Auditability</b></td>
+                <td>High — every step logged</td>
+                <td>Lower — tool selection varies per run</td>
+              </tr>
+              <tr>
+                <td><b>Oversight</b></td>
+                <td>Low once built</td>
+                <td>Ongoing — outputs need human checkpoints</td>
+              </tr>
+              <tr>
+                <td><b>Risk</b></td>
+                <td>Low</td>
+                <td>Medium–High</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout brand" style="margin-top: 18px;">
+          <h4>Hybrid: automation with AI components</h4>
+          <p>The most common real-world pattern. A classical automation runs a defined sequence but calls an AI model at one or more specific steps — the AI is a component, not the orchestrator; it doesn't decide what happens next. Examples: an SCX processor that uses an LLM to fix malformed fields, then finishes the transform deterministically. A report workflow that runs an ML model to flag anomalies, then routes flagged items to a fixed review queue. An inbound handler that uses an LLM to pull structured data out of a client email, then hands it to rule-based routing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>How to Choose</h2>
+            <p>A practical way to work out which solution type actually fits.</p>
+          </div>
+        </div>
+
+        <div class="callout brand">
+          <h4>The discretion test</h4>
+          <p>Before picking any technology, ask: is the discretion in this process a genuine requirement for a good outcome, or just a side effect of humans having always done it? If consistency would produce better results, that's classical automation. If reasonable people given the same inputs would legitimately choose differently, you're in AI territory.</p>
+          <ol class="list">
+            <li><strong>Does the task require genuine judgment</strong> — decisions that depend on context or interpretation that can't be written as rules? <strong>No</strong> → classical automation, regardless of how the task is handled today. <strong>Yes</strong> → next question.</li>
+            <li><strong>Should it require judgment in an ideal world?</strong> <strong>No</strong> → this is a process design problem; standardize the process before picking any technology. <strong>Yes</strong> → you're in AI territory, and the nature of the judgment determines which type.</li>
+          </ol>
+        </div>
+
+        <div class="callout brand" style="margin-top: 18px;">
+          <h4>Quick decision flow</h4>
+          <p>Work through in order. Stop at the first clear yes.</p>
+          <ol class="list">
+            <li>Can you write every step and branch before the process runs? → <strong>Classical Automation.</strong></li>
+            <li>Do you have historical data and a defined outcome to predict or classify? → <strong>Machine Learning / Predictive Model.</strong></li>
+            <li>Is the input or output human language? → <strong>Generative AI / LLM.</strong></li>
+            <li>Is the decision logic too complex or contextual to express as rules, even in theory? → <strong>Agentic Workflow.</strong></li>
+          </ol>
+          <p class="muted">When in doubt, check whether automation with AI components (the Hybrid pattern above) solves it before committing to a fully agentic build. It's usually more predictable, cheaper, and lower-risk.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Common Mistakes</h2>
+          </div>
+        </div>
+
+        <details>
+          <summary>Six mistakes worth avoiding</summary>
+          <div class="details-body">
+            <ul class="list">
+              <li><strong>Using an LLM where automation would do.</strong> If inputs are structured and logic is fixed, automation is faster, cheaper, and more reliable.</li>
+              <li><strong>Treating a complex automation as agentic.</strong> Multi-step isn't agentic — if every branch can be pre-written, it's automation, no matter how sophisticated the logic.</li>
+              <li><strong>Treating current discretion as evidence AI is needed.</strong> Ask whether the discretion should exist at all. An undefined process just gets its inconsistency scaled up by AI — define the process first.</li>
+              <li><strong>Proposing agentic for auditable, sequential processes.</strong> If you need to explain exactly why the system did what it did, or steps must run in a guaranteed order, use automation with AI components instead.</li>
+              <li><strong>Skipping hybrid as an option.</strong> Automation with AI components often beats a fully agentic build — more predictable, cheaper, easier to audit.</li>
+              <li><strong>Accepting a screenshot or PDF as inevitable.</strong> The underlying data is usually structured somewhere. Fix the data feed before building an AI layer to read images of it.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Conclusion &amp; Reflections</h2>
+            <p>Take a moment to reflect — it's what makes the learning stick.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <article class="card soft">
+            <span class="eyebrow-chip chip-gold">Key Takeaways</span>
+            <ul class="list">
+              <li>Four solution types solve four different problems: automation, predictive ML, generative AI, and agentic workflows.</li>
+              <li>The real question isn't "should we use AI" — it's whether the process needs consistency (automation) or genuine judgment (AI), and which kind.</li>
+              <li>Multi-step doesn't mean agentic. Agentic means the AI chooses its own path.</li>
+              <li>Hybrid — automation with one AI step — is the most common real-world pattern and often beats a fully agentic build.</li>
+              <li>A screenshot or PDF is rarely the real reason to reach for GenAI. Check the data source first.</li>
+            </ul>
+          </article>
+
+          <article class="card soft">
+            <span class="eyebrow-chip chip-brand">Reflection</span>
+            <ul class="list">
+              <li>Think of a recent AI idea pitched at Ampersand. Which of the four types was it actually asking for?</li>
+              <li>Has your team defaulted to a familiar tool — an export, an integration — without asking if it was the right data path?</li>
+              <li>Run a process you own through the Quick Decision Flow. Where does it land?</li>
+              <li>Where might "hybrid" — automation with one AI step — solve something you've been treating as all-or-nothing agentic?</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="page-nav">
+          <a class="button secondary" href="../index.html">Back to overview</a>
+          <a class="button primary" href="context-and-craft.html">Next: Context &amp; Craft</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -76,7 +76,7 @@ img {
   justify-content: space-between;
 }
 
-.brand {
+.topbar .brand {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -752,22 +752,9 @@ details[open] summary::after {
   }
 }
 
-.details-body p {
-  margin-left: 80px;
-  margin-top: 20px;
-}
-
-section .prompt-box {
-  margin-left: 80px;
-  margin-top: 20px;
-}
-
-details .callout {
-  margin-left: 80px;
-  margin-top: 20px;
-}
-
-.details-body .table-wrap {
+/* Scoped to the actor/metaphor narrative in Users/ai-overview.html, which aligns
+   flowing paragraphs under the pull-quote's icon rail. Not a general details-body rule. */
+.details-body.actor-rail p {
   margin-left: 80px;
   margin-top: 20px;
 }
